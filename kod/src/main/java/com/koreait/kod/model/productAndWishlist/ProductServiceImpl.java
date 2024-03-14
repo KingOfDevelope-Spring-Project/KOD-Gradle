@@ -1,4 +1,4 @@
-package com.koreait.kod.model.product;
+package com.koreait.kod.model.productAndWishlist;
 
 import java.util.List;
 
