@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.koreait.kod.model.member.MemberDTO;
-import com.koreait.kod.model.review.ReviewDTO;
-import com.koreait.kod.model.review.ReviewService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.review.ReviewDTO;
+import com.koreait.kod.biz.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,10 +25,10 @@ public class ReviewWriteController {
 	@Autowired
 	ReviewService reviewService;
 	@Autowired
-	FileUploadAndCopy fileUploadAndCopy;
+	FileUploadAndCopyService fileUploadAndCopy;
     @Value("${upload.file.path}")
     private String uploadFilePath;
-	
+    
     @RequestMapping(value = "/reviewWrite", method = RequestMethod.POST)
     public String reviewWrite(@RequestParam("title") String title,
                               @RequestParam("content") String content,
@@ -37,7 +38,7 @@ public class ReviewWriteController {
                               @RequestParam("reviewImageName") String reviewImageName,
                               @RequestParam("uploadReviewImages") List<MultipartFile> uploadReviewImages,
                               ReviewDTO reviewDTO,
-                              HttpSession session) throws IOException {
+                              HttpSession session) throws Throwable {
 
         // 현재 세션에서 회원 아이디 가져오기
         String memberID = ((MemberDTO) session.getAttribute("memberDTO")).getMemberID();
@@ -53,6 +54,7 @@ public class ReviewWriteController {
         // ReviewDTO를 데이터베이스에 삽입
         reviewService.insert(reviewDTO);
         
+        
         // 파일을 업로드하고 복사하는 메서드 호출하여 UUID 목록 가져오기
         List<String> uuids = fileUploadAndCopy.uploadAndCopy(uploadFilePath, uploadReviewImages);
         
@@ -63,12 +65,12 @@ public class ReviewWriteController {
             File copyFile = new File(filePath);
             
             // 복사 파일이 존재하지 않을 경우 생성
-            if (!copyFile.exists()) {
+            if (!copyFile.exists()) { 
                 if (copyFile.createNewFile()) {
                     reviewDTO.setReviewImg(copyFile.getAbsolutePath());
                 } else {
                     // 파일 생성 실패 시 예외 처리
-                    throw new IOException("Failed to create file: " + copyFile);
+                    throw new IOException("파일생성 실패, 예외처리: " + copyFile);
                 }
             } 
             else {// 파일이 이미 존재할 경우 처리 == 덮어쓰기
@@ -83,14 +85,14 @@ public class ReviewWriteController {
                         reviewDTO.setReviewImg(newCopyFile.getAbsolutePath());
                     } 
                     else {// 파일 생성 실패 시 예외 처리
-                        throw new IOException("Failed to create file: " + newCopyFile);
+                        throw new IOException("파일 생성 실패 : " + newCopyFile);
                     }
                 } 
                 else {// 파일이 이미 존재할 경우 에러 메시지 반환 또는 적절한 처리
-                    throw new IOException("File already exists: " + newCopyFile);
+                    throw new IOException("파일이 이미 존재 : " + newCopyFile);
                 }
             }
-        } 
+        }
         else {
             reviewDTO.setReviewImg(null); // 파일이 업로드되지 않았을 경우 ReviewDTO의 이미지 경로를 null로 설정
         }

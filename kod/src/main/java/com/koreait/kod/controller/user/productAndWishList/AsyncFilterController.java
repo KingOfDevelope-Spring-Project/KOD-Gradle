@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.kod.model.member.MemberDTO;
-import com.koreait.kod.model.productAndWishlist.ProductDTO;
-import com.koreait.kod.model.productAndWishlist.ProductService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.productAndWishList.ProductDTO;
+import com.koreait.kod.biz.productAndWishList.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 
