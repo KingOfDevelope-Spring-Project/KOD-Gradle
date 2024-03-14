@@ -13,5 +13,6 @@ public class MemberDTO {
 	private String memberGrade;
 	private String memberGender;
 	private String memberBirth;
+	private String memberStatus;
 	private String searchCondition;
 }
