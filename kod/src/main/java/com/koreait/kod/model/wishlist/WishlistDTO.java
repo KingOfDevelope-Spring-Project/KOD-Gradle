@@ -1,11 +1,11 @@
-package com.koreait.kod.model.productAndWishlist;
+package com.koreait.kod.model.wishlist;
 
 import java.sql.Time;
 
 import lombok.Data;
 
 @Data
-public class WishListDTO {
+public class WishlistDTO {
 	private int wishListID; // PK
 	private int isWished; // 찜여부
 	private int wishListCnt; // 위시리스트 합계갯수(회원별 위시리스트에 담긴 상품갯수)

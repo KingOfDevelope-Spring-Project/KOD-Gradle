@@ -1,4 +1,4 @@
-package com.koreait.kod.model.productAndWishlist;
+package com.koreait.kod.model.product;
 
 import lombok.Data;
 
