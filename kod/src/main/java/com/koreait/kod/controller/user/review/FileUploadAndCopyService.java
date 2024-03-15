@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+
 @Service // @Service 을 사용하면 AOP를 지원함 => 트랜잭션 처리 + 모듈화
 public class FileUploadAndCopyService {
 	
