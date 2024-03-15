@@ -11,4 +11,5 @@ public class AddressDTO {
 	private String addressDetail; //상세주소
 	private String addressZipCode; //우편번호
 	private String memberID; // MID
+	private String searchCondition;
 }

@@ -3,7 +3,9 @@ package com.koreait.kod.biz.review;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReviewServiceImpl implements ReviewService{
 	@Autowired 
 	ReviewDAO reviewDAO;
