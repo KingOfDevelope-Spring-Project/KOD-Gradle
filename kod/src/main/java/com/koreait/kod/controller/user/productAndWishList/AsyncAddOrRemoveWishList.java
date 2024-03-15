@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.kod.model.member.MemberDTO;
-import com.koreait.kod.model.productAndWishlist.ProductService;
-import com.koreait.kod.model.productAndWishlist.WishListDTO;
-import com.koreait.kod.model.productAndWishlist.WishListService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.productAndWishList.ProductService;
+import com.koreait.kod.biz.productAndWishList.WishListService;
+import com.koreait.kod.biz.productAndWishList.WishListDTO;
 
 import jakarta.servlet.http.HttpSession;
 

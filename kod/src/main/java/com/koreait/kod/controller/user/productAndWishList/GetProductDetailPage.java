@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.koreait.kod.model.member.MemberDTO;
-import com.koreait.kod.model.productAndWishlist.WishListDTO;
-import com.koreait.kod.model.productAndWishlist.WishListService;
-import com.koreait.kod.model.review.ReviewDTO;
-import com.koreait.kod.model.review.ReviewService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.productAndWishList.WishListDTO;
+import com.koreait.kod.biz.productAndWishList.WishListService;
+import com.koreait.kod.biz.review.ReviewDTO;
+import com.koreait.kod.biz.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 
