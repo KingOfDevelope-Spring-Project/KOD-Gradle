@@ -3,7 +3,9 @@ package com.koreait.kod.biz.address;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AddressServiceImpl implements AddressService {
 		@Autowired 
 		AddressDAO addressDAO;

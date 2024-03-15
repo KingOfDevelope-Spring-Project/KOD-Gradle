@@ -3,7 +3,9 @@ package com.koreait.kod.biz.cart;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CartServiceImpl implements CartService{
 	@Autowired 
 	CartDAO cartDAO;
