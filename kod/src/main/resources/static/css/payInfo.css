@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+table {
+    width: 700px;
+    text-align: center;
+    border: 2px solid #fff;
+    border-spacing: 2px;
+    font-family: 'Cairo', sans-serif;
+  	margin: auto;
+}
+
+caption {
+    font-weight: bold;
+}
+
+table td {
+    padding: 10px;
+    background-color: #eee;
+    border: 2px solid #fff;
+    border-spacing: 2px;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border: 2px solid #fff;
+    border-spacing: 2px;
+}

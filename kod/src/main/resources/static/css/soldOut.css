@@ -1,0 +1,39 @@
+.sold-out {
+    /* filter: blur(5px); */ /* 블러 효과 비활성화 */
+    /* 품절 상품에 대한 기타 스타일 추가 */
+    filter: grayscale(100%); /* 그레이 스케일 적용 */
+}
+
+/* 품절 상품에 대한 특정 스타일 추가 예시 */
+.sold-out .product-name {
+    color: #888; /* 품절 상품의 제품명 색상 변경 */
+    text-decoration: line-through; /* 품절 상품의 제품명에 중간 선 추가 */
+}
+
+/* 품절 상품에 대한 버튼 스타일 비활성화 예시 */
+.sold-out button {
+    background-color: #ddd; /* 버튼 배경색 변경 */
+    color: #666; /* 버튼 텍스트 색상 변경 */
+    border: 1px solid #ccc; /* 버튼 테두리 스타일 변경 */
+    /* 기타 원하는 스타일 변경 가능 */
+}
+
+ #soldOutDelBtn {
+    display: inline-block;
+    padding: 8px 16px; /* 작게 조절 */
+    font-size: 14px; /* 작게 조절 */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    color: #3498db;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#soldOutDelBtn:hover {
+    background-color: #3498db;
+    color: #fff;
+}
