@@ -1,0 +1,82 @@
+/* styles.css */
+
+/* 페이지 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 폼 스타일 */
+.FormRow {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button.SubmitBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.SubmitBtn:hover {
+    background-color: #45a049;
+}
+
+/* 이미지 업로드 스타일 */
+input[type="file"] {
+    display: none;
+}
+
+.UploadBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.UploadBtn:hover {
+    background-color: #45a049;
+}
+
+.imageUploadBtn:hover {
+    cursor: pointer; /* 마우스를 손가락 모양으로 변경 */
+}

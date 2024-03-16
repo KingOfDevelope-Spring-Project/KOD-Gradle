@@ -365,6 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</thead>
 										<tbody>
 											<c:forEach items="${memberList}" var="member" varStatus="i" begin="0" step="1">
+											<!-- 복구신청 내역  -->
 											<tr>
 												<td><input type="checkbox"></td>
 												<td>${member.memberID}</td>
