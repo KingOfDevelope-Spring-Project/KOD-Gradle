@@ -35,7 +35,7 @@
 		<!-- LOGO -->
 		<div>
 			<div class="header-logo">
-				<a href="main.do" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt="">
+				<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt="">
 				</a>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 		<!-- Heading -->
 		<h1>회원가입</h1>
 		<!-- Form -->
-		<form name="joinform" onsubmit="formCheck(this);" action="join.do" method="post">
+		<form name="joinform" onsubmit="formCheck(this);" action="/joinMember" method="post">
 
 			<!-- 아이디 입력란 -->
 			<!-- oninput이벤트를 사용해 사용자가 입력할때마다 공백을 제거하는 함수 호출 -->

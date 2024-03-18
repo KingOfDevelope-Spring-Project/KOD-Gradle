@@ -23,7 +23,7 @@
 	<!-- LOGO -->
 	<div>
 		<div class="header-logo">
-			<a href="main.do" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt=""></a>
+			<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt=""></a>
 		</div>
 	</div>
 	<!-- /LOGO -->
