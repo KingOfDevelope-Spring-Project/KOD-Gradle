@@ -13,11 +13,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상품 후기 작성</title>
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 <!-- Custom CSS -->
-<link type="text/css" rel="stylesheet" href="css/reviewWrite.css">
+<link type="text/css" rel="stylesheet" href="resources/css/reviewWrite.css">
 </head>
 
 <body>
@@ -65,7 +65,7 @@
 			<div class="FormRow">
 				<label for="imageUpload" class="imageUploadBtn">이미지 업로드<br />
 					<input type="file" id="imageUpload" name="imageUpload" accept="image/*" onchange="previewImage(event)" /> 
-					<img id="imagePreview" src="img/imagePreview.png" alt="미리 보기 이미지" style="width: 40px; height: 40px;">
+					<img id="imagePreview" src="resources/img/imagePreview.png" alt="미리 보기 이미지" style="width: 40px; height: 40px;">
 				</label>
 				<button type="button" id="cancelImageButton" style="display: none;" onclick="cancelImageUpload()">이미지 취소</button>
 			</div>
@@ -76,7 +76,7 @@
 	</div>
 
 	<!-- 리뷰작성js -->
-	<script src="js/review/reviewWrite.js"></script>
+	<script src="resources/js/review/reviewWrite.js"></script>
 
 </body>
 </html>

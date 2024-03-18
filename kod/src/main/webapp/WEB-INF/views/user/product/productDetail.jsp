@@ -1,7 +1,3 @@
-<%@page import="model.dto.ReviewDTO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="model.dto.WishListDTO"%>
-<%@page import="model.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -25,21 +21,21 @@
 	rel="stylesheet">
 
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 
 <!-- Slick -->
-<link type="text/css" rel="stylesheet" href="css/slick.css" />
-<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 
 <!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<link type="text/css" rel="stylesheet" href="css/checkLogin.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/checkLogin.css" />
 
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -49,11 +45,11 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-<jsp:include page="util/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </head>
 <body>
 	
-	<jsp:include page="util/navigation.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 
 
 	<script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -74,7 +70,7 @@ $(document).ready(function(){
 	    
 	    $.ajax({
 	      type: "POST",
-	      url: "isWishedServlet",
+	      url: "asyncAddOrRemoveWishlist",
 	      data: {"productID": productID},
 	      success: function(data){
 	        console.log(data);
@@ -86,7 +82,7 @@ $(document).ready(function(){
 	        
 		    $.ajax({
 			      type: "POST",
-			      url: "wishTotalCntServlet",
+			      url: "getWishlistCnt",
 			      data: {"productID": productID},
 			      success: function(data){
 			        console.log(data);
@@ -125,7 +121,7 @@ $(document).ready(function(){
 	    
 	    $.ajax({
 	      type: "POST",
-	      url: "isWishedServlet",
+	      url: "asyncAddOrRemoveWishlist",
 	      data: {"productID": productID},
 	      success: function(data){
 	        console.log(data);
@@ -194,15 +190,15 @@ $(document).ready(function(){
 						</div>
 
 						<!-- <div class="product-preview">
-								<img src="./img/product03.png" alt="">
+								<img src="resources/img/product03.png" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
+								<img src="resources/img/product06.png" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
+								<img src="resources/img/product08.png" alt="">
 							</div> -->
 					</div>
 				</div>
@@ -233,7 +229,7 @@ $(document).ready(function(){
 						</div>
 						<p>${productWishDetailData.productInfo}</p>
 
-						<form method="POST" action="payInfo.do" id="form1">
+						<form method="POST" action="/payInfo" id="form1">
 							<div class="add-to-cart">
 								<div class="qty-label">
 									수량
@@ -288,7 +284,7 @@ $(document).ready(function(){
 				<!-- /Product details -->
 				<!--  /open modal -->
 				<!--[조형련] 상품추가 안내와 함께 장바구니로 이동할 수 있는 모달창 -->
-				<form action="paySelect.do" method="POST" id="form2">
+				<form action="/paySelect" method="POST" id="form2">
 					<div style="margin-bottom: 5px;">
 						<div class="modalCart hidden">
 							<div class="bg2"></div>
@@ -395,7 +391,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 
     $.ajax({
         type: 'POST', //POST방식으로 전달
-        url: 'cartInsertActionServlet', // 장바구니 업데이트를 처리할 서블릿 URL
+        url: 'InsertOrUpdateCart', // 장바구니 업데이트를 처리할 서블릿 URL
         dataType: 'json', //받아온 데이터의 타입
         data: {    
             productID: productID,
@@ -722,7 +718,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 																	</div>
 																</div>
 															</div>
-															<a href="productDetail.do?productCategory=${data.productCategory}&productID=${data.productID}">
+															<a href="/productDetailPage?productCategory=${data.productCategory}&productID=${data.productID}">
 																<div class="product-img">
 																	<img src="${data.productImg}" alt="">
 																</div>
@@ -730,7 +726,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 															<div class="product-body">
 																<p class="product-category">${data.productCategory}</p>
 																<h3 class="product-name" style="height: 31px;">
-																	<a href="productDetail.do?productID=${data.productID}">${data.productName}</a>
+																	<a href="/productDetailPage?productID=${data.productID}">${data.productName}</a>
 																</h3>
 																<h4 class="product-price">
 								                                  <fmt:setLocale value="ko_KR" />
@@ -765,19 +761,19 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 				</div>
 				<!-- /Section -->
 
-				<jsp:include page="util/footer.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 				<!-- jQuery Plugins -->
-				<script src="js/jquery.min.js"></script>
-				<script src="js/bootstrap.min.js"></script>
-				<script src="js/slick.min.js"></script>
-				<script src="js/nouislider.min.js"></script>
-				<script src="js/jquery.zoom.min.js"></script>
-				<script src="js/main.js"></script>
-				<script src="js/wishList/isWished.js"></script>
-				<script src="js/wishList/isWishedVersion2.js"></script>
-				<script src="js/wishList/checkLogin.js"></script>
-				<script src="js/review/moveToPage.js"></script>
+				<script src="resources/js/jquery.min.js"></script>
+				<script src="resources/js/bootstrap.min.js"></script>
+				<script src="resources/js/slick.min.js"></script>
+				<script src="resources/js/nouislider.min.js"></script>
+				<script src="resources/js/jquery.zoom.min.js"></script>
+				<script src="resources/js/main.js"></script>
+				<script src="resources/js/wishList/isWished.js"></script>
+				<script src="resources/js/wishList/isWishedVersion2.js"></script>
+				<script src="resources/js/wishList/checkLogin.js"></script>
+				<script src="resources/js/review/moveToPage.js"></script>
 				
 </body>
 </html>

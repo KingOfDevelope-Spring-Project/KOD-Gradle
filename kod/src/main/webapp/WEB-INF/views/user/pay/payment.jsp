@@ -1,6 +1,5 @@
-<%@page import="model.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.dto.*, java.util.*" %>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -107,7 +106,7 @@
             if ( rsp.success ) {
             	console.log('로그');
                 $.ajax({
-                    url: "paymentActionServlet", // 결제 서블릿
+                    url: "/pay", // 결제 서블릿
                     type: 'POST',
                     data: {
                         imp_uid : rsp.imp_uid,
@@ -118,7 +117,7 @@
                 	success: function(){
                 		console.log('결제 성공');
                 		//성공시 이동할 페이지
-                        location.href='orderInfoPage.do';
+                        location.href='/orderInfoPage';
                 	},
                 })
             } else if(rsp.success == false){ // 결제 취소할 경우 이전 페이지로 돌아감

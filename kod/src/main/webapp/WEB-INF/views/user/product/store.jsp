@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.dto.*, java.util.*"%>
+	pageEncoding="UTF-8"%>
 <%-- [김진영] jstl 및 추가기능 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -16,17 +16,17 @@
 	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
 	rel="stylesheet">
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <!-- Slick -->
-<link type="text/css" rel="stylesheet" href="css/slick.css" />
-<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 <!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<link type="text/css" rel="stylesheet" href="css/checkLogin.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/checkLogin.css" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
@@ -60,7 +60,7 @@ label:hover {
   }
 }
 </style>
-<jsp:include page="util/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </head>
 <!-- jQuery Plugins -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -72,19 +72,19 @@ label:hover {
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <%-- [김진영] 라이브러리의 충돌로 인해 slider가 나오지 않는 현상으로 주석처리 --%>
 <!-- <script src="js/jquery.min.js"></script> -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/filter.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/slick.min.js"></script>
+<script src="resources/js/nouislider.min.js"></script>
+<script src="resources/js/jquery.zoom.min.js"></script>
+<script src="resources/js/main.js"></script>
+<script src="resources/js/filter.js"></script>
 <body>
 	<%-- 
 		[김진영] 헤더와 네비게이션은 활용되는 페이지가 많아서 
 		액션태그로 페이지를 분리하여 유지보수 활용성을 향상
 	--%>
 	
-	<jsp:include page="util/navigation.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -117,7 +117,7 @@ label:hover {
 						 별도로 파일을 분리하여 작업 후 위치에 넣어주는 방식으로 작업
 					--%>
 					<div class="aside">
-						<jsp:include page="slider.jsp"></jsp:include>
+						<jsp:include page="/WEB-INF/views/user/product/slider.jsp"></jsp:include>
 					</div>
 					<%-- [김진영] 사이드바 판매량 top3 --%>
 					<%-- productRankAction.java --%>
@@ -186,7 +186,7 @@ $(document).ready(function(){
         
         $.ajax({
             type: "POST",
-            url: 'isWishedServlet',
+            url: '/asyncAddOrRemoveWishlist',
             data: { 'productID': productID },
             success: function(data){
                 console.log(data);
@@ -320,9 +320,9 @@ M은 C한테 1,0 등의 값을 줘야하니까
      </div>
 </div>  
 
-	<jsp:include page="util/footer.jsp"></jsp:include>
-	<script src="js/wishList/isWished.js"></script>
-	<script src="js/wishList/checkLogin.js"></script>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<script src="resources/js/wishList/isWished.js"></script>
+	<script src="resources/js/wishList/checkLogin.js"></script>
 	
 
 
