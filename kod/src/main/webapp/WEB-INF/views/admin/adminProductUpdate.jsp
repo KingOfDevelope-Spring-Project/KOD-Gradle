@@ -27,6 +27,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+<style>
+	table th,td{
+		text-align: center;
+		vertical-align: middle;
+	}
+</style>
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -62,82 +69,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-						<!-- Small boxes (Stat box) -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-info">
-				              <div class="inner">
-				                <h3>150</h3>
-				
-				                <p>상품 재고</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-bag"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-success">
-				              <div class="inner">
-				                <h3>53<sup style="font-size: 20px">%</sup></h3>
-				
-				                <p>재고 비율</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-stats-bars"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-warning">
-				              <div class="inner">
-				                <h3>44</h3>
-				
-				                <p>주문 건수(당일)</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-person-add"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-danger">
-				              <div class="inner">
-				                <h3>65</h3>
-				
-				                <p>매진</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-pie-graph"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				        <!-- /.row -->
+						
 						<!-- 상품 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 목록</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;;">신규 상품 등록</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									<table id="example2" class="table table-bordered table-hover">
+									
+									<!-- 나중에 실제 사용할 테이블 -->
+									<%-- <table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
+												<th><input type="checkbox" onmouseup=""></th>
 												<th>번호</th>
-												<th>등록번호</th>
+												<th>상품번호</th>
+												<th>상품 이미지</th>
 												<th>상품명</th>
 												<th>상품가격</th>
 												<th>브랜드</th>
@@ -149,8 +98,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<tbody>
 											<c:forEach items="${productList}" var="product" varStatus="i" begin="0" step="1">
 											<tr>
+												<td><input type="checkbox"></td>
 												<td>${i.count}</td>
 												<td>${product.productID}</td>
+												<td>${img.imageURL}</td>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
@@ -160,18 +111,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 											</c:forEach>
 										</tbody>
+									</table> --%>
+									<!-- /나중에 실제 사용할 테이블 -->
+									
+									<!-- 테스트용 -->
+									<table id="example2" class="table table-bordered table-hover">
+										<thead>
+											<tr onclick="openModal()">
+												<th>번호</th>
+												<th>상품번호</th>
+												<th>상품 이미지</th>
+												<th>상품명</th>
+												<th>상품가격</th>
+												<th>브랜드</th>
+												<th>카테고리</th>
+												<th>재고</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td align="center">1</td>
+												<td>1001</td>
+												<td><img alt="상품1" width="100" height="100" src="//images.ctfassets.net/8cd2csgvqd3m/6CauM4itfCytfs4vYrSOVB/87fd4cbbacb842da0c4781bc558d4fdd/07_Beoplay_EX_Ferrari_8_Full_Angular_5K.png?q=85&fm=png&w=375&h=375&fit=fill"></td>
+												<td>Beoplay EX Ferrari Edition</td>
+												<td>649000</td>
+												<td>Bang&Olufsen</td>
+												<td>헤드폰</td>
+												<td>100</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>1002</td>
+												<td><img alt="상품2" width="100" height="100" src="//images.ctfassets.net/8cd2csgvqd3m/7AdyFHvn7QPcZ9aMbfEewY/033578369b617f673a919aa98ff4b4db/Beoplay-EX-Black-Anthracite-Hero.png?q=85&fm=png&w=375&h=375&fit=fill"></td>
+												<td>Beoplay EX Beoplay EX</td>
+												<td>498000</td>
+												<td>Bang&Olufsen</td>
+												<td>이어폰</td>
+												<td>100</td>
+											</tr>
+										</tbody>
 									</table>
+									<!-- /테스트용 -->
+									
 								</div>
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
-						</div>
 						<!-- /상품 목록 테이블 -->
 						
 					</div>
 					<!-- /.col-md-6 -->
 
-					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
 			</div>
@@ -202,17 +192,92 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</div>
 	<!-- ./wrapper -->
 
+	<div class="modal fade" id="modal-lg">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">상세 정보</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table id="example3" class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th style="width: 20%">상품번호</th>
+							<td><input class="form-control form-control-sm col-10" type="text" style="margin: auto;" value="1001" readonly></td>
+						</tr>
+						<tr>
+							<th style="width: 20%">상품명</th>
+							<td><input class="form-control form-control-sm col-10" type="text" style="margin: auto;" value="Beoplay EX Ferrari Edition"></td>
+						</tr>
+						<tr>
+							<th style="width: 20%">브랜드</th>
+							<td>
+								<select class="form-control form-control-sm col-10 select2" style="margin : auto;" disabled>
+			                    	<option selected>뱅앤올룹슨</option>
+			                    	<option>삼성</option>
+			                    	<option>LG</option>
+		                  		</select>
+							</td>
+						</tr>
+						<tr>
+							<th style="width: 20%">카테고리</th>
+							<td>
+								<select class="form-control form-control-sm col-10 select2" style="margin : auto;" required>
+			                    	<option>전체</option>
+			                    	<option selected>헤드폰</option>
+			                    	<option>이어폰</option>
+			                    	<option>스피커</option>
+		                  		</select>
+							</td>
+						</tr>
+						<tr>
+							<th style="width: 20%">가격</th>
+							<td><input class="form-control form-control-sm col-10" type="text" style="display:inline-block; margin : auto;" value="649000"></td>
+						</tr>
+						<tr>
+							<th style="width: 20%">재고</th>
+							<td><input class="form-control form-control-sm col-10" type="text" style="display:inline-block; margion : auto;" value="100"></td>
+						</tr>
+						<tr>
+							<th style="width: 20%; vertical-align: middle; ">상품 정보</th>
+							<td>
+								<div class="card-body">
+				              		<textarea class="form-control" rows="5" cols="30">페라리 레드 패키지의 아름다운 디자인만큼 뛰어난 다양성을 지닌 이어버드는 무선 충전 케이스와 액티브 노이즈 캔슬링 기능을 갖추고 있으며 깊고 풍부한 사운드와 편안한 착용감을 제공합니다.
+				              		</textarea>
+				            	</div>
+				            </td>
+						</tr>
+						<tr>
+							<th>상품 이미지</th>
+							<td>
+								<div class="input-group">
+									<div class="custom-file">
+										<input type="file" class="file-input" id="exampleInputFile">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</thead>
+				</table>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-primary">수정</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
 	<!-- REQUIRED SCRIPTS -->
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="dist/js/adminlte.min.js"></script>
-	<script src="dist/js/demo.js"></script>
-	<!-- Bootstrap 4 -->
-	<!-- AdminLTE App -->
-	<script src="plugins/chart.js/Chart.min.js"></script>
-	<script src="plugins/sparklines/sparkline.js"></script>
-	<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-	<!-- ChartJS -->
 	<!-- DataTables  & Plugins -->
 	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -239,35 +304,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				"responsive" : true,
 				"columnDefs" : [ {
 					"orderable" : false,
-					"targets" : [ 1, 2, 3 ]
+					"targets" : [2,3,5,6]
 				} 
 				],
 			});
 		});
 	</script>
-	<!-- 쿠폰 목록 js -->
-	<!-- Page specific script -->
+	
 	<script>
-		$(function() {
-			$('#example3').DataTable({
-				"paging" : true,
-				"lengthChange" : false,
-				"searching" : false,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"responsive" : true,
-				"columnDefs" : [ {
-					"orderable" : false,
-					"targets" : [ 2, 3, 4 ]
-				} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
-				],
-			});
-		});
+	function openModal() {
+        $('#modal-lg').modal('show');
+    }
+    $(document).ready(function() {
+        $('tr').click(function() {
+            openModal();
+        });
+    });
 	</script>
-
 	<!-- jQuery -->
-
 
 </body>
 </html>
