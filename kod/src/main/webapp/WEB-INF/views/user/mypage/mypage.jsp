@@ -48,7 +48,7 @@
     <script src="https://static.msscdn.net/static/member/js/ui/config.js?202307311841" type="text/javascript"></script>
     <script src="https://static.msscdn.net/static/member/js/ui.js?202307311841" type="text/javascript"></script>
     <script src="https://static.msscdn.net/static/member/js/string.js?202307311841" type="text/javascript"></script>
-    <script src="js/mypageAddress.js"></script>
+    <script src="resources/js/mypageAddress.js"></script>
     <!-- /중요한거 -->
     
     <link type="text/css" rel="stylesheet" href="resources/css/mypage.css" />

@@ -1,6 +1,5 @@
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.dto.*"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>    
 <!DOCTYPE html>
@@ -17,22 +16,22 @@
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
  		<!-- Bootstrap -->
- 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
 
  		<!-- Slick -->
- 		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
- 		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/slick.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css"/>
 
  		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css"/>
 
  		<!-- Font Awesome Icon -->
- 		<link rel="stylesheet" href="css/font-awesome.min.css">
+ 		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
  		<!-- Custom stlylesheet -->
- 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/style.css"/>
  		
- 		<link type="text/css" rel="stylesheet" href="css/payInfo.css"/>
+ 		<link type="text/css" rel="stylesheet" href="resources/css/payInfo.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,8 +43,8 @@
     </head>
 	<body>
 		<!-- HEADER, NAVIGATION -->
-		<jsp:include page="util/header.jsp"></jsp:include>
-        <jsp:include page="util/navigation.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 		<!-- /HEADER, NAVIGATION -->
 		<!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
@@ -69,7 +68,7 @@
 			<div class="container" >
 				<!-- row -->
 				<div class="row">
-					<form action="paymentPage.do" method="POST">
+					<form action="/payment" method="POST">
 						
 					<div class="col-md-9" style="margin-left: 10%;">
 						
@@ -231,15 +230,15 @@
 		<!-- /SECTION -->
 
 
-		<jsp:include page="util/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
+		<script src="resources/js/jquery.min.js"></script>
+		<script src="resources/js/bootstrap.min.js"></script>
+		<script src="resources/js/slick.min.js"></script>
+		<script src="resources/js/nouislider.min.js"></script>
+		<script src="resources/js/jquery.zoom.min.js"></script>
+		<script src="resources/js/main.js"></script>
 
 	</body>
 </html>

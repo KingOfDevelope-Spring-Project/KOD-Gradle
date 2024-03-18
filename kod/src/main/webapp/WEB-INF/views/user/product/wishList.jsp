@@ -1,6 +1,3 @@
-<%@page import="model.dto.MemberDTO"%>
-<%@page import="model.dto.WishListDTO"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,17 +12,17 @@
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
 		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
-		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css"/>
 		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css"/>
 		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-		<link type="text/css" rel="stylesheet" href="css/soldOut.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/soldOut.css"/>
 
 <title>위시리스트</title>
 <style>
@@ -49,7 +46,7 @@
     color: #fff;
 }
 </style>
-<jsp:include page="util/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </head>
 <body>
 
@@ -124,7 +121,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="productDetail.do?productCategory=${wishList.productCategory}&productID=${wishList.productID}">
+                                    <a href="/productDetailPage?productCategory=${wishList.productCategory}&productID=${wishList.productID}">
                                     <div class="product-img">
                                         <img src="${wishList.productImg}" alt="Product Image" />
                                     </div>
@@ -159,12 +156,12 @@
 
 
 
-<jsp:include page="util/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 <!-- 찜기능 비동기 js  -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="js/wishList/isWished.js"></script>
-<script src="js/wishList/RemoveSoldOutProducts.js"></script>
+<script src="resources/js/wishList/isWished.js"></script>
+<script src="resources/js/wishList/RemoveSoldOutProducts.js"></script>
 
 
 </body>

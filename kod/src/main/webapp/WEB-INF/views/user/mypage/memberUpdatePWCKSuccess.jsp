@@ -10,7 +10,7 @@
 
 <script>
 	alert('${msg}');
-	window.location.href="memberUpdatePage.do";
+	window.location.href="/mypageMemberUpdate";
 </script>
 
 </body>

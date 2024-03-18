@@ -41,7 +41,7 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li><a href="mapPage.do"><i class="fa fa-map-marker"></i> 찾아오시는 길</a></li>
+					<li><a href="/mapPage"><i class="fa fa-map-marker"></i> 찾아오시는 길</a></li>
 				</ul>
 				<c:if test="${sessionScope.memberDTO == null}">
 					<ul class="header-links pull-right">
@@ -145,7 +145,6 @@
 										<a href="/paySelect">View Cart</a> <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
-								-->
 							</div>
 							<!-- /Cart -->
 
@@ -171,7 +170,7 @@
 	<div class="big-box">
 		<!-- aside Widget -->
 		<div class="aside">
-				<h3 class="aside-title"><a href="mypageMemberUpdatePWCK.do">개인정보변경</a></h3>
+				<h3 class="aside-title"><a href="/mypagePWCKController">개인정보변경</a></h3>
 			<br>
 		</div>
 		<hr>
@@ -200,7 +199,7 @@
 		<!-- Heading -->
 		<h1>회원정보변경</h1>
 		
-		<form name="updateform" onsubmit="formCheck(this);" action="memberUpdateAction.do" method="POST">
+		<form name="updateform" onsubmit="formCheck(this);" action="/mypageMemberUpdate" method="POST">
 
 			<div class="input__block" style="padding-left: 27px;">
 				<label>아이디</label> <input type="text" class="input" id="memberID" name="memberID" value="${memberDTO.memberID}" oninput="removeWhitespace(this)" readonly>

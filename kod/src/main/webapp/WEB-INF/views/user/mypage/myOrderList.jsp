@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.dto.*" import="java.util.ArrayList"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,37 +17,31 @@
 	rel="stylesheet">
 
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 
 <!-- Slick -->
-<link type="text/css" rel="stylesheet" href="css/slick.css" />
-<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 
 <!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 
-<link type="text/css" rel="stylesheet" href="css/paySelect.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/paySelect.css" />
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
 </head>
 <body>
 	<!--[조형련] 액션에서 전달받은 request.setAttribute를 가져옴 -->
 	<c:set var="oDatas" value="${requestScope.oDTO}" />
 	<c:set var="datasTotal" value="${requestScope.datasTotal}" />
 	<!-- SECTION -->
-	<jsp:include page="util/header.jsp"></jsp:include>
-	<jsp:include page="util/navigation.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 	<div class="section">
 		<!-- container -->
 		<div class="container">
@@ -82,7 +76,7 @@
 										<c:forEach var="data" items="${datasTotal}">
 											<c:if test="${oData.odListID == data.odListID}">
 												<td>
-													<a href="productDetail.do?productCategory=${data.productCategory}&productID=${data.productID}">
+													<a href="/productDetailPage?productCategory=${data.productCategory}&productID=${data.productID}">
 													<img src="${data.productImg}" alt="product">
 													</a>
 												</td>
@@ -92,7 +86,7 @@
 												</td>
 												<td>
 													<!--[조형련] 구매한 상품의 가격과 수량을 곱하여 계산 --> <span class="price">${data.productPrice * data.odContentCnt}원</span><br>
-													<form action="reviewWritePage.do" method="POST" id="form1">
+													<form action="/reviewWritePage" method="POST" id="form1">
 														<input type="hidden" name="orderContentID" value="${data.getOdContentID()}">
 														<input type="hidden" name="productID" value="${data.productID}">
 														<c:choose>
@@ -102,7 +96,7 @@
 															</c:when>
 															<c:otherwise>
 																<%--[조형련] 리뷰 작성이 완료되지 않은 경우 --%>
-																<label for="${data.productID}"> <img alt="" src="img/writeReview.png" style="width: 30px; height: 30px;">
+																<label for="${data.productID}"> <img alt="" src="resources/img/writeReview.png" style="width: 30px; height: 30px;">
 																	<button id="${data.productID}" class="cart__list__orderbtn" onclick="openReviewWrite()" style="display: none;">리뷰 작성하기</button>
 																</label>
 															</c:otherwise>
@@ -130,15 +124,15 @@
 	</div>
 	<!-- /container -->
 	<!-- /SECTION -->
-	<jsp:include page="util/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/nouislider.min.js"></script>
-	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/slick.min.js"></script>
+	<script src="resources/js/nouislider.min.js"></script>
+	<script src="resources/js/jquery.zoom.min.js"></script>
+	<script src="resources/js/main.js"></script>
 
 </body>
 </html>
