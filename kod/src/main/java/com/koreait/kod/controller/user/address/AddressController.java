@@ -3,35 +3,33 @@ package com.koreait.kod.controller.user.address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 import com.koreait.kod.biz.address.AddressDTO;
 import com.koreait.kod.biz.address.AddressService;
 import com.koreait.kod.biz.member.MemberDTO;
 
 import jakarta.servlet.http.HttpSession;
 
-@Controller("/address/*")
+@Controller
+@RequestMapping("/address")
 public class AddressController {
 
 	@Autowired
 	private AddressService addressService;
 	
-	@RequestMapping(value = "/select",method = RequestMethod.GET)
+	@GetMapping("/getMemberAddress")
 	public @ResponseBody String getMemberAddress(AddressDTO addressDTO,MemberDTO memberDTO,Model model,HttpSession session) {
 		
-		addressDTO.setMemberID(((MemberDTO)session.getAttribute("memberDTO")).getMemberID());
+		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 		model.addAttribute("addressDatas", addressService.selectAll(addressDTO));
 		
 		return "memberAddressPage";
 	}
 	
-	@RequestMapping(value = "insert",method = RequestMethod.POST)
-	public String addressInsert(AddressDTO addressDTO,Model model,HttpSession session) {
+	@PostMapping("/addressInsert")
+	public String insertAddress(AddressDTO addressDTO,Model model,HttpSession session) {
 		
-		addressDTO.setMemberID(((MemberDTO)session.getAttribute("memberDTO")).getMemberID());
+		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 		
 		boolean flag = addressService.insert(addressDTO);
 		if (!flag) { 
@@ -41,10 +39,10 @@ public class AddressController {
 		return "redirect:myPage";
 	}
 	
-	@RequestMapping(value = "update",method = RequestMethod.POST)
-	public String addressUpdate(AddressDTO addressDTO,Model model,HttpSession session) {
+	@PostMapping("/addressUpdate")
+	public String updateAddress(AddressDTO addressDTO,Model model,HttpSession session) {
 		
-		addressDTO.setMemberID(((MemberDTO)session.getAttribute("memberDTO")).getMemberID());
+		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 		
 		boolean flag = addressService.update(addressDTO);
 		if (!flag) { 
@@ -54,10 +52,10 @@ public class AddressController {
 		return "redirect:myPage";
 	}
 	
-	@RequestMapping(value = "delete",method = RequestMethod.POST)
-	public String addressDelete(AddressDTO addressDTO, Model model,HttpSession session) {
+	@PostMapping("/addressDelete")
+	public String deleteAddress(AddressDTO addressDTO, Model model,HttpSession session) {
 
-		addressDTO.setMemberID(((MemberDTO)session.getAttribute("memberDTO")).getMemberID());
+		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 		
 		boolean flag = addressService.delete(addressDTO);
 		if (!flag) { 

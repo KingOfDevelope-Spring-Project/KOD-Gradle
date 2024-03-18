@@ -41,7 +41,7 @@ public class ReviewWriteController {
                               HttpSession session) throws Throwable {
 
         // 현재 세션에서 회원 아이디 가져오기
-        String memberID = ((MemberDTO) session.getAttribute("memberDTO")).getMemberID();
+        String memberID = (String)session.getAttribute("memberID");
         
         // ReviewDTO 설정
         reviewDTO.setReviewTitle(title);
