@@ -1,13 +1,14 @@
 package com.koreait.kod.controller.user.productAndWishList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.kod.biz.member.MemberDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koreait.kod.biz.productAndWishList.ProductDTO;
 import com.koreait.kod.biz.productAndWishList.ProductService;
 
@@ -16,15 +17,23 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AsyncFilterController {
 	
+	@Autowired
 	ProductService productService;
+	@Autowired
+	ObjectMapper objectMapper;
 
-	@RequestMapping(value = "/asyncFilterProductList",method = RequestMethod.POST)
-	public @ResponseBody String CategoryProductList(@RequestParam("maxPrice") int maxPrice, @RequestParam("minPrice") int minPrice, @RequestParam("categoryList") String categoryList, ProductDTO productDTO,Model model,/*Gson gson,*/HttpSession session) {
+	@PostMapping("/asyncFilterProductList")
+	public @ResponseBody String categoryProductList(
+				@RequestParam("maxPrice") int maxPrice, 
+				@RequestParam("minPrice") int minPrice, 
+				@RequestParam("categoryList") String categoryList, 
+				ProductDTO productDTO,
+				Model model,
+				HttpSession session) throws JsonProcessingException {
 		
 		final int PRICE = 10000;
 		
-		String memberID = ((MemberDTO)session.getAttribute("memberDTO")).getMemberID();
-		productDTO.setMemberID(memberID);
+		productDTO.setMemberID((String)session.getAttribute("memberID"));
 		
 		categoryList = categoryList.replace("[", "");
 		categoryList = categoryList.replace("]", "");
@@ -35,10 +44,7 @@ public class AsyncFilterController {
 		productDTO.setProductMinPrice(minPrice*PRICE);
 		productDTO.setSearchCondition("filter");
 		
-		model.addAttribute("productFilterDatas", productService.selectAll(productDTO));
 		
-		return "store";
+		return objectMapper.writeValueAsString(productService.selectAll(productDTO));
 	}
-	
-	
 }
