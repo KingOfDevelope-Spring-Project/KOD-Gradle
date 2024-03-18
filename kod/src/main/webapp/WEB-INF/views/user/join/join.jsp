@@ -35,7 +35,7 @@
 		<!-- LOGO -->
 		<div>
 			<div class="header-logo">
-				<a href="main.do" class="logo"> <img src="./img/logo.gif" style="width: 250px" height="65px" alt="">
+				<a href="main.do" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt="">
 				</a>
 			</div>
 		</div>
@@ -137,7 +137,6 @@
 	<script src="js/check.js"></script>
 	<!-- 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<!-- 이건 뭐지? -->
 	<!-- [김진영] 2024.03.18 유효성 검사 스크립트 join.js로 모듈화 진행 -->
 	<script src="js/join.js"></script>
 	<script src="js/login.js"></script>
