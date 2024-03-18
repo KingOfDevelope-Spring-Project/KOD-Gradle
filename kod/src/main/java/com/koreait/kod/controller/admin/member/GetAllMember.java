@@ -16,16 +16,16 @@ public class GetAllMember {
 	@Autowired
 	MemberService memberService;
 	
-	@GetMapping("/GetAllMembers")
+	@GetMapping("/getAllMembers")
 	public String getAllMembers(MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
 		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
-			return "error";
+			return "common/error";
 		}
-		memberDTO.setSearchCondition("GetAllMembers");
+		memberDTO.setSearchCondition("getAllMembers");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
-		return "adminMemberList";
+		return "admin/MemberList";
 	}
 
 }

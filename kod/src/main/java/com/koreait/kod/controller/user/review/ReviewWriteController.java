@@ -98,6 +98,6 @@ public class ReviewWriteController {
         }
 
         // 파일을 클라이언트에게 전송하지 않고 myOrderList 페이지로 리다이렉트
-        return "redirect:/myOrderList";
+        return "user/myOrderList";
     }
 }

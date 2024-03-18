@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class GetStorePage {
 	WishListService wishListService;
 	
 	// 상품목록페이지 이동
-	@RequestMapping(value = "/storePage", method = RequestMethod.GET)
+	@GetMapping("/storePage")
 	public String storePage(@RequestParam("page") String page, ProductDTO productDTO, WishListDTO wishListDTO, Model model, HttpSession session) {
 		
 		// 상품목록 반환
@@ -61,6 +62,6 @@ public class GetStorePage {
 		model.addAttribute("orderRankDatas", productService.selectAll(productDTO));
 		
 			
-		return "store";
+		return "user/store";
 	}
 }

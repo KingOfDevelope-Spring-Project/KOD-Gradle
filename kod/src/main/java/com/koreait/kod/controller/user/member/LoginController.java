@@ -20,12 +20,14 @@ public class LoginController {
 	@RequestMapping(value = "/loginPage",method = RequestMethod.GET)
 	public String loginPage(MemberDTO memberDTO,HttpSession session) {
 		
+		System.out.println("[로그:정현진] 로그인페이지 들어옴");
+		
 		String memberID = (String)session.getAttribute("memberID");
 		
 		if(memberID==null) {
 			return "user/login/loginPage";
 		}
-		return "redirect:/logout";
+		return "redirect/logout";
 	}
 	
 	@RequestMapping(value = "/logout",method = RequestMethod.GET)
@@ -33,30 +35,37 @@ public class LoginController {
 		
 		session.removeAttribute("memberID");
 		
-		return "main";
+		return "user/main";
 	}
 	
-	@RequestMapping(value = "/login",method = RequestMethod.GET)
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public String login(MemberDTO memberDTO,Model model,HttpSession session) {
+		
+		System.out.println("[로그:정현진] 로그인요청 들어옴");
 		
 		// 로그인 요청
 		memberDTO.setSearchCondition("login");
 		System.out.println("[로그:정현진] memberID = "+memberDTO.getMemberID());
+		System.out.println("[로그:정현진] memberPW = "+memberDTO.getMemberPW());
+		
 		memberDTO = memberService.selectOne(memberDTO);
 		
 		// 로그인 실패 시 처리로직
 		if(memberDTO == null) {
+			System.out.println("[로그:정현진] 로그인 실패");
 			model.addAttribute("msg", "로그인 실패");
-			return "goback";
+			return "common/goback";
 		}
 		
 		// 로그인 성공 시 처리로직
 		if(memberDTO.getMemberGrade().equals("ADMIN")) {
+			System.out.println("[로그:정현진] 관리자로그인 성공");
 			session.setAttribute("adminDTO", memberDTO);
-			return "adminMain.jsp";
+			return "admin/adminMain";
 		}
+		System.out.println("[로그:정현진] 사용자로그인 성공");
 		session.setAttribute("memberID", memberDTO.getMemberID()); 
-		return "main.do";
+		return "user/main";
 	}
 	
 	

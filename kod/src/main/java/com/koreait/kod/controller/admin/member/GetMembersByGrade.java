@@ -21,13 +21,13 @@ public class GetMembersByGrade {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
 		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
-			return "error";
+			return "common/error";
 		}
 		
 		memberDTO.setSearchCondition("getMembersByGrade");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
 		
-		return "adminMemberList";
+		return "admin/memberList";
 	}
 	
 }

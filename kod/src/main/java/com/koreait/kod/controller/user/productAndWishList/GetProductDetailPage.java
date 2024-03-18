@@ -8,8 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.kod.biz.member.MemberDTO;
@@ -30,8 +29,8 @@ public class GetProductDetailPage {
 //	@Autowired
 //	List<WishListDTO> productIsWishedDatas;
 
-	@RequestMapping(value = "/productDetailPage", method = RequestMethod.GET)
-	public String productDetailPage(/*@PathVariable(name = "productID") int productID,*/@RequestParam("page") String page,WishListDTO wishListDTO,ReviewDTO reviewDTO,Model model,HttpSession session) {
+	@GetMapping("/getProductDetailPage")
+	public String getProductDetailPage(/*@PathVariable(name = "productID") int productID,*/@RequestParam("page") String page,WishListDTO wishListDTO,ReviewDTO reviewDTO,Model model,HttpSession session) {
 		
 		// 회원정보 가져오기
 		String memberID = (String)session.getAttribute("memberID");
@@ -189,7 +188,7 @@ public class GetProductDetailPage {
 		 * 추후 유지보수 시 V -> C -> C -> V 로 변경가능 (모듈화)
 		 */
 		
-		return "productDetail";
+		return "uesr/productDetail";
 	}
 	
 	

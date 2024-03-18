@@ -17,7 +17,7 @@ public class AsyncAddProductToCart {
 	private CartService cartService;
 	
 	//@ResponseBody" 어노테이션은 컨트롤러 메소드가 HTTP 응답의 본문으로 데이터를 반환할 때 사용
-	@PostMapping("/addProductToCart")
+	@PostMapping("/asyncAddProductToCart")
 	public @ResponseBody String addProductToCart(CartDTO cartDTO, HttpSession session) {
 	    cartDTO.setMemberID((String) session.getAttribute("memberID"));
 	    CartDTO cartDataOfMember = cartService.selectOne(cartDTO);
