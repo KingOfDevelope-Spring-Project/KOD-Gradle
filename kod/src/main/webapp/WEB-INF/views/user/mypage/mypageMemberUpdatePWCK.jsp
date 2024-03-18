@@ -1,32 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.dto.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>본인확인 - 마이페이지</title>
 
-
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 
-<!--  my page bigbox -->
-
-<!-- 
-    <link rel="shortcut icon" href="https://static.msscdn.net/favicon.ico?202307311841" type="image/x-icon">
-     -->
 <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/magazine_common.css?202307311841">
-<!-- 폰트 -->
-<!-- <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/store_common.css?202307311841"> -->
-<!--  
-    <link rel="stylesheet" href="https://static.msscdn.net/ui/build/pc/css/common.css">
-    <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?202307311841">
-    <link rel="shortcut icon" href="https://static.msscdn.net/favicon.ico?202307311841" type="image/x-icon">
-    <link rel="stylesheet" href="https://static.msscdn.net/platform/css/common.css">
-    <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/new.css?202307311841">
-    -->
 <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/sub.css?202307311841">
 <!-- 중요한거 -->
 <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/layout.min.css?202307311841">
@@ -35,7 +18,7 @@
 <script src="https://static.msscdn.net/skin/musinsa/js/jquery.lazyload.min.js?202307311841" type="text/javascript"></script>
 <link type="text/css" rel="stylesheet" href="https://static.msscdn.net/skin/musinsa/css/mypage.min.css?202307311841">
 <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/guide.min.css?202307311841">
-<link type="text/css" rel="stylesheet" href="css/mypage2.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/mypage2.css" />
 <script src="https://static.msscdn.net/static/member/js/ajax.js?202307311841" type="text/javascript"></script>
 <script src="https://static.msscdn.net/static/member/js/crypto-js.min.js?202307311841"></script>
 <script src="https://static.msscdn.net/static/member/js/security.js?202307311841"></script>
@@ -47,28 +30,24 @@
 <script src="https://static.msscdn.net/static/member/js/string.js?202307311841" type="text/javascript"></script>
 <!-- /중요한거 -->
 
-<link type="text/css" rel="stylesheet" href="css/mypage.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/mypage.css" />
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 <!-- Slick -->
-<link type="text/css" rel="stylesheet" href="css/slick.css" />
-<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 
 <!-- nouislider -->
-<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 
 <!-- Font Awesome Icon -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<!-- 
-        <script type="text/javascript" src="https://static.msscdn.net/static/common/1.2.0/pc.js"></script>
-    	<input type="hidden" id="imageResourceUrl" value="https://image.msscdn.net">
-     	-->
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
 <body>
-	<jsp:include page="util/header.jsp"></jsp:include>
-	<jsp:include page="util/navigation.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 	<div class="container mypage musinsa">
 		<main class="content" style="height: 100%; margin-bottom: 10vh;">
 			<div id="commonMypage" style="position: absolute; top: 250px; left: 170px;" >
@@ -96,34 +75,35 @@
 							본인인증
 						</h1>
 					</header>
-					<table class="n-table table-row my-info-modify">
-						<colgroup>
-							<col style="width: 15%">
-							<col style="width: *">
-							<col style="width: 30%">
-						</colgroup>
-						<tbody>
-						<form action="mypageMemberUpdate.do" method="POST">
-								<tr>
-									<td>비밀번호 확인</td>
-									<td>
-										<div class="form-floating">
-											<input type="password" class="form-control" name="memberPW" placeholder="Password" style="display: inline-block; width: 100%;" required>
-										</div>
-									</td>
-									
-									<td><button type="submit" class="btn btn-outline-primary" value="회원정보변경 입장" style="margin-left: 10%; border: 1px solid gray; background-color: gray; color: white;">확인</button></td>
-								</tr>
-						</form>
-						</tbody>
-					</table>
+					<form action="mypageMemberUpdate.do" method="POST">
+						<table class="n-table table-row my-info-modify">
+							<colgroup>
+								<col style="width: 15%">
+								<col style="width: *">
+								<col style="width: 30%">
+							</colgroup>
+							<tbody>
+									<tr>
+										<td>비밀번호 확인</td>
+										<td>
+											<div class="form-floating">
+												<input type="password" class="form-control" name="memberPW" placeholder="Password" style="display: inline-block; width: 100%;" required>
+											</div>
+										</td>
+										<td>
+											<button type="submit" class="btn btn-outline-primary" value="회원정보변경 입장" style="margin-left: 10%; border: 1px solid gray; background-color: gray; color: white;">확인</button>
+										</td>
+									</tr>
+							</tbody>
+						</table>
+					</form>
 				</section>
 			</section>
 		</main>
 	</div>
-<jsp:include page="util/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="js/mypageAddress.js"></script>
+<script src="resources/js/mypageAddress.js"></script>
 </html>

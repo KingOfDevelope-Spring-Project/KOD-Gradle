@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>이용 약관 페이지</title>
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="css/login.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/login.css" />
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link rel="icon" type="image/x-icon" href="/img/favion.png">
+<link rel="icon" type="image/x-icon" href="resources/img/favion.png">
 
 <style>
 .header-logo {
@@ -23,7 +23,7 @@
 	<!-- LOGO -->
 	<div>
 		<div class="header-logo">
-			<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt=""></a>
+			<a href="/main" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt=""></a>
 		</div>
 	</div>
 	<!-- /LOGO -->
@@ -70,5 +70,5 @@
 		<button class="join__btn" type="button" onclick="validateForm(this.form)">다음</button>
 	</form>
 </body>
-<script src="js/join.js"></script>
+<script src="resources/js/join.js"></script>
 </html>
