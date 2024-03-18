@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class OrderContentDTO {
-	private int orderContentID;
-	private int orderListID;
-	private int productID;
-	private int orderContentCnt;
-	private int productPrice;
-	private String productName;
+	private int orderContentID; //상품별 주문번호
+	private int orderListID; // 주문번호
+	private int productID; // 상품번호
+	private int orderContentCnt; // 주문개수 (구매개수)
+	private int productPrice; // 상품가격
+	private String productName; 
 	private String productCategory; 
-	private String productImg;
-	private String memberID;
+	private String productImg; 
+	private String memberID; 
 	private String searchCondition;
 	
 }
