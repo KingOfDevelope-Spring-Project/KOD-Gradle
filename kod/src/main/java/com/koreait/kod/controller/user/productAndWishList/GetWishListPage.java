@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.productAndWishList.ProductDTO;
 import com.koreait.kod.biz.productAndWishList.ProductService;
 import com.koreait.kod.biz.productAndWishList.WishListDTO;
 import com.koreait.kod.biz.productAndWishList.WishListService;
+import com.koreait.kod.controller.user.common.HeaderService;
 
 import jakarta.servlet.http.HttpSession;
 
+@Controller
 public class GetWishListPage {
 	
 	@Autowired
@@ -29,7 +31,7 @@ public class GetWishListPage {
 	public String storePage(@RequestParam("page") String page, ProductDTO productDTO, WishListDTO wishListDTO, Model model, HttpSession session) {
 		
 		// 상품목록 반환
-		String memberID = ((MemberDTO)session.getAttribute("memberDTO")).getMemberID();
+		String memberID = (String)session.getAttribute("memberID");
 		wishListDTO.setSearchCondition("wishListByMember");
 		List<WishListDTO> wishListDatas = wishListService.selectAll(wishListDTO);
 		model.addAttribute("wishListDatas", wishListDatas);

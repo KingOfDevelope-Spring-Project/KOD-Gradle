@@ -28,7 +28,7 @@ public class AsyncAddOrRemoveWishList {
 	public @ResponseBody String asyncAddOrRemoveWishList(@ModelAttribute("wishList")WishListDTO wishListDTO,Model model,HttpSession session) {
 		
 		// 회원아이디 가져오기
-		String memberID = ((MemberDTO)session.getAttribute("memberDTO")).getMemberID();
+		String memberID = (String)session.getAttribute("memberID");
 		wishListDTO.setMemberID(memberID);
 		
 		// 위시리스트 추가 또는 삭제

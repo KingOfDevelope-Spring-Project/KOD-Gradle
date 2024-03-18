@@ -34,7 +34,7 @@ public class GetProductDetailPage {
 	public String productDetailPage(/*@PathVariable(name = "productID") int productID,*/@RequestParam("page") String page,WishListDTO wishListDTO,ReviewDTO reviewDTO,Model model,HttpSession session) {
 		
 		// 회원정보 가져오기
-		String memberID = ((MemberDTO)session.getAttribute("memberDTO")).getMemberID();
+		String memberID = (String)session.getAttribute("memberID");
 		
 		
 		
