@@ -26,7 +26,7 @@ public class OrderController {
 	@Autowired
 	private AddressService addressService;
 	
-	@RequestMapping(value = "getOrderInfo",method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderInfo",method = RequestMethod.GET)
 	public String getOrderInfo(OrderListDTO orderListDTO, AddressDTO addressDTO,Model model, HttpSession session) {
 		
 		// 세션에 저장된 memberID 가져오기
@@ -43,7 +43,7 @@ public class OrderController {
 		return "forward:getOrderContentInfoPage";
 	}
 	
-	@RequestMapping(value = "getOrderContentInfoPage",method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderContentInfoPage",method = RequestMethod.GET)
 	public String getOrderContent(OrderContentDTO orderContentDTO, Model model, HttpSession session) {
 		
 		//세션에 저장된 memberID 가져오기
