@@ -4,15 +4,15 @@
 <html>
 
 <head>
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="css/login.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/login.css" />
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 
 <meta charset="UTF-8">
 <title>회원가입 페이지</title>
 
-<link rel="icon" type="image/x-icon" href="img/favion.png">
+<link rel="icon" type="image/x-icon" href="resources/img/favion.png">
 
 <style>
 .header-logo {
@@ -35,7 +35,7 @@
 		<!-- LOGO -->
 		<div>
 			<div class="header-logo">
-				<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px" height="65px" alt="">
+				<a href="/main" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt="">
 				</a>
 			</div>
 		</div>
@@ -134,12 +134,12 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- 아이디 중복검사 js -->
-	<script src="js/check.js"></script>
+	<script src="resources/js/check.js"></script>
 	<!-- 주소 API -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<!-- [김진영] 2024.03.18 유효성 검사 스크립트 join.js로 모듈화 진행 -->
-	<script src="js/join.js"></script>
-	<script src="js/login.js"></script>
+	<script src="resources/js/join.js"></script>
+	<script src="resources/js/login.js"></script>
 </body>
 
 </html>
