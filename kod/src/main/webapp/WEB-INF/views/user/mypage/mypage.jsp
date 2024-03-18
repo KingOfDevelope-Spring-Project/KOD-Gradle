@@ -12,7 +12,7 @@
 	
 
 <!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 	
 
 <!--  my page bigbox -->
@@ -38,7 +38,7 @@
     <script src="https://static.msscdn.net/skin/musinsa/js/jquery.lazyload.min.js?202307311841" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="https://static.msscdn.net/skin/musinsa/css/mypage.min.css?202307311841">
     <link rel="stylesheet" type="text/css" href="https://static.msscdn.net/skin/musinsa/css/guide.min.css?202307311841">
-    <link type="text/css" rel="stylesheet" href="css/mypage2.css" />
+    <link type="text/css" rel="stylesheet" href="resources/css/mypage2.css" />
     <script src="https://static.msscdn.net/static/member/js/ajax.js?202307311841" type="text/javascript"></script>
     <script src="https://static.msscdn.net/static/member/js/crypto-js.min.js?202307311841"></script>
     <script src="https://static.msscdn.net/static/member/js/security.js?202307311841"></script>
@@ -51,20 +51,20 @@
     <script src="js/mypageAddress.js"></script>
     <!-- /중요한거 -->
     
-    <link type="text/css" rel="stylesheet" href="css/mypage.css" />
+    <link type="text/css" rel="stylesheet" href="resources/css/mypage.css" />
     <!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 	<!-- Slick -->
-	<link type="text/css" rel="stylesheet" href="css/slick.css" />
-	<link type="text/css" rel="stylesheet" href="css/slick-theme.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 	
 	<!-- nouislider -->
-	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css" />
+	<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 	
 	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
     	<!-- 
     
         <script type="text/javascript" src="https://static.msscdn.net/static/common/1.2.0/pc.js"></script>
@@ -72,17 +72,17 @@
      	-->
       <body>
       
-      <jsp:include page="util/header.jsp"></jsp:include>
-	<jsp:include page="util/navigation.jsp"></jsp:include> 
+      <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include> 
 <div class="container mypage musinsa" >
 	<main class="content" style="height: 100%; margin-bottom: 10vh;">
 		<div id="commonMypage" style="position : absolute; top: 30%; left: 10%;">
 			<nav class="sc-1t1fxnz-0 bdKVYa">
 				<div class="sc-1t1fxnz-3 dMLoMw">
 					<h3>나의 쇼핑 활동</h3>
-					<a href="myPage.do" class="sc-14dbciz-0 bblXMI">개인 정보 변경</a>
-					<a href="myOrderList.do" class="sc-14dbciz-0 bblXMI">주문 목록 조회</a>
-					<a href="paySelect.do" class="sc-14dbciz-0 bblXMI">장바구니 관리</a>
+					<a href="/mypagePWCKController" class="sc-14dbciz-0 bblXMI">개인 정보 변경</a>
+					<a href="/orderListPage" class="sc-14dbciz-0 bblXMI">주문 목록 조회</a>
+					<a href="/payInfo" class="sc-14dbciz-0 bblXMI">장바구니 관리</a>
 					<a href="javascript:handleAddressManage()" id="addressManage" class="sc-14dbciz-0 bblXMI">배송지 관리</a>
 				</div>
 				<br/>
@@ -128,7 +128,7 @@
 						</tr>
 						
 						
-						<form name="updatePWform" onsubmit="PWformCheck(this);" action="memberPWUpdateAction.do" method="POST">
+						<form name="updatePWform" onsubmit="PWformCheck(this);" action="/memberPWUpdate" method="POST">
 						
 						<tr id="password-area">
 							<th scope="row">비밀번호</th>
@@ -241,7 +241,7 @@
         updatePWform.submit();
     }
 </script>
-						<form name="updateNameform" onsubmit="nameformCheck(this);" action="memberNameUpdateAction.do" method="POST">
+						<form name="updateNameform" onsubmit="nameformCheck(this);" action="/memberNameUpdate" method="POST">
 							<tr id="nickName-area">
 								<th scope="row">이름</th>
 								<td><strong>${memberDTO.memberName}</strong></td>
@@ -295,7 +295,7 @@
         updateNameform.submit();
     }
 </script>
-							<form id="emailform" name="updateEmailform" onsubmit="return emailformCheck(this,event)" action="memberEmailUpdateAction.do" method="POST">
+							<form id="emailform" name="updateEmailform" onsubmit="return emailformCheck(this,event)" action="/memberEmailUpdate" method="POST">
 								<tr id="email-area">
 									<th scope="row">이메일</th>
 									<td><strong id="currentEmail" value="">${memberDTO.memberEmail}</strong></td>
@@ -334,7 +334,7 @@
 					<div class="modal hidden">
 						<div class="bg"></div>
 						<div class="modalBox1">
-							<form action="addressUpdate.do" method="post" id="form1" onsubmit="return validateForm2(event)">
+							<form action="/updateAddress" method="post" id="form1" onsubmit="return validateForm2(event)">
 							<button class="n-btn btn-close" onclick="closeModal()" style="margin-left:97%; text-align:right; color:gray; background-color : white; font-size:x-large; height:30px; min-width:0px;">X</button>
 						<h1 style="font-size: x-large">배송지 수정</h1>
 						<br>
@@ -355,7 +355,7 @@
 					</div>
 					<!-- 배송지 수정 모달 -->
 					<!-- 배송지 삭제 모달 -->
-					<form action="addressDelete.do" method="POST" id="form2">
+					<form action="/removeAddress" method="POST" id="form2">
 						<div style="margin-bottom: 5px;">
 							<div class="modalDelete hidden" style="z-index:10;">
 								<div class="bg2"></div>
@@ -376,7 +376,7 @@
 					<div class="modalInsert hidden" style="z-index: 10;">
 						<div class="bg3"></div>
 						<div class="modalBox1">
-							<form action="addressInsert.do" method="post" id="form3" onsubmit="return validateForm(event)">
+							<form action="/addAddress" method="post" id="form3" onsubmit="return validateForm(event)">
 								<button class="n-btn btn-close" onclick="closeModal()" style="margin-left:97%; text-align: right; color:gray; background-color:white; height:30px; min-width:0px; font-size:x-large;">X</button>
 							<h1 style="font-size: x-large">배송지 추가</h1>
 							<br>
@@ -633,6 +633,6 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<jsp:include page="util/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 </html>

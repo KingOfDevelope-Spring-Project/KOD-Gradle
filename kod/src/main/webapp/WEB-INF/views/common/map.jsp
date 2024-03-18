@@ -10,20 +10,20 @@
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
 		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css"/>
 
 		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
-		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css"/>
 
 		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css"/>
 
 		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
 		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="resources/css/style.css"/>
     <style>
 #container {overflow:hidden;height:100%;position:relative; margin-bottom:2%;}
 #btnRoadview,  #btnMap {position:absolute;top:5px;left:5px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
@@ -35,8 +35,8 @@
 </style>
 </head>
 <body>
-		<jsp:include page="util/header.jsp"></jsp:include>
-		<jsp:include page="util/navigation.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 <div id="container" class="view_map">
 	<div style="display: block;">
 		<h2 style="text-align: center; margin-top: 10px;">※ 찾아오시는 길 ※</h2>
@@ -128,6 +128,6 @@ function toggleMap(active) {
     }
 }
 </script>
-<jsp:include page="util/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 </html>

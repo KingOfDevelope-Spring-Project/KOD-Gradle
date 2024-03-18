@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" type="image/x-icon" href="img/favicon.png" >
+<link rel="icon" type="image/x-icon" href="resources/img/favicon.png" >
 </head>
 <body>
 	<!-- HEADER -->
@@ -51,7 +51,7 @@
 					<!-- LOGO -->
 					<div class="col-md-3">
 						<div class="header-logo">
-							<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px; height=65px;" alt="logo image">
+							<a href="/main" class="logo"> <img src="resources/img/logo.gif" style="width: 250px; height=65px;" alt="logo image">
 							</a>
 						</div>
 					</div>
