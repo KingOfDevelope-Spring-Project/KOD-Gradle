@@ -1,6 +1,5 @@
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.dto.*"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -17,25 +16,25 @@
 		<div id="top-header">
 			<div class="container">
 				<ul class="header-links pull-left">
-					<li><a href="mapPage.do"><i class="fa fa-map-marker"></i>
+					<li><a href="/mapPage"><i class="fa fa-map-marker"></i>
 							찾아오시는 길</a></li>
 				</ul>
 				<c:if test="${sessionScope.memberDTO == null}">
 					<ul class="header-links pull-right">
 						<li>
-							<a href="loginPage.do"><i class="fa fa-user-o"></i>로그인</a>
+							<a href="/loginPage"><i class="fa fa-user-o"></i>로그인</a>
 						</li>
 						<li>
-							<a href="joinTermsOfUse.do"><i class="fa fa-user-o"></i>회원가입</a>
+							<a href="/checkTermsAgreement"><i class="fa fa-user-o"></i>회원가입</a>
 						</li>
 					</ul>
 				
 				</c:if>
 				<c:if test="${sessionScope.memberDTO != null}">
 					<ul class="header-links pull-right">
-						<li><a href="logout.do"><i class="fa fa-user-o"></i>
+						<li><a href="/logout"><i class="fa fa-user-o"></i>
 								로그아웃</a></li>
-						<li><a href="mypageMemberUpdatePWCK.do"><i class="fa fa-user-o"></i>
+						<li><a href="/mypagePWCKController"><i class="fa fa-user-o"></i>
 								마이페이지</a></li>
 					</ul>
 				</c:if>
@@ -52,7 +51,7 @@
 					<!-- LOGO -->
 					<div class="col-md-3">
 						<div class="header-logo">
-							<a href="main.do" class="logo"> <img src="./img/logo.gif" style="width: 250px; height=65px;" alt="logo image">
+							<a href="/main" class="logo"> <img src="img/logo.gif" style="width: 250px; height=65px;" alt="logo image">
 							</a>
 						</div>
 					</div>
@@ -61,7 +60,7 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6" style="padding-top : 1%">
 						<div class="header-search" >
-							<form method="POST" action="store.do" style="padding-left: 10%;">
+							<form method="GET" action="/storePage" style="padding-left: 10%;">
 								<!-- <select class="input-select" style="">
 									<option value="0">All Categories</option>
 									<option value="1">Category 01</option>
@@ -79,7 +78,7 @@
 						<div class="header-ctn" style="display : flex">
 							<!-- Wishlist -->
 							<div> <!-- 정현진 -->
-								<a href="wishList.do"> <!-- 위시리스트 페이지로 이동하는 링크 -->
+								<a href="/WishlistPage"> <!-- 위시리스트 페이지로 이동하는 링크 -->
 								    <i class="fa fa-heart-o"></i> <!-- 하트 아이콘 -->
 								    <span>My Wishlist</span> <!-- 위시리스트 링크의 텍스트 -->
 								
@@ -100,12 +99,12 @@
 							<!-- Cart -->
                      <div class="dropdown">
                      	<c:if test="${memberDTO != null}">
-	                        <a href="paySelect.do" class="dropdown-toggle" aria-expanded="false">
+	                        <a href="/payInfo" class="dropdown-toggle" aria-expanded="false">
 	                            <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
 	                        </a>
                         </c:if>
                         <c:if test="${memberDTO == null}">
-	                        <a href="loginPage.do" class="dropdown-toggle" aria-expanded="false">
+	                        <a href="/loginPage" class="dropdown-toggle" aria-expanded="false">
 	                            <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
 	                        </a>
                         </c:if>
@@ -113,7 +112,7 @@
                            <div class="cart-list">
                               <div class="product-widget">
                                  <div class="product-img">
-                                    <img src="./img/product01.png" alt="">
+                                    <img src="img/product01.png" alt="">
                                  </div>
                                  <div class="product-body">
                                     <h3 class="product-name">

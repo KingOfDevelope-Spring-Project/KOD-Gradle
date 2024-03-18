@@ -50,7 +50,7 @@
 			<div class="row">
 				<!-- shop 1 -->
 				<div class="col-md-4 col-xs-6">
-					<a href="store.do" class="cta-btn">
+					<a href="/storePage" class="cta-btn">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="//images.ctfassets.net/8cd2csgvqd3m/5ffQPWX2hMWg1Lcvv4Ndmh/715d29139574b6992a7db3b00ff04053/A9_Gold_1_Resized.png?q=85&fm=png&w=375&h=375&fit=fill" alt="스피커사진">
@@ -68,7 +68,7 @@
 
 				<!-- shop 2 -->
 				<div class="col-md-4 col-xs-6">
-					<a href="store.do" class="cta-btn">
+					<a href="/storePage" class="cta-btn">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="//images.ctfassets.net/8cd2csgvqd3m/26XtRwxmomi69pWKqcuyS8/3a5285a2e0b4a5cb29484bcbe0763258/Packshot-Beoplay-H95-Gold-Tone-0006-Perspective-1200x1200px.png?q=85&fm=png&w=375&h=375&fit=fill" alt="헤드폰사진" />
@@ -145,7 +145,6 @@
 					</div>
 				</div>
 
-				<%@ page%>
 				<!-- Products tab & slick -->
 				<div class="col-md-12">
 					<div class="row">
@@ -170,7 +169,7 @@
 														</div>
 													</div>
 												</div>
-												<a href="productDetail.do?productCategory=${item.productCategory}&productID=${item.productID}">
+												<a href="/productDetailPage?productCategory=${item.productCategory}&productID=${item.productID}">
 													<div class="product-img">
 														<img src="${item.productImg}" alt="">
 													</div>
@@ -178,7 +177,7 @@
 												<div class="product-body">
 													<p class="product-category">${item.productCategory}</p>
 													<h3 class="product-name" style="height: 31px;">
-														<a href="productDetail.do?productID=${item.productID}">${item.productName}</a>
+														<a href="/productDetailPage?productID=${item.productID}">${item.productName}</a>
 													</h3>
 													<h4 class="product-price">
 														<fmt:setLocale value="ko_KR" />
@@ -227,7 +226,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="0" end="${teenagerRanking.size()-4}" items="${teenagerRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -235,7 +234,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -250,7 +249,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${teenagerRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -258,7 +257,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -288,7 +287,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="0" end="${twentyRanking.size()-4}" items="${twentyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -296,7 +295,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -314,7 +313,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${twentyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -322,7 +321,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -355,7 +354,7 @@
 								<c:forEach var="product" begin="0" end="${thirtyRanking.size()-4}" items="${thirtyRanking}" varStatus="status">
 									<div class="product-widget">
 										<div class="productID" hidden>${wishList.productID}</div>
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -363,7 +362,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -380,7 +379,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${thirtyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -388,7 +387,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="productDetail.do?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -412,7 +411,7 @@
 	<!-- /SECTION -->
 
 
-	<jsp:include page="util/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
