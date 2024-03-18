@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link type="text/css" rel="stylesheet" href="css/login.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/login.css" />
 <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 
@@ -16,7 +16,7 @@
 	
 		<!-- Heading -->
 		<h1>
-			<img src="img/shopimg.png">
+			<img src="resources/img/shopimg.png">
 		</h1>
 		
 		<!-- Form -->
@@ -38,7 +38,7 @@
 </body>
 <!-- jQuery Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/join.js"></script>
-<script src="js/login.js"></script>
+<script src="resources/js/join.js"></script>
+<script src="resources/js/login.js"></script>
 
 </html>

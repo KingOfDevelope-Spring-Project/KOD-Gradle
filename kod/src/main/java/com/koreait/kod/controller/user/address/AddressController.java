@@ -11,7 +11,7 @@ import com.koreait.kod.biz.member.MemberDTO;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/address")
+@RequestMapping("/address/*")
 public class AddressController {
 
 	@Autowired
@@ -23,7 +23,7 @@ public class AddressController {
 		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 		model.addAttribute("addressDatas", addressService.selectAll(addressDTO));
 		
-		return "memberAddressPage";
+		return "admin/memberAddress";
 	}
 	
 	@PostMapping("/addressInsert")
@@ -36,7 +36,7 @@ public class AddressController {
 			model.addAttribute("msg", "주소등록 실패");
 			return "goback";
 		}
-		return "redirect:myPage";
+		return "mypage/mypage";
 	}
 	
 	@PostMapping("/addressUpdate")
@@ -47,9 +47,9 @@ public class AddressController {
 		boolean flag = addressService.update(addressDTO);
 		if (!flag) { 
 			model.addAttribute("msg", "주소변경 실패");
-			return "goback";
+			return "common/goback";
 		}
-		return "redirect:myPage";
+		return "mypage/mypage";
 	}
 	
 	@PostMapping("/addressDelete")
@@ -60,8 +60,8 @@ public class AddressController {
 		boolean flag = addressService.delete(addressDTO);
 		if (!flag) { 
 			model.addAttribute("msg", "주소삭제 실패");
-			return "goback";
+			return "common/goback";
 		}
-		return "redirect:myPage";
+		return "mypage/mypage";
 	}
 }

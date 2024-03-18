@@ -26,12 +26,12 @@ public class IssueCouponByGrade {
 	@Autowired
 	MemberService memberService;
 	
-	@PostMapping("issueCouponByGrade")
+	@PostMapping("/issueCouponByGrade")
 	public String issueCouponByGrade(CouponDTO couponDTO,CouponStatusDTO couponStatusDTO,MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
 		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
-			return "error";
+			return "common/error";
 		}
 		
 		/*
@@ -57,7 +57,7 @@ public class IssueCouponByGrade {
 		int couponID = couponService.selectOne(couponDTO).getCouponID();
 		if(!flag) {
 			model.addAttribute("msg", "쿠폰발급 오류");
-			return "goback";
+			return "common/goback";
 		}
 		
 		// 등급별 회원목록 조회
@@ -72,6 +72,6 @@ public class IssueCouponByGrade {
 			couponStatusService.insert(couponStatusDTO); 
 		}
 		
-		return "adminCouponIssue";
+		return "admin/CouponIssue";
 	}
 }
