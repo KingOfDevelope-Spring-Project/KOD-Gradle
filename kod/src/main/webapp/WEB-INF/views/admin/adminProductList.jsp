@@ -62,82 +62,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-						<!-- Small boxes (Stat box) -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-info">
-				              <div class="inner">
-				                <h3>150</h3>
-				
-				                <p>상품 재고</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-bag"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-success">
-				              <div class="inner">
-				                <h3>53<sup style="font-size: 20px">%</sup></h3>
-				
-				                <p>재고 비율</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-stats-bars"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-warning">
-				              <div class="inner">
-				                <h3>44</h3>
-				
-				                <p>주문 건수(당일)</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-person-add"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-danger">
-				              <div class="inner">
-				                <h3>65</h3>
-				
-				                <p>매진</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-pie-graph"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				        <!-- /.row -->
+						<!-- 상품 목록 검색 조건 -->
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-header" style="display: flex; justify-content: space-between;">
+									<h3 class="card-title" style="margin-top: 0.6%;">검색 조건</h3>
+									<button type="button" class="btn btn-primary" style="margin-left: auto;;">검색하기</button>
+								</div>
+								<div class="card-body">
+									<table id="example3" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>상품번호</th>
+												<td><input class="form-control form-control-sm" type="text"></td>
+												<th>상품명</th>
+												<td><input class="form-control form-control-sm" type="text"></td>
+											</tr>
+											<tr>
+												<th>브랜드</th>
+												<td>
+													<select class="form-control select2" style="width: 100%;" required>
+								                    	<option selected="selected" style="display: none;"></option>
+								                    	<option>뱅앤올룹슨</option>
+								                    	<option>삼성</option>
+								                    	<option>LG</option>
+							                  		</select>
+												</td>
+												<th>카테고리</th>
+												<td>
+													<select class="form-control select2" style="width: 100%;" required>
+								                    	<option selected="selected" style="display: none;"></option>
+								                    	<option>전체</option>
+								                    	<option>헤드폰</option>
+								                    	<option>이어폰</option>
+								                    	<option>스피커</option>
+							                  		</select>
+												</td>
+											</tr>
+											<tr>
+												<th>가격</th>
+												<td colspan="3"><input class="form-control form-control-sm col-4" type="text" style="display: inline-block;"> 원 이상 ~ 
+												<input class="form-control form-control-sm col-4" type="text" style="display: inline-block;"> 원 이하</td>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- /상품 목록 검색 조건 -->
+						
 						<!-- 상품 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 목록</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;;">신규 상품 등록</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
+									<button type="button" class="btn btn-primary" style="margin-left: auto;">신규 상품 등록</button>
+									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button>
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
+												<th><input type="checkbox" onmouseup=""></th>
 												<th>번호</th>
-												<th>등록번호</th>
+												<th>상품번호</th>
+												<th>상품 이미지</th>
 												<th>상품명</th>
 												<th>상품가격</th>
 												<th>브랜드</th>
@@ -149,8 +139,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<tbody>
 											<c:forEach items="${productList}" var="product" varStatus="i" begin="0" step="1">
 											<tr>
+												<td><input type="checkbox"></td>
 												<td>${i.count}</td>
 												<td>${product.productID}</td>
+												<td>${img.imageURL}</td>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
@@ -165,13 +157,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
-						</div>
 						<!-- /상품 목록 테이블 -->
 						
 					</div>
 					<!-- /.col-md-6 -->
 
-					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
 			</div>
@@ -206,13 +196,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="plugins/jquery/jquery.min.js"></script>
 	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="dist/js/adminlte.min.js"></script>
-	<script src="dist/js/demo.js"></script>
-	<!-- Bootstrap 4 -->
-	<!-- AdminLTE App -->
-	<script src="plugins/chart.js/Chart.min.js"></script>
-	<script src="plugins/sparklines/sparkline.js"></script>
-	<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
-	<!-- ChartJS -->
 	<!-- DataTables  & Plugins -->
 	<script src="plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -239,35 +222,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				"responsive" : true,
 				"columnDefs" : [ {
 					"orderable" : false,
-					"targets" : [ 1, 2, 3 ]
+					"targets" : [ 0,3,4,6,7,8 ]
 				} 
 				],
 			});
 		});
 	</script>
-	<!-- 쿠폰 목록 js -->
-	<!-- Page specific script -->
-	<script>
-		$(function() {
-			$('#example3').DataTable({
-				"paging" : true,
-				"lengthChange" : false,
-				"searching" : false,
-				"ordering" : true,
-				"info" : true,
-				"autoWidth" : false,
-				"responsive" : true,
-				"columnDefs" : [ {
-					"orderable" : false,
-					"targets" : [ 2, 3, 4 ]
-				} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
-				],
-			});
-		});
-	</script>
-
 	<!-- jQuery -->
-
 
 </body>
 </html>
