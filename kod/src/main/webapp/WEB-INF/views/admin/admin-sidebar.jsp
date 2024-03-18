@@ -258,7 +258,7 @@
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>쿠폰 발행</p>
 								</a></li>
-								<li class="nav-item"><a href="adminCouponList.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/getAllCouponList" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>쿠폰 발행 목록</p>
 								</a></li>
