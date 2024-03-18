@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,8 +28,8 @@ public class GetWishListPage {
 	WishListService wishListService;
 	
 	// 위시리스트 페이지 이동
-	@RequestMapping(value = "/wishlistPage", method = RequestMethod.GET)
-	public String storePage(@RequestParam("page") String page, ProductDTO productDTO, WishListDTO wishListDTO, Model model, HttpSession session) {
+	@GetMapping("/getwishListPage")
+	public String getwishListPage(@RequestParam("page") String page, ProductDTO productDTO, WishListDTO wishListDTO, Model model, HttpSession session) {
 		
 		// 상품목록 반환
 		String memberID = (String)session.getAttribute("memberID");
@@ -52,6 +53,6 @@ public class GetWishListPage {
 		model.addAttribute("totalPages", (int) Math.ceil((double) wishListDatas.size() / productPerPage));
 		model.addAttribute("currentPageProducts", currentPageProducts);
 			
-		return "store";
+		return "user/wishList";
 	}
 }

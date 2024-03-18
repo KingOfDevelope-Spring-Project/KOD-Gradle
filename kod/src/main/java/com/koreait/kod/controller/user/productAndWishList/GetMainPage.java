@@ -3,6 +3,7 @@ package com.koreait.kod.controller.user.productAndWishList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,7 +27,7 @@ public class GetMainPage {
 	HeaderService headerService;
 	
 	// 메인페이지 이동 
-	@RequestMapping(value = "/", method = RequestMethod.GET) // 루트페이지로 설정 => value="/"
+	@GetMapping("/") // 루트페이지로 설정 => value="/"
 	public String getMainPage(ProductDTO productDTO, WishListDTO wishListDTO,CartDTO cartDTO, Model model, HttpSession session) {
 		
 		headerService.getHeaderPage(wishListDTO, cartDTO, model, session);
@@ -73,9 +74,6 @@ public class GetMainPage {
 		wishListDTO.setMemberMaxAge(40);
 		wishListDTO.setSearchCondition("productWishRankingByAge"); // 30대
 		model.addAttribute("thirtyRanking", wishListService.selectAll(wishListDTO));
-		
-		
-		
 		
 		
 		return "user/main";

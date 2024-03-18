@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.member.MemberService;
@@ -17,11 +18,12 @@ public class ChangeMembeGrade {
 	@Autowired
 	MemberService memberService;
 	
+	@PostMapping("/changeMemberGrade")
 	public String changeMemberGrade(List<MemberDTO> memberDatas,MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
 		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
-			return "error";
+			return "common/error";
 		}
 		
 		for (MemberDTO data : memberDatas) {
@@ -29,6 +31,6 @@ public class ChangeMembeGrade {
 			memberService.update(data);
 		}
 		
-		return "adminMemberList";
+		return "admin/MemberList";
 	}
 }
