@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.review.ReviewDTO;
 import com.koreait.kod.biz.review.ReviewService;
 
@@ -29,7 +26,7 @@ public class ReviewWriteController {
     @Value("${upload.file.path}")
     private String uploadFilePath;
     
-    @RequestMapping(value = "/reviewWrite", method = RequestMethod.POST)
+    @PostMapping("/reviewWrite")
     public String reviewWrite(@RequestParam("title") String title,
                               @RequestParam("content") String content,
                               @RequestParam("score") int reviewScore,
@@ -43,16 +40,13 @@ public class ReviewWriteController {
         // 현재 세션에서 회원 아이디 가져오기
         String memberID = (String)session.getAttribute("memberID");
         
-        // ReviewDTO 설정
+        // 리뷰 데이터 설정
         reviewDTO.setReviewTitle(title);
         reviewDTO.setReviewContent(content);
         reviewDTO.setReviewScore(reviewScore);
         reviewDTO.setMemberID(memberID);
         reviewDTO.setProductID(productID);
         reviewDTO.setOdContentID(orderContentID);
-        
-        // ReviewDTO를 데이터베이스에 삽입
-        reviewService.insert(reviewDTO);
         
         
         // 파일을 업로드하고 복사하는 메서드 호출하여 UUID 목록 가져오기
@@ -94,9 +88,12 @@ public class ReviewWriteController {
             }
         }
         else {
-            reviewDTO.setReviewImg(null); // 파일이 업로드되지 않았을 경우 ReviewDTO의 이미지 경로를 null로 설정
+            reviewDTO.setReviewImg(null); 
         }
-
+        
+        // 리뷰 데이터 추가
+        reviewService.insert(reviewDTO);
+        
         // 파일을 클라이언트에게 전송하지 않고 myOrderList 페이지로 리다이렉트
         return "user/myOrderList";
     }

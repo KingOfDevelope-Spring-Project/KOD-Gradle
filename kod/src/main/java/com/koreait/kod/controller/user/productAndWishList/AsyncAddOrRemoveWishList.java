@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.productAndWishList.ProductService;
-import com.koreait.kod.biz.productAndWishList.WishListService;
 import com.koreait.kod.biz.productAndWishList.WishListDTO;
+import com.koreait.kod.biz.productAndWishList.WishListService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,7 +22,7 @@ public class AsyncAddOrRemoveWishList {
 	WishListService wishListService;
 	
 	// 위시리스트 추가 또는 삭제 기능
-	@RequestMapping(value="/asyncAddOrRemoveWishList",method = RequestMethod.POST)
+	@PostMapping("/asyncAddOrRemoveWishList")
 	public @ResponseBody String asyncAddOrRemoveWishList(@ModelAttribute("wishList")WishListDTO wishListDTO,Model model,HttpSession session) {
 		
 		// 회원아이디 가져오기

@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.productAndWishList.WishListDTO;
 import com.koreait.kod.biz.productAndWishList.WishListService;
 import com.koreait.kod.biz.review.ReviewDTO;
