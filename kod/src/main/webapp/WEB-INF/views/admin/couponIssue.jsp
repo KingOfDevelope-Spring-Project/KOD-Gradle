@@ -103,14 +103,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            	</div>
 					                <!-- /.form-group -->
 					              
-					              <!-- /.col -->
-					              	<div class="col-sm-10">
-						                <div class="form-group">
-						                  <label>쿠폰 코드</label>
-						                   <input class="form-control" id="couponCode" name="couponCode" type="text" placeholder="쿠폰 코드를 입력하세요.">
-						                </div>
-						            </div>
-					                <!-- /.form-group -->
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 설명</label>
@@ -118,6 +110,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                </div>
 					                </div>
 					                <!-- /.form-group -->
+					                
+					                <div class="col-sm-10">
+						                <div class="form-group">
+					                  		<label>쿠폰 기간</label>
+					                  		<input class="form-control" id="couponUseDate" name="couponUseDate" type="text" placeholder="쿠폰 사용 기간을 입력하세요.">
+						                </div>
+					                </div>
 					                
 					                <div class="col-sm-10">
 					                <label>할인율</label>
@@ -203,6 +202,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			                		</div>
 			                		<!-- /관리자 발행 선택 시 div -->
 			                		
+			                		<!-- 프로모션 선택 시 div -->
+			                		<div class="col-sm-6" id="coupon-code" style="display: none;">
+			                			<div class="col-sm-10">
+				                			<div class="form-group" >
+							                  <label>쿠폰 코드</label>
+							                   <input class="form-control" id="couponCode" name="couponCode" type="text" placeholder="쿠폰 코드를 입력하세요.">
+							                </div>
+						                </div>
+						            </div>
+						            <!-- /프로모션 선택 시 div -->
+						            
 					              <!-- /.col -->
 					        </div>
 				        </form>      
@@ -280,15 +290,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 document.getElementById('coupon-type').addEventListener('change', function() {
 	  var userGradeSection = document.getElementById('user-grade');
 	  var userOptionSection = document.getElementById('issue-option');
+	  var couponCodeSection = document.getElementById('coupon-code');
 	  if (this.value === 'adminIssue') {
 		  userOptionSection.style.display = 'none';
 		  userGradeSection.style.display = 'block';
+		  couponCodeSection.style.display = 'none';
 	  } else if (this.value === 'auto'){
 		  userGradeSection.style.display = 'none';
 		  userOptionSection.style.display = 'block';
+		  couponCodeSection.style.display = 'none';
 	  } else{
 		  userGradeSection.style.display = 'none';
 		  userOptionSection.style.display = 'none';
+		  couponCodeSection.style.display = 'block';
 	  }
 	});
 </script>
