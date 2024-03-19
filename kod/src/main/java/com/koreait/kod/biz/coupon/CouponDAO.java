@@ -50,15 +50,19 @@ public class CouponDAO {
 			+ "JOIN COUPON_STATUS CS ON C.COUPON_ID = CS.COUPON_ID "
 			+ "WHERE CS.COUPON_ISUSED = 'UNUSED_COUPON'";
 	// 쿠폰 개별조회
-	private static final String SELECTONE="SELECT COUPON_ID,"
-			+ "COUPON_CONTENT,"
-			+ "COUPON_DISCOUNT_RATE,"
-			+ "COUPON_NAME,"
-			+ "COUPON_CODE,"
-			+ "COUPON_USE_DATE,"
+	private static final String SELECTONE="SELECT COUPON_ID, "
+			+ "COUPON_CONTENT, "
+			+ "COUPON_DISCOUNT_RATE, "
+			+ "COUPON_NAME, "
+			+ "COUPON_CODE, "
+			+ "COUPON_USE_DATE, "
 			+ "COUPON_TYPE "
 			+ "FROM COUPON "
-			+ "WHERE COUPON_ID=?";
+			+ "WHERE COUPON_CODE=? ";
+	private static final String SELECTONE_COUPON_ID=
+			"SELECT COUPON_ID, "
+			+ "FROM COUPON "
+			+ "WHERE COUPON_CODE=? ";
 	// 쿠폰 추가(코드 랜덤난수)
 	private static final String INSERT_RANDOMCODE="INSERT INTO COUPON"
 			+ "(COUPON_CONTENT,"
@@ -102,9 +106,18 @@ public class CouponDAO {
 	}
 
 	public CouponDTO selectOne(CouponDTO couponDTO) {
-		Object [] args= {couponDTO.getCouponID() };
-		return jdbcTemplate.queryForObject(SELECTONE, args, new CouponRowMapper3());
+		if(couponDTO.getSearchCondition().equals("getCouponID")) {
+			System.out.println("[로그:정현진] CouponDAO 들어옴");
+			System.out.println("[로그:정현진] 쿠폰코드 : "+couponDTO.getCouponCode());
+			Object [] args= {couponDTO.getCouponCode() };
+			return jdbcTemplate.queryForObject(SELECTONE, args, new CouponRowMapper4());
+		}
+		else {
+			return null;
+		}
 	}
+	
+	
 
 	public boolean insert(CouponDTO couponDTO) {
 		int result = jdbcTemplate.update(INSERT, couponDTO.getCouponContent(),couponDTO.getCouponDiscountRate(),
@@ -177,7 +190,9 @@ class CouponRowMapper3 implements RowMapper<CouponDTO>{
 
 	@Override
 	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] RowMapper 들어옴");
 		CouponDTO couponDTO=new CouponDTO();
+		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
 		couponDTO.setCouponContent(rs.getString("COUPON_CONTENT"));
 		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
 		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
@@ -186,5 +201,14 @@ class CouponRowMapper3 implements RowMapper<CouponDTO>{
 		couponDTO.setCouponType(rs.getString("COUPON_TYPE"));
 		return couponDTO;
 	}
+}
+class CouponRowMapper4 implements RowMapper<CouponDTO>{
 	
+	@Override
+	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] RowMapper 들어옴");
+		CouponDTO couponDTO=new CouponDTO();
+		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
+		return couponDTO;
+	}
 }

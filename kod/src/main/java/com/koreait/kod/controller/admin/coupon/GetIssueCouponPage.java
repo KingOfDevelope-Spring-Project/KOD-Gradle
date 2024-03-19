@@ -8,8 +8,8 @@ public class GetIssueCouponPage {
 	
 	@GetMapping("/getIssueCouponPage")
 	public String getIssueCouponPage() {
-		
-		return "admin/couponIsuue";
+		System.out.println("[로그:정현진] 쿠폰 발행 페이지 들어옴");
+		return "admin/couponIssue";
 		
 	}
 }

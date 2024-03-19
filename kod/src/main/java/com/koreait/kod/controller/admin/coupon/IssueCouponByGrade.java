@@ -25,12 +25,19 @@ public class IssueCouponByGrade {
 	CouponStatusService couponStatusService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	CreateCouponCodeService couponCodeService;
 	
-	@PostMapping("/issueCouponByGrade")
+	@PostMapping("/issueCouponByGrade") 
 	public String issueCouponByGrade(CouponDTO couponDTO,CouponStatusDTO couponStatusDTO,MemberDTO memberDTO,Model model,HttpSession session) {
+		System.out.println("[로그:정현진] 쿠폰발행 컨트롤러 들어옴");
+		
+		String memberGrade = memberDTO.getMemberGrade();
+		System.out.println("[로그:정현진] 회원등급"+memberGrade);
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
-		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
+		if(!adminDTO.getMemberRole().equals("ADMIN")) {
+			System.out.println("[로그:정현진] 요청회원이 관리자가 아님");
 			return "common/error";
 		}
 		
@@ -50,28 +57,61 @@ public class IssueCouponByGrade {
 		 * 
 		 */
 		
+		System.out.println("[로그:정현진] 발행할 쿠폰명 " + couponDTO.getCouponName());
+		System.out.println("[로그:정현진] 쿠폰발행 시작");
+
+		// 난수(프로모션코드) 생성
+		int couponLength = 16;
+		String couponString = "ABCDEFGHIJKLMNOPQRSTUVXYZ0123456789";
+		String couponCode = couponCodeService.getCouponCode(couponLength, couponString);
+		System.out.println("[로그:정현진] 발급받은 쿠폰코드 : "+ couponCode);
+		
 		
 		// 쿠폰생성
-		boolean flag = couponService.insert(couponDTO);
+		couponDTO.setCouponCode(couponCode);
+		boolean flag = couponService.insert(couponDTO); // id 생성
+		
 		couponDTO.setSearchCondition("getCouponID");
+		couponDTO.setCouponCode(couponCode);
 		int couponID = couponService.selectOne(couponDTO).getCouponID();
+		System.out.println("[로그:정현진] 쿠폰 ID : "+couponID);
+		
 		if(!flag) {
-			model.addAttribute("msg", "쿠폰발급 오류");
+			System.out.println("[로그:정현진] 쿠폰발행 오류");
+			model.addAttribute("msg", "쿠폰발행 오류");
 			return "common/goback";
 		}
 		
 		// 등급별 회원목록 조회
 		memberDTO.setSearchCondition("getMembersByGrade");
+		System.out.println("[로그:정현진] 회원등급 : "+memberDTO.getMemberGrade());
 		memberDTO.setMemberGrade(memberDTO.getMemberGrade());
 		List<MemberDTO> memberDatas = memberService.selectAll(memberDTO);
-		
-		// 회원별 쿠폰 발급
+		if(memberDatas==null||memberDatas.size()<=0) {
+			System.out.println("[로그:정현진] 회원목록 반환 실패");
+		}
 		for (MemberDTO data : memberDatas) {
-			couponStatusDTO.setMemberID(data.getMemberID());
-			couponStatusDTO.setCouponID(couponID);
-			couponStatusService.insert(couponStatusDTO); 
+			System.out.println("[로그:정현진] data"+data.getMemberName());
 		}
 		
-		return "admin/CouponIssue";
+		// 회원별 쿠폰 발급
+		flag = false;
+		for (MemberDTO data : memberDatas) {
+			System.out.println("[로그:정현진] 회원별 쿠폰발급 시작");
+//			System.out.println("[로그:정현진] 회원 등급 : "+data.getMemberGrade());
+//			System.out.println("[로그:정현진] 회원 ID : "+data.getMemberID());
+			couponStatusDTO.setMemberID(data.getMemberID());
+			couponStatusDTO.setCouponID(couponID);
+			flag=couponStatusService.insert(couponStatusDTO);
+		}
+		if(!flag) {
+			System.out.println("[로그:정현진] 회원별 쿠폰발급 실패");
+		}
+		else {
+			System.out.println("[로그:정현진] 회원별 쿠폰발급 성공");
+		}
+		
+		
+		return "admin/couponIssue";
 	}
 }
