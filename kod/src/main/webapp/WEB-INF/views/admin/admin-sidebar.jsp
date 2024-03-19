@@ -254,7 +254,7 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="/getIssueCouponPage"
+								<li class="nav-item"><a href="/getCouponIssuePage"
 									class="nav-link"> <i class="far fa-circle nav-icon"></i>
 										<p>쿠폰 발행</p>
 								</a></li>
