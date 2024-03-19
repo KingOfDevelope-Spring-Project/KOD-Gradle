@@ -49,7 +49,7 @@
 			<div class="row">
 				<!-- shop 1 -->
 				<div class="col-md-4 col-xs-6">
-					<a href="/storePage" class="cta-btn">
+					<a href="/getStorePage" class="cta-btn">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="//images.ctfassets.net/8cd2csgvqd3m/5ffQPWX2hMWg1Lcvv4Ndmh/715d29139574b6992a7db3b00ff04053/A9_Gold_1_Resized.png?q=85&fm=png&w=375&h=375&fit=fill" alt="스피커사진">
@@ -58,7 +58,7 @@
 								<h3>
 									스피커<br>Collection
 								</h3>
-								<a href="/storePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="/getStorePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</a>
@@ -67,7 +67,7 @@
 
 				<!-- shop 2 -->
 				<div class="col-md-4 col-xs-6">
-					<a href="/storePage" class="cta-btn">
+					<a href="/getStorePage" class="cta-btn">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="//images.ctfassets.net/8cd2csgvqd3m/26XtRwxmomi69pWKqcuyS8/3a5285a2e0b4a5cb29484bcbe0763258/Packshot-Beoplay-H95-Gold-Tone-0006-Perspective-1200x1200px.png?q=85&fm=png&w=375&h=375&fit=fill" alt="헤드폰사진" />
@@ -76,7 +76,7 @@
 								<h3>
 									헤드폰 및 이어폰<br>Collection
 								</h3>
-								<a href="/storePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="/getStorePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</a>
@@ -85,7 +85,7 @@
 
 				<!-- shop 3 -->
 				<div class="col-md-4 col-xs-6">
-					<a href="/storePage" class="cta-btn">
+					<a href="/getStorePage" class="cta-btn">
 						<div class="shop">
 							<div class="shop-img">
 								<img src="//images.ctfassets.net/8cd2csgvqd3m/2sbVDgqKMaiDxmrYMHzA71/95fd4c1e43850920a7fbe23bf55560de/Packshot-Beosound-A1-2nd-Gen-Black-Anthracite-0027-Perspective-1200x1200px.png?q=85&fm=png&w=375&h=375&fit=fill" alt="악세사리사진" />
@@ -94,7 +94,7 @@
 								<h3>
 									Accessories<br>Collection
 								</h3>
-								<a href="/storePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="/getStorePage" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</a>
@@ -166,7 +166,7 @@
 														</div>
 													</div>
 												</div>
-												<a href="/productDetailPage?productCategory=${item.productCategory}&productID=${item.productID}">
+												<a href="/getProductDetailPage?productCategory=${item.productCategory}&productID=${item.productID}">
 													<div class="product-img">
 														<img src="${item.productImg}" alt="">
 													</div>
@@ -174,7 +174,7 @@
 												<div class="product-body">
 													<p class="product-category">${item.productCategory}</p>
 													<h3 class="product-name" style="height: 31px;">
-														<a href="/productDetailPage?productID=${item.productID}">${item.productName}</a>
+														<a href="/getProductDetailPage?productID=${item.productID}">${item.productName}</a>
 													</h3>
 													<h4 class="product-price">
 														<fmt:setLocale value="ko_KR" />
@@ -223,7 +223,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="0" end="${teenagerRanking.size()-4}" items="${teenagerRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -231,7 +231,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -246,7 +246,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${teenagerRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -254,7 +254,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -283,7 +283,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="0" end="${twentyRanking.size()-4}" items="${twentyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -291,7 +291,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -309,7 +309,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${twentyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -317,7 +317,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -350,7 +350,7 @@
 								<c:forEach var="product" begin="0" end="${thirtyRanking.size()-4}" items="${thirtyRanking}" varStatus="status">
 									<div class="product-widget">
 										<div class="productID" hidden>${wishList.productID}</div>
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -358,7 +358,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />
@@ -375,7 +375,7 @@
 								<!-- product widget -->
 								<c:forEach var="product" begin="3" items="${thirtyRanking}" varStatus="status">
 									<div class="product-widget">
-										<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
+										<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">
 											<div class="product-img">
 												<img src="${product.productImg}" alt="">
 											</div>
@@ -383,7 +383,7 @@
 										<div class="product-body">
 											<p class="product-category">${product.productCategory}</p>
 											<h3 class="product-name">
-												<a href="/productDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
+												<a href="/getProductDetailPage?productCategory=${product.productCategory}&productID=${product.productID}">${product.productName}</a>
 											</h3>
 											<h4 class="product-price">
 												<fmt:setLocale value="ko_KR" />

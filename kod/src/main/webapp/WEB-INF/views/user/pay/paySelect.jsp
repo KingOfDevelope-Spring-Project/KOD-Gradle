@@ -85,7 +85,7 @@
 										id="selectedCheckBox" ></td>
 								<td><img src="${cData.productImg}" alt="product"></td>
 								<td>
-									<a href="main.do">KOD스토어</a>
+									<a href="/getMainPage">KOD스토어</a>
 									<p>${cData.productName}</p>
 									<span class="price" id="eachPrice_${status.index}">${cData.productPrice}원</span>
 								</td>
@@ -109,7 +109,7 @@
 								</td>
 								<td>무료</td>
 								<td>
-									<a href="cartDeleteEach.do?productID=${cData.productID}"
+									<a href="/deleteSelectProductsToCart?productID=${cData.productID}"
 										class="cart__list__optionbtn">상품 삭제 </a>
 								</td>
 							</tr>
@@ -122,11 +122,11 @@
 					<button class="cart__bigorderbtn right">주문하기</button>
 				</div>
 			</form>
-				<form action="store.do" method="POST" style="display: inline-block; ">
+				<form action="/getStorePage" method="POST" style="display: inline-block; ">
 					<button class="cart__bigorderbtn left" style="width: ">쇼핑 계속하기</button>
 				</form>
 	
-				<form action="cartDeleteAll.do" method="POST" style="display: inline-block;">
+				<form action="/deleteAllProductsToCart" method="POST" style="display: inline-block;">
 					<c:forEach var="cData" items="${cDatas}" varStatus="status">
 						<input type="hidden" name="cartId" value="${cData.cartID}">
 					</c:forEach>

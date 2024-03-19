@@ -37,14 +37,6 @@
 <link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 <link type="text/css" rel="stylesheet" href="resources/css/checkLogin.css" />
 
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </head>
 <body>
@@ -56,89 +48,6 @@
 		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 		crossorigin="anonymous">
 </script>
-
-<!-- <script>
-$(document).ready(function(){
-	  $(".add-to-wishlist2").on("click", function(e){
-	    e.preventDefault(); // 기본 클릭 이벤트를 중단하여 링크가 이동하는 것을 방지
-
-	    console.log("위시리스트 버튼 클릭됨");
-	    
-	    var productID = $(this).find(".productID").text();
-	    var heartIcon = $(this).find("#heartIcon");
-	    console.log("productID", productID);
-	    
-	    $.ajax({
-	      type: "POST",
-	      url: "asyncAddOrRemoveWishlist",
-	      data: {"productID": productID},
-	      success: function(data){
-	        console.log(data);
-	        heartIcon.toggleClass('fa-heart-o fa-heart');
-	        
-	        var updatedWishListCnt = parseInt(data);
-	        $(".wishListCnt").text(updatedWishListCnt);
-	        console.log("updatedWishListCnt >> " + updatedWishListCnt);
-	        
-		    $.ajax({
-			      type: "POST",
-			      url: "getWishlistCnt",
-			      data: {"productID": productID},
-			      success: function(data){
-			        console.log(data);
-
-			        var updatedwishTotalCnt = parseInt(data);
-			        $(".wishTotalCnt").text(updatedwishTotalCnt); // 상품의 찜 합계수량
-			        console.log("updatedwishTotalCnt >> " + updatedwishTotalCnt);
-
-			      },
-			      error: function(error){
-			        console.log("에러: " + error);
-			      } 
-			    });
-	        
-	      },
-	      error: function(error){
-	        console.log("에러: " + error);
-	      } 
-	    });
-	    
-	  });
-	});
-
-</script>
-
-<script>
-$(document).ready(function(){
-	  $(".add-to-wishlist").on("click", function(e){
-	    e.preventDefault(); // 기본 클릭 이벤트를 중단하여 링크가 이동하는 것을 방지
-
-	    console.log("위시리스트 버튼 클릭됨");
-	    
-	    var productID = $(this).find(".productID").text();
-	    var heartIcon = $(this).find("#heartIcon");
-	    console.log("productID", productID);
-	    
-	    $.ajax({
-	      type: "POST",
-	      url: "asyncAddOrRemoveWishlist",
-	      data: {"productID": productID},
-	      success: function(data){
-	        console.log(data);
-	        heartIcon.toggleClass('fa-heart-o fa-heart');
-	        
-	        var updatedWishListCnt = parseInt(data);
-	        $(".wishListCnt").text(updatedWishListCnt);
-	        console.log("updatedWishListCnt >> " + updatedWishListCnt);
-	        
-	      },
-	      error: function(error){
-	        console.log("에러: " + error);
-	      } 
-	    });
-	  });
-	});
-</script> -->
 
 <!-- 모달창을 추가합니다. -->
 
@@ -166,18 +75,6 @@ $(document).ready(function(){
 						<div class="product-preview">
 							<img src="${productWishDetailData.productImg}" alt="">
 						</div>
-
-						<!-- <div class="product-preview">
-								<img src="./img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="./img/product08.png" alt="">
-							</div> -->
 					</div>
 				</div>
 				<!-- /Product main img -->
@@ -189,17 +86,6 @@ $(document).ready(function(){
 							<img src="${productWishDetailData.productImg}" alt="">
 						</div>
 
-						<!-- <div class="product-preview">
-								<img src="resources/img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="resources/img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="resources/img/product08.png" alt="">
-							</div> -->
 					</div>
 				</div>
 				<!-- /Product thumb imgs -->
@@ -608,7 +494,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 											<c:forEach begin="1" end="${totalPages}" varStatus="loop">
 												<li
 													<c:if test="${loop.index == currentPage}">class="active"</c:if>>
-													<a href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=${loop.index}">${loop.index}</a>
+													<a href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=${loop.index}">${loop.index}</a>
 												</li>
 											</c:forEach>
 										</ul> --%>
@@ -620,14 +506,14 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 												<c:if test="${startPageOfGroup > 1}">style="color: black;"</c:if>
 												<c:if test="${startPageOfGroup == 1}">style="display: none;"</c:if>>
 												<a
-												href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=1"><<</a>
+												href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=1"><<</a>
 											</li>
 											<!-- 이전 페이지 그룹 버튼 -->
 											<li
 												<c:if test="${startPageOfGroup > 1}">style="color: black;"</c:if>
 												<c:if test="${startPageOfGroup == 1}">style="display: none;"</c:if>>
 												<a
-												href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=${startPageOfGroup - 1}">&lt;</a>
+												href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=${startPageOfGroup - 1}">&lt;</a>
 											</li>
 
 											<!-- 페이지 그룹 표시 -->
@@ -636,7 +522,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 												<li
 													<c:if test="${loop.index == currentPage}">class="active"</c:if>>
 													<a
-													href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=${loop.index}">${loop.index}</a>
+													href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=${loop.index}">${loop.index}</a>
 												</li>
 											</c:forEach>
 
@@ -646,7 +532,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 												<c:if test="${endPageOfGroup < totalPages}">style="color: black;"</c:if>
 												<c:if test="${endPageOfGroup == totalPages}">style="display: none;"</c:if>>
 												<a
-												href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=${endPageOfGroup + 1}">&gt;</a>
+												href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=${endPageOfGroup + 1}">&gt;</a>
 											</li>
 
 											<!-- 마지막 페이지로 이동 -->
@@ -654,7 +540,7 @@ function cartInsert() { // [조형련] 장바구니에 상품 추가하는 비�
 												<c:if test="${endPageOfGroup < totalPages}">style="color: black;"</c:if>
 												<c:if test="${endPageOfGroup == totalPages}">style="display: none;"</c:if>>
 												<a
-												href="productDetail.do?productID=${param.productID}&productCategory=${param.productCategory}&page=${totalPages}">>></a>
+												href="/getProductDetailPage?productID=${param.productID}&productCategory=${param.productCategory}&page=${totalPages}">>></a>
 											</li>
 										</ul>
 

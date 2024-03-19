@@ -10,7 +10,7 @@
 
 <script>
 	alert('${msg}');
-	location.href='mypagePWCKController';
+	location.href='/mypagePWCKController';
 </script>
 
 </body>

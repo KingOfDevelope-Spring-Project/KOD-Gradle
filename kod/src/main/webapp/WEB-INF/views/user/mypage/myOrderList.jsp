@@ -76,7 +76,7 @@
 										<c:forEach var="data" items="${datasTotal}">
 											<c:if test="${oData.odListID == data.odListID}">
 												<td>
-													<a href="/productDetailPage?productCategory=${data.productCategory}&productID=${data.productID}">
+													<a href="/getProductDetailPage?productCategory=${data.productCategory}&productID=${data.productID}">
 													<img src="${data.productImg}" alt="product">
 													</a>
 												</td>
@@ -86,7 +86,7 @@
 												</td>
 												<td>
 													<!--[조형련] 구매한 상품의 가격과 수량을 곱하여 계산 --> <span class="price">${data.productPrice * data.odContentCnt}원</span><br>
-													<form action="/reviewWritePage" method="POST" id="form1">
+													<form action="/reviewWrite" method="POST" id="form1">
 														<input type="hidden" name="orderContentID" value="${data.getOdContentID()}">
 														<input type="hidden" name="productID" value="${data.productID}">
 														<c:choose>

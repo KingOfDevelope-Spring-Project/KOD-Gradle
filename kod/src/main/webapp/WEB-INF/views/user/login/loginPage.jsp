@@ -40,7 +40,7 @@
 		</form>
 		<button class="join__btn" onclick="location.href='joinTermsOfUse.do'">회원가입</button>
 		<div id="naver_id_login" style="height: inherit;"></div>
-		<a id="kakao-login-btn" href="javascript:loginWithKakao()" style="height: inherit;">
+		<a id="kakao-login-btn" href="" style="height: inherit;">
 			<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="200" alt="카카오 로그인 버튼" />
 		</a>
 		<p id="token-result"></p>
@@ -55,6 +55,12 @@
   	naver_id_login.setState(state);
   	naver_id_login.setPopup();
   	naver_id_login.init_naver_id_login();
+</script>
+<script type="text/javascript">
+	$("#kakao-login-btn").on("click", function(e){
+		e.preventDefault();
+		window.location.href = '/oauth2/authorization/kakao'
+	})
 </script>
 </body>
 <script src="resources/js/join.js"></script>

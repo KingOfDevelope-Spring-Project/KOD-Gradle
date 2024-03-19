@@ -39,8 +39,8 @@
 
     </head>
 	<body>
-		<jsp:include page="util/header.jsp"></jsp:include>
-		<jsp:include page="util/navigation.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 
 		<!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
@@ -51,7 +51,7 @@
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="/main">Home</a></li>
+							<li><a href="/getMainPage">Home</a></li>
 							<li class="active">Checkout</li>
 						</ul>
 					</div>

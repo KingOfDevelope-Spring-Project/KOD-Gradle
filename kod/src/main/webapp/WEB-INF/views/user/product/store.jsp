@@ -132,7 +132,7 @@ label:hover {
 									<p class="product-category">${productRankData.productCategory}</p>
 									<h3 class="product-name">
 										<a
-											href="productDetail.do?productID=${productRankData.productID}">${productRankData.productName}</a>
+											href="/getProductDetailPage?productID=${productRankData.productID}">${productRankData.productName}</a>
 									</h3>
 									<h4 class="product-price">
 										<%-- [김진영] 통화표시를 위한 지역선택 --%>
@@ -152,74 +152,11 @@ label:hover {
 				<!-- STORE -->
 				<div id="store" class="col-md-9">
 					<!-- store top filter -->
-					<!-- <div class="store-filter clearfix">
-						<div class="store-sort">
-							<label> Sort By: <select class="input-select">
-									<option value="0">Popular</option>
-									<option value="1">Position</option>
-							</select>
-							</label> <label> Show: <select class="input-select">
-									<option value="0">20</option>
-									<option value="1">50</option>
-							</select>
-							</label>
-						</div>
-						<ul class="store-grid">
-							<li class="active"><i class="fa fa-th"></i></li>
-							<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-						</ul>
-					</div> -->
 					<!-- /store top filter -->
 
 					<!-- store products -->
 					<div class="row">
 
-<!-- 	
-<script>
-$(document).ready(function(){
-    $('.add-to-wishlist').on('click', function(){
-        console.log('[로그:정현진] 위시리스트 버튼 클릭됨');
-        
-        var productID = $(this).find('.productID').text();
-        var heartIcon = $(this).find('#heartIcon');
-        console.log('productID:', productID);
-        
-        $.ajax({
-            type: "POST",
-            url: '/asyncAddOrRemoveWishlist',
-            data: { 'productID': productID },
-            success: function(data){
-                console.log(data);
-                // 클릭 시 하트 아이콘 토글
-                heartIcon.toggleClass('fa-heart-o fa-heart');
-                
-                var updatedWishListCnt = parseInt(data); // data가 업데이트된 카운트를 받아와야합니다.
-                $('.wishListCnt').text(updatedWishListCnt); // 위시리스트의 개수를 업데이트해줌
-                console.log("[로그:정현진] updatedWishListCnt >> "+updatedWishListCnt)
-            },
-            error: function(error){
-                console.log("에러: " + error);
-            }
-        });
-    });
-});
-</script> 
--->
-
-<!--
-V는 C한테
-   ♥♡를 구분해야하니까
-   1,0 등의 신호를 주세요.
-C는 V한테 줘야되니까
-   SELECTALL 해올적에
-   SELECT ??? FROM
-      ???에 1,0 등의 값을
-      받아올수있도록 해달라고
-      M한테 요청
-M은 C한테 1,0 등의 값을 줘야하니까
-   SQL문을 수정해야됨
-   SELECTALL이 되는상황
--->
   					
 						<!-- product -->
 					<c:if test="${not empty currentPageProducts}">
@@ -238,7 +175,7 @@ M은 C한테 1,0 등의 값을 줘야하니까
 						                    </div>
 						                </div>
 						            </div>
-						            <a href="productDetail.do?productID=${isWishedData.productID}&productCategory=${isWishedData.productCategory}">
+						            <a href="/getProductDetailPage?productID=${isWishedData.productID}&productCategory=${isWishedData.productCategory}">
 						                <div class="product-img">
 						                    <img src="${isWishedData.productImg}" alt="${isWishedData.productName}" />
 						                </div>
@@ -246,7 +183,7 @@ M은 C한테 1,0 등의 값을 줘야하니까
 						            <div class="product-body">
 						                <p class="product-category">${isWishedData.productCategory}</p>
 						                <h3 class="product-name" style="height: 31px;">
-						                    <a href="productDetail.do?productID=${isWishedData.productID}&productCategory=${isWishedData.productCategory}">
+						                    <a href="/getProductDetailPage?productID=${isWishedData.productID}&productCategory=${isWishedData.productCategory}">
 						                        ${isWishedData.productName}
 						                    </a>
 						                </h3>
@@ -255,7 +192,6 @@ M은 C한테 1,0 등의 값을 줘야하니까
 											<fmt:formatNumber value="${isWishedData.productPrice}" type="currency" />
 						                </h4>
 						                <div class="product-rating">
-						                    <%-- 평점 들어가는 라인 --%>
 						                </div>
 						            </div>
 						            <!-- <div class="add-to-cart">
@@ -273,7 +209,6 @@ M은 C한테 1,0 등의 값을 줘야하니까
 					</c:if>
 						<!-- /product -->
 						<!-- /store products -->
-
 						
 					</div>
 					<!-- /STORE -->
@@ -283,19 +218,19 @@ M은 C한테 1,0 등의 값을 줘야하니까
 						    <ul class="store-pagination">
 						        <%-- 이전 페이지 링크 --%>
 						        <c:if test="${currentPage > 1}">
-						            <li><a href="store.do?page=${currentPage - 1}"><i class="fa fa-angle-left"></i></a></li>
+						            <li><a href="/getStorePage?page=${currentPage - 1}"><i class="fa fa-angle-left"></i></a></li>
 						        </c:if>
 						
 						        <%-- 페이지 번호 출력 --%>
 						        <c:forEach var="i" begin="1" end="${totalPages}">
 						            <li class="${currentPage == i ? 'active' : ''}">
-						                <a href="store.do?page=${i}">${i}</a>
+						                <a href="/getStorePage?page=${i}">${i}</a>
 						            </li>
 						        </c:forEach>
 						
 						        <%-- 다음 페이지 링크 --%>
 						        <c:if test="${currentPage < totalPages}">
-						            <li><a href="store.do?page=${currentPage + 1}"><i class="fa fa-angle-right"></i></a></li>
+						            <li><a href="/getStorePage?page=${currentPage + 1}"><i class="fa fa-angle-right"></i></a></li>
 						        </c:if>
 						    </ul>
 						</div>
