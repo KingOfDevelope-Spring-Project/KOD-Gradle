@@ -21,7 +21,7 @@ public class AsyncSoldOutProductRemove {
 	WishListService wishListService;
 	
 	// 품절상품 삭제 기능
-	@PostMapping("/asyncSoldOutProductRemove")
+	@PostMapping("/asyncSoldOutProductsRemove")
 	public @ResponseBody String asyncSoldOutProductRemove(@RequestBody List<Integer> soldOutProductIDDatas, WishListDTO wishListDTO, Model model, HttpSession session) {
 
 		for (int soldOutProductID : soldOutProductIDDatas) {

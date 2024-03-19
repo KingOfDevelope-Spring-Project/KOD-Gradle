@@ -54,7 +54,6 @@ public class IssueCouponByGrade {
 			 * 3-3. 생선된 쿠폰PK값과 회원ID를 설정하여 쿠폰상태 테이블에 회원별 쿠폰을 발급하자
 			 * 3-3-1. 쿠폰상테 테이블에 데이터를 삽입하기 위해서는 회원 ID가 필요한데 위에서 조회한 회원목록에서 반환받은 회원ID를 활용하자.
 		 * 
-		 * 
 		 */
 		
 		System.out.println("[로그:정현진] 발행할 쿠폰명 " + couponDTO.getCouponName());
@@ -111,7 +110,6 @@ public class IssueCouponByGrade {
 			System.out.println("[로그:정현진] 회원별 쿠폰발급 성공");
 		}
 		
-		
-		return "admin/couponIssue";
+		return "admin/coupon/couponIssue";
 	}
 }

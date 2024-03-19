@@ -22,7 +22,7 @@ public class ChangeMembeGrade {
 	public String changeMemberGrade(List<MemberDTO> memberDatas,MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
-		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
+		if(!adminDTO.getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
 		
@@ -31,6 +31,6 @@ public class ChangeMembeGrade {
 			memberService.update(data);
 		}
 		
-		return "admin/MemberList";
+		return "admin/member/MemberList";
 	}
 }
