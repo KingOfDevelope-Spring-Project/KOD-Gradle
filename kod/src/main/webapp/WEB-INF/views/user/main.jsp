@@ -12,7 +12,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>쇼핑몰 메인</title>
 
 <!-- Google font -->
@@ -101,7 +100,6 @@
 					</a>
 				</div>
 				<!-- /shop 3 -->
-
 			</div>
 			<!-- /row -->
 		</div>
@@ -152,7 +150,6 @@
 							<!-- tab -->
 							<div id="tab1" class="tab-pane active">
 								<div class="products-slick" data-nav="#slick-nav-1">
-
 									<!-- product -->
 									<c:forEach var="item" items="${popularAllItems}">
 										<div class="col-md-4 col-xs-6" style="margin-top: 30px;">
@@ -281,7 +278,6 @@
 								<div id="slick-nav-4" class="products-slick-nav"></div>
 							</div>
 						</div>
-
 						<div class="products-widget-slick" data-nav="#slick-nav-4">
 							<div>
 								<!-- product widget -->
