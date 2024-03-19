@@ -15,7 +15,7 @@ public class MemberDAO {
 
 	private static final String SELECTALL="";
 	private static final String SELECTONE_LOGIN=
-			"SELECT MEMBER_ID,MEMBER_GRADE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
+			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 
 	private static final String INSERT="";
 	private static final String UPDATE="";
@@ -53,7 +53,7 @@ class MemberRowMapper implements org.springframework.jdbc.core.RowMapper<MemberD
 		MemberDTO data = new MemberDTO();
 		System.out.println("[로그:정현진] memberID = "+rs.getString("MEMBER_ID"));
 		data.setMemberID(rs.getString("MEMBER_ID"));
-		data.setMemberGrade(rs.getString("MEMBER_GRADE"));
+		data.setMemberRole(rs.getString("MEMBER_ROLE"));
 		return data;
 	}
 

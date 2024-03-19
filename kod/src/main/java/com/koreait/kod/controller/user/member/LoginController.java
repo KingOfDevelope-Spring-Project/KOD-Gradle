@@ -58,7 +58,7 @@ public class LoginController {
 		}
 		
 		// 로그인 성공 시 처리로직
-		if(memberDTO.getMemberGrade().equals("ADMIN")) {
+		if(memberDTO.getMemberRole().equals("ADMIN")) {
 			System.out.println("[로그:정현진] 관리자로그인 성공");
 			session.setAttribute("adminDTO", memberDTO);
 			return "admin/adminMain";

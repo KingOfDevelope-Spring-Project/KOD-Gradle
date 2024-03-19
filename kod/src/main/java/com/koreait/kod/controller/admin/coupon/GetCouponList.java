@@ -21,14 +21,13 @@ public class GetCouponList {
 	public String getAllCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
 	
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
-		if(!adminDTO.getMemberGrade().equals("ADMIN")) {
+		if(!adminDTO.getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
 		
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
-		
-		return "admin/CouponList";
+		return "admin/couponList";
 	}
 	
 	
