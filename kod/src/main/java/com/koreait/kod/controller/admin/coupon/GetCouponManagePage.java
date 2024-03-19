@@ -4,12 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class GetUserCouponList {
+public class GetCouponManagePage {
 
-	@GetMapping("/getUserCouponList")
-	public String getUserCouponList() {
+	@GetMapping("/getCouponManagePage")
+	public String getCouponManage() {
 		
-		return "admin/userCouponList";
+		
+		
+		return "admin/coupon/couponManage";
 	}
-	
 }

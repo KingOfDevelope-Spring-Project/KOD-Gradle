@@ -4,12 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class GetIssueCouponPage {
+public class GetCouponIssuePage {
 	
-	@GetMapping("/getIssueCouponPage")
+	@GetMapping("/couponIssuePage")
 	public String getIssueCouponPage() {
+		
 		System.out.println("[로그:정현진] 쿠폰 발행 페이지 들어옴");
-		return "admin/couponIssue";
+		return "admin/coupon/couponIssue";
 		
 	}
 }
