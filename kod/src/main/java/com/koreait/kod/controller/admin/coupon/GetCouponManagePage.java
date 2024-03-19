@@ -9,8 +9,6 @@ public class GetCouponManagePage {
 	@GetMapping("/getCouponManagePage")
 	public String getCouponManage() {
 		
-		
-		
 		return "admin/coupon/couponManage";
 	}
 }

@@ -20,7 +20,7 @@ public class GetUsedCouponsList {
 	public String getUsedCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
 		
 		
-		couponDTO.setSearchCondition("getUsedCouponListOfMember");
+		couponDTO.setSearchCondition("getUsedCouponListOfMember"); 
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
 		if(((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
