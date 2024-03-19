@@ -1,5 +1,7 @@
 package com.koreait.kod.biz.coupon;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,12 @@ public class CouponDTO {
 	private int couponDiscountMaxPrice; // 최대 할인가격
 	private int couponUseMinPrice; // 쿠폰사용 최소 금액
 	private int couponUseDate; // 쿠폰 사용기간
+	
+	private Date couponIssueDate;
+	private String memberID;
+	private int couponStatus_ID;
+	private Date orderListDate;
 	private String searchCondition; 
+	
 
 }
