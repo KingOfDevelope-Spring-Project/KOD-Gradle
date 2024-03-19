@@ -23,7 +23,7 @@
 <body>
 	<div class="container">
 		<h2>상품 후기 작성</h2>
-		<form action="reviewWriteAction.do" method="POST"
+		<form action="/reviewWrite" method="POST"
 			enctype="multipart/form-data" onsubmit="return validateForm();">
 
 			<c:set var="productID" value="${empty param.productID ? 0 : param.productID}" />
