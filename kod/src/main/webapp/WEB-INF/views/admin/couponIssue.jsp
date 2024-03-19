@@ -20,15 +20,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome Icons -->
-<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="resources/plugins/fontawesome-free/css/all.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<link rel="stylesheet" href="resources/dist/css/adminlte.min.css">
 <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="resources/plugins/daterangepicker/daterangepicker.css">
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -80,17 +80,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            </div>
 				          </div>
 				          <!-- /.card-header -->
-				          <form action="/issueCouponByGrade" method="POST">
+				          <form action="/issueCouponByGrade" method="POST" id="couponIssue">
 					          <div class="card-body" style="display: flex;">
 					            
 					              <div class="col-sm-6">
 					              	<div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 종류</label>
-						                  <select class="form-control select2" id="coupon-type" style="width: 100%;">
-						                    <option selected="selected">자동 발행</option>
-						                    <option>관리자 발행</option>
-						                    <option>프로모션 쿠폰</option>
+						                  <select class="form-control select2" id="coupon-type" name="couponType" style="width: 100%;">
+						                    <option value="auto" selected="selected">자동 발행</option>
+						                    <option value="adminIssue">관리자 발행</option>
+						                    <option value="promotion">프로모션 쿠폰</option>
 						                  </select>
 						                </div>
 					                </div>
@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰명</label>
-						                  <input class="form-control" id="couponName" type="text" placeholder="쿠폰명을 입력하세요.">
+						                  <input class="form-control" id="couponName" name="couponName" type="text" placeholder="쿠폰명을 입력하세요.">
 						                </div>
 					            	</div>
 					                <!-- /.form-group -->
@@ -107,14 +107,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					              	<div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 코드</label>
-						                   <input class="form-control" id="couponCode" type="text" placeholder="쿠폰 코드를 입력하세요.">
+						                   <input class="form-control" id="couponCode" name="couponCode" type="text" placeholder="쿠폰 코드를 입력하세요.">
 						                </div>
 						            </div>
 					                <!-- /.form-group -->
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 설명</label>
-						                  <input class="form-control" id="couponContent" type="text" placeholder="쿠폰 설명을 입력하세요.">
+						                  <input class="form-control" id="couponContent" name="couponContent" type="text" placeholder="쿠폰 설명을 입력하세요.">
 						                </div>
 					                </div>
 					                <!-- /.form-group -->
@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <label>할인율</label>
 						                <div class="form-group" >
 						                  	<div style="width: 100%;">
-						                  		<input class="form-control" id="couponDiscountRate" type="text" placeholder="할인율을 입력하세요." style="width: 70%; display: inline-block;">
+						                  		<input class="form-control" id="couponDiscountRate" name="couponDiscountRate" type="text" placeholder="할인율을 입력하세요." style="width: 70%; display: inline-block;">
 							                        <div class="form-check" style="display: inline-block; margin-left: 5%;">
 							                          <input class="form-check-input" type="radio" name="radio1">
 							                          <label class="form-check-label">%</label>
@@ -141,21 +141,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 사용 최소금액</label>
-						                  <input class="form-control" id="couponMinPrice" type="text" placeholder="쿠폰 사용 최소금액을 입력하세요.">
+						                  <input class="form-control" id="couponUseMinPrice" name="couponUseMinPrice" type="text" placeholder="쿠폰 사용 최소금액을 입력하세요.">
 						                </div>
 					                </div>
 					                
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 최대 할인금액</label>
-						                  <input class="form-control" id="couponDiscountMax" type="text" placeholder="쿠폰 최대 할인금액을 입력하세요.">
+						                  <input class="form-control" id="couponDiscountMaxPrice" name="couponDiscountMaxPrice" type="text" placeholder="쿠폰 최대 할인금액을 입력하세요.">
 						                </div>
 					                </div>
 					                
 					                <div class="col-sm-10">
 						                <div class="form-group">
 						                  <label>쿠폰 카테고리</label>
-			        	          			<select class="form-control select2" id="couponCategory" style="width: 100%;" required>
+			        	          			<select class="form-control select2" id="couponCategory" name="couponCategory" style="width: 100%;" required>
 						                    	<option selected="selected" style="display: none;"></option>
 						                    	<option>전체</option>
 						                    	<option>헤드폰</option>
@@ -165,11 +165,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                </div>
 					                </div>
 					                
-					                <button type="button" class="btn btn-primary" style="float: right;">쿠폰 발행</button>
+					                <button type="submit" onclick="submitForm()" class="btn btn-primary" style="float: right;">쿠폰 발행</button>
 					              </div>
 					              
 					              <!-- 자동 발행 선택 시 div -->
-					              	<div class="col-sm-6" id="issue-option" style="float: right; display: block;">
+					              	<div class="col-sm-6" id="issue-option" name="issueOption" style="float: right; display: block;">
 					              		<div class="col-sm-10">
 						              		<div class="form-group">
 						                  		<label>발급 조건</label>
@@ -186,17 +186,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					              
 					              
 					              	<!-- 관리자 발행 선택 시 div -->
-					              	<div class="col-sm-6" id="user-grade" style="float: right; display: none;">
+					              	<div class="col-sm-6" id="user-grade" name="memberGrade" style="float: right; display: none;">
 					              		<div class="col-sm-10">
 						              		<div class="form-group">
 						                  		<label>발급 대상</label>
 					        	          		<select class="form-control select2" id="grade" style="width: 100%;">
 					        	          			<option selected="selected" style="display: none;"></option>
-								                    <option>전체</option>
-								                    <option>Bronze</option>
-								                    <option>Silver</option>
-								                    <option>Gold</option>
-								                    <option>VIP</option>
+								                    <option value="all">전체</option>
+								                    <option value="bronze">Bronze</option>
+								                    <option value="silver">Silver</option>
+								                    <option value="gold">Gold</option>
+								                    <option value="vip">VIP</option>
 							                  	</select>
 						                	</div>
 					                	</div>
@@ -249,19 +249,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- ./wrapper -->
 
 	<!-- REQUIRED SCRIPTS -->
-	<script src="plugins/jquery/jquery.min.js"></script>
-	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="dist/js/adminlte.min.js"></script>
+	<script src="resources/plugins/jquery/jquery.min.js"></script>
+	<script src="resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/dist/js/adminlte.min.js"></script>
 	<!-- Bootstrap 4 -->
 	<!-- Select2 -->
-	<script src="plugins/select2/js/select2.full.min.js"></script>
+	<script src="resources/plugins/select2/js/select2.full.min.js"></script>
 	<!-- Bootstrap4 Duallistbox -->
-	<script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+	<script src="resources/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 	<!-- InputMask -->
-	<script src="plugins/moment/moment.min.js"></script>
-	<script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+	<script src="resources/plugins/moment/moment.min.js"></script>
+	<script src="resources/plugins/inputmask/jquery.inputmask.min.js"></script>
 	<!-- Date Range -->
-	<script src="plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="resources/plugins/daterangepicker/daterangepicker.js"></script>
 	
 <!-- Date Range -->
 <script>
@@ -280,10 +280,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 document.getElementById('coupon-type').addEventListener('change', function() {
 	  var userGradeSection = document.getElementById('user-grade');
 	  var userOptionSection = document.getElementById('issue-option');
-	  if (this.value === '관리자 발행') {
+	  if (this.value === 'adminIssue') {
 		  userOptionSection.style.display = 'none';
 		  userGradeSection.style.display = 'block';
-	  } else if (this.value === '자동 발행'){
+	  } else if (this.value === 'auto'){
 		  userGradeSection.style.display = 'none';
 		  userOptionSection.style.display = 'block';
 	  } else{
@@ -291,6 +291,12 @@ document.getElementById('coupon-type').addEventListener('change', function() {
 		  userOptionSection.style.display = 'none';
 	  }
 	});
+</script>
+<script>
+function submitForm() {
+    var form = document.getElementById("couponIssue");
+    form.submit();
+}
 </script>
 	<!-- jQuery -->
 
