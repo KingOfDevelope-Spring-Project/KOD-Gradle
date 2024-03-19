@@ -14,7 +14,7 @@ public class CouponStatusDAO {
 
 	private static final String SELECTALL="";
 	private static final String SELECTONE="";
-	private static final String INSERT="";
+	private static final String INSERT="INSERT INTO COUPON_STATUS(MEMBER_ID,COUPON_ID,COUPON_EXPIRE_DATE) VALUES (?,?,?)";
 	private static final String UPDATE="";
 	private static final String DELETE="";
 
@@ -27,7 +27,12 @@ public class CouponStatusDAO {
 	}
 
 	public boolean insert(CouponStatusDTO couponStatusDTO) {
-		return false;
+		int result= jdbcTemplate.update(INSERT,couponStatusDTO.getMemberID(),couponStatusDTO.getCouponID(),couponStatusDTO.getCouponExpireDate());
+		
+		if(result <=0) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean update(CouponStatusDTO couponStatusDTO) {
