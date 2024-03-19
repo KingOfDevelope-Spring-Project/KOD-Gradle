@@ -34,7 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<jsp:include page="admin-sidebar.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/admin-sidebar.jsp"></jsp:include>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
