@@ -191,11 +191,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                  		<label>발급 대상</label>
 					        	          		<select class="form-control select2" id="memberGrade" name="memberGrade" style="width: 100%;">
 					        	          			<option selected="selected" style="display: none;"></option>
-								                    <option value="all">전체</option>
-								                    <option value="bronze">Bronze</option>
-								                    <option value="silver">Silver</option>
-								                    <option value="gold">Gold</option>
-								                    <option value="vip">VIP</option>
+								                    <option value="ALL">전체</option>
+								                    <option value="BRONZE">Bronze</option>
+								                    <option value="SILVER">Silver</option>
+								                    <option value="GOLD">Gold</option>
+								                    <option value="VIP">VIP</option>
 							                  	</select>
 						                	</div>
 					                	</div>
