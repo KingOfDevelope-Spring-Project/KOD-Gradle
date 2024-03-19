@@ -17,17 +17,17 @@ public class GetCouponList {
 	@Autowired
 	CouponService couponService;
 
-	@GetMapping("/getAllCouponList")
-	public String getAllCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
-	
-		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
-		if(!adminDTO.getMemberRole().equals("ADMIN")) {
+	@GetMapping("/getIssuedCouponListPage") // 쿠폰 발행 목록
+	public String getIssuedCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
+		System.out.println("[로그:정현진] 쿠폰목록 페이지 들어옴");
+		
+		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
 		
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
-		return "admin/couponList";
+		return "admin/coupon/couponList";
 	}
 	
 	

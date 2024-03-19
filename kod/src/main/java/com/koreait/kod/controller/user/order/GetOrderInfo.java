@@ -4,23 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.koreait.kod.biz.address.AddressDTO;
 import com.koreait.kod.biz.address.AddressService;
-import com.koreait.kod.biz.order.OrderContentDTO;
-import com.koreait.kod.biz.order.OrderContentService;
 import com.koreait.kod.biz.order.OrderListDTO;
 import com.koreait.kod.biz.order.OrderListService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class OrderController {
+public class GetOrderInfo {
 
-	@Autowired
-	private OrderContentService orderContentService;
 	@Autowired
 	private OrderListService orderListService;
 	@Autowired
@@ -42,18 +36,4 @@ public class OrderController {
 		
 		return "forward:getOrderContentInfoPage";
 	}
-	
-	@RequestMapping(value = "/getOrderContentInfoPage",method = RequestMethod.GET)
-	public String getOrderContent(OrderContentDTO orderContentDTO, Model model, HttpSession session) {
-		
-		//세션에 저장된 memberID 가져오기
-		orderContentDTO.setMemberID((String)session.getAttribute("memberID"));
-		orderContentDTO.setSearchCondition("orderContent");
-		model.addAttribute("orderContent", orderContentService.selectAll(orderContentDTO));
-		
-		return "orderInfo";
-	}
-	
-	
-	
 }

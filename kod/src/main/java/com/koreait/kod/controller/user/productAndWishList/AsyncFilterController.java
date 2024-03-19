@@ -22,7 +22,7 @@ public class AsyncFilterController {
 	@Autowired
 	ObjectMapper objectMapper;
 
-	@PostMapping("/asyncFilterProductList")
+	@PostMapping("/asyncFilterProducts")
 	public @ResponseBody String categoryProductList(
 				@RequestParam("maxPrice") int maxPrice, 
 				@RequestParam("minPrice") int minPrice, 
