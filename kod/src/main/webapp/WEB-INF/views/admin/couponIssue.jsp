@@ -164,7 +164,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                </div>
 					                </div>
 					                
-					                <button type="submit" onclick="submitForm()" class="btn btn-primary" style="float: right;">쿠폰 발행</button>
+					                
 					              </div>
 					              
 					              <!-- 자동 발행 선택 시 div -->
@@ -189,7 +189,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					              		<div class="col-sm-10">
 						              		<div class="form-group">
 						                  		<label>발급 대상</label>
-					        	          		<select class="form-control select2" id="grade" style="width: 100%;">
+					        	          		<select class="form-control select2" id="memberGrade" name="memberGrade" style="width: 100%;">
 					        	          			<option selected="selected" style="display: none;"></option>
 								                    <option value="all">전체</option>
 								                    <option value="bronze">Bronze</option>
@@ -212,9 +212,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                </div>
 						            </div>
 						            <!-- /프로모션 선택 시 div -->
-						            
 					              <!-- /.col -->
 					        </div>
+					        <button type="submit" onclick="submitForm()" class="btn btn-primary" style="float: right;">쿠폰 발행</button>
 				        </form>      
 				        <!-- /.card -->
 				
