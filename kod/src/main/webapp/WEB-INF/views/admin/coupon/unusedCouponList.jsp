@@ -63,58 +63,81 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="row">
 						
-							<!-- 발행 쿠폰 목록 -->
-							<div class="col-sm-12">
+						<!-- 상품 목록 검색 조건 -->
+						<div class="col-sm-12">
 							<div class="card">
-				              <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-				                <h3 class="card-title" style="margin-top: 0.6%;">쿠폰 목록</h3>
-				                <div style="justify-content: flex-end;">
-				                <button type="button" class="btn btn-primary" onclick="location.href='adminCouponIssue.jsp'" style="margin-left: auto;">
-				                	신규 쿠폰 발급
-				                </button>
-				                <button type="button" class="btn btn-danger" onclick="location.href='adminCouponIssue.jsp'" style="margin-left: auto;">
-				                	삭제
-				                </button>
-				                </div>
-				              </div>
-				              <!-- /.card-header -->
-				              <div class="card-body">
-				                <table id="example2" class="table table-bordered table-hover">
-				                  <thead>
-				                  <tr>
-				                    <th>번호</th>
-				                    <th>쿠폰명</th>
-				                    <th>쿠폰 코드</th>
-				                    <th>쿠폰 설명</th>
-				                    <th>할인율</th>
-				                    <th>쿠폰 기간</th>
-				                    <th>쿠폰 타입</th>
-				                  </tr>
-				                  </thead>
-				                  <tbody>
-				                  <c:forEach items="${couponDatas}" var="coupon" varStatus="i" begin="0" step="1">
-				                  <tr>
-				                  	<td>${i.count}</td>
-				                  	<td>${coupon.couponName}</td>
-				                  	<td>${coupon.couponCode}</td>
-				                  	<td>${coupon.couponContent}</td>
-				                  	<td>${coupon.couponDiscountRate}</td>
-				                  	<td>${coupon.couponUseDate}</td>
-				                  	<td>${coupon.couponType}</td>
-				                  </tr>
-				                  </c:forEach>
-				                </table>
-				              </div>
-				              <!-- /.card-body -->
-				            </div>
+								<div class="card-header" style="display: flex; justify-content: space-between;">
+									<h3 class="card-title" style="margin-top: 0.6%;">검색 조건</h3>
+									<button type="button" class="btn btn-primary" style="margin-left: auto;;">검색하기</button>
+								</div>
+								<div class="card-body">
+									<table id="example3" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th style="width: 15%;">사용자ID</th>
+												<td style="width: 35%;"><input class="form-control form-control-sm" type="text"></td>
+												<th style="width: 15%;">사용 여부</th>
+												<td style="width: 35%;"><select class="form-control form-control-sm select2">
+								                    	<option selected="selected" value="unused">미사용</option>
+								                    	<option value="used">사용</option>
+								                    	<option value="expire">만료</option>
+							                  		</select>
+						                  		</td>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
 						</div>
+						<!-- /상품 목록 검색 조건 -->
+					             
+						<!-- 상품 목록 테이블 -->
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-header" style="display: flex; justify-content: space-between;">
+									<h3 class="card-title" style="margin-top: 0.6%;">쿠폰 목록</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<!-- <button type="button" class="btn btn-primary" onclick="location.href='adminProductRegister.jsp'" style="margin-left: auto;">신규 상품 등록</button>
+									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button> -->
+									<table id="example2" class="table table-bordered table-hover">
+					                  <thead>
+					                  <tr>
+					                    <th>번호</th>
+					                    <th>쿠폰명</th>
+					                    <th>쿠폰 코드</th>
+					                    <th>쿠폰 설명</th>
+					                    <th>할인율</th>
+					                    <th>쿠폰 기간</th>
+					                    <th>쿠폰 타입</th>
+					                    <th>사용자</th>
+					                  </tr>
+					                  </thead>
+					                  <tbody>
+					                  <c:forEach items="${couponDatas}" var="coupon" varStatus="i" begin="0" step="1">
+					                  <tr>
+					                  	<td>${i.count}</td>
+					                  	<td>${coupon.couponName}</td>
+					                  	<td>${coupon.couponCode}</td>
+					                  	<td>${coupon.couponContent}</td>
+					                  	<td>${coupon.couponDiscountRate}</td>
+					                  	<td>${coupon.couponUseDate}</td>
+					                  	<td>${coupon.couponType}</td>
+					                  	<td>${coupon.memberID}</td>
+					                  </tr>
+					                  </c:forEach>
+					                </table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>	
 							<!-- /발행 쿠폰 목록 -->
 							<!-- /.card-body -->
 						
 						<!-- /.card -->
 					</div>
-					<!-- /.col-md-6 -->
-
 					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
@@ -122,8 +145,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.container-fluid -->
 		</div>
 		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
 
 	<!-- Control Sidebar -->
 	<aside class="control-sidebar control-sidebar-dark">
@@ -164,14 +185,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	
+<!-- 쿠폰 목록 js -->
 <!-- Page specific script -->
 <script>
   $(function () {
-    /* $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)'); */
-    $('#example3').DataTable({
+    $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": false,
@@ -180,10 +199,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "autoWidth": false,
       "responsive": true,
       "columnDefs": [
-    	  {"orderable": false, "targets":[2,3,4]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+    	  {"orderable": false, "targets":[1,2,3,4,5,7]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
       ],
     });
   });
+</script>
+<!-- 쿠폰 목록 js -->
+
+<script>
+document.getElementById('coupon-type').addEventListener('change', function() {
+	  var usedSection = document.getElementById('usedCoupon');
+	  var unusedSection = document.getElementById('unusedCoupon-table');
+	  if (this.value === '사용 쿠폰 목록') {
+		  unusedSection.style.display = 'none';
+		  usedSection.style.display = 'block';
+	  } else if (this.value === '미사용 쿠폰 목록'){
+		  usedSection.style.display = 'none';
+		  unusedSection.style.display = 'block';
+	  } else{
+		  usedSection.style.display = 'none';
+		  unusedSection.style.display = 'none';
+	  }
+	});
 </script>
 
 	<!-- jQuery -->
