@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.koreait.kod.biz.coupon.CouponRowMapper1;
+
 
 @Repository("productDAO")
 public class ProductDAO {
@@ -91,8 +92,10 @@ public class ProductDAO {
 			+ "    `PRODUCT_SALES_REVENUE` DESC";
 	
 	
-	private static final String SELECTONE="";
-	private static final String INSERT="";
+	private static final String SELECTONE="SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
+	private static final String INSERT="INSERT INTO "
+			+ "PRODUCT (PRODUCT_NAME,PRODUCT_BRAND,PRODUCT_PRICE,PRODUCT_INFO,PRODUCT_STOCK,CATEGORY_ID) "
+			+ "VALUES (?,?,?,?,?,?)";
 	private static final String UPDATE="";
 	private static final String DELETE="";
 
@@ -107,11 +110,22 @@ public class ProductDAO {
 	}
 
 	public ProductDTO selectOne(ProductDTO productDTO) {
-		return null;
+		try {
+			Object[] args = { productDTO.getProductName() };
+			return jdbcTemplate.queryForObject(SELECTONE, args, new productRowMapper());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public boolean insert(ProductDTO productDTO) {
-		return false;
+		int result=jdbcTemplate.update(INSERT,productDTO.getProductName(),productDTO.getProductBrand()
+				,productDTO.getProductPrice(),productDTO.getProductInfo(),productDTO.getProductStock()
+				,productDTO.getCategoryID());
+		if(result <=0) {
+			return false;		
+		}
+		return true;
 	}
 
 	public boolean update(ProductDTO productDTO) {
@@ -141,4 +155,15 @@ class ProductRowMapperQuarterStatistics implements org.springframework.jdbc.core
 		data.setQuarterlyRevenue(rs.getInt("QUARTER_REVENUE")); // 분기 매출
 		return data;
 	}
+}
+
+class productRowMapper implements RowMapper<ProductDTO>{
+
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO productDTO= new ProductDTO();
+		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
+		return productDTO;
+	}
+	
 }
