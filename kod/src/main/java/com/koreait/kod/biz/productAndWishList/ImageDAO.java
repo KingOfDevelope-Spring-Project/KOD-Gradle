@@ -14,7 +14,7 @@ public class ImageDAO {
 
 	private static final String SELECTALL="";
 	private static final String SELECTONE="";
-	private static final String INSERT="";
+	private static final String INSERT_PRODUCT_IMAGE="INSERT INTO IMAGE(PRODUCT_ID,IMAGE_URL,IMAGE_CATEGORY)VALUES(?,?,'PRODUCT')";
 	private static final String UPDATE="";
 	private static final String DELETE="";
 
@@ -27,7 +27,11 @@ public class ImageDAO {
 	}
 
 	public boolean insert(ImageDTO imageDTO) {
-		return false;
+		int result = jdbcTemplate.update(INSERT_PRODUCT_IMAGE,imageDTO.getProductID(),imageDTO.getImageUrl());
+		if(result <= 0) {
+			return false;			
+		}
+		return true;
 	}
 
 	public boolean update(ImageDTO imageDTO) {

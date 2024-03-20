@@ -14,5 +14,9 @@ public class MemberDTO {
 	private String memberGender; // 성별
 	private String memberBirth; // 생년월일
 	private String memberRole; // 상태 (유저,관리자,탈퇴)
+	
+	//컬럼에 없는 멤버변수
+	private int memberCount;
+	private int newMemberCount;
 	private String searchCondition;
 }
