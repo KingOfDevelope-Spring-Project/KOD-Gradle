@@ -21,9 +21,9 @@ public class GetProductSalesStatisticsByQuarter {
 			return "common/error";
 		}
 		
-		productDTO.setSearchCondition("getProductSalesStatisticsByQuarter");
+		productDTO.setSearchCondition("quarterStatistics");
 		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		
-		return "admin/Statistics/ProductSalesStatisticsByQuarter";
+		return "admin/statistics/productSalesStatisticsByQuarter";
 	}
 }
