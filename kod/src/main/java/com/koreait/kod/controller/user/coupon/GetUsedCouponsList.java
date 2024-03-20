@@ -16,7 +16,7 @@ public class GetUsedCouponsList {
 	@Autowired
 	CouponService couponService;
 
-	@GetMapping("/getUsedCouponList")
+	@GetMapping("/getUsedCouponListPage")
 	public String getUsedCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
 		
 		
@@ -24,10 +24,10 @@ public class GetUsedCouponsList {
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
 		if(((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
-			return "admin/coupon/UsedCouponList";
+			return "admin/coupon/usedCouponList";
 		}
 		else {
-			return "user/coupon/UsedCouponList";
+			return "user/coupon/usedCouponList";
 		}
 	}
 }
