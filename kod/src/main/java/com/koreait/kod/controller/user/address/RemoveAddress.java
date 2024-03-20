@@ -15,7 +15,7 @@ public class RemoveAddress {
 	@Autowired
 	private AddressService addressService;
 		
-	@PostMapping("/removeAddress")
+	@PostMapping("/deleteAddress")
 	public String deleteAddress(AddressDTO addressDTO, Model model,HttpSession session) {
 
 		try {

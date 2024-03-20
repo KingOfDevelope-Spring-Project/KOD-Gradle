@@ -15,7 +15,7 @@ public class GetCartPage {
 	
 	CartService cartService;
 
-	@GetMapping("getCartPage")
+	@GetMapping("/getCartPage")
 	public String getCartPage(CartDTO cartDTO,MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		cartDTO.setMemberID((String)session.getAttribute("memberID"));

@@ -15,7 +15,7 @@ public class AddAddress {
 	@Autowired
 	private AddressService addressService;
 	
-	@PostMapping("/addAddress")
+	@PostMapping("/insertAddress")
 	public String insertAddress(AddressDTO addressDTO,Model model,HttpSession session) {
 		
 		try {

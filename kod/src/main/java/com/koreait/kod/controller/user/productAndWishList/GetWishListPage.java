@@ -25,7 +25,7 @@ public class GetWishListPage {
 	WishListService wishListService;
 	
 	// 위시리스트 페이지 이동
-	@GetMapping("/getwishListPage")
+	@GetMapping("/getWishListPage")
 	public String getwishListPage(@RequestParam("page") String page, ProductDTO productDTO, WishListDTO wishListDTO, Model model, HttpSession session) {
 		
 		// 상품목록 반환

@@ -10,7 +10,7 @@ import com.koreait.kod.biz.member.MemberService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class GetLoginPage {
+public class LoginPage {
 	
 	@Autowired
 	MemberService memberService;
@@ -25,7 +25,7 @@ public class GetLoginPage {
 		if(memberID==null) {
 			return "user/login/loginPage";
 		}
-		return "redirect/logout";
+		return "redirect:/logout";
 	}
 	
 	

@@ -16,7 +16,7 @@ public class KodLogin {
 	@Autowired
 	MemberService memberService;
 	
-	@PostMapping("/login")
+	@PostMapping("/kodLogin")
 	public String login(MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		System.out.println("[로그:정현진] 로그인요청 들어옴");
