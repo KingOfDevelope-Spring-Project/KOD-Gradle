@@ -19,4 +19,15 @@ public class ProductDTO {
 	private String productInfo; // 상품 정보 
 //	private String productImg; 
 	private String searchCondition;
+	// 아래부터 통계에 사용되는 멤버변수
+	private int year; // 년
+	private int quarter; // 분기
+	private int month; // 월
+	private int day; // 일
+	private int productSalesQuantity; // 상품 판매수량
+	private int productSalesRevenue; // 상품 매출
+	private int anualRevenue; // 연 매출
+	private int quarterlyRevenue; // 분기 매출
+	private int monthlyRevenue; // 월간 매출
+	private int dailyRevenue; // 일간 매출
 }
