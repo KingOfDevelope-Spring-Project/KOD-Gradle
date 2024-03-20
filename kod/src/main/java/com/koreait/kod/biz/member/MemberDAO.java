@@ -19,12 +19,14 @@ public class MemberDAO {
 			"SELECT MEMBER_ID,MEMBER_GRADE,MEMBER_NAME FROM MEMBER WHERE MEMBER_GRADE=?";
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
-
+	private static final String SELECT_MEMBER_COUNT = "SELECT COUNT(MEMBER_ID) AS CNT_MEMBER FROM MEMBER";
+	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
 	private static final String INSERT="";
 	private static final String UPDATE="";
 	private static final String DELETE="";
 
 	public List<MemberDTO> selectAll(MemberDTO memberDTO) {
+		try {
 	    if (memberDTO.getSearchCondition().equals("getMembersByGrade")) {
 	    	System.out.println("[로그:정현진] memberDAO 들어옴");
 	    	System.out.println("[로그:정현진] 회원등급"+memberDTO.getMemberGrade());
@@ -33,13 +35,28 @@ public class MemberDAO {
 	    } else {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
+		try {
+		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
-		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper()); // 인자를 배열로 전달 // 인자로 뭐가 들어갈지 몰라서
-	} // 결과에 대한것은 매번 new되야한다. 싱글톤이 되면 안된다.
-
+		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper());
+		}else if(memberDTO.getSearchCondition().equals("memberCount")) {
+			return jdbcTemplate.queryForObject(SELECT_MEMBER_COUNT, new MemberRowMapper1());
+		}else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
+			return jdbcTemplate.queryForObject(SELECT_NEW_MEMBER_COUNT, new MemberRowMapper3());
+		}else {
+			return null;
+		}
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public boolean insert(MemberDTO memberDTO) {
 		return false;
 	}
@@ -66,6 +83,16 @@ class MemberRowMapper implements org.springframework.jdbc.core.RowMapper<MemberD
 		return data;
 	}
 }
+class MemberRowMapper1 implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO data = new MemberDTO();
+		data.setMemberCount(rs.getInt("CNT_MEMBER"));
+		return data;
+	}
+	
+}
 class MemberRowMapper2 implements RowMapper<MemberDTO> {
     
 	@Override
@@ -77,3 +104,14 @@ class MemberRowMapper2 implements RowMapper<MemberDTO> {
 		return data;
 	}
 }
+class MemberRowMapper3 implements RowMapper<MemberDTO>{
+
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO data=new MemberDTO();
+		data.setNewMemberCount(rs.getInt("CNT_NEW_MEMBER"));
+		return data;
+	}
+	
+}
+
