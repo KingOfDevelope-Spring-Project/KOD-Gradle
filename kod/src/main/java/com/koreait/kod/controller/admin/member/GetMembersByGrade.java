@@ -23,10 +23,8 @@ public class GetMembersByGrade {
 		if(!adminDTO.getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
-		
 		memberDTO.setSearchCondition("getMembersByGrade");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
-		
 		return "admin/member/memberList";
 	}
 	

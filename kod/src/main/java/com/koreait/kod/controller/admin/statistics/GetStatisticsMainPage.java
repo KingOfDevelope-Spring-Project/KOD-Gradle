@@ -1,7 +1,9 @@
 package com.koreait.kod.controller.admin.statistics;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.koreait.kod.biz.member.MemberDTO;
 import com.koreait.kod.biz.productAndWishList.ProductDTO;
@@ -11,9 +13,10 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class GetStatisticsMainPage {
-	
+	@Autowired
 	ProductService productService;
 	
+	@GetMapping("/getStatisticsMainPage")
 	public String getStatisticsMain(ProductDTO productDTO,Model model,HttpSession session) {
 		
 		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
@@ -27,7 +30,6 @@ public class GetStatisticsMainPage {
 		productDTO.setSearchCondition("dailyRevenueFor30Days");
 		model.addAttribute("dailyRevenueDatas", productService.selectAll(productDTO));
 
-		
 		return "admin/statisticsMain";
 	}
 }

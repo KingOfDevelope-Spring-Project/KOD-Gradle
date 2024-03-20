@@ -68,6 +68,67 @@ public class ProductDAO {
 			+ "    SALES_STATISTICS.QUARTER, "
 			+ "    SALES_STATISTICS.TOTAL_PRODUCT_SALES DESC";
 	
+	
+	private static final String SELECTALL_QUARTERLY_REVENUE_FOR_2YEARS=
+			"SELECT  "
+			+ "    YEAR(ol.ORDERLIST_DATE) AS 'YEAR', "
+			+ "    QUARTER(ol.ORDERLIST_DATE) AS 'QUARTER', "
+			+ "    SUM(pc.ORDERCONTENT_CNT * p.PRODUCT_PRICE) AS 'QUARTERLY_REVENUE' "
+			+ "FROM  "
+			+ "    ORDERLIST ol "
+			+ "INNER JOIN  "
+			+ "    ORDERCONTENT pc ON ol.ORDERLIST_ID = pc.ORDERLIST_ID "
+			+ "INNER JOIN  "
+			+ "    PRODUCT p ON pc.PRODUCT_ID = p.PRODUCT_ID "
+			+ "WHERE "
+			+ "    ol.ORDERLIST_DATE >= DATE_SUB(CURDATE(), INTERVAL 2 YEAR) "
+			+ "GROUP BY  "
+			+ "    YEAR(ol.ORDERLIST_DATE), "
+			+ "    QUARTER(ol.ORDERLIST_DATE) "
+			+ "ORDER BY "
+			+ "    YEAR(ol.ORDERLIST_DATE), "
+			+ "    QUARTER(ol.ORDERLIST_DATE)";
+	
+	private static final String SELECTALL_MONTHLY_REVENUE_FOR_1YEAR=
+			"SELECT  "
+			+ "    YEAR(ol.ORDERLIST_DATE) AS 'YEAR', "
+			+ "    MONTH(ol.ORDERLIST_DATE) AS 'MONTH', "
+			+ "    SUM(pc.ORDERCONTENT_CNT * p.PRODUCT_PRICE) AS 'DAILY_REVENUE' "
+			+ "FROM  "
+			+ "    ORDERLIST ol "
+			+ "INNER JOIN  "
+			+ "    ORDERCONTENT pc ON ol.ORDERLIST_ID = pc.ORDERLIST_ID "
+			+ "INNER JOIN  "
+			+ "    PRODUCT p ON pc.PRODUCT_ID = p.PRODUCT_ID "
+			+ "WHERE  "
+			+ "    ol.ORDERLIST_DATE >= DATE_FORMAT(CURDATE() - INTERVAL 11 MONTH, '%Y-%m-01')  "
+			+ "    AND ol.ORDERLIST_DATE < DATE_FORMAT(CURDATE() + INTERVAL 1 MONTH, '%Y-%m-01') "
+			+ "GROUP BY  "
+			+ "    YEAR(ol.ORDERLIST_DATE), "
+			+ "    MONTH(ol.ORDERLIST_DATE)";
+	
+	
+	private static final String SELECTALL_DAILY_REVENUE_FOR_30DAYS=
+			"SELECT  "
+			+ "    YEAR(ol.ORDERLIST_DATE), "
+			+ "    MONTH(ol.ORDERLIST_DATE), "
+			+ "    DAY(ol.ORDERLIST_DATE), "
+			+ "    SUM(pc.ORDERCONTENT_CNT * p.PRODUCT_PRICE) AS 'DAILY_REVENUE' "
+			+ "FROM  "
+			+ "    ORDERLIST ol "
+			+ "INNER JOIN  "
+			+ "    ORDERCONTENT pc ON ol.ORDERLIST_ID = pc.ORDERLIST_ID "
+			+ "INNER JOIN  "
+			+ "    PRODUCT p ON pc.PRODUCT_ID = p.PRODUCT_ID "
+			+ "WHERE  "
+			+ "    ol.ORDERLIST_DATE >= CURDATE() - INTERVAL 29 DAY  "
+			+ "    AND ol.ORDERLIST_DATE < CURDATE() + INTERVAL 1 DAY "
+			+ "GROUP BY  "
+			+ "    YEAR(ol.ORDERLIST_DATE), "
+			+ "    MONTH(ol.ORDERLIST_DATE), "
+			+ "    DAY(ol.ORDERLIST_DATE)";
+
+	
 	private static final String SELECTALL_YEAR_PRODUCT_SALES_RANKING=
 			"SELECT  "
 			+ "    YEAR(OL.ORDERLIST_DATE) AS 'YEAR', "
@@ -91,6 +152,19 @@ public class ProductDAO {
 			+ "    YEAR(OL.ORDERLIST_DATE), "
 			+ "    `PRODUCT_SALES_REVENUE` DESC";
 	
+	private static final String SELECTALL_ALL_PRODUCTS_DATAS=
+			"SELECT  "
+			+ "    C.CATEGORY_TYPE, "
+			+ "    P.PRODUCT_ID, "
+			+ "    P.PRODUCT_BRAND, "
+			+ "    P.PRODUCT_NAME, "
+			+ "    P.PRODUCT_PRICE, "
+			+ "    P.PRODUCT_STOCK "
+			+ "FROM  "
+			+ "    PRODUCT AS P "
+			+ "INNER JOIN  "
+			+ "    CATEGORY AS C ON P.CATEGORY_ID = C.CATEGORY_ID";
+	
 	
 	private static final String SELECTONE="SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
 	private static final String INSERT="INSERT INTO "
@@ -98,11 +172,31 @@ public class ProductDAO {
 			+ "VALUES (?,?,?,?,?,?)";
 	private static final String UPDATE="";
 	private static final String DELETE="";
+	
+	
+	
+	
 
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
-		if(productDTO.getSearchCondition().equals("QUARTER_STATISTICS")) {
+		if(productDTO.getSearchCondition().equals("quarterStatistics")) {
 			System.out.println("[로그:정현진] ProductDAO 분기통계 들어옴");
 			return jdbcTemplate.query(SELECTALL_QUARTERLY_STATISTICS, new ProductRowMapperQuarterStatistics());
+		}
+		else if(productDTO.getSearchCondition().equals("quarterlyRevenueFor2Years")) {
+			System.out.println("[로그:정현진] ProductDAO 분기 매출 들어옴");
+			return jdbcTemplate.query(SELECTALL_QUARTERLY_REVENUE_FOR_2YEARS, new ProductRowMapperQuarterRevenue());
+		}
+		else if(productDTO.getSearchCondition().equals("monthlyRevenueFor1Year")) {
+			System.out.println("[로그:정현진] ProductDAO 월간 매출 들어옴");
+			return jdbcTemplate.query(SELECTALL_MONTHLY_REVENUE_FOR_1YEAR, new ProductRowMapperMonthlyRevenue());
+		}
+		else if(productDTO.getSearchCondition().equals("dailyRevenueFor30Days")) {
+			System.out.println("[로그:정현진] ProductDAO 일간 매출 들어옴");
+			return jdbcTemplate.query(SELECTALL_DAILY_REVENUE_FOR_30DAYS, new ProductRowMapperDailyRevenue());
+		}
+		else if(productDTO.getSearchCondition().equals("allProductsDatas")) {
+			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
+			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperDailyRevenue());
 		}
 		else {
 			return null;
@@ -138,8 +232,7 @@ public class ProductDAO {
 }
 
 
-
-// 분기 통계
+//분기 통계
 class ProductRowMapperQuarterStatistics implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -153,6 +246,62 @@ class ProductRowMapperQuarterStatistics implements org.springframework.jdbc.core
 		data.setProductSalesQuantity(rs.getInt("PRODUCT_SALES_QUANTITY")); // 상품판매수량
 		data.setProductSalesRevenue(rs.getInt("PRODUCT_SALES_REVENUE")); // 상품매출
 		data.setQuarterlyRevenue(rs.getInt("QUARTER_REVENUE")); // 분기 매출
+		return data;
+	}
+}
+
+//분기매출
+class ProductRowMapperQuarterRevenue implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] ProductRowMapperQuarterRevenue 들어옴");
+		ProductDTO data = new ProductDTO();
+		data.setYear(rs.getInt("YEAR")); // 년
+		data.setQuarter(rs.getInt("QUARTER")); // 분기
+		data.setQuarterlyRevenue(rs.getInt("QUARTER_REVENUE")); // 분기 매출
+		return data;
+	}
+}
+
+//월간 매출
+class ProductRowMapperMonthlyRevenue implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] ProductRowMapperMonthlyRevenue 들어옴");
+		ProductDTO data = new ProductDTO();
+		data.setYear(rs.getInt("YEAR")); // 년
+		data.setMonth(rs.getInt("MONTH")); // 월
+		data.setMonthlyRevenue(rs.getInt("MONTHLY_REVENUE")); // 월간 매출
+		return data;
+	}
+}
+
+//일간 매출
+class ProductRowMapperDailyRevenue implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] ProductRowMapperDailyRevenue 들어옴");
+		ProductDTO data = new ProductDTO();
+		data.setYear(rs.getInt("YEAR")); // 년
+		data.setMonth(rs.getInt("MONTH")); // 월
+		data.setDay(rs.getInt("DAY")); // 일
+		data.setDailyRevenue(rs.getInt("DAILY_REVENUE")); // 일간 매출
+		return data;
+	}
+}
+
+//상품 전체목록
+class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] ProductRowMapperAllProductsDatas 들어옴");
+		ProductDTO data = new ProductDTO();
+		data.setCategoryID(rs.getInt("CATEGORY_ID"));
+		data.setProductID(rs.getInt("PRODUCT_ID"));
+		data.setProductBrand(rs.getString("PRODUCT_BRAND"));
+		data.setProductName(rs.getString("PRODUCT_NAME"));
+		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		data.setProductStock(rs.getInt("PRODUCT_STOCK"));
 		return data;
 	}
 }

@@ -23,7 +23,7 @@ public class ReviewWriteController {
 	ReviewService reviewService;
 	@Autowired
 	FileUploadAndCopyService fileUploadAndCopy;
-    @Value("${upload.file.path}")
+    @Value("${upload.file.reviewImagePath}")
     private String uploadFilePath;
     
     @PostMapping("/reviewWrite")
@@ -33,9 +33,9 @@ public class ReviewWriteController {
                               @RequestParam("productID") int productID,
                               @RequestParam("orderContentID") int orderContentID,
                               @RequestParam("reviewImageName") String reviewImageName,
-                              @RequestParam("uploadReviewImages") List<MultipartFile> uploadReviewImages,
+                              @RequestParam("uploadReviewImages") List<MultipartFile> reviewImageList,
                               ReviewDTO reviewDTO,
-                              HttpSession session) throws Throwable {
+                              HttpSession session) throws IOException   {
 
         // 현재 세션에서 회원 아이디 가져오기
         String memberID = (String)session.getAttribute("memberID");
@@ -48,13 +48,12 @@ public class ReviewWriteController {
         reviewDTO.setProductID(productID);
         reviewDTO.setOdContentID(orderContentID);
         
-        
         // 파일을 업로드하고 복사하는 메서드 호출하여 UUID 목록 가져오기
-        List<String> uuids = fileUploadAndCopy.uploadAndCopy(uploadFilePath, uploadReviewImages);
+        List<String> uuids = fileUploadAndCopy.uploadAndCopy(uploadFilePath, reviewImageList);
         
         // 파일이 업로드되었을 경우에만 파일 처리
         if (!uuids.isEmpty()) {
-            // 첫 번째 파일에 대한 경로 생성
+            
             String filePath = uploadFilePath + File.separator + uuids.get(0) + "_" + reviewImageName;
             File copyFile = new File(filePath);
             

@@ -34,6 +34,6 @@ public class GetOrderInfo {
 		orderListDTO.setMemberID((String)session.getAttribute("memberID"));
 		model.addAttribute("orderNumber", orderListService.selectOne(orderListDTO));
 		
-		return "forward:getOrderContentInfoPage";
+		return "forward:/getOrderContentInfoPage";
 	}
 }
