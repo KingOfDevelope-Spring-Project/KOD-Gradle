@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.koreait.kod.biz.coupon.CouponDTO;
 import com.koreait.kod.biz.coupon.CouponService;
+import com.koreait.kod.biz.member.MemberDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -15,13 +16,17 @@ public class GetUnusedCouponList {
 	@Autowired
 	CouponService couponService;
 
-	@GetMapping("/getUnusedCouponList")
+	@GetMapping("/getUnusedCouponListPage")
 	public String getUnusedCouponList(CouponDTO couponDTO,Model model,HttpSession session) {
 		
-		couponDTO.setSearchCondition("getUsedCouponListOfMember");
+		couponDTO.setSearchCondition("getUnusedCouponListOfMember"); 
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
-		return "user/coupon/UnusedCouponList";
+		if(((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
+			return "admin/coupon/unusedCouponList";
+		}
+		else {
+			return "user/coupon/unusedCouponList";
+		}
 	}
-	
 }

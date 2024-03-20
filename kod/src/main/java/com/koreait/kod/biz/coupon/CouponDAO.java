@@ -101,8 +101,8 @@ public class CouponDAO {
 			return jdbcTemplate.query(SELECTALL_SEARCH_USED_COUPON, new CouponRowMapper1());
 		}else if(couponDTO.getSearchCondition().equals("searchUnusedCoupon")) {
 			return jdbcTemplate.query(SELECTALL_SEARCH_UNUSED_COUPON, new CouponRowMapper2());
-		}else if (couponDTO.getSearchCondition().equals("selectAll")) {
-			return jdbcTemplate.query(SELECTALL,new CouponRowMapper());
+		}else if (couponDTO.getSearchCondition().equals("issuedCouponList")) {
+			return jdbcTemplate.query(SELECTALL,new CouponRowMapper()); 
 		}
 		else {
 			return null;
@@ -117,7 +117,7 @@ public class CouponDAO {
 			System.out.println("[로그:정현진] CouponDAO 들어옴");
 			System.out.println("[로그:정현진] 쿠폰코드 : "+couponDTO.getCouponCode());
 			Object [] args= {couponDTO.getCouponCode() };
-			return jdbcTemplate.queryForObject(SELECTONE, args, new CouponRowMapper4());
+			return jdbcTemplate.queryForObject(SELECTONE, args, new CouponRowMapperGetCouponID());
 		}
 		else {
 			return null;
@@ -210,7 +210,7 @@ class CouponRowMapper3 implements RowMapper<CouponDTO>{
 		return couponDTO;
 	}
 }
-class CouponRowMapper4 implements RowMapper<CouponDTO>{
+class CouponRowMapperGetCouponID implements RowMapper<CouponDTO>{
 	
 	@Override
 	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
