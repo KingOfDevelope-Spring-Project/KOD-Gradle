@@ -24,7 +24,7 @@ public class GetCouponList {
 		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
-		
+		couponDTO.setSearchCondition("selectAll");
 		model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
 		
 		return "admin/coupon/couponList";

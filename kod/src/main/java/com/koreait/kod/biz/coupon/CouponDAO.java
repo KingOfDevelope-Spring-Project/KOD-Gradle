@@ -96,12 +96,19 @@ public class CouponDAO {
 	private static final String DELETE="DELETE FROM COUPON WHERE COUPON_ID=?";
 
 	public List<CouponDTO> selectAll(CouponDTO couponDTO) {
+		try {
 		if(couponDTO.getSearchCondition().equals("searchUsedCoupon")) {
 			return jdbcTemplate.query(SELECTALL_SEARCH_USED_COUPON, new CouponRowMapper1());
 		}else if(couponDTO.getSearchCondition().equals("searchUnusedCoupon")) {
 			return jdbcTemplate.query(SELECTALL_SEARCH_UNUSED_COUPON, new CouponRowMapper2());
-		}else {
+		}else if (couponDTO.getSearchCondition().equals("selectAll")) {
 			return jdbcTemplate.query(SELECTALL,new CouponRowMapper());
+		}
+		else {
+			return null;
+		}
+		}catch(Exception e) {
+			return null;
 		}
 	}
 
@@ -148,6 +155,7 @@ class CouponRowMapper implements RowMapper<CouponDTO>{
 		couponDTO.setCouponCode(rs.getString("COUPON_CODE"));
 		couponDTO.setCouponUseDate(rs.getInt("COUPON_USE_DATE"));
 		couponDTO.setCouponType(rs.getString("COUPON_TYPE"));
+		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
 		return couponDTO;
 	}
 }
