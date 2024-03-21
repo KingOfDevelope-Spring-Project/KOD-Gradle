@@ -29,7 +29,7 @@ public class InsertProduct { // Controller
 	@Autowired
     CreateFileSavePathService fileSavePathService;
 	@Autowired
-	FileUploadAndCopyService fileUploadAndCopy; // Service
+	FileUploadAndCopyService fileUploadAndCopyService; // Service
 		
 	@PostMapping("/insertProduct")
 	public String insertProduct(@RequestParam("productCategory") int productCategory,
@@ -38,7 +38,6 @@ public class InsertProduct { // Controller
 								@RequestParam("productInfo") String productInfo,
 								@RequestParam("productPrice") int productPrice,
 								@RequestParam("productStock") int productStock,
-								@RequestParam("productImageName") String productImageName,
 								@RequestParam("productImageList") List<MultipartFile> productImageList,
 								ProductDTO productDTO, 
 								ImageDTO imageDTO,
@@ -64,25 +63,7 @@ public class InsertProduct { // Controller
 		 * 
 		 */
 		
-		// 이미지 파일이 업로드되었을 경우에만 업로드 및 파일복사 실행
-        if(productImageList != null && !productImageList.isEmpty()) {
-        	String[] filePaths = fileSavePathService.getUploadFilePath(request);
-            List<String> uuids;
-			try {
-				uuids = fileUploadAndCopy.uploadAndCopy(filePaths, productImageList);
-			} catch (IOException e) {
-				System.out.println("InsertProductController에서 오류발생");
-				e.printStackTrace();
-				
-				return "에러페이지로 이동";
-			}
-            for (String uuid : uuids) {
-            	imageDTO.setImageUrl(uuid);
-            	imageService.insert(imageDTO);
-			}
-        }
-		
-        // 상품 등록
+		// 상품 등록
 		productDTO.setCategoryID(productCategory);
 		productDTO.setProductBrand(productBrand);
 		productDTO.setProductName(productName);
@@ -91,6 +72,28 @@ public class InsertProduct { // Controller
 		productDTO.setProductStock(productStock);
 		productService.insert(productDTO);
 		
+		// 이미지 파일이 업로드되었을 경우에만 업로드 및 파일복사 실행
+		System.out.println("[로그:정현진] productImageList 개수 : "+productImageList.size());
+        if(productImageList != null && !productImageList.isEmpty()) {
+        	String[] filePaths = fileSavePathService.getUploadFilePath(request);
+            List<String> imageUrlList;
+			try {
+				imageUrlList = fileUploadAndCopyService.uploadAndCopy(filePaths, productImageList);
+			} catch (IOException e) {
+				System.out.println("fileUploadAndCopyService에서 오류발생");
+				
+				return "common/error";
+			}
+            for (String imageUrl : imageUrlList) {
+            	productDTO.setProductName(productName);
+            	System.out.println("[로그:정현진] productID : "+imageDTO.getProductID());
+            	System.out.println("[로그:정현진] imageUrl : "+imageUrl);
+            	imageDTO.setProductID(productService.selectOne(productDTO).getProductID());
+            	imageDTO.setImageUrl(imageUrl);
+            	imageService.insert(imageDTO);
+			}
+        }
+
 		return "admin/product/insertProduct";
 	}
 }
