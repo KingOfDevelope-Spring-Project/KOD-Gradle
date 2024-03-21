@@ -19,6 +19,10 @@ public class MemberDAO {
 			"SELECT MEMBER_ID,MEMBER_GRADE,MEMBER_NAME FROM MEMBER WHERE MEMBER_GRADE=?";
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
+	
+	private static final String SELECTONE_MEMBER_COUNTS=
+			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER;";
+	
 	private static final String SELECT_MEMBER_COUNT = "SELECT COUNT(MEMBER_ID) AS CNT_MEMBER FROM MEMBER";
 	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
 	private static final String INSERT="";
@@ -44,11 +48,13 @@ public class MemberDAO {
 		try {
 		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
-		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper());
+		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
 		}else if(memberDTO.getSearchCondition().equals("memberCount")) {
 			return jdbcTemplate.queryForObject(SELECT_MEMBER_COUNT, new MemberRowMapper1());
 		}else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
 			return jdbcTemplate.queryForObject(SELECT_NEW_MEMBER_COUNT, new MemberRowMapper3());
+		}else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
+			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNTS, new MemberRowMapperMemberCounts());
 		}else {
 			return null;
 		}
@@ -72,7 +78,7 @@ public class MemberDAO {
 
 
 //개발자의 편의를 위해 RowMapper인터페이스 사용
-class MemberRowMapper implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
+class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] MemberRowMapper 들어옴");
@@ -113,5 +119,15 @@ class MemberRowMapper3 implements RowMapper<MemberDTO>{
 		return data;
 	}
 	
+}
+
+class MemberRowMapperMemberCounts implements RowMapper<MemberDTO>{
+	
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO data=new MemberDTO();
+		data.setMemberCount(rs.getInt("MEMBER_COUNTS"));
+		return data;
+	}
 }
 

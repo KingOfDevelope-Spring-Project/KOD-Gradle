@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.member.MemberService;
+import com.koreait.kod.biz.order.OrderListDTO;
+import com.koreait.kod.biz.order.OrderListService;
 import com.koreait.kod.biz.productAndWishList.ProductDTO;
 import com.koreait.kod.biz.productAndWishList.ProductService;
 
@@ -15,22 +18,39 @@ import jakarta.servlet.http.HttpSession;
 public class GetAdminMainPage {
 	@Autowired
 	ProductService productService;
+	@Autowired
+	OrderListService orderListService;
+	@Autowired
+	MemberService memberService;
 	
 	@GetMapping("/getAdminMainPage")
-	public String getStatisticsMain(ProductDTO productDTO,Model model,HttpSession session) {
+	public String getStatisticsMain(ProductDTO productDTO,OrderListDTO orderListDTO,MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
 		
+		// 분기매출
 		productDTO.setSearchCondition("quarterlyRevenueFor2Years");
 		model.addAttribute("quarterlyRevenueDatas", productService.selectAll(productDTO));
+		
+		// 월간매출
 		productDTO.setSearchCondition("monthlyRevenueFor1Year");
 		model.addAttribute("monthlyRevenueDatas", productService.selectAll(productDTO));
+		
+		// 일간매출
 		productDTO.setSearchCondition("dailyRevenueFor30Days");
 		model.addAttribute("dailyRevenueDatas", productService.selectAll(productDTO));
 
-		return "admin/statisticsMain";
+		// 어제 오늘 주문건수
+		orderListDTO.setSearchCondition("orderCountsForYesterdayAndToday");
+		model.addAttribute("orderListData", orderListService.selectAll(orderListDTO));
+		
+		// 총회원수
+		memberDTO.setSearchCondition("memberCounts");
+		model.addAttribute("memberData", memberService.selectOne(memberDTO));
+		
+		return "admin/adminMain";
 	}
 }
 
