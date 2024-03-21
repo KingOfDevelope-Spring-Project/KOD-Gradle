@@ -2,7 +2,6 @@ package com.koreait.kod.biz.member;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,8 +152,8 @@ public class MemberDAO {
 }
 
 
-//개발자의 편의를 위해 RowMapper인터페이스 사용
-class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
+
+class MemberRowMapper implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] MemberRowMapper 들어옴");
@@ -195,6 +194,19 @@ class MemberRowMapper3 implements RowMapper<MemberDTO>{
 		return memberDTO;
 	}
 	
+}
+
+//개발자의 편의를 위해 RowMapper인터페이스 사용
+class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] MemberRowMapper 들어옴");
+		MemberDTO memberDTO = new MemberDTO();
+		System.out.println("[로그:정현진] memberID = "+rs.getString("MEMBER_ID"));
+		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
+		memberDTO.setMemberRole(rs.getString("MEMBER_ROLE"));
+		return memberDTO;
+	}
 }
 
 class MemberRowMapperMemberCounts implements RowMapper<MemberDTO>{
