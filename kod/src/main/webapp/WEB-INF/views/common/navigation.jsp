@@ -16,8 +16,8 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li><a href="main.do">Home</a></li>
-						<li><a href="store.do">상품목록</a></li>
+						<li><a href="/getMainPage">Home</a></li>
+						<li><a href="/getStorePage">상품목록</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
