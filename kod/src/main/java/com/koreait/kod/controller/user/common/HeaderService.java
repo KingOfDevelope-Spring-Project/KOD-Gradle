@@ -30,5 +30,4 @@ public class HeaderService {
 		model.addAttribute("cartCnt", cartService.selectOne(cartDTO));
 		
 	}
-	
 }

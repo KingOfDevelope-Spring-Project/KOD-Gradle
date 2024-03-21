@@ -22,6 +22,7 @@ public class LoginPage {
 		
 		String memberID = (String)session.getAttribute("memberID");
 		
+		
 		if(memberID==null) {
 			return "user/login/loginPage";
 		}

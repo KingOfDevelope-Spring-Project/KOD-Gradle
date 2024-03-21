@@ -37,8 +37,8 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.14'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.imgscalr:imgscalr-lib:4.2'
+	implementation 'org.jsoup:jsoup:1.14.2'
 }
 
 tasks.named('test') {

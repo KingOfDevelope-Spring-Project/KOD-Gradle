@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "upload.file.path",
-  "type": "java.lang.String",
-  "description": "A description for 'upload.file.path'"
-}]}
+{"properties": [
+  {
+    "name": "upload.file.productImagePath",
+    "type": "java.lang.String",
+    "description": "A description for 'upload.file.productImagePath'"
+  },
+  {
+    "name": "upload.file.reviewImagePath",
+    "type": "java.lang.String",
+    "description": "A description for 'upload.file.reviewImagePath'"
+  }
+]}
