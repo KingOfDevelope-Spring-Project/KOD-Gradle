@@ -233,15 +233,15 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="adminProductList.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/getProductListPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>상품 목록</p>
 								</a></li>
-								<li class="nav-item"><a href="adminProductRegister.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/insertProductPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>상품 등록</p>
 								</a></li>
-								<li class="nav-item"><a href="adminProductUpdate.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/GetUpdateProductPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>재고 관리</p>
 								</a></li>
