@@ -1,5 +1,9 @@
 package com.koreait.kod.biz.productAndWishList;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -10,9 +14,10 @@ public class ProductDTO {
 	private int productPrice; // 상품 가격
 	private int productMaxPrice; // 최대 가격
 	private int productMinPrice; // 최소 가격
-	private int categoryID; // 카테고리
+	private int categoryID; // 카테고리 FK
+	private String productCategory; // 상품 카테고리
 	private String[] productCategoryList; // 필터검색을 위한 가격 및 카테고리 배열
-	private int[] productImageList; // 여러 이미지 파일을 저장할 배열
+	private List<MultipartFile> productImageList; // 여러 이미지 파일을 저장할 배열
 	private String productBrand; // 상품 브랜드
 	private String productName; // 상품 이름
 	private String productInfo; // 상품 정보 

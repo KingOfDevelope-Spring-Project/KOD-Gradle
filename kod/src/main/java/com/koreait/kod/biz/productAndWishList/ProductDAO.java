@@ -166,7 +166,7 @@ public class ProductDAO {
 			+ "    CATEGORY AS C ON P.CATEGORY_ID = C.CATEGORY_ID";
 	
 	
-	private static final String SELECTONE="SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
+	private static final String SELECTONE_PRODUCT_ID="SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
 	private static final String INSERT="INSERT INTO "
 			+ "PRODUCT (PRODUCT_NAME,PRODUCT_BRAND,PRODUCT_PRICE,PRODUCT_INFO,PRODUCT_STOCK,CATEGORY_ID) "
 			+ "VALUES (?,?,?,?,?,?)";
@@ -196,7 +196,7 @@ public class ProductDAO {
 		}
 		else if(productDTO.getSearchCondition().equals("allProductsDatas")) {
 			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
-			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperDailyRevenue());
+			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperAllProductsDatas());
 		}
 		else {
 			return null;
@@ -206,7 +206,7 @@ public class ProductDAO {
 	public ProductDTO selectOne(ProductDTO productDTO) {
 		try {
 			Object[] args = { productDTO.getProductName() };
-			return jdbcTemplate.queryForObject(SELECTONE, args, new productRowMapper());
+			return jdbcTemplate.queryForObject(SELECTONE_PRODUCT_ID, args, new productRowMapperGetProductID());
 		} catch (Exception e) {
 			return null;
 		}
@@ -296,7 +296,7 @@ class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] ProductRowMapperAllProductsDatas 들어옴");
 		ProductDTO data = new ProductDTO();
-		data.setCategoryID(rs.getInt("CATEGORY_ID"));
+		data.setProductCategory(rs.getString("CATEGORY_TYPE"));
 		data.setProductID(rs.getInt("PRODUCT_ID"));
 		data.setProductBrand(rs.getString("PRODUCT_BRAND"));
 		data.setProductName(rs.getString("PRODUCT_NAME"));
@@ -306,7 +306,7 @@ class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.
 	}
 }
 
-class productRowMapper implements RowMapper<ProductDTO>{
+class productRowMapperGetProductID implements RowMapper<ProductDTO>{
 
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
