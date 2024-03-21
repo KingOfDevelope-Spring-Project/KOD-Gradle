@@ -11,21 +11,21 @@ import com.koreait.kod.biz.member.MemberService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class GetMembersByGrade {
-
+public class GetAllMemberPage {
+	
 	@Autowired
 	MemberService memberService;
 	
-	@GetMapping("/getMemberListByGrade")
-	public String getMemberDatasByGrade(MemberDTO memberDTO,Model model,HttpSession session) {
+	@GetMapping("/getAllMembersPage")
+	public String getAllMembers(MemberDTO memberDTO,Model model,HttpSession session) {
 		
 		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
 		if(!adminDTO.getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
-		memberDTO.setSearchCondition("getMemberDatasByGrade");
+		memberDTO.setSearchCondition("getAllMembers");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
-		return "admin/member/memberListByGrade";
+		return "admin/member/memberList";
 	}
-	
+
 }
