@@ -93,10 +93,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<th style="width: 20%">카테고리</th>
 												<td>
 													<select class="form-control form-control-sm col-6 select2" name="productCategory" required>
-								                    	<option selected value="1">전체</option>
-								                    	<option>헤드폰</option>
-								                    	<option>이어폰</option>
-								                    	<option>스피커</option>
+								                    	<option selected value="999">전체</option>
+								                    	<option value="1">헤드폰</option>
+								                    	<option value="2">이어폰</option>
+								                    	<option value="3">스피커</option>
 							                  		</select>
 							                  		
 												</td>
@@ -120,15 +120,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<tr>
 												<th>상품 이미지</th>
 												<td>
+													<label for="imageUpload" class="imageUploadBtn">이미지 업로드<br />
+														<input type="file" multiple id="image" name="productImageList" accept="image/*" onchange="setThumbnail(event)" /> 
+														<!-- <img id="imagePreview" src="resources/img/imagePreview.png" alt="미리 보기 이미지" style="width: 40px; height: 40px;"> -->
+													</label>
+														<div id="image_container"></div>
+													<button type="button" id="cancelImageButton" style="display: none;" onclick="cancelImageUpload()">이미지 취소</button>
+												
 													<!-- <div class="input-group">
 														<div class="">
 															<input type="file" class="file-input" id="exampleInputFile" multiple>
 														</div>
 													</div> -->
-													<div class="card-body">
+													<!-- <div class="card-body">
 										                <div id="actions" class="row">
-										                <!-- <input type="hidden" name="productImageName" value="test"> -->
-										                <input type="file" name="productImageList" multiple>
 										                  <div class="col-lg-6">
 										                    <div class="btn-group w-100">
 										                      <span class="btn btn-success col fileinput-button">
@@ -172,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										                    </div>
 										                  </div>
 										                </div>
-										              </div>
+										              </div> -->
 												</td>
 											</tr>
 										</thead>
@@ -239,6 +244,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	
+	<script src="resources/js/productInsert.js"></script>
 	<!-- Page specific script -->
 	<script>
 		$(function() {
@@ -315,21 +322,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	  document.querySelector("#actions .cancel").onclick = function() {
 	    myDropzone.removeAllFiles(true)
 	  }
-	  /* document.getElementById("myDropzone").addEventListener("submit", function(event) {
-		  // 폼 제출을 방지합니다.
-		  event.preventDefault();
-		  console.log('ㅁㄴㅇㄻㅇㄴㄹㅇㄴㅁㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㅇㄴㅇㄹㄹㅇㄴㅇㅇㄹㄴㅇㄹㄴㅇㄴㅇㄹㄴㅇㅁㄴㄹㅇㄴㄹㅇㅁㄹㄴㅇㄴㄹㅇㄴㄹㅇㄴㅇㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄴㅇㄹㄴㅁㅇㄴㅁㄹㅇㅇ');
-		  sleep(3000000000);
-		  // Dropzone에게 파일을 업로드하도록 요청합니다.
-		  myDropzone.processQueue();
-		}); */
 	  // DropzoneJS Demo Code End
 	</script>
 	
 	<script>
 	function submitForm() {
-		console.log('ㅁㄴㅇㄻㅇㄴㄹㅇㄴㅁㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㅇㄴㅇㄹㄹㅇㄴㅇㅇㄹㄴㅇㄹㄴㅇㄴㅇㄹㄴㅇㅁㄴㄹㅇㄴㄹㅇㅁㄹㄴㅇㄴㄹㅇㄴㄹㅇㄴㅇㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄴㅇㄹㄴㅁㅇㄴㅁㄹㅇㅇ');
-		  sleep(3000000000);
 	    var form = document.getElementById("myDropzone");
 	    form.submit();
 	}
