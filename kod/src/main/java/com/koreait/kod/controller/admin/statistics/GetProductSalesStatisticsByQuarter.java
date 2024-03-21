@@ -16,7 +16,7 @@ public class GetProductSalesStatisticsByQuarter {
 	@Autowired
 	ProductService	productService;
 
-	@GetMapping("/getProductSalesStatisticsByQuarter")
+	@GetMapping("/getProductSalesStatisticsByQuarterPage")
 	public String getProductSalesStatisticsByQuarter(ProductDTO productDTO,Model model,MemberDTO adminDTO,HttpSession session) {
 		
 		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {

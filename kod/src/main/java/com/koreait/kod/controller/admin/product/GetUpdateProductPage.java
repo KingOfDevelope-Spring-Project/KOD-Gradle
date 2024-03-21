@@ -22,6 +22,6 @@ public class GetUpdateProductPage {
 		productDTO.setSearchCondition("ProductDatas");
 		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		
-		return "/admin/product/productUpdate";
+		return "admin/product/productUpdate";
 	}
 }
