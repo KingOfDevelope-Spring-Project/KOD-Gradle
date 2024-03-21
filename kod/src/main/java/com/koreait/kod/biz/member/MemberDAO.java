@@ -21,6 +21,8 @@ public class MemberDAO {
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
+	private static final String SELECTONE_MEMBER_COUNTS=
+			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER;";
 	// 테이블에 특정 회원 정보조회를 하기위한 쿼리문
 	private static final String SELECTONE_CHECK = "SELECT"
 			// 회원 아이디, 비밀번호, 이름, 핸드폰 번호, 이메일, 등급, 성별, 생년월일 정보를 선택
@@ -30,7 +32,6 @@ public class MemberDAO {
 			+ "FROM MEMBER "
 			// WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
 			+ "WHERE MEMBER_ID=?";
-	
 	
 	private static final String SELECT_MEMBER_COUNT = "SELECT COUNT(MEMBER_ID) AS CNT_MEMBER FROM MEMBER";
 	
@@ -94,21 +95,26 @@ public class MemberDAO {
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
 		try {
-		if(memberDTO.getSearchCondition().equals("login")) {
-		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
-		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapper());
-		}else if(memberDTO.getSearchCondition().equals("memberCount")) {
-			return jdbcTemplate.queryForObject(SELECT_MEMBER_COUNT, new MemberRowMapper1());
-		}else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
-			return jdbcTemplate.queryForObject(SELECT_NEW_MEMBER_COUNT, new MemberRowMapper3());
-		}// 아이디 중복검사 코드
-		else if(memberDTO.getSearchCondition().equals("ID_CHECK")){
-	    	  Object[] args = { memberDTO.getMemberID() };
-		         return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberRowMapper());
-   }else {
-	   return null;
-   }
-		 
+      if(memberDTO.getSearchCondition().equals("login")) {
+      Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
+      return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
+      }
+      else if(memberDTO.getSearchCondition().equals("memberCount")) {
+        return jdbcTemplate.queryForObject(SELECT_MEMBER_COUNT, new MemberRowMapper1());
+      }
+      else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
+        return jdbcTemplate.queryForObject(SELECT_NEW_MEMBER_COUNT, new MemberRowMapper3());
+      }// 아이디 중복검사 코드
+       else if(memberDTO.getSearchCondition().equals("newMemberCount")) {
+        return jdbcTemplate.queryForObject(SELECT_NEW_MEMBER_COUNT, new MemberRowMapperMemberCounts());
+      }
+      else if(memberDTO.getSearchCondition().equals("ID_CHECK")){
+            Object[] args = { memberDTO.getMemberID() };
+        return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberRowMapper());
+      }
+      else {
+       return null;
+      }
 		}catch(Exception e) {
 			return null;
 		}
@@ -148,7 +154,7 @@ public class MemberDAO {
 
 
 //개발자의 편의를 위해 RowMapper인터페이스 사용
-class MemberRowMapper implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
+class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] MemberRowMapper 들어옴");
@@ -189,5 +195,15 @@ class MemberRowMapper3 implements RowMapper<MemberDTO>{
 		return memberDTO;
 	}
 	
+}
+
+class MemberRowMapperMemberCounts implements RowMapper<MemberDTO>{
+	
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO data=new MemberDTO();
+		data.setMemberCount(rs.getInt("MEMBER_COUNTS"));
+		return data;
+	}
 }
 
