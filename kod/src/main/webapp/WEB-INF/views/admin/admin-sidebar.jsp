@@ -14,8 +14,8 @@
 				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a
-					href="adminMain.jsp" class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="adminSalesManage.jsp"
+					href="/getAdminMainPage" class="nav-link">Home</a></li>
+				<li class="nav-item d-none d-sm-inline-block"><a href="/getStatisticsMainPage"
 					class="nav-link">매출 현황</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="adminMemberManage.jsp"
 					class="nav-link">회원 관리</a></li>
@@ -190,22 +190,14 @@
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-						<li class="nav-item "><a href="#" class="nav-link active">
+						<li class="nav-item ">
+							<a href="/getStatisticsMainPage" class="nav-link active">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
-									매출 현황 <i class="right fas fa-angle-left"></i>
+									매출 현황
 								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="#" class="nav-link active">
-										<i class="far fa-circle nav-icon"></i>
-										<p>월 매출액</p>
-								</a></li>
-								<li class="nav-item"><a href="#" class="nav-link"> <i
-										class="far fa-circle nav-icon"></i>
-										<p>상품별 판매량</p>
-								</a></li>
-							</ul></li>
+							</a>
+						</li>
 						<li class="nav-item "><a href="#" class="nav-link active">
 								<i class="nav-icon fas fa-user-alt"></i>
 								<p>
@@ -213,15 +205,15 @@
 								</p>
 						</a>
 							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="adminMemberList.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/getAllMembersPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>회원 정보 관리</p>
 								</a></li>
-								<li class="nav-item"><a href="#" class="nav-link"> <i
+								<li class="nav-item"><a href="/getMemberListByGrade" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>등급별 회원 목록</p>
 								</a></li>
-								<li class="nav-item"><a href="adminMemberRecovery.jsp" class="nav-link"> <i
+								<li class="nav-item"><a href="/getMemberRecoveryPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>회원 복구 신청</p>
 								</a></li>
@@ -241,9 +233,13 @@
 										class="far fa-circle nav-icon"></i>
 										<p>상품 등록</p>
 								</a></li>
-								<li class="nav-item"><a href="/GetUpdateProductPage" class="nav-link"> <i
+								<li class="nav-item"><a href="/getUpdateProductPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
-										<p>재고 관리</p>
+										<p>상품 정보 수정</p>
+								</a></li>
+								<li class="nav-item"><a href="/getCategoryManagePage" class="nav-link"> <i
+										class="far fa-circle nav-icon"></i>
+										<p>상품 카테고리 추가</p>
 								</a></li>
 							</ul>
 						</li>
