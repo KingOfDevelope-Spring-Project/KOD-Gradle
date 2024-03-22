@@ -30,6 +30,8 @@ public class GetAdminMainPage {
 			return "common/error";
 		}
 		
+		productDTO.setSearchCondition("quarterlyStatistics");
+		model.addAttribute("quarterlyStatisticsDatas", productService.selectAll(productDTO));
 		// 분기매출
 		productDTO.setSearchCondition("quarterlyRevenueFor2Years");
 		model.addAttribute("quarterlyRevenueDatas", productService.selectAll(productDTO));
