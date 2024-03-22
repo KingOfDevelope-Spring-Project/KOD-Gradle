@@ -62,267 +62,134 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 						
 						<!-- 쇼핑몰 통계 -->
 							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">
-										<i class="far fa-chart-bar"></i> 쇼핑몰 통계
-									</h3>
-
-									<div class="card-tools">
-										<button type="button" class="btn btn-tool"
-											data-card-widget="collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-										<button type="button" class="btn btn-tool"
-											data-card-widget="remove">
-											<i class="fas fa-times"></i>
-										</button>
-									</div>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<div class="row">
-										<div class="col-6 col-md-3 text-center">
-											<input type="text" class="knob" value="30" data-width="90"
-												data-height="90" data-fgColor="#3c8dbc">
-
-											<div class="knob-label">새로운 방문자 수</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-6 col-md-3 text-center">
-											<input type="text" class="knob" value="70" data-width="90"
-												data-height="90" data-fgColor="#f56954">
-
-											<div class="knob-label">일일 방문자 수</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-6 col-md-3 text-center">
-											<input type="text" class="knob" value="80" data-min="0"
-												data-max="150" data-width="90" data-height="90"
-												data-fgColor="#00a65a">
-
-											<div class="knob-label">일일 매출액(단위 : 만원)</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-6 col-md-3 text-center">
-											<input type="text" class="knob" value="10" data-width="90"
-												data-height="90" data-fgColor="#00c0ef">
-
-											<div class="knob-label">주문 취소 비율</div>
-										</div>
-										<!-- ./col -->
-									</div>
-									<!-- /.row -->
-
-									<div class="row">
-										<div class="col-6 text-center">
-											<input type="text" class="knob" value="90" data-width="90"
-												data-height="90" data-fgColor="#932ab6">
-
-											<div class="knob-label">누적 방문자 수</div>
-										</div>
-										<!-- ./col -->
-										<div class="col-6 text-center">
-											<input type="text" class="knob" value="500" data-min="0"
-												data-max="1000" data-width="90" data-height="90"
-												data-fgColor="#39CCCC">
-
-											<div class="knob-label">이번달 매출액(단위 : 만원)</div>
-										</div>
-										<!-- ./col -->
-									</div>
-									<!-- /.row -->
-								</div>
-								<!-- /.card-body -->
+				              <div class="card-header">
+				                <h3 class="card-title">분기별 매출 비교</h3>
+				
+				                <div class="card-tools">
+				                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+				                    <i class="fas fa-minus"></i>
+				                  </button>
+				                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+				                    <i class="fas fa-times"></i>
+				                  </button>
+				                </div>
+				              </div>
+				              <div class="card-body">
+				                <div class="chart">
+				                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+				                </div>
+				              </div>
+					              <!-- /.card-body -->
 							</div>
 							<!-- /쇼핑몰 통계 -->
 						</div>
 							
-							<!-- 회원 목록 테이블 -->
-							<div class="col-sm-6">
-								<div class="card">
-					              <div class="card-header">
-					                <h3 class="card-title">KOD 회원 목록</h3>
+							<!-- 메인 화면 항목2 -->
+						<div class="col-sm-4">
+							<!-- Small boxes (Stat box) -->
+				          	<div class="col-lg-12 col-12">
+					            <!-- small card -->
+					            <div class="small-box bg-info" style="height: 160px;">
+					              <div class="inner">
+					                <h3>${orderListData.orderListCountsToday}</h3>
+					
+					                <p>주문건수(일)</p>
 					              </div>
-					              <!-- /.card-header -->
-					              <div class="card-body">
-					                <table id="example2" class="table table-bordered table-hover">
-					                  <thead>
-					                  <tr>
-					                    <th>번호</th>
-					                    <th>아이디</th>
-					                    <th>이름</th>
-					                    <th>전화번호</th>
-					                    <th>등급</th>
-					                  </tr>
-					                  </thead>
-					                  <tbody>
-					                  <tr>
-					                    <td>1</td>
-					                    <td>user1</td>
-					                    <td>홍길동</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>2</td>
-					                    <td>user2</td>
-					                    <td>박현민</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>3</td>
-					                    <td>user3</td>
-					                    <td>김진영</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>4</td>
-					                    <td>user4</td>
-					                    <td>조형련</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>5</td>
-					                    <td>user5</td>
-					                    <td>정현진</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>6</td>
-					                    <td>user6</td>
-					                    <td>홍길동6</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>7</td>
-					                    <td>user7</td>
-					                    <td>홍길동7</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>8</td>
-					                    <td>user8</td>
-					                    <td>홍길동8</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>9</td>
-					                    <td>user9</td>
-					                    <td>홍길동9</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>10</td>
-					                    <td>user10</td>
-					                    <td>홍길동10</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>11</td>
-					                    <td>user11</td>
-					                    <td>홍길동11</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>12</td>
-					                    <td>user12</td>
-					                    <td>홍길동12</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>13</td>
-					                    <td>user13</td>
-					                    <td>홍길동13</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>14</td>
-					                    <td>user14</td>
-					                    <td>홍길동14</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>15</td>
-					                    <td>user15</td>
-					                    <td>홍길동15</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>16</td>
-					                    <td>user16</td>
-					                    <td>홍길동16</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>17</td>
-					                    <td>user17</td>
-					                    <td>홍길동17</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>18</td>
-					                    <td>user18</td>
-					                    <td>홍길동18</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>19</td>
-					                    <td>user19</td>
-					                    <td>홍길동19</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>20</td>
-					                    <td>user21</td>
-					                    <td>홍길동21</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>22</td>
-					                    <td>user22</td>
-					                    <td>홍길동22</td>
-					                    <td>010-1234-5678</td>
-					                    <td>USER</td>
-					                  </tr>
-					                   <tr>
-					                    <td>23</td>
-					                    <td>user23</td>
-					                    <td>관리자</td>
-					                    <td>010-1234-5678</td>
-					                    <td>ADMIN</td>
-					                  </tr>
-					                </table>
+					              <div class="icon">
+					                <i class="fas fa-shopping-cart"></i>
 					              </div>
-					              <!-- /.card-body -->
+					              <a href="#" class="small-box-footer" style="margin-top: 17px;">
+					                More info <i class="fas fa-arrow-circle-right"></i>
+					              </a>
 					            </div>
-            <!-- /.card -->
-							</div>
-							<!-- /회원 목록 테이블 -->
-							
-							
+			          		</div>
+						<!-- /회원 통계 -->
+							<div class="col-lg-12 col-12">
+					            <!-- small card -->
+					            <div class="small-box" style="background-color: #87CEFA; height: 160px;">
+					              <div class="inner">
+					                <h3>28</h3>
+					
+					                <p>전일 주문건수</p>
+					              </div>
+					              <div class="icon">
+					                <i class="ion ion-stats-bars"></i>
+					              </div>
+					              <a href="#" class="small-box-footer" style="margin-top: 17px;">
+					                More info <i class="fas fa-arrow-circle-right"></i>
+					              </a>
+					            </div>
+							</div>	
+							<!-- /메인 화면 항목2 -->
+						</div>	
+						
+						<!-- 메인 화면 항목3 -->
+						<div class="col-sm-8">
+							<!-- LINE CHART -->
+				            <div class="card">
+				              <div class="card-header">
+				                <h3 class="card-title">월간 매출</h3>
+				
+				                <div class="card-tools">
+				                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+				                    <i class="fas fa-minus"></i>
+				                  </button>
+				                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+				                    <i class="fas fa-times"></i>
+				                  </button>
+				                </div>
+				              </div>
+				              <div class="card-body">
+				                <div class="chart">
+				                  <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+				                </div>
+				              </div>
+				              <!-- /.card-body -->
+				            </div>
+						</div>	
+							<!-- /메인 화면 항목3 -->
+							<!-- 메인 화면 항목4 -->
+						<div class="col-sm-4">
+							<!-- Small boxes (Stat box) -->
+				          	<div class="col-lg-12 col-12">
+					            <!-- small card -->
+					            <div class="small-box bg-success" style="height: 160px;">
+					              <div class="inner">
+					                <h3>5320000원</h3>
+					
+					                <p>일 매출</p>
+					              </div>
+					              <div class="icon">
+					                <i class="ion ion-stats-bars"></i>
+					              </div>
+					              <a href="#" class="small-box-footer" style="margin-top: 17px;">
+					                More info <i class="fas fa-arrow-circle-right"></i>
+					              </a>
+					            </div>
+			          		</div>
+						<!-- /회원 통계 -->
+							<div class="col-lg-12 col-12">
+					            <!-- small card -->
+					            <div class="small-box bg-warning" style="height: 160px;">
+					              <div class="inner">
+					                <h3>44</h3>
+					
+					                <p>총 회원 수</p>
+					              </div>
+					              <div class="icon">
+					                <i class="fas fa-user-plus"></i>
+					              </div>
+					              <a href="#" class="small-box-footer" style="margin-top: 17px;">
+					                More info <i class="fas fa-arrow-circle-right"></i>
+					              </a>
+					            </div>
+							</div>	
+							<!-- /메인 화면 항목4 -->
+						</div>	
 							<!-- /.card-body -->
 						</div>
 						<!-- /.card -->
@@ -371,7 +238,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/sparklines/sparkline.js"></script>
 	<script src="resources/plugins/jquery-knob/jquery.knob.min.js"></script>
 	<!-- ChartJS -->
-	<!-- DataTables  & Plugins -->
+	<!-- DataTables  & resources/plugins -->
 	<script src="resources/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="resources/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="resources/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -384,108 +251,190 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	<!-- 분기별 매출 금액 차트 -->
 	<script>
-		$(function() {
-			/* jQueryKnob */
-
-			$('.knob').knob(
-					{
-						/*change : function (value) {
-						 //console.log("change : " + value);
-						 },
-						 release : function (value) {
-						 console.log("release : " + value);
-						 },
-						 cancel : function () {
-						 console.log("cancel : " + this.value);
-						 },*/
-						draw : function() {
-
-							// "tron" case
-							if (this.$.data('skin') == 'tron') {
-
-								var a = this.angle(this.cv) // Angle
-								, sa = this.startAngle // Previous start angle
-								, sat = this.startAngle // Start angle
-								, ea // Previous end angle
-								, eat = sat + a // End angle
-								, r = true
-
-								this.g.lineWidth = this.lineWidth
-
-								this.o.cursor && (sat = eat - 0.3)
-										&& (eat = eat + 0.3)
-
-								if (this.o.displayPrevious) {
-									ea = this.startAngle
-											+ this.angle(this.value)
-									this.o.cursor && (sa = ea - 0.3)
-											&& (ea = ea + 0.3)
-									this.g.beginPath()
-									this.g.strokeStyle = this.previousColor
-									this.g.arc(this.xy, this.xy, this.radius
-											- this.lineWidth, sa, ea, false)
-									this.g.stroke()
-								}
-
-								this.g.beginPath()
-								this.g.strokeStyle = r ? this.o.fgColor
-										: this.fgColor
-								this.g.arc(this.xy, this.xy, this.radius
-										- this.lineWidth, sat, eat, false)
-								this.g.stroke()
-
-								this.g.lineWidth = 2
-								this.g.beginPath()
-								this.g.strokeStyle = this.o.fgColor
-								this.g.arc(this.xy, this.xy, this.radius
-										- this.lineWidth + 1 + this.lineWidth
-										* 2 / 3, 0, 2 * Math.PI, false)
-								this.g.stroke()
-
-								return false
-							}
-						}
-					})
-			/* END JQUERY KNOB */
-
-			//INITIALIZE SPARKLINE CHARTS
-			var sparkline1 = new Sparkline($('#sparkline-1')[0], {
-				width : 240,
-				height : 70,
-				lineColor : '#92c1dc',
-				endColor : '#92c1dc'
-			})
-			var sparkline2 = new Sparkline($('#sparkline-2')[0], {
-				width : 240,
-				height : 70,
-				lineColor : '#f56954',
-				endColor : '#f56954'
-			})
-			var sparkline3 = new Sparkline($('#sparkline-3')[0], {
-				width : 240,
-				height : 70,
-				lineColor : '#3af221',
-				endColor : '#3af221'
-			})
-
-			sparkline1
-					.draw([ 1000, 1200, 920, 927, 931, 1027, 819, 930, 1021 ])
-			sparkline2.draw([ 515, 519, 520, 522, 652, 810, 370, 627, 319, 630,
-					921 ])
-			sparkline3.draw([ 15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21 ])
-
-		})
-	</script>
+	  $(function () {
+	    var areaChartData = {
+	      labels  : ['1분기', '2분기', '3분기', '4분기'],
+	      datasets: [
+	        {
+	          label               : '2024년',
+	          backgroundColor     : 'rgba(60,141,188,0.9)',
+	          borderColor         : 'rgba(60,141,188,0.8)',
+	          pointRadius          : false,
+	          pointColor          : '#3b8bba',
+	          pointStrokeColor    : 'rgba(60,141,188,1)',
+	          pointHighlightFill  : '#fff',
+	          pointHighlightStroke: 'rgba(60,141,188,1)',
+	          data                : [6500000, 5900000, 8000000, 8100000]
+	        },
+	        {
+	          label               : '2023년',
+	          backgroundColor     : 'rgba(210, 214, 222, 1)',
+	          borderColor         : 'rgba(210, 214, 222, 1)',
+	          pointRadius         : false,
+	          pointColor          : 'rgba(210, 214, 222, 1)',
+	          pointStrokeColor    : '#c1c7d1',
+	          pointHighlightFill  : '#fff',
+	          pointHighlightStroke: 'rgba(220,220,220,1)',
+	          data                : [2800000, 4800000, 4000000, 1900000]
+	        },
+	      ]
+	    }
 	
-<!-- 회원 목록 js -->
+	    var areaChartOptions = {
+	      maintainAspectRatio : false,
+	      responsive : true,
+	      legend: {
+	        display: false
+	      },
+	      scales: {
+	        xAxes: [{
+	        	gridLines : {
+	            display : false,
+	          }
+	        }],
+	        yAxes: [{
+	        	ticks : {
+	          	  stepSize: 2000000, // y축 간격을 100만 설정
+	          	  maxTicksLimit: 5,
+	          	  min: 0, // y축 최소값
+	              max: 10000000, // y축 최대값
+	            },
+	        	gridLines : {
+	            display : false,
+	          }
+	        }]
+	      }
+	    }
+	
+	    //-------------
+	    //- BAR CHART -
+	    //-------------
+	    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+	    var barChartData = $.extend(true, {}, areaChartData)
+	    var temp0 = areaChartData.datasets[0]
+	    var temp1 = areaChartData.datasets[1]
+	    barChartData.datasets[0] = temp1
+	    barChartData.datasets[1] = temp0
+	
+	    var barChartOptions = {
+	    	      maintainAspectRatio : false,
+	    	      responsive : true,
+	    	      legend: {
+	    	        display: false
+	    	      },
+	    	      scales: {
+	    	        xAxes: [{
+	    	        	gridLines : {
+	    	            display : true, // 차트 가로줄 
+	    	          }
+	    	        }],
+	    	        yAxes: [{
+	    	        	ticks : {
+	    	          	  stepSize: 2000000, // y축 간격을 200만 설정
+	    	          	  maxTicksLimit: 6,
+	    	          	  min: 0, // y축 최소값
+	    	              max: 10000000, // y축 최대값
+	    	            },
+	    	        	gridLines : {
+	    	            display : false, // 차트 세로줄
+	    	          }
+	    	        }]
+	    	      }
+	    	    }
+	
+	    new Chart(barChartCanvas, {
+	      type: 'bar',
+	      data: barChartData,
+	      options: barChartOptions
+	    })
+	  })
+	</script>
+
+	<!-- 월 주문건수 차트 -->
+	<script>
+	  $(function () {
+	    var areaChartData = {
+	      labels  : ['1','2','3','4','5','6','7','8','9','10'],
+	      datasets: [
+	        {
+	          label               : '2024년',
+	          backgroundColor     : 'rgba(60,141,188,0.9)',
+	          borderColor         : 'rgba(60,141,188,0.8)',
+	          pointRadius          : false,
+	          pointColor          : '#3b8bba',
+	          pointStrokeColor    : 'rgba(60,141,188,1)',
+	          pointHighlightFill  : '#fff',
+	          pointHighlightStroke: 'rgba(60,141,188,1)',
+	          data                : [102, 201, 303, 140, 128, 384, 289, 291, 330, 135]
+	        },
+	        {
+	          label               : '2023년',
+	          backgroundColor     : 'rgba(210, 214, 222, 1)',
+	          borderColor         : 'rgba(210, 214, 222, 1)',
+	          pointRadius         : false,
+	          pointColor          : 'rgba(210, 214, 222, 1)',
+	          pointStrokeColor    : '#c1c7d1',
+	          pointHighlightFill  : '#fff',
+	          pointHighlightStroke: 'rgba(220,220,220,1)',
+	          data                : [212, 345, 159, 332, 492, 289, 442, 382, 253, 247]
+	        },
+	      ]
+	    }
+	
+	    var areaChartOptions = {
+	      maintainAspectRatio : false,
+	      responsive : true,
+	      legend: {
+	        display: false
+	      },
+	      scales: {
+	        xAxes: [{
+	        	gridLines : {
+	            display : false,
+	          }
+	        }],
+	        yAxes: [{
+	        	ticks : {
+	          	  stepSize: 10, // y축 간격을 10 설정
+	          	  maxTicksLimit: 6,
+	          	  min: 0, // y축 최소값
+	              max: 500, // y축 최대값
+	            },
+	        	gridLines : {
+	            display : false,
+	          }
+	        }]
+	      },
+	      tooltips: {
+              mode: 'index',
+              intersect: false,
+          }
+	    }
+	
+	    //-------------
+	    //- LINE CHART -
+	    //--------------
+	    var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+	    var lineChartOptions = $.extend(true, {}, areaChartOptions)
+	    var lineChartData = $.extend(true, {}, areaChartData)
+	    lineChartData.datasets[0].fill = false;
+	    lineChartData.datasets[1].fill = false;
+	    lineChartOptions.datasetFill = false
+
+	    var lineChart = new Chart(lineChartCanvas, {
+	      type: 'line',
+	      data: lineChartData,
+	      options: lineChartOptions
+	    })
+	  })
+	</script>
+
+
 <!-- Page specific script -->
 <script>
   $(function () {
-    /* $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)'); */
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
