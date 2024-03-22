@@ -29,7 +29,7 @@ public class ImageDAO {
 	public boolean insert(ImageDTO imageDTO) {
 		int result = jdbcTemplate.update(INSERT_PRODUCT_IMAGE,imageDTO.getProductID(),imageDTO.getImageUrl());
 		if(result <= 0) {
-			return false;			
+			return false;
 		}
 		return true;
 	}
