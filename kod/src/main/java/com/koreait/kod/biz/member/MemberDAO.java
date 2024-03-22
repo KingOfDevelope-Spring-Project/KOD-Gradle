@@ -16,14 +16,14 @@ public class MemberDAO {
 
 	private static final String SELECTALL_MEMBERS_BY_GRADE=
 			"SELECT MEMBER_ID,MEMBER_GRADE,MEMBER_NAME FROM MEMBER WHERE MEMBER_GRADE=?";
+	
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
 	private static final String SELECTONE_MEMBER_COUNT=
 			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER;";
 	
-	private static final String SELECT_MEMBER_COUNT = "SELECT COUNT(MEMBER_ID) AS CNT_MEMBER FROM MEMBER";
-//	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
+	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
 	private static final String INSERT="";
 	private static final String UPDATE="";
 	private static final String DELETE="";
@@ -34,7 +34,7 @@ public class MemberDAO {
 	    	System.out.println("[로그:정현진] memberDAO 들어옴");
 	    	System.out.println("[로그:정현진] 회원등급"+memberDTO.getMemberGrade());
 	        Object[] args = {memberDTO.getMemberGrade().toUpperCase()};
-	        return jdbcTemplate.query(SELECTALL_MEMBERS_BY_GRADE,args, new MemberRowMapper2());
+	        return jdbcTemplate.query(SELECTALL_MEMBERS_BY_GRADE,args, new MemberRowMapperByGrade());
 	    } else {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
@@ -44,18 +44,14 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectOne(MemberDTO memberDTO) {
-		try {
 		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
-		return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
-		}else if(memberDTO.getSearchCondition().equals("memberCount")) {
-			return jdbcTemplate.queryForObject(SELECT_MEMBER_COUNT, new MemberRowMapper1());
-		}else if(memberDTO.getSearchCondition().equals("memberCount")) {
-			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
-		}else {
-			return null;
+			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
 		}
-		}catch(Exception e) {
+		else if(memberDTO.getSearchCondition().equals("memberCount")) {
+			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
+		}
+		else {
 			return null;
 		}
 	}
@@ -85,7 +81,8 @@ class MemberRowMapper1 implements RowMapper<MemberDTO>{
 	}
 	
 }
-class MemberRowMapper2 implements RowMapper<MemberDTO> {
+
+class MemberRowMapperByGrade implements RowMapper<MemberDTO> {
     
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -96,6 +93,7 @@ class MemberRowMapper2 implements RowMapper<MemberDTO> {
 		return data;
 	}
 }
+
 class MemberRowMapper3 implements RowMapper<MemberDTO>{
 
 	@Override
