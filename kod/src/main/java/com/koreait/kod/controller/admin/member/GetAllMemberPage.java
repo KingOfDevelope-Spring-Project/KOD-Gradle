@@ -23,8 +23,10 @@ public class GetAllMemberPage {
 		if(!adminDTO.getMemberRole().equals("ADMIN")) {
 			return "common/error";
 		}
+		
 		memberDTO.setSearchCondition("getAllMembers");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
+		
 		return "admin/member/memberList";
 	}
 

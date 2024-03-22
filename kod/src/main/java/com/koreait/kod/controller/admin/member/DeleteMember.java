@@ -17,7 +17,6 @@ public class DeleteMember {
 		
 		memberService.delete(memberDTO);
 		
-		
 		return "admin/member/memberList";
 	}
 }
