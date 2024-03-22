@@ -567,9 +567,9 @@ public class ProductDAO {
 	 */
 
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
-		if(productDTO.getSearchCondition().equals("quarterStatistics")) {
+		if(productDTO.getSearchCondition().equals("quarterlyStatistics")) {
 			System.out.println("[로그:정현진] ProductDAO 분기통계 들어옴");
-			return jdbcTemplate.query(SELECTALL_QUARTERLY_STATISTICS, new ProductRowMapperQuarterStatistics());
+			return jdbcTemplate.query(SELECTALL_QUARTERLY_STATISTICS, new ProductRowMapperQuarterlyStatistics());
 		}
 		else if(productDTO.getSearchCondition().equals("quarterlyRevenueFor2Years")) {
 			System.out.println("[로그:정현진] ProductDAO 분기 매출 들어옴");
@@ -622,11 +622,21 @@ public class ProductDAO {
 
 
 //분기 통계
-class ProductRowMapperQuarterStatistics implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+class ProductRowMapperQuarterlyStatistics implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] ProductRowMapperQuarterStatistics 들어옴");
+		System.out.println("[로그:정현진] ProductRowMapperQuarterlyStatistics 들어옴");
 		ProductDTO data = new ProductDTO();
+		System.out.println("[로그:정현진] 년\t분기\t상품ID\t상품명\t상품가격\t상품판매수량\t상품매출\t분기매출\n"
+				+rs.getInt("YEAR")+ "\t"
+				+rs.getInt("QUARTER")+ "\t"
+				+ rs.getInt("PRODUCT_ID")+"\t"
+				+ rs.getString("PRODUCT_NAME")+"\t"
+				+ rs.getInt("PRODUCT_PRICE")+"\t"
+				+ rs.getInt("PRODUCT_SALES_QUANTITY")+"\t"
+				+ rs.getInt("PRODUCT_SALES_REVENUE")+"\t"
+				+ rs.getInt("QUARTERLY_REVENUE"));
+		
 		data.setYear(rs.getInt("YEAR")); // 년
 		data.setQuarter(rs.getInt("QUARTER")); // 분기
 		data.setProductID(rs.getInt("PRODUCT_ID")); // 상품ID
@@ -645,6 +655,7 @@ class ProductRowMapperQuarterRevenue implements org.springframework.jdbc.core.Ro
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] ProductRowMapperQuarterRevenue 들어옴");
 		ProductDTO data = new ProductDTO();
+		System.out.println("[로그:정현진] 년  분기  분기별매출 \n"+rs.getInt("YEAR")+"\t"+rs.getInt("QUARTER")+"\t"+rs.getInt("QUARTERLY_REVENUE"));
 		data.setYear(rs.getInt("YEAR")); // 년
 		data.setQuarter(rs.getInt("QUARTER")); // 분기
 		data.setQuarterlyRevenue(rs.getInt("QUARTERLY_REVENUE")); // 분기 매출
@@ -658,6 +669,7 @@ class ProductRowMapperMonthlyRevenue implements org.springframework.jdbc.core.Ro
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] ProductRowMapperMonthlyRevenue 들어옴");
 		ProductDTO data = new ProductDTO();
+		System.out.println("[로그:정현진] 년  월  월간매출 \n"+rs.getInt("YEAR")+"\t"+rs.getInt("MONTH")+"\t"+rs.getInt("MONTHLY_REVENUE"));
 		data.setYear(rs.getInt("YEAR")); // 년
 		data.setMonth(rs.getInt("MONTH")); // 월
 		data.setMonthlyRevenue(rs.getInt("MONTHLY_REVENUE")); // 월간 매출
@@ -671,6 +683,7 @@ class ProductRowMapperDailyRevenue implements org.springframework.jdbc.core.RowM
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] ProductRowMapperDailyRevenue 들어옴");
 		ProductDTO data = new ProductDTO();
+		System.out.println("[로그:정현진] 년  월  일  일간매출 \n"+rs.getInt("YEAR")+"\t"+rs.getInt("MONTH")+"\t"+rs.getInt("DAY")+"\t"+rs.getInt("DAILY_REVENUE"));
 		data.setYear(rs.getInt("YEAR")); // 년
 		data.setMonth(rs.getInt("MONTH")); // 월
 		data.setDay(rs.getInt("DAY")); // 일
