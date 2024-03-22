@@ -19,8 +19,8 @@ public class OrderListDAO {
 			
 	private static final String SELECTONE_GET_ORDER_COUNTS_FOR_YESTERDAY_AND_TODAY=
 			"SELECT "
-			+ "    SUM(IF(DATE(ORDERLIST_DATE) = CURDATE(), 1, 0)) AS ORDER_COUNTS_TODAY, "
-			+ "    SUM(IF(DATE(ORDERLIST_DATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY), 1, 0)) AS ORDER_COUNTS_YESTERDAY "
+			+ "    SUM(IF(DATE(ORDERLIST_DATE) = CURDATE(), 1, 0)) AS ORDER_CNT_TODAY, "
+			+ "    SUM(IF(DATE(ORDERLIST_DATE) = DATE_SUB(CURDATE(), INTERVAL 1 DAY), 1, 0)) AS ORDER_CNT_YESTERDAY "
 			+ "FROM ORDERLIST";
 	
 	private static final String INSERT="";
@@ -32,7 +32,12 @@ public class OrderListDAO {
 	}
 
 	public OrderListDTO selectOne(OrderListDTO orderListDTO) {
-		return jdbcTemplate.queryForObject(SELECTONE_GET_ORDER_COUNTS_FOR_YESTERDAY_AND_TODAY, new OrderListRowMapperGetOrderCounts());
+		if(orderListDTO.getSearchCondition().equals("orderCountsForYesterdayAndToday")){
+			return jdbcTemplate.queryForObject(SELECTONE_GET_ORDER_COUNTS_FOR_YESTERDAY_AND_TODAY, new OrderListRowMapperGetOrderCounts());
+		}
+		else {
+			return null;
+		}
 	}
 
 	public boolean insert(OrderListDTO orderListDTO) {
@@ -57,8 +62,10 @@ class OrderListRowMapperGetOrderCounts implements RowMapper<OrderListDTO>{
 	@Override
 	public OrderListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		OrderListDTO orderListDTO= new OrderListDTO();
-		orderListDTO.setOrderListCountsToday(rs.getInt("ORDER_COUNTS_TODAY"));
-		orderListDTO.setOrderListCountsYesterday(rs.getInt("ORDER_COUNTS_YESTERDAY"));
+		System.out.println("오늘 주문건수 : "+rs.getInt("ORDER_COUNTS_TODAY") );
+		System.out.println("어제 주문건수 : "+rs.getInt("ORDER_COUNTS_YESTERDAY") );
+		orderListDTO.setOrderListCntToday(rs.getInt("ORDER_COUNTS_TODAY"));
+		orderListDTO.setOrderListCntYesterday(rs.getInt("ORDER_COUNTS_YESTERDAY"));
 		return orderListDTO;
 	}
 	
