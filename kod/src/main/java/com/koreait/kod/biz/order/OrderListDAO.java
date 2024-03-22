@@ -62,10 +62,10 @@ class OrderListRowMapperGetOrderCounts implements RowMapper<OrderListDTO>{
 	@Override
 	public OrderListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		OrderListDTO orderListDTO= new OrderListDTO();
-		System.out.println("오늘 주문건수 : "+rs.getInt("ORDER_COUNTS_TODAY") );
-		System.out.println("어제 주문건수 : "+rs.getInt("ORDER_COUNTS_YESTERDAY") );
-		orderListDTO.setOrderListCntToday(rs.getInt("ORDER_COUNTS_TODAY"));
-		orderListDTO.setOrderListCntYesterday(rs.getInt("ORDER_COUNTS_YESTERDAY"));
+		System.out.println("오늘 주문건수 : "+rs.getInt("ORDER_CNT_TODAY") );
+		System.out.println("어제 주문건수 : "+rs.getInt("ORDER_CNT_YESTERDAY") );
+		orderListDTO.setOrderListCntToday(rs.getInt("ORDER_CNT_TODAY"));
+		orderListDTO.setOrderListCntYesterday(rs.getInt("ORDER_CNT_YESTERDAY"));
 		return orderListDTO;
 	}
 	

@@ -44,10 +44,10 @@ public class GetAdminMainPage {
 
 		// 어제 오늘 주문건수
 		orderListDTO.setSearchCondition("orderCountsForYesterdayAndToday");
-		model.addAttribute("orderListData", orderListService.selectAll(orderListDTO));
+		model.addAttribute("orderListData", orderListService.selectOne(orderListDTO));
 		
 		// 총회원수
-		memberDTO.setSearchCondition("memberCounts");
+		memberDTO.setSearchCondition("memberCount");
 		model.addAttribute("memberData", memberService.selectOne(memberDTO));
 		
 		return "admin/adminMain";

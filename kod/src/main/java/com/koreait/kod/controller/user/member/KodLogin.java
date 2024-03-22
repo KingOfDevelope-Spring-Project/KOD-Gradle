@@ -39,7 +39,7 @@ public class KodLogin {
 		if(memberDTO.getMemberRole().equals("ADMIN")) {
 			System.out.println("[로그:정현진] 관리자로그인 성공");
 			session.setAttribute("adminDTO", memberDTO);
-			return "admin/adminMain";
+			return "redirect:/getAdminMainPage";
 		}
 		System.out.println("[로그:정현진] 사용자로그인 성공");
 		session.setAttribute("memberID", memberDTO.getMemberID()); 
