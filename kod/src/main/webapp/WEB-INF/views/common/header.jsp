@@ -7,6 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" type="image/x-icon" href="resources/img/favicon.png">
+<style>
+.loginModal{
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+</style>
 </head>
 <body>
 	<!-- HEADER -->
@@ -43,7 +56,7 @@
 					<!-- LOGO -->
 					<div class="col-md-3">
 						<div class="header-logo">
-							<a href="/getMainPage" class="logo"> <img src="resources/img/logo.gif" style="width: 250px;" alt="logo image">
+							<a href="/" class="logo"> <img src="resources/img/logo.gif" style="width: 250px;" alt="logo image">
 							</a>
 						</div>
 					</div>
@@ -82,7 +95,6 @@
 							<!-- /정현진  -->
 							<!-- /Wishlist -->
 
-							<!-- Cart -->
 							<!-- Cart -->
 							<div class="dropdown">
 								<c:if test="${memberDTO != null}">
@@ -143,4 +155,5 @@
 	</header>
 	<!-- /HEADER -->
 </body>
+<script src="resources/js/login.js"></script>
 </html>
