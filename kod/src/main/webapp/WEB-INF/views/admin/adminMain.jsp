@@ -95,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            <!-- small card -->
 					            <div class="small-box bg-info" style="height: 160px;">
 					              <div class="inner">
-					                <h3>${orderListData.orderListCountsToday}</h3>
+					                <h3>${orderListData.orderListCntToday}</h3>
 					
 					                <p>주문건수(일)</p>
 					              </div>
@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            <!-- small card -->
 					            <div class="small-box" style="background-color: #87CEFA; height: 160px;">
 					              <div class="inner">
-					                <h3>28</h3>
+					                <h3>${orderListData.orderListCntYesterday}</h3>
 					
 					                <p>전일 주문건수</p>
 					              </div>
@@ -159,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            <!-- small card -->
 					            <div class="small-box bg-success" style="height: 160px;">
 					              <div class="inner">
-					                <h3>5320000원</h3>
+					                <h3>${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).dailyRevenue}원</h3>
 					
 					                <p>일 매출</p>
 					              </div>
@@ -176,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            <!-- small card -->
 					            <div class="small-box bg-warning" style="height: 160px;">
 					              <div class="inner">
-					                <h3>44</h3>
+					                <h3>${memberData.memberCnt}</h3>
 					
 					                <p>총 회원 수</p>
 					              </div>
@@ -359,7 +359,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	      labels  : ['1','2','3','4','5','6','7','8','9','10'],
 	      datasets: [
 	        {
-	          label               : '2024년',
+	          label               : '2월',
 	          backgroundColor     : 'rgba(60,141,188,0.9)',
 	          borderColor         : 'rgba(60,141,188,0.8)',
 	          pointRadius          : false,
@@ -370,7 +370,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          data                : [102, 201, 303, 140, 128, 384, 289, 291, 330, 135]
 	        },
 	        {
-	          label               : '2023년',
+	          label               : '3월',
 	          backgroundColor     : 'rgba(210, 214, 222, 1)',
 	          borderColor         : 'rgba(210, 214, 222, 1)',
 	          pointRadius         : false,
