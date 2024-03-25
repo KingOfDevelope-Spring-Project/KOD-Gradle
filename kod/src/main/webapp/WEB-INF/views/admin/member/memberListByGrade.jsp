@@ -64,42 +64,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<!-- 회원 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
-								<div class="card-header" style="display: flex; justify-content: space-between;">
-									<h3 class="card-title" style="margin-top: 0.6%;">회원 목록</h3>
-									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button>
+								<div class="card-header" style="display: flex; justify-content: flex-start;">
+									<h3 class="card-title" style="margin-top: 0.6%;">등급별 회원 목록</h3>
+									<select class="form-control select2" id="grade-type" name="memberGrade" style="width: 15%; margin-left: 2%;">
+					                    <option value="Bronze" selected>Bronze</option>
+					                    <option value="Silver">Silver</option>
+					                    <option value="Gold">Gold</option>
+					                    <option value="VIP">VIP</option>
+					                </select>
 								</div>
 								<!-- /.card-header -->
-								<div class="card-body">
-									<table id="example2" class="table table-bordered table-hover">
+								<div class="card-body" id="bronze">
+									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 											<tr>
-												<th>번호</th>
+												<!-- <th>번호</th> -->
 												<th>회원ID</th>
 												<th>이름</th>
-												<th>전화번호</th>
-												<th>이메일</th>
+												<!-- <th>전화번호</th>
+												<th>이메일</th> -->
 												<th>등급</th>
-												<th>상태</th>
-												<th>생년월일</th>
+												<!-- <th>생년월일</th>
+												<th>등급</th> -->
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${memberDatas}" var="member" varStatus="i" begin="0" step="1">
+											<c:forEach items="${memberDatas}" var="member">
 											<tr>
-												<td>${i.count}</td>
+												<%-- <td>${i.count}</td> --%>
 												<td>${member.memberID}</td>
 												<td>${member.memberName}</td>
-												<td>${member.memberPhNum}</td>
-												<td>${member.memberEmail}</td>
+												<%-- <td>${member.memberPhNum}</td>
+												<td>${member.memberEmail}</td> --%>
 												<td>${member.memberGrade}</td>
-												<td>${member.memberRole}</td>
-												<td>${member.memberBirth}</td>
+												<%-- <td>${member.memberRole}</td>
+												<td>${member.memberBirth}</td> --%>
 											</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
-								<!-- /.card-body -->
+								<!-- /bronze -->
+								
 							</div>
 							<!-- /.card -->
 						<!-- /.card -->
@@ -157,6 +163,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- Page specific script -->
 	<script>
   $(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "columnDefs": [
+    	  {"orderable": false, "targets":[1,2,3]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+      ],
+    });
+  });
+</script>
+	<script>
+  $(function () {
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -170,6 +192,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
       ],
     });
   });
+</script>
+<script>
+  $(function () {
+    $('#example3').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "columnDefs": [
+    	  {"orderable": false, "targets":[1,2,3]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+      ],
+    });
+  });
+</script>
+<script>
+  $(function () {
+    $('#example4').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "columnDefs": [
+    	  {"orderable": false, "targets":[1,2,3]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+      ],
+    });
+  });
+</script>
+<script>
+document.getElementById('grade-type').addEventListener('change', function() {
+	  var bronzeSection = document.getElementById('bronze');
+	  var silverSection = document.getElementById('silver');
+	  var goldSection = document.getElementById('gold');
+	  var vipSection = document.getElementById('vip');
+	  if (this.value === 'Bronze') {
+		  bronzeSection.style.display = 'block';
+		  silverSection.style.display = 'none';
+		  goldSection.style.display = 'none';
+		  vipSection.style.display = 'none';
+	  } else if (this.value === 'Silver'){
+		  bronzeSection.style.display = 'none';
+		  silverSection.style.display = 'block';
+		  goldSection.style.display = 'none';
+		  vipSection.style.display = 'none';
+	  } else if (this.value === 'Gold'){
+		  bronzeSection.style.display = 'none';
+		  silverSection.style.display = 'none';
+		  goldSection.style.display = 'block';
+		  vipSection.style.display = 'none';
+	  } else if (this.value === 'VIP'){
+		  bronzeSection.style.display = 'none';
+		  silverSection.style.display = 'none';
+		  goldSection.style.display = 'none';
+		  vipSection.style.display = 'block';
+	  } else {
+		  bronzeSection.style.display = 'none';
+		  silverSection.style.display = 'none';
+		  goldSection.style.display = 'none';
+		  vipSection.style.display = 'none';
+	  }
+	});
 </script>
 	<!-- jQuery -->
 

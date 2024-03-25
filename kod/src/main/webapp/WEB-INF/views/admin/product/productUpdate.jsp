@@ -78,11 +78,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-body">
 									
 									<!-- 나중에 실제 사용할 테이블 -->
-									<%-- <table id="example2" class="table table-bordered table-hover">
+									<table id="example2" class="table table-bordered table-hover">
 										<thead>
-											<tr>
+											<tr onclick="openModal()">
 												<th><input type="checkbox" onmouseup=""></th>
-												<th>번호</th>
 												<th>상품번호</th>
 												<th>상품 이미지</th>
 												<th>상품명</th>
@@ -94,10 +93,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${productList}" var="product" varStatus="i" begin="0" step="1">
+											<c:forEach items="${productDatas}">
 											<tr>
 												<td><input type="checkbox"></td>
-												<td>${i.count}</td>
 												<td>${product.productID}</td>
 												<td>${img.imageURL}</td>
 												<td>${product.productName}</td>
@@ -109,11 +107,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 											</c:forEach>
 										</tbody>
-									</table> --%>
+									</table>
 									<!-- /나중에 실제 사용할 테이블 -->
 									
-									<!-- 테스트용 -->
-									<table id="example2" class="table table-bordered table-hover">
+									
+									<!-- <table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr onclick="openModal()">
 												<th>번호</th>
@@ -149,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</tbody>
 									</table>
-									<!-- /테스트용 -->
+									 -->
 									
 								</div>
 								<!-- /.card-body -->
