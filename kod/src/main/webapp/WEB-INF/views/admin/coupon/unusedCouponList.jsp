@@ -75,9 +75,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<thead>
 											<tr>
 												<th style="width: 15%;">사용자ID</th>
-												<td style="width: 35%;"><input class="form-control form-control-sm" type="text"></td>
+												<td style="width: 35%;"><input class="form-control form-control-sm" type="text" id="memberID" name="memberID"></td>
 												<th style="width: 15%;">사용 여부</th>
-												<td style="width: 35%;"><select class="form-control form-control-sm select2">
+												<td style="width: 35%;"><select class="form-control form-control-sm select2" id="orderContentID" name="orderContentID">
 								                    	<option selected="selected" value="unused">미사용</option>
 								                    	<option value="used">사용</option>
 								                    	<option value="expire">만료</option>
@@ -186,43 +186,91 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	
-<!-- 쿠폰 목록 js -->
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "columnDefs": [
-    	  {"orderable": false, "targets":[1,2,3,4,5,7]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
-      ],
-    });
-  });
-</script>
-<!-- 쿠폰 목록 js -->
+	<!-- 쿠폰 목록 js -->
+	<!-- Page specific script -->
+	<script>
+	  $(function () {
+	    $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false,
+	      "responsive": true,
+	      "columnDefs": [
+	    	  {"orderable": false, "targets":[1,2,3,4,5,7]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+	      ],
+	    });
+	  });
+	</script>
+	<!-- 쿠폰 목록 js -->
 
-<script>
-document.getElementById('coupon-type').addEventListener('change', function() {
-	  var usedSection = document.getElementById('usedCoupon');
-	  var unusedSection = document.getElementById('unusedCoupon-table');
-	  if (this.value === '사용 쿠폰 목록') {
-		  unusedSection.style.display = 'none';
-		  usedSection.style.display = 'block';
-	  } else if (this.value === '미사용 쿠폰 목록'){
-		  usedSection.style.display = 'none';
-		  unusedSection.style.display = 'block';
-	  } else{
-		  usedSection.style.display = 'none';
-		  unusedSection.style.display = 'none';
-	  }
-	});
-</script>
+	<script>
+	document.getElementById('coupon-type').addEventListener('change', function() {
+		  var usedSection = document.getElementById('usedCoupon');
+		  var unusedSection = document.getElementById('unusedCoupon-table');
+		  if (this.value === '사용 쿠폰 목록') {
+			  unusedSection.style.display = 'none';
+			  usedSection.style.display = 'block';
+		  } else if (this.value === '미사용 쿠폰 목록'){
+			  usedSection.style.display = 'none';
+			  unusedSection.style.display = 'block';
+		  } else{
+			  usedSection.style.display = 'none';
+			  unusedSection.style.display = 'none';
+		  }
+		});
+	</script>
+	
+	<script>
+		function submitForm() {
+			$.ajax({
+				type: "POST",
+				url: "/getUnusedCouponListPage",
+				data: {
+					memberID : memberID,
+					
+				},
+				processData: false,
+				contentType: false,
+				success: function (response) {
+					console.log("성공");
+				},
+				error: function (error) {
+					console.log("실패");
+				}
+			});
+		}
+	</script>
+	<!-- 쿠폰 사용여부에 따른 회원별 쿠폰 목록 비동기 요청 -->
+	<script>
+		function updateCart(productId, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
+			$.ajax({
+				type: 'POST',
+				url: 'cartUpdateActionServlet', // 장바구니 업데이트를 처리할 서블릿 URL
+				dataType: 'json',
+				data: {
+					productId: productId, // 상품번호
+					productCnt: productCnt // 상품수량
 
+				},
+				success: function (response) { //성공한 경우
+					var changedCnt = response;
+					console.log('장바구니 업데이트 성공');
+					console.log(response);
+					console.log('cart 변경수량 :  ' + changedCnt);
+
+					$('#changedCnt_' + index).val(changedCnt);
+	                  var totalPrice = changedCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
+	                  $('#totalPrice_' + index).text(totalPrice + '원');
+				},
+				error: function (xhr, status, error) {
+					console.error('장바구니 업데이트 실패:', status, error);
+				}
+			});
+		}
+	</script>
 	<!-- jQuery -->
 
 
