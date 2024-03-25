@@ -35,7 +35,7 @@
 		<!-- LOGO -->
 		<div>
 			<div class="header-logo">
-				<a href="/main" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt="">
+				<a href="/" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt="">
 				</a>
 			</div>
 		</div>
