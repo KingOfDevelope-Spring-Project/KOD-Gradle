@@ -39,12 +39,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">회원 관리</h1>
+							<h1 class="m-0">상품 관리</h1>
 						</div>
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="adminMain.jsp">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
 								<li class="breadcrumb-item active">대시보드</li>
 							</ol>
 						</div>
@@ -60,69 +60,77 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-
-						<!-- 회원 목록 테이블 -->
-						<div class="col-sm-12">
+						
+						<!-- 상품 카테고리 테이블 -->
+						<div class="col-sm-6">
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
-									<h3 class="card-title" style="margin-top: 0.6%;">복구 신청 목록</h3>
-									<!-- <button type="button" class="btn btn-primary" style="margin-left: 85%;">신규 쿠폰 발급</button> -->
+									<h3 class="card-title" style="margin-top: 0.6%;">상품 카테고리 목록</h3>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
+									
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th>번호</th>
-												<th>회원ID</th>
-												<th>이름</th>
-												<th>전화번호</th>
-												<th>이메일</th>
-												<th>등급</th>
-												<th>생년월일</th>
-												<th>상태</th>
-												<th>복구</th>
+												<th>카테고리</th>
 											</tr>
 										</thead>
 										<tbody>
-											<%-- <c:forEach items="${memberList}" var="member" varStatus="i" begin="0" step="1">
-											<tr>
-												<td>${i.count}</td>
-												<td>${member.memberID}</td>
-												<td>${member.memberName}</td>
-												<td>${member.memberPhNum}</td>
-												<td>${member.memberEmail}</td>
-												<td>${member.memberGrade}</td>
-												<td>${member.memberBirth}</td>
-												<td>${member.memberStatus}</td>
-											</tr>
-											</c:forEach> --%>
 											<tr>
 												<td>1</td>
-												<td>user1</td>
-												<td>홍길동</td>
-												<td>010-1234-5678</td>
-												<td>test@naver.com</td>
-												<td>bronze</td>
-												<td>980824</td>
-												<td>복구신청</td>
-												<td><button class="btn btn-success btn-sm">복구</button></td>
+												<td>헤드폰</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>이어폰</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>스피커</td>
 											</tr>
 										</tbody>
+										<%-- <tbody>
+											<c:forEach items="${category}" var="category" varStatus="i" begin="0" step="1">
+											<tr>
+												<td>${i.count}</td>
+												<td>${category.type}</td>
+											</tr>
+											</c:forEach>
+										</tbody> --%>
 									</table>
 								</div>
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
 						</div>
-						<!-- /회원 목록 테이블 -->
-						<!-- /.card-body -->
-
-						<!-- /.card -->
-					</div>
-					<!-- /.col-md-6 -->
-
-					<!-- /.col-md-6 -->
+						<!-- /상품 카테고리 테이블 -->
+						
+						<!-- 카테고리 추가 div -->
+						<div class="col-sm-6">
+							<div class="card">
+								<div class="card-header" style="display: flex; justify-content: space-between;">
+									<h3 class="card-title" style="margin-top: 0.6%;">상품 카테고리 추가</h3>
+									<button type="button" class="btn btn-primary" onclick="location.href='adminProductRegister.jsp'" style="margin-left: auto;">신규 카테고리 추가</button>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									
+									<table id="example2" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>카테고리명</th>
+												<td><input type="text"></td>
+											</tr>
+										</thead>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+						<!-- /카테고리 추가 테이블 -->
 				</div>
 				<!-- /.row -->
 			</div>
@@ -170,24 +178,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 	<!-- Page specific script -->
 	<script>
-  $(function () {
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "columnDefs": [
-    	  {"orderable": false, "targets":[1,2,3]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
-      ],
-    });
-  });
-</script>
+		$(function() {
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+				"columnDefs" : [ {
+					"orderable" : false,
+					"targets" : [ 0,3,4,6,7,8 ]
+				} 
+				],
+			});
+		});
+	</script>
 	<!-- jQuery -->
 
 </body>

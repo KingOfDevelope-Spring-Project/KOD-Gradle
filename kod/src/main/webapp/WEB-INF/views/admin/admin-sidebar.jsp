@@ -17,9 +17,9 @@
 					href="/getAdminMainPage" class="nav-link">Home</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/getStatisticsMainPage"
 					class="nav-link">매출 현황</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="adminMemberManage.jsp"
+				<li class="nav-item d-none d-sm-inline-block"><a href="/getMemberManagePage"
 					class="nav-link">회원 관리</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="adminProductManage.jsp"
+				<li class="nav-item d-none d-sm-inline-block"><a href="/getProductManagePage"
 					class="nav-link">상품 관리</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/getCouponManagePage" 
 					class="nav-link">쿠폰 관리</a></li>
