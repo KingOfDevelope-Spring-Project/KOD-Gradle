@@ -22,6 +22,22 @@
 	.notice:hover{
 		display: inline;
 	}
+	body{
+		background-color: lightgray;
+	}
+	#container{
+		background-color: #fff; 
+		padding: 7vh; 
+		border-radius: 5%; 
+		margin-top: 5vh; 
+		width: 35%;
+	}
+	h1{
+		margin: 0 0;
+	}
+	a img{
+		width:40vh
+	}
 </style>
 </head>
 <body style="background-color: lightgray;">

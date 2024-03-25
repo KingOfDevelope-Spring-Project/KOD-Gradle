@@ -84,7 +84,7 @@
 							<!-- Wishlist -->
 							<div>
 								<!-- 정현진 -->
-								<a href="/getWishListPage"> <!-- 위시리스트 페이지로 이동하는 링크 --> <i class="fa fa-heart-o"></i> <!-- 하트 아이콘 --> <span>My Wishlist</span> <!-- 위시리스트 링크의 텍스트 --> <!-- 페이지로드시 위시리스트 수량 --> <!-- 값이 null이면 0으로 설정 --> <c:set var="wishListCnt" value="${empty wishListCnt ? 0 : wishListCnt}" /> <!-- 업데이트된 위시리스트 수량 --> <!-- 비동기반응 반응 --> <c:set var="updatedWishListCnt" value="${updatedWishListCnt}" /> <c:if test="${empty updatedWishListCnt}">
+								<a href="/getWishListPage?page=1"> <!-- 위시리스트 페이지로 이동하는 링크 --> <i class="fa fa-heart-o"></i> <!-- 하트 아이콘 --> <span>My Wishlist</span> <!-- 위시리스트 링크의 텍스트 --> <!-- 페이지로드시 위시리스트 수량 --> <!-- 값이 null이면 0으로 설정 --> <c:set var="wishListCnt" value="${empty wishListCnt ? 0 : wishListCnt}" /> <!-- 업데이트된 위시리스트 수량 --> <!-- 비동기반응 반응 --> <c:set var="updatedWishListCnt" value="${updatedWishListCnt}" /> <c:if test="${empty updatedWishListCnt}">
 										<!-- 값이 비어 있다면 0으로 설정 -->
 										<c:set var="updatedWishListCnt" value="${wishListCnt}" />
 									</c:if>
@@ -99,11 +99,14 @@
 							<div class="dropdown">
 								<c:if test="${memberDTO != null}">
 									<a href="/payInfo" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
+									<div class="qty">${updateCartCnt}</div>
 									</a>
 								</c:if>
 								<c:if test="${memberDTO == null}">
 									<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
+									<div class="qty">0</div>
 									</a>
+									
 								</c:if>
 								<div class="cart-dropdown">
 									<div class="cart-list">

@@ -23,7 +23,7 @@
 	<!-- LOGO -->
 	<div>
 		<div class="header-logo">
-			<a href="/main" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt=""></a>
+			<a href="/" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt=""></a>
 		</div>
 	</div>
 	<!-- /LOGO -->
@@ -31,7 +31,7 @@
 	
 	<!-- 폼 제출 버튼을 누르면 유효성을 검사하는 함수실행후 회원가입 페이지.do로 이동 post 타입 요청으로 데이터전송-->
 	<!-- post 타입 요청은 get타입 요청과 달리 URL에 데이터를 노출시키지않아 보안적으로 더안전 데이터 크기제한이없어 대량의 데이터를 보낼수있음-->
-	<form onsubmit="validateForm(form);" action="joinPage.do" method="post">
+	<form onsubmit="validateForm(form);" action="/joinPage" method="post">
 
 		<!-- 약관 전체 동의 체크박스 -->
 		<div style="padding-left: 27px;">

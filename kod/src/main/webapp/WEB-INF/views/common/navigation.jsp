@@ -17,7 +17,15 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/getStorePage">상품목록</a></li>
+						<li><a href="/getStorePage?page=1">상품목록</a></li>
+						<c:if test="${memberID == null}">
+							<li><a href="/loginPage">장바구니</a></li>
+							<li><a href="/loginPage">마이페이지</a></li>
+						</c:if>
+						<c:if test="${memberID != null}">
+							<li><a href="/getCartPage">장바구니</a></li>
+							<li><a href="/getMypage">마이페이지</a></li>
+						</c:if>
 					</ul>
 					<!-- /NAV -->
 				</div>
