@@ -23,5 +23,7 @@ public class CouponDTO {
 	private Date orderListDate;
 	private String searchCondition; 
 	
+	private int orderContentID;
+	
 
 }

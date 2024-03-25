@@ -37,4 +37,20 @@ public class ProductDTO {
 	private int quarterlyRevenue; // 분기 매출
 	private int monthlyRevenue; // 월간 매출
 	private int dailyRevenue; // 일간 매출
+	
+	// 기존 위시리스트DTO에서 옮겨온 멤버변수
+	private int wishListID;
+	private int wishListCnt;
+	private int wishTotalCnt;
+	private String memberGender;
+	private String searchKeyword;
+	
+	// 결제 시 필요한 멤버변수
+	private int purchaseType; // 구매유형 - 선택구매 0 , 즉시구매 1
+	
+	
+	
+	
 }
+
+
