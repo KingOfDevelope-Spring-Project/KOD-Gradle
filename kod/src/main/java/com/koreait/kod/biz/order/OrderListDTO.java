@@ -11,6 +11,5 @@ public class OrderListDTO {
 	private int orderListCntToday; // 오늘 주문건수
 	private int orderListCntYesterday; // 어제 주문건수
 	private String memberID; // 회원 ID
-	private String couponID; // 쿠폰테이블 PK
 	private String searchCondition;
 }
