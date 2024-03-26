@@ -14,6 +14,24 @@
 <style>
 .header-logo {
 	background-color: #000; /* 검정색 배경으로 설정 */
+	width:inherit;
+	display: inline-flex;
+}
+body {
+	background-color: #F6F6F6;
+}
+
+form {
+	padding-bottom : 1vh;
+    background-color: #fff;
+    max-width: 712px;
+    border: 1px solid lightgrey;
+    margin: 10vh auto;
+}
+#agreeText{
+	margin: 0 5vh;
+    padding: 5px 0 0 0;
+    color: #fff;
 }
 </style>
 
@@ -23,24 +41,25 @@
 <c:set var="col" value="90" />
 <!-- 폼 제출 버튼을 누르면 유효성을 검사하는 함수실행후 회원가입 페이지.do로 이동 post 타입 요청으로 데이터전송-->
 <!-- post 타입 요청은 get타입 요청과 달리 URL에 데이터를 노출시키지않아 보안적으로 더안전 데이터 크기제한이없어 대량의 데이터를 보낼수있음-->
-<form onsubmit="validateForm(form);" action="/joinPage" method="post">
+<form onsubmit="validateForm(form);" action="/joinPage" method="get">
 
 <!-- LOGO -->
-<div class="header-logo" style="justify-content: center;">
-<a href="/" class="logo"> <img src="resources/img/logo.gif" style="width: 250px" height="65px" alt=""></a>
+<div class="header-logo" style="">
+<a href="/" class="logo"> <img src="resources/img/logo.gif" style="width: 196px" height="65px" alt=""></a>
+<h1 id="agreeText">약관동의</h1>
 </div>
 <!-- /LOGO -->
-
+<br><br>
 <!-- 약관 전체 동의 체크박스 -->
-<div style="padding-left: 27px;">
+<div>
 <!-- 약관 전체 동의 체크박스를 클릭하면 아래 자바스크립트에서 생성한 함수실행 -->
-<input type="checkbox" id="checkAll" name="checkAll" onclick="checkAllCheckboxes()"> <label for="checkAll"> 약관 전체 동의하기</label>
+<input type="checkbox" id="checkAll" name="checkAll" onclick="checkAllCheckboxes()" style="margin-left: 5vh;"> <label for="checkAll"> 약관 전체 동의하기</label>
 </div>
 <br>
 
 <!-- 개인정보 수집동의 체크박스 -->
-<div style="padding-left: 27px;">
-<input type="checkbox" class="input" id="privacyAgreeCheckbox" name="privacyAgreeCheckbox"> <label for="privacyAgreeCheckbox"> [필수] 개인정보 수집 및 이용 동의 </label>
+<div style="margin-left: 5vh;">
+<input type="checkbox" class="input" id="privacyAgreeCheckbox" name="privacyAgreeCheckbox" > <label for="privacyAgreeCheckbox"> [필수] 개인정보 수집 및 이용 동의 </label>
 <!-- 자세히 버튼을 클릭하면 아래 자바스크립트에서 생성한 함수실행 -->
 <!-- <button type="button" onclick="javascript:openWin1()" class="btn btn-secondary" style="border: 1px solid black; margin-bottom: 1%;">약관보기</button> -->
 <textarea rows="${row}" cols="${col}" readonly style="overflow: scroll; scrollbar-width: none; display: block; margin-bottom: 1vh;">
@@ -92,7 +111,7 @@
 <br>
 
 <!-- KOD 이용약관 동의 체크박스 -->
-<div style="padding-left: 27px;">
+<div style="margin-left: 5vh;">
 <input type="checkbox" class="input" id="KODAgreeCheckbox" name="KODAgreeCheckbox"> <label for="KODAgreeCheckbox"> [필수] KOD 스토어 이용 악관 </label>
 <!-- 자세히 버튼을 클릭하면 아래 자바스크립트에서 생성한 함수실행 -->
 <!-- <button type="button" onclick="javascript:openWin2()" class="btn btn-secondary" style="border: 1px solid black; margin-bottom: 1%;">약관보기</button> -->
@@ -243,14 +262,13 @@
 
 부 칙
 (시행일) 본 약관은 2018년 8월 1일부터 시행됩니다. 개정된 약관의 적용일자 이전 이용자 또는 회원은 개정된 이용약관의 적용을 받습니다.
-
 </textarea>
 </div>
 <br>
 
 <!-- 마케팅 활용 및 광고성 정보 수신 동의 체크박스 -->
-<div style="padding-left: 27px;">
-<input type="checkbox" class="input" id="marketingAgreeCheckbox" name="marketingAgreeCheckbox"> <label for="marketingAgreeCheckbox"> [선택] 마케팅 활용 및 광고성 정보 수신 동의 </label>
+<div style="margin-left: 5vh;">
+<input type="checkbox" class="input" id="marketingAgreeCheckbox" name="marketingAgreeCheckbox" > <label for="marketingAgreeCheckbox"> [선택] 마케팅 활용 및 광고성 정보 수신 동의 </label>
 <!-- 자세히 버튼을 클릭하면 아래 자바스크립트에서 생성한 함수실행 -->
 <!-- <button type="button" onclick="javascript:openWin3()" class="btn btn-secondary" style="border: 1px solid black; margin-bottom: 1%;">약관보기</button> -->
 <textarea rows="${row}" cols="${col}" readonly style="overflow: scroll; scrollbar-width: none; display: block; margin-bottom: 1vh;">
@@ -292,7 +310,6 @@
 ⑦ 전자적 전송매체를 이용하여 영리목적의 광고성 정보를 전송하려는 자는 수신자가 제1항에 따른 사전 동의, 제2항에 따른 수신거부의사 또는 수신동의 철회 의사를 표시할 때에는 해당 수신자에게 대통령령으로 정하는 바에 따라 수신동의, 수신거부 또는 수신동의 철회에 대한 처리 결과를 알려야 한다.
 
 ⑧ 제1항 또는 제3항에 따라 수신동의를 받은 자는 대통령령으로 정하는 바에 따라 정기적으로 광고성 정보 수신자의 수신동의 여부를 확인하여야 한다.
-
 </textarea>
 </div>
 <br>

@@ -1,3 +1,4 @@
+<!-- jsp라이브러리 및 페이지 설정 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -7,19 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" type="image/x-icon" href="resources/img/favicon.png">
-<style>
-.loginModal{
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
-}
-</style>
 </head>
 <body>
 	<!-- HEADER -->
@@ -27,17 +15,20 @@
 		<!-- TOP HEADER -->
 		<div id="top-header">
 			<div class="container">
+				<!-- 김진영 / 가상의 회사 위치를 나타내는 페이지로 이동 요청 -->
 				<ul class="header-links pull-left">
 					<li><a href="/mapPage"><i class="fa fa-map-marker"></i> 찾아오시는 길</a></li>
 				</ul>
-				<c:if test="${sessionScope.memberID == null}">
+				<!-- 로그인 여부에 따라 보여지는 메뉴 -->
+				<!-- 비 로그인 시 로그인 페이지 및 회원가입 페이지로 이동 -->
+				<c:if test="${memberID == null}">
 					<ul class="header-links pull-right">
 						<li><a href="/loginPage"><i class="fa fa-user-o"></i>로그인</a></li>
 						<li><a href="/checkTermsAgreementPage"><i class="fa fa-user-o"></i>회원가입</a></li>
 					</ul>
-
 				</c:if>
-				<c:if test="${sessionScope.memberID != null}">
+				<!-- 로그인 시 로그아웃 요청 및 마이페이지로 이동 -->
+				<c:if test="${memberID != null}">
 					<ul class="header-links pull-right">
 						<li><a href="/logout"><i class="fa fa-user-o"></i> 로그아웃</a></li>
 						<li><a href="/getMypage"><i class="fa fa-user-o"></i> 마이페이지</a></li>
@@ -65,12 +56,9 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6" style="padding-top: 1%">
 						<div class="header-search">
+							<!-- 검색기능 사용 시 페이지의 정보와 검색조건을 GET방식으로 전달 / 주소에 변수명과 값 노출 -->
 							<form method="GET" action="/getStorePage" style="padding-left: 10%;">
-								<!-- <select class="input-select" style="">
-									<option value="0">All Categories</option>
-									<option value="1">Category 01</option>
-									<option value="1">Category 02</option>
-								</select> -->
+								<input name="page" type="hidden" value="1">
 								<input name="searchKeyword" id="searchKeyword" class="input" placeholder="Search here" style="border-bottom-left-radius: 40px; border-top-left-radius: 40px; padding-left: 4%; width: 75%;">
 								<button class="search-btn">Search</button>
 							</form>
@@ -81,33 +69,51 @@
 					<!-- ACCOUNT -->
 					<div class="col-md-3 clearfix" style="padding-top: 2%">
 						<div class="header-ctn" style="display: flex">
-							<!-- Wishlist -->
+							<!-- WISHLIST -->
 							<div>
-								<!-- 정현진 -->
-								<a href="/getWishListPage?page=1"> <!-- 위시리스트 페이지로 이동하는 링크 --> <i class="fa fa-heart-o"></i> <!-- 하트 아이콘 --> <span>My Wishlist</span> <!-- 위시리스트 링크의 텍스트 --> <!-- 페이지로드시 위시리스트 수량 --> <!-- 값이 null이면 0으로 설정 --> <c:set var="wishListCnt" value="${empty wishListCnt ? 0 : wishListCnt}" /> <!-- 업데이트된 위시리스트 수량 --> <!-- 비동기반응 반응 --> <c:set var="updatedWishListCnt" value="${updatedWishListCnt}" /> <c:if test="${empty updatedWishListCnt}">
-										<!-- 값이 비어 있다면 0으로 설정 -->
-										<c:set var="updatedWishListCnt" value="${wishListCnt}" />
-									</c:if>
-
-									<div class="qty wishListCnt">${updatedWishListCnt}</div> <!-- 위시리스트 개수를 출력하는 부분 -->
-								</a>
+								<!-- 위시리스트 페이지로 요청 -->
+								<c:if test="${memberID != null}">
+									<a href="/getWishListPage?page=1">
+										<i class="fa fa-heart-o"></i>
+										<span>My Wishlist</span>
+										<!-- 위시리스트에 담긴 항목이 없다면 수량이 0으로 설정 --> 
+										<c:set var="wishListCnt" value="${empty wishListCnt ? 0 : wishListCnt}" /> 
+										<c:set var="updatedWishListCnt" value="${updatedWishListCnt}" /> 
+										<c:if test="${empty updatedWishListCnt}">
+											<!-- 값이 비어 있다면 0으로 설정 -->
+											<c:set var="updatedWishListCnt" value="${wishListCnt}" />
+										</c:if>
+										<!-- 위시리스트 개수를 출력하는 부분 -->
+										<div class="qty wishListCnt">${updatedWishListCnt}</div>
+									</a>
+								</c:if>
+								<c:if test="${sessionScope.memberID != null}">
+									<a href="/getWishListPage?page=1">
+										<i class="fa fa-heart-o"></i>
+										<span>My Wishlist</span>
+										<div class="qty wishListCnt">0</div>
+									</a>
+								</c:if>
 							</div>
-							<!-- /정현진  -->
-							<!-- /Wishlist -->
+							<!-- /WISHLIST -->
 
 							<!-- Cart -->
 							<div class="dropdown">
-								<c:if test="${memberDTO != null}">
-									<a href="/payInfo" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
-									<div class="qty">${updateCartCnt}</div>
-									</a>
-								</c:if>
-								<c:if test="${memberDTO == null}">
-									<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
-									<div class="qty">0</div>
-									</a>
-									
-								</c:if>
+								<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
+									<!-- 로그인 및 장바구니 유무에 따른 장바구니 개수 -->
+									<c:choose>
+										<!-- 로그인 상태이며, 장바구니에 상품이 1개 이상 존재하는 경우 -->
+										<c:when test="${memberID != null && !empty updateCartCnt}">
+											<div class="qty">
+												${updateCartCnt}
+											</div>
+										</c:when>
+										<!-- 그 외의 모든 경우 -->
+										<c:otherwise>
+											<div class="qty">0</div>
+										</c:otherwise>
+									</c:choose>
+								</a>
 								<div class="cart-dropdown">
 									<div class="cart-list">
 										<div class="product-widget">
@@ -135,7 +141,6 @@
 										<a href="#">View Cart</a> <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
-								-->
 							</div>
 							<!-- /Cart -->
 							<!-- /Cart -->
