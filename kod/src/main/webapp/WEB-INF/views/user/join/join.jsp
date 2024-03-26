@@ -98,11 +98,11 @@
 
 			<!-- 핸드폰번호 입력란 -->
 			<div class="input__block" style="padding-left: 27px;">
-				<input type="text" id="PhNum1" name="PhNum1" placeholder=" 010 " style="display: inline-block; width: 29%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phNum1" name="phNum1" placeholder=" 010 " style="display: inline-block; width: 29%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="PhNum2" name="PhNum2" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phNum2" name="phNum2" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="PhNum3" name="PhNum3" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
+				<input type="text" id="phNum3" name="phNum3" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
 			</div>
 
 
