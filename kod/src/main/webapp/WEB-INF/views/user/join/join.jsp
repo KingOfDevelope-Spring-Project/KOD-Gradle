@@ -54,7 +54,7 @@
 				<input type="text" placeholder="아이디" class="input" id="memberID" name="memberID" style="display: inline-block; width: 70%;" minlength="6" maxlength="13" oninput="removeWhitespace(this)" required />
 
 				<!-- ID중복검사 버튼생성 클릭시 check()함수호출 -->
-				<input type="button" id="but" value="ID중복검사" onclick="check()" style="display: inline-block; width: 25%; padding-right: 2%;"><br> <label> 아이디는 6~13자의 영문 소문자, 숫자로 입력해주세요. </label>
+				<input type="button" id="but" value="ID중복검사" onclick="asyncCheckMemberID()" style="display: inline-block; width: 25%; padding-right: 2%;"><br> <label> 아이디는 6~13자의 영문 소문자, 숫자로 입력해주세요. </label>
 			</div>
 			<div class="first-input input__block first-input__block" style="padding-left: 27px;">
 				<span id="msg"></span>
@@ -135,7 +135,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- 아이디 중복검사 js -->
-	<script src="resources/js/check.js"></script>
+	<script src="resources/js/asyncCheckMemberID.js"></script>
 	<!-- 주소 API -->
 	<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 	<!-- [김진영] 2024.03.18 유효성 검사 스크립트 join.js로 모듈화 진행 -->

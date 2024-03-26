@@ -87,7 +87,7 @@
 										<div class="qty wishListCnt">${updatedWishListCnt}</div>
 									</a>
 								</c:if>
-								<c:if test="${memberID != null}">
+								<c:if test="${memberID == null}">
 									<a href="/getWishListPage?page=1">
 										<i class="fa fa-heart-o"></i>
 										<span>My Wishlist</span>
