@@ -87,7 +87,7 @@
 										<div class="qty wishListCnt">${updatedWishListCnt}</div>
 									</a>
 								</c:if>
-								<c:if test="${sessionScope.memberID != null}">
+								<c:if test="${memberID != null}">
 									<a href="/getWishListPage?page=1">
 										<i class="fa fa-heart-o"></i>
 										<span>My Wishlist</span>
@@ -101,7 +101,7 @@
 							<div class="dropdown">
 								<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
 									<!-- 로그인 및 장바구니 유무에 따른 장바구니 개수 -->
-									<c:choose>
+									<%-- <c:choose>
 										<!-- 로그인 상태이며, 장바구니에 상품이 1개 이상 존재하는 경우 -->
 										<c:when test="${memberID != null && !empty updateCartCnt}">
 											<div class="qty">
@@ -112,7 +112,7 @@
 										<c:otherwise>
 											<div class="qty">0</div>
 										</c:otherwise>
-									</c:choose>
+									</c:choose> --%>
 								</a>
 								<div class="cart-dropdown">
 									<div class="cart-list">
