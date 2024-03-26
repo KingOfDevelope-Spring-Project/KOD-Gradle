@@ -10,6 +10,6 @@ public class JoinPage {
 	public String joinPage() {
 		
 		
-		return "user/member/join";
+		return "user/join/join";
 	}
 }
