@@ -46,7 +46,7 @@
 		<!-- Heading -->
 		<h1>회원가입</h1>
 		<!-- Form -->
-		<form name="joinform" onsubmit="formCheck(this);" action="/joinMember" method="post">
+		<form name="joinform" onsubmit="formCheck(this);" action="/join" method="post">
 
 			<!-- 아이디 입력란 -->
 			<!-- oninput이벤트를 사용해 사용자가 입력할때마다 공백을 제거하는 함수 호출 -->
