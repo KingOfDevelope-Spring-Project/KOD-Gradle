@@ -121,10 +121,11 @@
 					<option value="kakao.com">kakao.com</option>
 				</select>
 			</div>
-			<div class="input__block">
+			<!-- 배송지 입력 임시 주석처리 -->
+			<!-- <div class="input__block">
 				<input class="input" type="text" id="adrsName" name="adrsName" placeholder="집 / 회사 / 친구" oninput="removeWhitespace(this)" style="margin-bottom: 2%; width: 91%; margin-left: 4%;"> <input type="text" id="sample4_postcode" name="adrsZipcode" placeholder="우편번호" style="display: inline-block; width: 30%; margin-left: 4%;" readonly> <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" style="display: inline-block; width: 20%; height: inherit; padding: 1rem 1rem;"><br>
 				<br> <input type="text" id="sample4_roadAddress" name="adrsStreet" placeholder="도로명주소" style="margin-bottom: 2%; margin-left: 4%; width: 91%;" readonly> <input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="adrsLotNum" style="margin-bottom: 2%; margin-left: 4%; width: 91%;" readonly> <span id="guide" style="color: #999; display: none"></span> <input type="text" id="sample4_detailAddress" name="adrsDetail" placeholder="상세주소" style="margin-bottom: 2%; margin-left: 4%; width: 91%;" oninput="removeWhitespace(this)"> <br>
-			</div>
+			</div> -->
 
 			<!-- 회원가입 버튼  -->
 			<button class="join__btn" onclick="return formCheck(this.form)">회원가입</button>
@@ -136,7 +137,7 @@
 	<!-- 아이디 중복검사 js -->
 	<script src="resources/js/check.js"></script>
 	<!-- 주소 API -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 	<!-- [김진영] 2024.03.18 유효성 검사 스크립트 join.js로 모듈화 진행 -->
 	<script src="resources/js/join.js"></script>
 	<script src="resources/js/login.js"></script>
