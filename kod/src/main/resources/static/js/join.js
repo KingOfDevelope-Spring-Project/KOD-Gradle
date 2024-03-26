@@ -378,6 +378,7 @@ function formCheck(form) {
 		return false;
 	}
 
+	/* 2024-03-26 15:45 addressDAO작성되기 전까지 임시로 막아두는거임
 	// adrsName(배송지 이름)입력되지 않았거나 배송지가 [ 집 , 회사 , 친구 ]가 아니라면 알림창 출력후 배송지(adrsName.focus)에 포커스 false반환해 form제출을 못하게 막음
 	if (adrsName.value == '' || !['집', '회사', '친구'].includes(adrsName.value)) {
 		console.log("배송지를 입력해주세요.\n[ 집, 회사, 친구 ] 중 입력해주세요.");
@@ -410,7 +411,7 @@ function formCheck(form) {
 		alert('상세주소를 입력해주세요.');
 		sample4_detailAddress.focus();
 		return false;
-	}
+	}*/
 
 	// 모든 조건이 충족되면 폼을 제출
 	joinform.submit();
