@@ -8,7 +8,7 @@ var idCheckStatus = 0;
 var regId = /^[0-9a-z]{6,13}$/;
 
 
-function check(){
+function asyncCheckMemberID(){
 	// 회원가입페이지에있는(join.jsp) 아이디입력값(memberID)를 가져와 memberID변수에 저장함
 	var memberID=$('#memberID').val();
 	// 만약 memberID값이 없다면 메시지 출력 함수 종료
@@ -23,7 +23,7 @@ function check(){
         idCheckStatus = 0; // 아이디 중복검사 함수에 0을 저장후
         return; // 함수 종료
     }
-	
+	console.log('비동기 요청 들어옴');
 	// jQuery의 AJAX 함수를 호출 이함수를 사용하여 비동기적으로 서버와 통신할수있음 새로고침 없이 데이터를 받아올 수 있는 기술
 	$.ajax({
 		type:"GET", // POST메서드를 사용하여 서버로 데이터 전송
@@ -35,7 +35,7 @@ function check(){
 			
 		
 		// 만약 데이터가 true면 메시지 출력 idCheckStatus변수에 1저장  
-			if(data=='true'){
+			if(data){
 				$('#msg').css('color', '#00FF00').text("사용가능한 아이디 입니다. ");
 				idCheckStatus = 1; // 아이디 중복검사 함수에 1을저장
 			}
