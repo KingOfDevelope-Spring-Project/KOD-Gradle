@@ -15,7 +15,7 @@
 					href="#" role="button"><i class="fas fa-bars"></i></a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a
 					href="/getAdminMainPage" class="nav-link">Home</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="/getStatisticsMainPage"
+				<li class="nav-item d-none d-sm-inline-block"><a href="/getProductSalesStatisticsByQuarterPage"
 					class="nav-link">매출 현황</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/getMemberManagePage"
 					class="nav-link">회원 관리</a></li>
@@ -23,13 +23,13 @@
 					class="nav-link">상품 관리</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/getCouponManagePage" 
 					class="nav-link">쿠폰 관리</a></li>
-				<li class="nav-item d-none d-sm-inline-block"><a href="adminReviewManage.jsp"
+				<li class="nav-item d-none d-sm-inline-block"><a href="/getReviewManagePage"
 					class="nav-link">리뷰 관리</a></li>
 			</ul>
 
 			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<!-- Navbar Search -->
+			<!-- <ul class="navbar-nav ml-auto">
+				Navbar Search
 				<li class="nav-item"><a class="nav-link"
 					data-widget="navbar-search" href="#" role="button"> <i
 						class="fas fa-search"></i>
@@ -52,13 +52,13 @@
 						</form>
 					</div></li>
 
-				<!-- Messages Dropdown Menu -->
+				Messages Dropdown Menu
 				<li class="nav-item dropdown"><a class="nav-link"
 					data-toggle="dropdown" href="#"> <i class="far fa-comments"></i>
 						<span class="badge badge-danger navbar-badge">3</span>
 				</a>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="resources/dist/img/user1-128x128.jpg" alt="User Avatar"
 									class="img-size-50 mr-3 img-circle">
@@ -72,10 +72,10 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="resources/dist/img/user8-128x128.jpg" alt="User Avatar"
 									class="img-size-50 img-circle mr-3">
@@ -89,10 +89,10 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"> <!-- Message Start -->
+						<a href="#" class="dropdown-item"> Message Start
 							<div class="media">
 								<img src="resources/dist/img/user3-128x128.jpg" alt="User Avatar"
 									class="img-size-50 img-circle mr-3">
@@ -106,13 +106,13 @@
 										<i class="far fa-clock mr-1"></i> 4 Hours Ago
 									</p>
 								</div>
-							</div> <!-- Message End -->
+							</div> Message End
 						</a>
 						<div class="dropdown-divider"></div>
 						<a href="#" class="dropdown-item dropdown-footer">See All
 							Messages</a>
 					</div></li>
-				<!-- Notifications Dropdown Menu -->
+				Notifications Dropdown Menu
 				<li class="nav-item dropdown"><a class="nav-link"
 					data-toggle="dropdown" href="#"> <i class="far fa-bell"></i> <span
 						class="badge badge-warning navbar-badge">15</span>
@@ -146,7 +146,7 @@
 					data-widget="control-sidebar" data-slide="true" href="#"
 					role="button"> <i class="fas fa-th-large"></i>
 				</a></li>
-			</ul>
+			</ul> -->
 		</nav>
 		<!-- /.navbar -->
 
@@ -191,7 +191,7 @@
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<li class="nav-item ">
-							<a href="/getStatisticsMainPage" class="nav-link active">
+							<a href="/getProductSalesStatisticsByQuarterPage" class="nav-link active">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
 									매출 현황
@@ -258,23 +258,19 @@
 										class="far fa-circle nav-icon"></i>
 										<p>쿠폰 발행 목록</p>
 								</a></li>
-								<li class="nav-item"><a href="/getUnusedCouponListPage" class="nav-link"> <i
+								<li class="nav-item"><a href="/getCouponMemberListPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>회원별 쿠폰 목록</p>
 								</a></li>
 							</ul></li>
-						<li class="nav-item "><a href="#" class="nav-link active">
+						<li class="nav-item ">
+							<a href="/getReviewManagePage" class="nav-link active">
 								<i class="nav-icon fas fa-list-alt"></i>
 								<p>
-									리뷰 관리<i class="right fas fa-angle-left"></i>
+									리뷰 관리
 								</p>
-						</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item"><a href="adminReviewList.jsp" class="nav-link"> <i
-										class="far fa-circle nav-icon"></i>
-										<p>리뷰 목록</p>
-								</a></li>
-							</ul></li>
+							</a>
+						</li>
 
 						<!-- <li class="nav-item">
             <a href="#" class="nav-link">
