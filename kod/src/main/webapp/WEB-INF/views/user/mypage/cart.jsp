@@ -48,7 +48,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 		<c:set var="cDatas" value="${cartDTO}" />
-		<c:set var="memberDTO" value="${sessionScope.memberDTO}" />
+		<%-- <c:set var="memberDTO" value="${sessionScope.memberDTO}" /> --%>
 		<section class="cart">
 			<div class="cart__information">
 				<ul>
@@ -56,7 +56,7 @@
 					<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
 				</ul>
 			</div>
-			<form action="/payInfo" method="POST" onsubmit="return submitForm()">
+			<form action="/getPayInfoPage" method="GET" onsubmit="return submitForm()">
 				<input type="hidden" name="payCk" value="0">
 				<table class="cart__list">
 					<thead>
@@ -70,7 +70,7 @@
 						</tr>
 					</thead>
 					<c:choose>
-    				<c:when test="${empty cDatas}">
+    				<c:when test="${empty cartDatas}">
       				  <tbody>
             				<tr>
               			  <td colspan="7"><h3 style="text-align: center;">장바구니에 상품이 없습니다</h3></td>
@@ -78,7 +78,7 @@
         					</tbody>
     					</c:when>
     						<c:otherwise>
-					<c:forEach var="cData" items="${cDatas}" varStatus="status">
+					<c:forEach var="cData" items="${cartDatas}" varStatus="status">
 						<tbody>
 							<tr class="cart__list__detail">
 								<td><input type="checkbox" name="selectedProducts" value="${cData.productID}"
@@ -103,7 +103,7 @@
 								<td>
 									<span class="price"
 										id="totalPrice_${status.index}">
-										${cData.sumProductPrice}원
+										${cData.productTotalPrice}원
 									</span><br>
 								<!--  	<button class="cart__list__orderbtn">주문하기</button> -->
 								</td>
@@ -122,12 +122,12 @@
 					<button class="cart__bigorderbtn right">주문하기</button>
 				</div>
 			</form>
-				<form action="/getStorePage" method="POST" style="display: inline-block; ">
+				<form action="/getStorePage" method="GET" style="display: inline-block; ">
 					<button class="cart__bigorderbtn left" style="width: ">쇼핑 계속하기</button>
 				</form>
 	
-				<form action="/deleteAllProductsToCart" method="POST" style="display: inline-block;">
-					<c:forEach var="cData" items="${cDatas}" varStatus="status">
+				<form action="/deleteAllProductsToCart" method="GET" style="display: inline-block;">
+					<c:forEach var="cData" items="${cartDatas}" varStatus="status">
 						<input type="hidden" name="cartId" value="${cData.cartID}">
 					</c:forEach>
 					<div class="cart__mainbtns">
@@ -144,7 +144,7 @@
 		<script src="resources/js/nouislider.min.js"></script>
 		<script src="resources/js/jquery.zoom.min.js"></script>
 		<script src="resources/js/main.js"></script>
-		<script>
+		<!-- <script>
 			function submitForm() {
 				var formData = new FormData(document.forms[0]);
 
@@ -162,7 +162,7 @@
 					}
 				});
 			}
-		</script>
+		</script> -->
 		<script>
 			function updateCart(productId, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
 				$.ajax({

@@ -127,10 +127,10 @@ function formCheck(form) {
 	var year = document.getElementById("year");
 	var month = document.getElementById("month");
 	var day = document.getElementById("day");
-	var phNum1 = document.getElementById("phNum1");
-	var phNum2 = document.getElementById("phNum2");
-	var phNum3 = document.getElementById("phNum3");
-	var emailField = document.getElementById("memberEmail1");
+	var phoneNumberPrefix = document.getElementById("phoneNumberPrefix");
+	var phoneNumberMiddle = document.getElementById("phoneNumberMiddle");
+	var phoneNumberSuffix = document.getElementById("phoneNumberSuffix");
+	var emailField = document.getElementById("emailUsername");
 	var emailType = document.getElementById("domain-list").value;
 	var emailTxt = document.getElementById("domain-txt").value;
 
@@ -290,55 +290,55 @@ function formCheck(form) {
 
 	// 휴대폰 PhNum1 유효성검사
 	// 휴대폰 (PhNum1)입력란에 값이 없다면 안내문출력후 휴대폰 입력란(PhNum1)에 포커스 후 false반환 form에 제출을 못하게 막음
-	if (phNum1.value == '') {
+	if (phoneNumberPrefix.value == '') {
 		console.log("휴대폰번호 입력");
 		alert('휴대폰 번호를 입력해주세요.');
-		phNum1.focus();
+		phoneNumberPrefix.focus();
 		return false;
 	}
 	// 만약 휴대폰입력(PhNum1)값이 /^01[016789]$/(정규식)조건이 아니라면 안내문구 출력후 휴대폰 입력란(PhNum1)에 포커스 후 false반환 form에 제출을 못하게 막음
 	// /^01[016789]$/ 다음 정규식은 3자리중 0,1로 2자리고정후 마지막자리에 0,1,6,7,8,9 만입력가능하다는 정규식이다
-	else if (!/^01[016789]$/.test(phNum1.value)) {
+	else if (!/^01[016789]$/.test(phoneNumberPrefix.value)) {
 		console.log("휴대폰 앞번호 검사");
 		alert("휴대폰 앞 번호는 [ 010 , 011 , 016 , 017 , 018 , 019 ] 중 에서만 입력 가능 합니다. ");
-		phNum1.focus();
+		phoneNumberPrefix.focus();
 		return false;
 	}
 
 
 	// 휴대폰 PhNum2 유효성검사
 	// 휴대폰 (PhNum2)입력란에 값이 없다면 안내문출력후 휴대폰 입력란(PhNum2)에 포커스 후 false반환 form에 제출을 못하게 막음
-	if (phNum2.value == '') {
+	if (phoneNumberMiddle.value == '') {
 		console.log("휴대폰번호 중간 입력");
 		alert('휴대폰 번호를 입력해주세요.');
-		phNum2.focus();
+		phoneNumberMiddle.focus();
 		return false;
 	}
 	// 만약 휴대폰입력(PhNum2)값이 /^([0-9]{4})$/(정규식)조건이 아니라면 안내문구 출력후 휴대폰 입력란(PhNum2)에 포커스 후 false반환 form에 제출을 못하게 막음
 	// /^([0-9]{4})$/ 다음 정규식은 0~9까지숫자만사용가능하고 4자리까지입력가능하다는 정규식이다
-	else if (!/^([0-9]{4})$/.test(phNum2.value)) {
+	else if (!/^([0-9]{4})$/.test(phoneNumberMiddle.value)) {
 		console.log("휴대폰 번호 중간자리 숫자만 입력");
 		alert("휴대폰 번호 숫자 4자리를 입력해주세요. ");
-		phNum2.focus();
+		phoneNumberMiddle.focus();
 		return false;
 	}
 
 
 	// 휴대폰 PhNum3 유효성검사
 	// 휴대폰 (PhNum3)입력란에 값이 없다면 안내문출력후 휴대폰 입력란(PhNum3)에 포커스 후 false반환 form에 제출을 못하게 막음
-	if (phNum3.value == '') {
+	if (phoneNumberSuffix.value == '') {
 		console.log("휴대폰 번호 끝자리 입력");
 		alert('휴대폰 번호를 입력해주세요.');
-		phNum3.focus();
+		phoneNumberSuffix.focus();
 		return false;
 	}
 
 	// 만약 휴대폰입력(PhNum3)값이 /^([0-9]{4})$/(정규식)값이아니라면 안내문구 출력후 휴대폰 입력란(PhNum3)에 포커스 후 false반환 form에 제출을 못하게 막음
 	// /^([0-9]{4})$/ 다음 정규식은 0~9까지숫자만사용가능하고 4자리까지입력가능하다는 정규식이다
-	else if (!/^([0-9]{4})$/.test(phNum3.value)) {
+	else if (!/^([0-9]{4})$/.test(phoneNumberSuffix.value)) {
 		console.log("휴대폰 번호 끝자리 숫자만 입력");
 		alert("휴대폰 번호 숫자 4자리를 입력해주세요. ");
-		phNum3.focus();
+		phoneNumberSuffix.focus();
 		return false;
 	}
 

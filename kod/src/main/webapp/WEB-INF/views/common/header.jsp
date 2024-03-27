@@ -99,21 +99,25 @@
 
 							<!-- Cart -->
 							<div class="dropdown">
-								<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
+								<c:if test="${not empty memberID}">
+									<a href="/getCartPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
 									<!-- 로그인 및 장바구니 유무에 따른 장바구니 개수 -->
-									<%-- <c:choose>
-										<!-- 로그인 상태이며, 장바구니에 상품이 1개 이상 존재하는 경우 -->
-										<c:when test="${memberID != null && !empty updateCartCnt}">
-											<div class="qty">
-												${updateCartCnt}
-											</div>
-										</c:when>
-										<!-- 그 외의 모든 경우 -->
-										<c:otherwise>
+										<c:if test="${not empty updateCartCnt}">
+											<!-- 로그인 상태이며, 장바구니에 상품이 1개 이상 존재하는 경우 -->
+											<div class="qty">${updateCartCnt}</div>
+											<!-- 그 외의 모든 경우 -->
+										</c:if>
+										<c:if test="${empty updateCartCnt}">
 											<div class="qty">0</div>
-										</c:otherwise>
-									</c:choose> --%>
-								</a>
+										</c:if>
+									</a>
+								</c:if>
+								<c:if test="${empty memberID}">
+									<a href="/loginPage" class="dropdown-toggle" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> <span>Your Cart</span>
+									<!-- 로그인 및 장바구니 유무에 따른 장바구니 개수 -->
+										<div class="qty">0</div>
+									</a>
+								</c:if>
 								<div class="cart-dropdown">
 									<div class="cart-list">
 										<div class="product-widget">
