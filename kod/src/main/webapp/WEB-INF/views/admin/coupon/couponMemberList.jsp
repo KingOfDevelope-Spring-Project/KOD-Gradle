@@ -63,103 +63,83 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="row">
 						
-							<!-- 발행 쿠폰 목록 -->
-							<div class="col-sm-12">
+						<!-- 상품 목록 검색 조건 -->
+						<div class="col-sm-12">
+							<form action="/getCouponListOfMemberPage" method="GET">
 								<div class="card">
-					              <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-					                <h3 class="card-title" style="margin-top: 0.6%;">(회원가입쿠폰)보유 회원 목록</h3>
-					                <div class="input-group input-group-lg" style="width: 20%; margin-left: auto;">
-									<input type="search" class="form-control form-control-lg" placeholder="이름 검색" value="" >
-										<div class="input-group-append">
-										<button type="submit" class="btn btn-lg btn-default">
-										<i class="fa fa-search"></i>
-										</button>
-										</div>
+									<div class="card-header" style="display: flex; justify-content: space-between;">
+										<h3 class="card-title" style="margin-top: 0.6%;">검색 조건</h3>
+										<button type="submit" class="btn btn-primary" style="margin-left: auto;;">검색하기</button>
 									</div>
-					                <!-- <button type="button" class="btn btn-primary" style="margin-left: 70%;">쿠폰 관리</button> -->
-					              </div>
-					              <!-- /.card-header -->
-					              <div class="card-body" id="usedCoupon">
-					                <table id="example3" class="table table-bordered table-hover">
+									<div class="card-body">
+										<table id="example3" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th style="width: 15%;">사용자ID</th>
+													<td style="width: 35%;"><input class="form-control form-control-sm" type="text" id="memberID" name="memberID"></td>
+													<th style="width: 15%;">사용 여부</th>
+													<td style="width: 35%;"><select class="form-control form-control-sm select2" id="orderContentID" name="orderContentID">
+									                    	<option selected="selected" value="unused">미사용</option>
+									                    	<option value="used">사용</option>
+									                    	<option value="expire">만료</option>
+								                  		</select>
+							                  		</td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /상품 목록 검색 조건 -->
+					             
+						<!-- 상품 목록 테이블 -->
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-header" style="display: flex; justify-content: space-between;">
+									<h3 class="card-title" style="margin-top: 0.6%;">쿠폰 목록</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<!-- <button type="button" class="btn btn-primary" onclick="location.href='adminProductRegister.jsp'" style="margin-left: auto;">신규 상품 등록</button>
+									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button> -->
+									<table id="example2" class="table table-bordered table-hover">
 					                  <thead>
 					                  <tr>
-					                    <th style="width: 8%;">번호</th>
-					                    <th style="width: 10%;">발행일</th>
-					                    <th style="width: 10%;">만료일</th>
-					                    <th style="width: 10%;">사용자</th>
+					                    <th>번호</th>
+					                    <th>쿠폰명</th>
+					                    <th>쿠폰 코드</th>
+					                    <th>쿠폰 설명</th>
+					                    <th>할인율</th>
+					                    <th>쿠폰 기간</th>
+					                    <th>쿠폰 타입</th>
+					                    <th>사용자</th>
 					                  </tr>
 					                  </thead>
 					                  <tbody>
+					                  <c:forEach items="${couponDatas}" var="coupon" varStatus="i" begin="0" step="1">
 					                  <tr>
-					                    <td>1</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER1</td>
+					                  	<td>${i.count}</td>
+					                  	<td>${coupon.couponName}</td>
+					                  	<td>${coupon.couponCode}</td>
+					                  	<td>${coupon.couponContent}</td>
+					                  	<td>${coupon.couponDiscountRate}</td>
+					                  	<td>${coupon.couponUseDate}</td>
+					                  	<td>${coupon.couponType}</td>
+					                  	<td>${coupon.memberID}</td>
 					                  </tr>
-					                  <tr>
-					                    <td>2</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER2</td>
-					                  </tr>
-					                  <tr>
-					                    <td>3</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER3</td>
-					                  </tr>
-					                  <tr>
-					                    <td>4</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER4</td>
-					                  </tr>
-					                   <tr>
-					                    <td>5</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER1</td>
-					                  </tr>
-					                  <tr>
-					                    <td>6</td>
-					                    <td>2024-03-01</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER1</td>
-					                  </tr>
-					                  <tr>
-					                    <td>7</td>
-					                    <td>2024-03-02</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER2</td>
-					                  </tr>
-					                  <tr>
-					                    <td>8</td>
-					                    <td>2024-03-11</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER3</td>
-					                  </tr>
-					                  <tr>
-					                    <td>9</td>
-					                    <td>2024-01-01</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER1</td>
-					                  </tr>
-					                   <tr>
-					                    <td>10</td>
-					                    <td>2024-01-02</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER2</td>
-					                  </tr>
-					                   <tr>
-					                    <td>11</td>
-					                    <td>2024-01-03</td>
-					                    <td>2024-03-15</td>
-					                    <td>USER3</td>
-					                  </tr>
+					                  </c:forEach>
 					                </table>
-					              </div>
-					            </div>
+								</div>
+								<!-- /.card-body -->
 							</div>
+							<!-- /.card -->
+						</div>	
+							<!-- /발행 쿠폰 목록 -->
+							<!-- /.card-body -->
+						
+						<!-- /.card -->
+					</div>
 					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
@@ -167,8 +147,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.container-fluid -->
 		</div>
 		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
 
 	<!-- Control Sidebar -->
 	<aside class="control-sidebar control-sidebar-dark">
@@ -209,24 +187,66 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $('#example3').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-      "columnDefs": [
-    	  {"orderable": false, "targets":[1,2]}
-      ],
-    });
-  });
-</script>
+	
+	<!-- 쿠폰 목록 js -->
+	<!-- Page specific script -->
+	<script>
+	  $(function () {
+	    $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false,
+	      "responsive": true,
+	      "columnDefs": [
+	    	  {"orderable": false, "targets":[1,2,3,4,5,7]} // target은 0부터 시작, 1,2,3(아이디, 이름, 전화번호)는 정렬에서 제외
+	      ],
+	    });
+	  });
+	</script>
+	<!-- 쿠폰 목록 js -->
 
+	<script>
+	document.getElementById('coupon-type').addEventListener('change', function() {
+		  var usedSection = document.getElementById('usedCoupon');
+		  var unusedSection = document.getElementById('unusedCoupon-table');
+		  if (this.value === '사용 쿠폰 목록') {
+			  unusedSection.style.display = 'none';
+			  usedSection.style.display = 'block';
+		  } else if (this.value === '미사용 쿠폰 목록'){
+			  usedSection.style.display = 'none';
+			  unusedSection.style.display = 'block';
+		  } else{
+			  usedSection.style.display = 'none';
+			  unusedSection.style.display = 'none';
+		  }
+		});
+	</script>
+	<!-- 쿠폰 사용여부에 따른 회원별 쿠폰 목록 비동기 요청 -->
+	<!-- <script>
+		function submitForm() {
+			var memberID = $('#memberID').val();
+			var orderContentID = $('#orderContentID').val();
+			
+			$.ajax({
+				type: "GET",
+				url: "/getUnusedCouponListPage",
+				data: {
+					memberID : memberID,
+					orderContentID : orderContentID,
+				},
+				success: function (response) {
+					console.log("성공");
+				},
+				error: function (error) {
+					console.log("실패");
+				}
+			});
+		}
+	</script> -->
+	
 	<!-- jQuery -->
 
 
