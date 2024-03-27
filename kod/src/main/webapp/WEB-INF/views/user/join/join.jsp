@@ -98,21 +98,21 @@
 
 			<!-- 핸드폰번호 입력란 -->
 			<div class="input__block" style="padding-left: 27px;">
-				<input type="text" id="phNum1" name="phNum1" placeholder=" 010 " style="display: inline-block; width: 29%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phoneNumberPrefix" name="phoneNumberPrefix" placeholder=" 010 " style="display: inline-block; width: 29%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="phNum2" name="phNum2" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phoneNumberMiddle" name="phoneNumberMiddle" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="phNum3" name="phNum3" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
+				<input type="text" id="phoneNumberSuffix" name="phoneNumberSuffix" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
 			</div>
 
 
 			<!-- 이메일 입력란  -->
 			<div class="input__block" style="padding-left: 27px;">
 				<!-- <div class="input__block" style="display: flex; justify-content: center;"> -->
-				<input type="text" placeholder="Email1" class="input" id="memberEmail1" name="memberEmail1" style="display: inline-block; width: 29%;" oninput="removeWhitespace(this)" required />
+				<input type="text" placeholder="Email1" class="input" id="emailUsername" name="emailUsername" style="display: inline-block; width: 29%;" oninput="removeWhitespace(this)" required />
 				<span style="display: inline-block;">@</span>
-				<input class="input" id="domain-txt" type="text" placeholder="domain.com" name="memberEmail2" style="display: inline-block; width: 29%;" oninput="removeWhitespace(this)" required /> 
-				<select class="box" id="domain-list" name="memberEmail2" style="display: inline-block; width: 29%; margin-left: 3%;" required>
+				<input class="input" id="domain-txt" type="text" placeholder="domain.com" name="emailDomain" style="display: inline-block; width: 29%;" oninput="removeWhitespace(this)" required /> 
+				<select class="box" id="domain-list" name="emailDomain" style="display: inline-block; width: 29%; margin-left: 3%;" required>
 					<option value="type">직접 입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="google.com">google.com</option>
