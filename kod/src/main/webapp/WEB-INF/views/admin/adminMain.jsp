@@ -5,6 +5,7 @@
 <!-- 원화표시 functions함수집합 가져오기 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- 원화표시 포맷 -->
+<%@ page import="java.util.Calendar" %>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -68,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="card">
 				              <div class="card-header">
 				                <h3 class="card-title">분기별 매출 비교</h3>
-				
+								
 				                <div class="card-tools">
 				                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
 				                    <i class="fas fa-minus"></i>
@@ -132,8 +133,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<!-- LINE CHART -->
 				            <div class="card">
 				              <div class="card-header">
+				              <%-- <c:set var="today" value="<%=new java.util.Date()%>" />
+								<!-- 현재월 -->
+								<c:set var="month"><fmt:formatDate value="${today}" pattern="MM" /></c:set> --%> 
 				                <h3 class="card-title">월간 매출</h3>
-				
+								
 				                <div class="card-tools">
 				                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
 				                    <i class="fas fa-minus"></i>
@@ -159,8 +163,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					            <!-- small card -->
 					            <div class="small-box bg-success" style="height: 160px;">
 					              <div class="inner">
-					                <h3>${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).dailyRevenue}원</h3>
-					
+					                <%-- <c:if test="${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).day == 현재 일 && dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).month == 현재 월 && dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).year == 현재 연도}">
+						                <h3>${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).dailyRevenue}원</h3>
+					                </c:if>
+					                <c:if test="${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).day != 현재 일 || dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).month != 현재 월 || dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).year != 현재 연도}">
+						                <h3>0원</h3>
+					                </c:if> --%>
+									<h3>${dailyRevenueDatas.get(fn : length(dailyRevenueDatas)-1).dailyRevenue}원</h3>
+									
 					                <p>일 매출</p>
 					              </div>
 					              <div class="icon">
@@ -254,11 +264,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- 분기별 매출 금액 차트 -->
 	<script>
 	  $(function () {
+		
+	  	var today = new Date();
+		var year = today.getFullYear();
+		var lastYear = today.getFullYear()-1;
+		
+		// 작년 분기 매출
+		var lastQuarterlyRevenue =[];
+		<c:forEach var="lastQuarterlyRevenue" items="${quarterlyRevenueDatas}">
+			if(${lastQuarterlyRevenue.year} === lastYear){
+				lastQuarterlyRevenue.push(${lastQuarterlyRevenue.quarterlyRevenue});
+			}
+		</c:forEach>
+		console.log('작년 분기 매출'+lastQuarterlyRevenue);
+		
+		// 이번년도 1분기 매출
+		var quarterlyRevenue =[];
+		<c:forEach var="quarterlyRevenue" items="${quarterlyRevenueDatas}">
+			if(${quarterlyRevenue.year} === year){
+				quarterlyRevenue.push(${quarterlyRevenue.quarterlyRevenue});
+			}
+		</c:forEach>
+		console.log('이번년도 매출'+quarterlyRevenue);
+		
+		var quarterlyRevenueLabel = [];
+		<c:forEach var="quarterlyRevenue" items="${quarterlyRevenueDatas}">
+		quarterlyRevenueLabel.push(${quarterlyRevenue.quarter});
+		</c:forEach>
+		console.log('분기 라벨'+quarterlyRevenueLabel);
+		
 	    var areaChartData = {
-	      labels  : ['1분기', '2분기', '3분기', '4분기'],
+	      labels  : ['1분기','2분기','3분기','4분기'],
 	      datasets: [
 	        {
-	          label               : '2024년',
+	          label               : year+'년',
 	          backgroundColor     : 'rgba(60,141,188,0.9)',
 	          borderColor         : 'rgba(60,141,188,0.8)',
 	          pointRadius          : false,
@@ -266,10 +305,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          pointStrokeColor    : 'rgba(60,141,188,1)',
 	          pointHighlightFill  : '#fff',
 	          pointHighlightStroke: 'rgba(60,141,188,1)',
-	          data                : [6500000, 5900000, 8000000, 8100000]
+	          data                : quarterlyRevenue
 	        },
 	        {
-	          label               : '2023년',
+	          label               : lastYear+'년',
 	          backgroundColor     : 'rgba(210, 214, 222, 1)',
 	          borderColor         : 'rgba(210, 214, 222, 1)',
 	          pointRadius         : false,
@@ -277,7 +316,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          pointStrokeColor    : '#c1c7d1',
 	          pointHighlightFill  : '#fff',
 	          pointHighlightStroke: 'rgba(220,220,220,1)',
-	          data                : [2800000, 4800000, 4000000, 1900000]
+	          data                : lastQuarterlyRevenue
 	        },
 	      ]
 	    }
@@ -296,10 +335,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	        }],
 	        yAxes: [{
 	        	ticks : {
-	          	  stepSize: 2000000, // y축 간격을 100만 설정
-	          	  maxTicksLimit: 5,
+	          	  stepSize: 100000, // y축 간격을 100만 설정
+	          	  maxTicksLimit: 6,
 	          	  min: 0, // y축 최소값
-	              max: 10000000, // y축 최대값
+	              max: 1000000, // y축 최대값
 	            },
 	        	gridLines : {
 	            display : false,
@@ -322,7 +361,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    	      maintainAspectRatio : false,
 	    	      responsive : true,
 	    	      legend: {
-	    	        display: false
+	    	        display: true
 	    	      },
 	    	      scales: {
 	    	        xAxes: [{
@@ -332,10 +371,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    	        }],
 	    	        yAxes: [{
 	    	        	ticks : {
-	    	          	  stepSize: 2000000, // y축 간격을 200만 설정
+	    	          	  stepSize: 100000, // y축 간격을 200만 설정
 	    	          	  maxTicksLimit: 6,
 	    	          	  min: 0, // y축 최소값
-	    	              max: 10000000, // y축 최대값
+	    	              max: 1000000, // y축 최대값
 	    	            },
 	    	        	gridLines : {
 	    	            display : false, // 차트 세로줄
@@ -355,11 +394,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- 월 주문건수 차트 -->
 	<script>
 	  $(function () {
+		/* var i = ${fn : length(dailyRevenueDatas)};
+		var datas = ${dailyRevenueDatas.get(i).dailyRevenue};
+		var data =[]; */
+		
+		/* for(var j=0;j<i; j++){
+			var dailyRevenue = datas[j];
+			data.push(dailyRevenue);
+		} */
+		
+		/* datas.forEach(item  => {
+			data.push(item.dailyRevenue);
+		}); */
+		
+		var today = new Date();
+		var dailyMonth = today.getMonth()+1;
+		var lastMonth = today.getMonth();
+		
+		// 이번 달의 매출
+		var dailyRevenue =[];
+		<c:forEach var="dailyRevenue" items="${dailyRevenueDatas}">
+			if(${dailyRevenue.month} === dailyMonth){
+				dailyRevenue.push(${dailyRevenue.dailyRevenue});
+			}
+		</c:forEach>
+		console.log(dailyRevenue);
+		
+		// 저번 달의 매출
+		var lastRevenue =[];
+		<c:forEach var="lastRevenue" items="${dailyRevenueDatas}">
+			if(${lastRevenue.month} === lastMonth){
+				lastRevenue.push(${lastRevenue.dailyRevenue});
+			}
+		</c:forEach>
+		console.log(lastRevenue);
+		
+		// 1~30일 라벨
+		var dailyRevenueLabel = [];
+		<c:forEach var="dailyRevenue" items="${dailyRevenueDatas}" varStatus="i" begin="0" step="1">
+			dailyRevenueLabel.push(${i.count});
+		</c:forEach>
+		console.log(dailyRevenueLabel);
+		
 	    var areaChartData = {
-	      labels  : ['1','2','3','4','5','6','7','8','9','10'],
+	      labels  : dailyRevenueLabel,
 	      datasets: [
 	        {
-	          label               : '2월',
+	          label               : dailyMonth+'월',
 	          backgroundColor     : 'rgba(60,141,188,0.9)',
 	          borderColor         : 'rgba(60,141,188,0.8)',
 	          pointRadius          : false,
@@ -367,10 +448,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          pointStrokeColor    : 'rgba(60,141,188,1)',
 	          pointHighlightFill  : '#fff',
 	          pointHighlightStroke: 'rgba(60,141,188,1)',
-	          data                : [102, 201, 303, 140, 128, 384, 289, 291, 330, 135]
+	          data                : dailyRevenue
 	        },
 	        {
-	          label               : '3월',
+	          label               : lastMonth+'월',
 	          backgroundColor     : 'rgba(210, 214, 222, 1)',
 	          borderColor         : 'rgba(210, 214, 222, 1)',
 	          pointRadius         : false,
@@ -378,7 +459,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          pointStrokeColor    : '#c1c7d1',
 	          pointHighlightFill  : '#fff',
 	          pointHighlightStroke: 'rgba(220,220,220,1)',
-	          data                : [212, 345, 159, 332, 492, 289, 442, 382, 253, 247]
+	          data                : lastRevenue
 	        },
 	      ]
 	    }
@@ -397,10 +478,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	        }],
 	        yAxes: [{
 	        	ticks : {
-	          	  stepSize: 10, // y축 간격을 10 설정
+	          	  stepSize: 10000, // y축 간격을 10000 설정
 	          	  maxTicksLimit: 6,
 	          	  min: 0, // y축 최소값
-	              max: 500, // y축 최대값
+	              max: 200000, // y축 최대값
 	            },
 	        	gridLines : {
 	            display : false,
