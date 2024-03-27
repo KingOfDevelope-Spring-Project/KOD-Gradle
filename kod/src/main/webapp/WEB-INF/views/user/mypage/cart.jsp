@@ -1,150 +1,124 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	<!DOCTYPE html>
-	<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>장바구니 선택 페이지</title>
+<title>장바구니 선택 페이지</title>
 
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="resources/css/bootstrap.min.css" />
 
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
-		<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
+<!-- Slick -->
+<link type="text/css" rel="stylesheet" href="resources/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/slick-theme.css" />
 
-		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
+<!-- nouislider -->
+<link type="text/css" rel="stylesheet" href="resources/css/nouislider.min.css" />
 
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
-		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
 
-		<link type="text/css" rel="stylesheet" href="resources/css/paySelect.css" />
+<link type="text/css" rel="stylesheet" href="resources/css/paySelect.css" />
 
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+</head>
 
-	</head>
+<body>
 
-	<body>
-
-		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
-		<c:set var="cDatas" value="${cartDTO}" />
-		<%-- <c:set var="memberDTO" value="${sessionScope.memberDTO}" /> --%>
-		<section class="cart">
-			<div class="cart__information">
-				<ul>
-					<li>장바구니 상품은 최대 10개까지만 담을 수 있습니다.</li>
-					<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
-				</ul>
-			</div>
-			<form action="/getPayInfoPage" method="GET" onsubmit="return submitForm()">
-				<input type="hidden" name="payCk" value="0">
-				<table class="cart__list">
-					<thead>
-						<tr>
-							<td><input type="checkbox" onclick='selectAll(this)' /> <b></b></td>
-							<td colspan="2">상품정보</td>
-							<td>옵션</td>
-							<td style="width: 15%;">상품금액</td>
-							<td>배송비</td>
-							<td></td>
-						</tr>
-					</thead>
-					<c:choose>
-    				<c:when test="${empty cartDatas}">
-      				  <tbody>
-            				<tr>
-              			  <td colspan="7"><h3 style="text-align: center;">장바구니에 상품이 없습니다</h3></td>
-           				 </tr>
-        					</tbody>
-    					</c:when>
-    						<c:otherwise>
-					<c:forEach var="cData" items="${cartDatas}" varStatus="status">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
+	<c:set var="cDatas" value="${cartDTO}" />
+	<%-- <c:set var="memberDTO" value="${sessionScope.memberDTO}" /> --%>
+	<section class="cart">
+		<div class="cart__information">
+			<ul>
+				<li>장바구니 상품은 최대 10개까지만 담을 수 있습니다.</li>
+				<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
+			</ul>
+		</div>
+		<form action="/getInitOrderPage" method="POST" onsubmit="return submitForm()">
+			<input type="hidden" name="payCk" value="0">
+			<table class="cart__list">
+				<thead>
+					<tr>
+						<td><input type="checkbox" onclick='selectAll(this)' /> <b></b></td>
+						<td colspan="2">상품정보</td>
+						<td>옵션</td>
+						<td style="width: 15%;">상품금액</td>
+						<td>배송비</td>
+						<td></td>
+					</tr>
+				</thead>
+				<c:choose>
+					<c:when test="${empty cartDatas}">
 						<tbody>
-							<tr class="cart__list__detail">
-								<td><input type="checkbox" name="selectedProducts" value="${cData.productID}"
-										id="selectedCheckBox" ></td>
-								<td><img src="${cData.productImg}" alt="product"></td>
-								<td>
-									<a href="/getMainPage">KOD스토어</a>
-									<p>${cData.productName}</p>
-									<span class="price" id="eachPrice_${status.index}">${cData.productPrice}원</span>
-								</td>
-								<td class="bseq_ea" style="text-align: center;">
-									<p>${cData.productName}</p>
-									<button style="border : none; color : black;" type="button"
-										onclick="fnCalCount('m', this, ${status.index});">-</button>
-									<input type="text" id="changedCnt_${status.index}" name="pop_out"
-										value="${cData.cartProductCnt}" readonly="readonly"
-										style="text-align:center;" />
-									<button style="border : none; color : black;" type="button"
-										onclick="fnCalCount('p', this, ${status.index});">+</button>
-									<!-- <button class="cart__list__optionbtn">주문조건 추가/변경</button> -->
-								</td>
-								<td>
-									<span class="price"
-										id="totalPrice_${status.index}">
-										${cData.productTotalPrice}원
-									</span><br>
-								<!--  	<button class="cart__list__orderbtn">주문하기</button> -->
-								</td>
-								<td>무료</td>
-								<td>
-									<a href="/deleteSelectProductsToCart?productID=${cData.productID}"
-										class="cart__list__optionbtn">상품 삭제 </a>
-								</td>
+							<tr>
+								<td colspan="7"><h3 style="text-align: center;">장바구니에 상품이 없습니다</h3></td>
 							</tr>
 						</tbody>
-					</c:forEach>
-					  </c:otherwise>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="cData" items="${cartDatas}" varStatus="status">
+							<tbody>
+								<tr class="cart__list__detail">
+									<td><input type="checkbox" name="selectedProducts" value="${cData.productID}" id="selectedCheckBox"></td>
+									<td><img src="${cData.productImg}" alt="product"></td>
+									<td><a href="/getMainPage">KOD스토어</a>
+										<p>${cData.productName}</p> <span class="price" id="eachPrice_${status.index}">${cData.productPrice}원</span></td>
+									<td class="bseq_ea" style="text-align: center;">
+										<p>${cData.productName}</p>
+										<button style="border: none; color: black;" type="button" onclick="fnCalCount('m', this, ${status.index});">-</button> <input type="text" id="changedCnt_${status.index}" name="pop_out" value="${cData.cartProductCnt}" readonly="readonly" style="text-align: center;" />
+										<button style="border: none; color: black;" type="button" onclick="fnCalCount('p', this, ${status.index});">+</button> <!-- <button class="cart__list__optionbtn">주문조건 추가/변경</button> -->
+									</td>
+									<td><span class="price" id="totalPrice_${status.index}"> ${cData.productTotalPrice}원 </span><br> <!--  	<button class="cart__list__orderbtn">주문하기</button> --></td>
+									<td>무료</td>
+									<td><a href="/deleteSelectProductsToCart?productID=${cData.productID}" class="cart__list__optionbtn">상품 삭제 </a></td>
+								</tr>
+							</tbody>
+						</c:forEach>
+					</c:otherwise>
 				</c:choose>
-				</table>
-				<div class="cart__mainbtns" style="float: right">
-					<button class="cart__bigorderbtn right">주문하기</button>
-				</div>
-			</form>
-				<form action="/getStorePage" method="GET" style="display: inline-block; ">
-					<button class="cart__bigorderbtn left" style="width: ">쇼핑 계속하기</button>
-				</form>
-	
-				<form action="/deleteAllProductsToCart" method="GET" style="display: inline-block;">
-					<c:forEach var="cData" items="${cartDatas}" varStatus="status">
-						<input type="hidden" name="cartId" value="${cData.cartID}">
-					</c:forEach>
-					<div class="cart__mainbtns">
-						<button class="cart__bigorderbtn right" style="background-color: ">장바구니 비우기</button>
-					</div>
-				</form>
-		</section>
-		<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+			</table>
+			<div class="cart__mainbtns" style="float: right">
+				<button class="cart__bigorderbtn right">주문하기</button>
+			</div>
+		</form>
+		<form action="/getStorePage" method="GET" style="display: inline-block;">
+			<button class="cart__bigorderbtn left" style="width:">쇼핑 계속하기</button>
+		</form>
 
-		<!-- jQuery Plugins -->
-		<script src="resources/js/jquery.min.js"></script>
-		<script src="resources/js/bootstrap.min.js"></script>
-		<script src="resources/js/slick.min.js"></script>
-		<script src="resources/js/nouislider.min.js"></script>
-		<script src="resources/js/jquery.zoom.min.js"></script>
-		<script src="resources/js/main.js"></script>
-		<!-- <script>
+		<form action="/deleteAllProductsToCart" method="GET" style="display: inline-block;">
+			<c:forEach var="cData" items="${cartDatas}" varStatus="status">
+				<input type="hidden" name="cartId" value="${cData.cartID}">
+			</c:forEach>
+			<div class="cart__mainbtns">
+				<button class="cart__bigorderbtn right" style="background-color:">장바구니 비우기</button>
+			</div>
+		</form>
+	</section>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+
+	<!-- jQuery Plugins -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/slick.min.js"></script>
+	<script src="resources/js/nouislider.min.js"></script>
+	<script src="resources/js/jquery.zoom.min.js"></script>
+	<script src="resources/js/main.js"></script>
+	<!-- <script>
 			function submitForm() {
 				var formData = new FormData(document.forms[0]);
 
@@ -163,25 +137,25 @@
 				});
 			}
 		</script> -->
-		<script>
+	<script>
 			function updateCart(productId, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
 				$.ajax({
 					type: 'POST',
-					url: '/cartUpdateCnt', // 장바구니 업데이트를 처리할 서블릿 URL
+					url: 'asyncUpdateProductCntToCart', // 장바구니 업데이트를 처리할 서블릿 URL
 					dataType: 'json',
 					data: {
 						productId: productId, // 상품번호
-						productCnt: productCnt // 상품수량
+						cartProductCnt: productCnt // 상품수량
 
 					},
 					success: function (response) { //성공한 경우
 						var changedCnt = response;
 						console.log('장바구니 업데이트 성공');
 						console.log(response);
-						console.log('cart 변경수량 :  ' + changedCnt);
+						console.log('cart 변경수량 :  ' + UpdatedProductCnt);
 
-						$('#changedCnt_' + index).val(changedCnt);
-		                  var totalPrice = changedCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
+						$('#changedCnt_' + index).val(UpdatedProductCnt);
+		                  var totalPrice = UpdatedProductCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
 		                  $('#totalPrice_' + index).text(totalPrice + '원');
 					},
 					error: function (xhr, status, error) {
@@ -247,5 +221,5 @@
 			        return true; // 하나이상의 상품을 선택한 경우 
 			    }
 		</script>
-	</body>
-	</html>
+</body>
+</html>

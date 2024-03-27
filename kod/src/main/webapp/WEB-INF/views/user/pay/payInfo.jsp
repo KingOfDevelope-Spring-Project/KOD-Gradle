@@ -33,13 +33,6 @@
  		
  		<link type="text/css" rel="stylesheet" href="resources/css/payInfo.css"/>
 
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
     </head>
 	<body>
 		<!-- HEADER, NAVIGATION -->
@@ -78,15 +71,15 @@
 				            <tbody>
 				            	<tr>
 				                	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; width: 15%;">배송지</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressDTO.adrsName}</td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressData.adrsName}</td>
 				            	</tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; ">이름 / 연락처</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${memberDTO.memberName} | ${memberDTO.memberPhNum}</td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;"><%-- ${memberDTO.memberName} | ${memberDTO.memberPhNum} --%></td>
 					            </tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden;">주소</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${addressDTO.adrsZipcode}) ${addressDTO.adrsStreet} ${addressDTO.adrsDetail} </td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${addressData.adrsZipcode}) ${addressData.adrsStreet} ${addressData.adrsDetail} </td>
 					            </tr>
 				        	</tbody>
 					    </table>
@@ -105,9 +98,9 @@
 					                <th style="text-align: center;">가격</th>
 					            </tr>
 					        </thead>
-					        <c:set var="cDatasSize" value="${fn:length(cartDTO)}" />
+					        <c:set var="cDatasSize" value="${fn:length(payInfoDatas)}" />
 					        <c:if test="${cDatasSize >= 1}">
-						        <c:forEach var="cData" items="${cartDTO}">
+						        <c:forEach var="cData" items="${payInfoDatas}">
 						        	<tbody>
 							            <tr>
 							                <td><img src="${cData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
@@ -147,7 +140,7 @@
 								
 									
 									<c:if test="${cDatasSize >= 1}">
-										<c:forEach var="cData" items="${cartDTO}">
+										<c:forEach var="cData" items="${payInfoDatas}">
 		                                    <div class="order-col">
 		                                        <div>${cData.productName}</div>
 		                                        <div style="text-align: right;">${cData.productPrice}원</div>
@@ -184,7 +177,7 @@
 									
 									<c:if test="${cDatasSize >= 1}">
 										<c:set var="total" value="0"></c:set>
-										<c:forEach var="cData" items="${cartDTO}">
+										<c:forEach var="cData" items="${payInfoDatas}">
 											<c:set var="total" value="${total + cData.getProductPrice()}"></c:set>
 										</c:forEach>
 									</c:if>
