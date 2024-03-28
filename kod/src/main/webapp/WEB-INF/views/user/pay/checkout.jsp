@@ -51,7 +51,7 @@
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="/getMainPage">Home</a></li>
+							<li><a href="/">Home</a></li>
 							<li class="active">Checkout</li>
 						</ul>
 					</div>
@@ -242,7 +242,7 @@
 		<!-- /SECTION -->
 
 
-		<jsp:include page="util/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 		<!-- jQuery Plugins -->
 		<script src="resources/js/jquery.min.js"></script>

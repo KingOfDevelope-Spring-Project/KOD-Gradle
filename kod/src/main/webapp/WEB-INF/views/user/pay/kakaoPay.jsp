@@ -106,7 +106,7 @@
             if ( rsp.success ) {
             	console.log('로그');
                 $.ajax({
-                    url: "/pay", // 결제 서블릿
+                    url: "asyncPayment", // 결제 서블릿
                     type: 'POST',
                     data: {
                         imp_uid : rsp.imp_uid,
@@ -117,7 +117,7 @@
                 	success: function(){
                 		console.log('결제 성공');
                 		//성공시 이동할 페이지
-                        location.href='/orderInfoPage';
+                        location.href='/getPayInfoPage';
                 	},
                 })
             } else if(rsp.success == false){ // 결제 취소할 경우 이전 페이지로 돌아감
