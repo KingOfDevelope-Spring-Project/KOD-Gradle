@@ -258,7 +258,7 @@
 										class="far fa-circle nav-icon"></i>
 										<p>쿠폰 발행 목록</p>
 								</a></li>
-								<li class="nav-item"><a href="/getCouponMemberListPage" class="nav-link"> <i
+								<li class="nav-item"><a href="/memberCouponListPage" class="nav-link"> <i
 										class="far fa-circle nav-icon"></i>
 										<p>회원별 쿠폰 목록</p>
 								</a></li>
