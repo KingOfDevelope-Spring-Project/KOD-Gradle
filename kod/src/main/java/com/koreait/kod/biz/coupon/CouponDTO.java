@@ -21,7 +21,8 @@ public class CouponDTO {
 	private String memberID;
 	private int couponStatus_ID;
 	private Date orderListDate;
-	private String searchCondition; 
+	private Date couponExpireDate;
+	private String searchCondition;
 	
 	private int orderContentID;
 	
