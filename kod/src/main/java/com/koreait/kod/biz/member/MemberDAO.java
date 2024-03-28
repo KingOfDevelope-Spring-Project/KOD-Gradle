@@ -17,6 +17,24 @@ public class MemberDAO {
 	private static final String SELECTALL_MEMBERS_BY_GRADE=
 			"SELECT MEMBER_ID,MEMBER_GRADE,MEMBER_NAME FROM MEMBER WHERE MEMBER_GRADE=?";
 	
+	// 회원정보 전체 출력 쿼리문
+	private static final String SELECTALL_MEMBER=
+			"SELECT "
+			+ "MEMBER_ID, "
+			+ "MEMBER_PW, "
+			+ "MEMBER_NAME, "
+			+ "MEMBER_PHONENUMBER, "
+			+ "MEMBER_EMAIL, "
+			+ "MEMBER_GRADE, "
+			+ "MEMBER_ROLE, "
+			+ "MEMBER_GENDER, "
+			+ "MEMBER_BIRTH, "
+			+ "MEMBER_REGDATE "
+			+ "FROM MEMBER ";
+		
+			
+	
+	
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
@@ -34,13 +52,12 @@ public class MemberDAO {
     
 	
 	private static final String SELECTONE_MEMBER_COUNT=
-			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER;";
+			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER";
 	
 	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
    
 	private static final String INSERT = "INSERT INTO MEMBER "
             + "(MEMBER_ID, "
-            + "MEMBER_PW, "
             + "MEMBER_NAME, "
             + "MEMBER_PHONENUMBER, "
             + "MEMBER_EMAIL, "
@@ -66,20 +83,30 @@ public class MemberDAO {
     private static final String UPDATE_EMAIL = "UPDATE " 
             + "MEMBER SET MEMBER_EMAIL=? WHERE MEMBER_ID=?";
 
-    private static final String DELETE = "DELETE FROM MEMBER WHERE MID=?";
+    private static final String DELETE = "DELETE FROM MEMBER WHERE MEMBER_ID=?";
                  
     
     public List<MemberDTO> selectAll(MemberDTO memberDTO) {
+    	System.err.println(memberDTO);
 		try {
 	    if (memberDTO.getSearchCondition().equals("getMembersByGrade")) {
 	    	System.out.println("[로그:정현진] memberDAO 들어옴");
 	    	System.out.println("[로그:정현진] 회원등급"+memberDTO.getMemberGrade());
 	        Object[] args = {memberDTO.getMemberGrade().toUpperCase()};
 	        return jdbcTemplate.query(SELECTALL_MEMBERS_BY_GRADE,args, new MemberRowMapperByGrade());
-	    } else {
+	    } 
+	    else if(memberDTO.getSearchCondition().equals("selectAllMember")) {
+	    	System.out.println("[로그:구본승] memberDAO 들어옴  selectAllMember");
+	    	return jdbcTemplate.query(SELECTALL_MEMBER, new MemberRowMapper());
+	    	
+	    }
+	    
+	    
+	    else {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
 		}catch(Exception e) {
+			System.err.println("ㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅂㅂㅂㅂㅂ");
 			return null;
 		}
 	}
@@ -121,11 +148,11 @@ public class MemberDAO {
     
 	public boolean update(MemberDTO memberDTO) {
         int result=0;
-        if(memberDTO.getSearchCondition().equals("PW_UPDATE")) {
+        if(memberDTO.getSearchCondition().equals("UPDATE_PW")) {
             result = jdbcTemplate.update(UPDATE_PW,memberDTO.getMemberPW());            
-        }else if(memberDTO.getSearchCondition().equals("NAME_UPDATE")){
+        }else if(memberDTO.getSearchCondition().equals("UPDATE_NAME")){
             result = jdbcTemplate.update(UPDATE_NAME, memberDTO.getMemberName());
-        }else if(memberDTO.getSearchCondition().equals("EMAIL_UPDATE")){
+        }else if(memberDTO.getSearchCondition().equals("UPDATE_EMAIL")){
             result = jdbcTemplate.update(UPDATE_EMAIL,memberDTO.getMemberEmail());
         }
         if(result<=0) {            
@@ -160,6 +187,23 @@ class MemberRowMapperByGrade implements RowMapper<MemberDTO> {
 		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
 		memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
 		memberDTO.setMemberGrade(rs.getString("MEMBER_GRADE"));
+		return memberDTO;
+	}
+}
+
+class MemberRowMapper implements RowMapper<MemberDTO> {
+    
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MemberDTO memberDTO=new MemberDTO();
+		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
+		memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
+		memberDTO.setMemberPhoneNumber(rs.getString("MEMBER_PHONENUMBER"));
+		memberDTO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+		memberDTO.setMemberGender(rs.getString("MEMBER_GENDER"));
+		memberDTO.setMemberBirth(rs.getString("MEMBER_BIRTH"));
+		memberDTO.setMemberGrade(rs.getString("MEMBER_GRADE"));
+		memberDTO.setMemberRole(rs.getString("MEMBER_ROLE"));
 		return memberDTO;
 	}
 }
