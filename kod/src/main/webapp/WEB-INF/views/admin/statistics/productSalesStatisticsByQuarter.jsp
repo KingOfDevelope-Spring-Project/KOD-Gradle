@@ -124,15 +124,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										</thead>
 										<tbody>
 											<c:forEach items="${quarterlyDatas}" var="quarter" varStatus="i" begin="0" step="1">
-												<c:if test="${quarter.year == 2024 && quarter.quarter == 1}">
-													<c:set var="quarterlyRevenue" value="${quarter.quarterlyRevenue}"/>
-													<tr>
-														<td>${i.count}</td>
-														<td>${quarter.get(fn: length(quarter)-1).quarterlyRevenue}</td>
-														<td>${quarter.get(fn: length(quarter)-1).totalProductSalesQuantityForQuarter}</td>
-													</tr>
+												<c:if test="${quarter.year == 2023 && quarter.quarter == 1}">
+													<c:set var="quarterlyRevenue1" value="${quarter.quarterlyRevenue}"/>
+													<c:set var="quarterlyCnt1" value="${quarter.totalProductSalesQuantityForQuarter}"/>
+												</c:if>
+												<c:if test="${quarter.year == 2023 && quarter.quarter == 2}">
+													<c:set var="quarterlyRevenue2" value="${quarter.quarterlyRevenue}"/>
+													<c:set var="quarterlyCnt2" value="${quarter.totalProductSalesQuantityForQuarter}"/>
+												</c:if>
+												<c:if test="${quarter.year == 2023 && quarter.quarter == 3}">
+													<c:set var="quarterlyRevenue3" value="${quarter.quarterlyRevenue}"/>
+													<c:set var="quarterlyCnt3" value="${quarter.totalProductSalesQuantityForQuarter}"/>
+												</c:if>
+												<c:if test="${quarter.year == 2023 && quarter.quarter == 4}">
+													<c:set var="quarterlyRevenue4" value="${quarter.quarterlyRevenue}"/>
+													<c:set var="quarterlyCnt4" value="${quarter.totalProductSalesQuantityForQuarter}"/>
 												</c:if>
 											</c:forEach>
+											
+											<tr>
+												<td>1</td>
+												<td>${quarterlyRevenue1}</td>
+												<td>${quarterlyCnt1}</td>
+											</tr>
 											<tr id="hidden-table" style="display: none;">
 												<td colspan="3">
 									              <table class="table table-bordered table-hover" id="hidden1" >
@@ -159,47 +173,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													</table>
 												</td>
 											</tr>
-											<%-- <tr>
-												<td>2</td>
-												<td>30000000원</td>
-												<td>125건</td>
-											</tr>
-											<tr id="hidden-table2" style="display: none; ">
-												<td colspan="3">
-									              <table class="table table-bordered table-hover" id="hidden2">
-														<thead>
-															<tr>
-																<th>순위</th>
-																<th>상품명</th>
-																<th>상품가격</th>
-																<th>판매수량</th>
-																<th>매출액</th>
-															</tr>
-														</thead>
-														<tbody style=" overflow: scroll; height: 100px; white-space: nowrap;">
-															<c:forEach items="${quarterlyDatas}" var="quarterlyProduct" varStatus="i" begin="0" step="1">
-																<tr>
-																	<td>${i.count}</td>
-																	<td>${quarterlyProduct.productName}</td>
-																	<td>${quarterlyProduct.productPrice}</td>
-																	<td>${quarterlyProduct.productSalesQuantity}</td>
-																	<td>${quarterlyProduct.productSalesRevenue}</td>
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>46500000원</td>
-												<td>162건</td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>13200000원</td>
-												<td>321건</td>
-											</tr> --%>
 									</table>
 								</div>
 								<!-- /.card-body -->

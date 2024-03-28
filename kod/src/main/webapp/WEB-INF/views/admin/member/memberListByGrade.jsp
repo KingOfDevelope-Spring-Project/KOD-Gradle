@@ -60,10 +60,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-
+						
 						<!-- 회원 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
+								<form action="/getMemberListByGrade" method="GET">
 								<div class="card-header" style="display: flex; justify-content: flex-start;">
 									<h3 class="card-title" style="margin-top: 0.6%;">등급별 회원 목록</h3>
 									<select class="form-control select2" id="grade-type" name="memberGrade" style="width: 15%; margin-left: 2%;">
@@ -105,13 +106,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									</table>
 								</div>
 								<!-- /bronze -->
-								
+								</form>
 							</div>
 							<!-- /.card -->
 						<!-- /.card -->
 					</div>
 					<!-- /.col-md-6 -->
-
+					
 					<!-- /.col-md-6 -->
 				</div>
 				<!-- /.row -->
