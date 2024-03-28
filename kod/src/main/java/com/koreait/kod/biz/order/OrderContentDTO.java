@@ -10,9 +10,10 @@ public class OrderContentDTO {
 	private int orderContentCnt; // 주문개수 (구매개수)
 	private int productPrice; // 상품가격
 	private String productName; 
-	private String productCategory; 
+	private String productCategory;
 	private String productImg; 
 	private String memberID; 
+	private int categoryID;
 	private String searchCondition;
 	
 }
