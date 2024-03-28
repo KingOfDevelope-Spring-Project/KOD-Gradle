@@ -32,11 +32,14 @@ public class ProductDTO {
 	private int month; // 월
 	private int day; // 일
 	private int productSalesQuantity; // 상품 판매수량
+	private int totalProductSalesQuantityForQuarter; // 분기동안 상품 판매수량 합계
 	private int productSalesRevenue; // 상품 매출
 	private int anualRevenue; // 연 매출
 	private int quarterlyRevenue; // 분기 매출
 	private int monthlyRevenue; // 월간 매출
 	private int dailyRevenue; // 일간 매출
+	private int monthlyOrderCnt; // 월 주문수
+	private int yearlyOrderCnt; // 연 주문수
 	
 	// 기존 위시리스트DTO에서 옮겨온 멤버변수
 	private int wishListID;
