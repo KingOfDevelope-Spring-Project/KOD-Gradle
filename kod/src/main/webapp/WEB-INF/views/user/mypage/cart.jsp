@@ -49,7 +49,7 @@
 				<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
 			</ul>
 		</div>
-		<form action="/getInitOrderPage" method="POST" onsubmit="return submitForm()">
+		<form action="/getInitOrderPage" method="GET" onsubmit="return submitForm()">
 			<input type="hidden" name="payCk" value="0">
 			<table class="cart__list">
 				<thead>
@@ -76,7 +76,7 @@
 								<tr class="cart__list__detail">
 									<td><input type="checkbox" name="selectedProducts" value="${cData.productID}" id="selectedCheckBox"></td>
 									<td><img src="${cData.productImg}" alt="product"></td>
-									<td><a href="/getMainPage">KOD스토어</a>
+									<td><a href="/">KOD스토어</a>
 										<p>${cData.productName}</p> <span class="price" id="eachPrice_${status.index}">${cData.productPrice}원</span></td>
 									<td class="bseq_ea" style="text-align: center;">
 										<p>${cData.productName}</p>
@@ -100,7 +100,7 @@
 			<button class="cart__bigorderbtn left" style="width:">쇼핑 계속하기</button>
 		</form>
 
-		<form action="/deleteAllProductsToCart" method="GET" style="display: inline-block;">
+		<form action="/deleteAllProductsToCart" method="POST" style="display: inline-block;">
 			<c:forEach var="cData" items="${cartDatas}" varStatus="status">
 				<input type="hidden" name="cartId" value="${cData.cartID}">
 			</c:forEach>
@@ -221,5 +221,6 @@
 			        return true; // 하나이상의 상품을 선택한 경우 
 			    }
 		</script>
+		<script type="text/javascript"></script>
 </body>
 </html>
