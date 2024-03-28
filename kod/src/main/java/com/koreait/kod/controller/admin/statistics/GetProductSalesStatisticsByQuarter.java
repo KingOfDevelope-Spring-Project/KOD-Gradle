@@ -19,12 +19,15 @@ public class GetProductSalesStatisticsByQuarter {
 	@GetMapping("/getProductSalesStatisticsByQuarterPage")
 	public String getProductSalesStatisticsByQuarter(ProductDTO productDTO,Model model,MemberDTO adminDTO,HttpSession session) {
 		
-		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
-			return "common/error";
-		}
+//		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
+//			return "common/error";
+//		}
 		
-		productDTO.setSearchCondition("quarterStatistics");
-		model.addAttribute("productDatas", productService.selectAll(productDTO));
+		productDTO.setSearchCondition("quarterlyStatistics");
+		model.addAttribute("quarterlyDatas", productService.selectAll(productDTO));
+		
+		productDTO.setSearchCondition("orderCntAndRevenue");
+		model.addAttribute("orderCntAndRevenueDatas", productService.selectAll(productDTO));
 		
 		return "admin/statistics/productSalesStatisticsByQuarter";
 	}
