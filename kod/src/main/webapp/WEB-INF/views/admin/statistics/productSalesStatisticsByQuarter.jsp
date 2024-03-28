@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-info">
 				              <div class="inner">
-				                <h3>150</h3>
+				                <h3>${orderCntAndRevenueDatas.get(fn:length(orderCntAndRevenueDatas)-1).monthlyOrderCnt}</h3>
 				
 				                <p>주문 건수(월)</p>
 				              </div>
@@ -76,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box" style="background-color: #20c997;">
 				              <div class="inner">
-				                <h3>732</h3>
+				                <h3>${orderCntAndRevenueDatas.get(fn:length(orderCntAndRevenueDatas)-1).yearlyOrderCnt}</h3>
 				
 				                <p>주문 건수(연)</p>
 				              </div>
@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-success">
 				              <div class="inner">
-				                <h3>532000원</h3>
+				                <h3>${orderCntAndRevenueDatas.get(fn:length(orderCntAndRevenueDatas)-1).monthlyRevenue}</h3>
 				
 				                <p>월 매출</p>
 				              </div>
@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-warning">
 				              <div class="inner">
-				                <h3>83210000원</h3>
+				                <h3>${orderCntAndRevenueDatas.get(fn:length(orderCntAndRevenueDatas)-1).anualRevenue}</h3>
 				
 				                <p>연 매출</p>
 				              </div>
@@ -123,11 +123,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>40000000원</td>
-												<td>150건</td>
-											</tr>
+											<c:forEach items="${quarterlyDatas}" var="quarter" varStatus="i" begin="0" step="1">
+												<c:if test="${quarter.year == 2024 && quarter.quarter == 1}">
+													<c:set var="quarterlyRevenue" value="${quarter.quarterlyRevenue}"/>
+													<tr>
+														<td>${i.count}</td>
+														<td>${quarter.get(fn: length(quarter)-1).quarterlyRevenue}</td>
+														<td>${quarter.get(fn: length(quarter)-1).totalProductSalesQuantityForQuarter}</td>
+													</tr>
+												</c:if>
+											</c:forEach>
 											<tr id="hidden-table" style="display: none;">
 												<td colspan="3">
 									              <table class="table table-bordered table-hover" id="hidden1" >
@@ -141,130 +146,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 															</tr>
 														</thead>
 														<tbody style="white-space: nowrap;">
-															<tr>
-																<td>1</td>
-																<td>Beoplay EX Ferrari Edition</td>
-																<td>649000원</td>
-																<td>12</td>
-																<td>1230000원</td>
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>Beoplay EX</td>
-																<td>498000원</td>
-																<td>24</td>
-																<td>152000원</td>
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>Beoplay H95 Ferrari Edition</td>
-																<td>189900원</td>
-																<td>32</td>
-																<td>2321000원</td>
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>Beoplay H95</td>
-																<td>14480원</td>
-																<td>27</td>
-																<td>1234000원</td>
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>Beoplay HX</td>
-																<td>678000원</td>
-																<td>17</td>
-																<td>221000원</td>
-															</tr>
-															<tr>
-																<td>6</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>7</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>8</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>9</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>10</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>11</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>12</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>13</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>14</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>15</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>16</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>17</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
+															<c:forEach items="${quarterlyDatas}" var="quarterlyProduct" varStatus="i" begin="0" step="1">
+																<tr>
+																	<td>${i.count}</td>
+																	<td>${quarterlyProduct.productName}</td>
+																	<td>${quarterlyProduct.productPrice}</td>
+																	<td>${quarterlyProduct.productSalesQuantity}</td>
+																	<td>${quarterlyProduct.productSalesRevenue}</td>
+																</tr>
+															</c:forEach>
 														</tbody>
 													</table>
 												</td>
 											</tr>
-											<tr>
+											<%-- <tr>
 												<td>2</td>
 												<td>30000000원</td>
 												<td>125건</td>
@@ -282,125 +177,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 															</tr>
 														</thead>
 														<tbody style=" overflow: scroll; height: 100px; white-space: nowrap;">
-															<tr>
-																<td>1</td>
-																<td>Beoplay EX Ferrari Edition</td>
-																<td>649000원</td>
-																<td>12</td>
-																<td>1230000원</td>
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>Beoplay EX</td>
-																<td>498000원</td>
-																<td>24</td>
-																<td>152000원</td>
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>Beoplay H95 Ferrari Edition</td>
-																<td>189900원</td>
-																<td>32</td>
-																<td>2321000원</td>
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>Beoplay H95</td>
-																<td>14480원</td>
-																<td>27</td>
-																<td>1234000원</td>
-															</tr>
-															<tr>
-																<td>5</td>
-																<td>Beoplay HX</td>
-																<td>678000원</td>
-																<td>17</td>
-																<td>221000원</td>
-															</tr>
-															<tr>
-																<td>6</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>7</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>8</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>9</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>10</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>11</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>12</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>13</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>14</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>15</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>16</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
-															<tr>
-																<td>17</td>
-																<td>Beoplay Portal Beoplay Portal</td>
-																<td>679000원</td>
-																<td>19</td>
-																<td>251000원</td>
-															</tr>
+															<c:forEach items="${quarterlyDatas}" var="quarterlyProduct" varStatus="i" begin="0" step="1">
+																<tr>
+																	<td>${i.count}</td>
+																	<td>${quarterlyProduct.productName}</td>
+																	<td>${quarterlyProduct.productPrice}</td>
+																	<td>${quarterlyProduct.productSalesQuantity}</td>
+																	<td>${quarterlyProduct.productSalesRevenue}</td>
+																</tr>
+															</c:forEach>
 														</tbody>
 													</table>
 												</td>
@@ -414,7 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<td>4</td>
 												<td>13200000원</td>
 												<td>321건</td>
-											</tr>
+											</tr> --%>
 									</table>
 								</div>
 								<!-- /.card-body -->

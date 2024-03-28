@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						
 						<!-- 상품 목록 검색 조건 -->
 						<div class="col-sm-12">
-							<form action="/getCouponListOfMemberPage" method="GET">
+							<form action="/getMemberCouponList" method="GET">
 								<div class="card">
 									<div class="card-header" style="display: flex; justify-content: space-between;">
 										<h3 class="card-title" style="margin-top: 0.6%;">검색 조건</h3>
@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													<th style="width: 15%;">사용자ID</th>
 													<td style="width: 35%;"><input class="form-control form-control-sm" type="text" id="memberID" name="memberID"></td>
 													<th style="width: 15%;">사용 여부</th>
-													<td style="width: 35%;"><select class="form-control form-control-sm select2" id="orderContentID" name="orderContentID">
+													<td style="width: 35%;"><select class="form-control form-control-sm select2" id="couponStatus" name="couponStatus">
 									                    	<option selected="selected" value="unused">미사용</option>
 									                    	<option value="used">사용</option>
 									                    	<option value="expire">만료</option>
@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                  	<td>${coupon.couponCode}</td>
 					                  	<td>${coupon.couponContent}</td>
 					                  	<td>${coupon.couponDiscountRate}</td>
-					                  	<td>${coupon.couponUseDate}</td>
+					                  	<td>${coupon.couponIssueDate}~${coupon.couponExpireDate}</td>
 					                  	<td>${coupon.couponType}</td>
 					                  	<td>${coupon.memberID}</td>
 					                  </tr>
