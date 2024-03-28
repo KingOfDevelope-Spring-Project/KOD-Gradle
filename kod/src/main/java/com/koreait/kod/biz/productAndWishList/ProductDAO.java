@@ -15,74 +15,77 @@ import org.springframework.stereotype.Repository;
 public class ProductDAO {
 	@Autowired // DI의존주입 /* @Autowired는 만능이 아니다.. 메모리에 로드가 되어있어야 가능하다. -> new JdbcTemplate();
 	private JdbcTemplate jdbcTemplate; // 의존관계 -> DI(의존주입) -> @Autowired
-
+	
+	
 	// 분기통계
 	private static final String SELECTALL_QUARTERLY_STATISTICS=
 			"SELECT   "
-			+ "     SALES_STATISTICS.YEAR,  "
-			+ "     SALES_STATISTICS.QUARTER,   "
-			+ "     SALES_STATISTICS.PRODUCT_ID,  "
-			+ "     SALES_STATISTICS.PRODUCT_NAME,  "
-			+ "     SALES_STATISTICS.PRODUCT_PRICE,  "
-			+ "     SALES_STATISTICS.PRODUCT_SALES_QUANTITY,  "
-			+ "     FLOOR(SALES_STATISTICS.PRODUCT_SALES_REVENUE) AS 'PRODUCT_SALES_REVENUE',  "
-			+ "     FLOOR(QUARTERLY_SALES.QUARTERLY_REVENUE) as 'QUARTERLY_REVENUE' "
-			+ " FROM (  "
-			+ "     SELECT   "
-			+ "         YEAR(OL.ORDERLIST_DATE) AS 'YEAR',  "
-			+ "         QUARTER(OL.ORDERLIST_DATE) AS 'QUARTER',  "
-			+ "         P.PRODUCT_ID,  "
-			+ "         P.PRODUCT_NAME,  "
-			+ "         P.PRODUCT_PRICE,  "
-			+ "         SUM(OC.ORDERCONTENT_CNT) AS 'PRODUCT_SALES_QUANTITY',  "
-			+ "         SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 1) / 100)) AS 'PRODUCT_SALES_REVENUE'  "
-			+ "     FROM   "
-			+ "         ORDERLIST OL  "
-			+ "     JOIN   "
-			+ "         ORDERCONTENT OC ON OL.ORDERLIST_ID = OC.ORDERLIST_ID  "
-			+ "     JOIN   "
-			+ "         PRODUCT P ON OC.PRODUCT_ID = P.PRODUCT_ID  "
-			+ "     LEFT JOIN   "
-			+ "         COUPON_STATUS CS ON OC.ORDERCONTENT_ID = CS.ORDERCONTENT_ID  "
-			+ "     LEFT JOIN   "
-			+ "         COUPON C ON CS.COUPON_ID = C.COUPON_ID  "
-			+ "     GROUP BY   "
-			+ "         YEAR(OL.ORDERLIST_DATE),  "
-			+ "         QUARTER(OL.ORDERLIST_DATE),  "
-			+ "         P.PRODUCT_ID,  "
-			+ "         P.PRODUCT_NAME,  "
-			+ "         P.PRODUCT_PRICE  "
-			+ " ) AS SALES_STATISTICS  "
-			+ " LEFT JOIN (  "
-			+ "     SELECT   "
-			+ "         YEAR(OL.ORDERLIST_DATE) AS 'YEAR',  "
-			+ "         QUARTER(OL.ORDERLIST_DATE) AS 'QUARTER',  "
-			+ "         FLOOR(SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 1) / 100))) AS 'QUARTERLY_REVENUE'  "
-			+ "     FROM   "
-			+ "         ORDERLIST OL  "
-			+ "     JOIN   "
-			+ "         ORDERCONTENT OC ON OL.ORDERLIST_ID = OC.ORDERLIST_ID  "
-			+ "     JOIN   "
-			+ "         PRODUCT P ON OC.PRODUCT_ID = P.PRODUCT_ID  "
-			+ "     LEFT JOIN   "
-			+ "         COUPON_STATUS CS ON OC.ORDERCONTENT_ID = CS.ORDERCONTENT_ID  "
-			+ "     LEFT JOIN   "
-			+ "         COUPON C ON CS.COUPON_ID = C.COUPON_ID  "
-			+ "     GROUP BY   "
-			+ "         YEAR(OL.ORDERLIST_DATE),  "
-			+ "         QUARTER(OL.ORDERLIST_DATE)  "
-			+ " ) AS QUARTERLY_SALES ON SALES_STATISTICS.YEAR = QUARTERLY_SALES.YEAR AND SALES_STATISTICS.QUARTER = QUARTERLY_SALES.QUARTER  "
-			+ " ORDER BY   "
-			+ "     SALES_STATISTICS.YEAR,  "
-			+ "     SALES_STATISTICS.QUARTER,  "
-			+ "     SALES_STATISTICS.PRODUCT_SALES_REVENUE DESC";
+			+ "    SALES_STATISTICS.YEAR, "
+			+ "    SALES_STATISTICS.QUARTER,  "
+			+ "    SALES_STATISTICS.PRODUCT_ID, "
+			+ "    SALES_STATISTICS.PRODUCT_NAME, "
+			+ "    SALES_STATISTICS.PRODUCT_PRICE, "
+			+ "    SALES_STATISTICS.PRODUCT_SALES_QUANTITY, "
+			+ "	   QUARTERLY_SALES.TOTAL_PRODUCT_SALES_QUANTITY_FOR_QUARTER, "
+			+ "    FLOOR(SALES_STATISTICS.PRODUCT_SALES_REVENUE) AS 'PRODUCT_SALES_REVENUE',  "
+			+ "    FLOOR(QUARTERLY_SALES.QUARTERLY_REVENUE) as 'QUARTERLY_REVENUE' "
+			+ "FROM (  "
+			+ "    SELECT   "
+			+ "        YEAR(OL.ORDERLIST_DATE) AS 'YEAR',  "
+			+ "        QUARTER(OL.ORDERLIST_DATE) AS 'QUARTER',  "
+			+ "        P.PRODUCT_ID,  "
+			+ "        P.PRODUCT_NAME,  "
+			+ "        P.PRODUCT_PRICE,  "
+			+ "        SUM(OC.ORDERCONTENT_CNT) AS 'PRODUCT_SALES_QUANTITY',  "
+			+ "        SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 0) / 100)) AS 'PRODUCT_SALES_REVENUE'  "
+			+ "    FROM   "
+			+ "        ORDERLIST OL  "
+			+ "    JOIN   "
+			+ "        ORDERCONTENT OC ON OL.ORDERLIST_ID = OC.ORDERLIST_ID  "
+			+ "    JOIN   "
+			+ "        PRODUCT P ON OC.PRODUCT_ID = P.PRODUCT_ID  "
+			+ "    LEFT JOIN   "
+			+ "        COUPON_STATUS CS ON OC.ORDERCONTENT_ID = CS.ORDERCONTENT_ID  "
+			+ "    LEFT JOIN   "
+			+ "        COUPON C ON CS.COUPON_ID = C.COUPON_ID  "
+			+ "    GROUP BY   "
+			+ "        YEAR(OL.ORDERLIST_DATE),  "
+			+ "        QUARTER(OL.ORDERLIST_DATE),  "
+			+ "        P.PRODUCT_ID,  "
+			+ "        P.PRODUCT_NAME,  "
+			+ "        P.PRODUCT_PRICE  "
+			+ ") AS SALES_STATISTICS  "
+			+ "LEFT JOIN (  "
+			+ "    SELECT   "
+			+ "        YEAR(OL.ORDERLIST_DATE) AS 'YEAR',  "
+			+ "        QUARTER(OL.ORDERLIST_DATE) AS 'QUARTER',  "
+			+ "        FLOOR(SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 0) / 100))) AS 'QUARTERLY_REVENUE', "
+			+ "        SUM(OC.ORDERCONTENT_CNT) AS 'TOTAL_PRODUCT_SALES_QUANTITY_FOR_QUARTER' "
+			+ "    FROM   "
+			+ "        ORDERLIST OL  "
+			+ "    JOIN   "
+			+ "        ORDERCONTENT OC ON OL.ORDERLIST_ID = OC.ORDERLIST_ID  "
+			+ "    JOIN   "
+			+ "        PRODUCT P ON OC.PRODUCT_ID = P.PRODUCT_ID  "
+			+ "    LEFT JOIN   "
+			+ "        COUPON_STATUS CS ON OC.ORDERCONTENT_ID = CS.ORDERCONTENT_ID  "
+			+ "    LEFT JOIN   "
+			+ "        COUPON C ON CS.COUPON_ID = C.COUPON_ID  "
+			+ "    GROUP BY   "
+			+ "        YEAR(OL.ORDERLIST_DATE),  "
+			+ "        QUARTER(OL.ORDERLIST_DATE)  "
+			+ ") AS QUARTERLY_SALES ON SALES_STATISTICS.YEAR = QUARTERLY_SALES.YEAR AND SALES_STATISTICS.QUARTER = QUARTERLY_SALES.QUARTER  "
+			+ "ORDER BY   "
+			+ "    SALES_STATISTICS.YEAR,  "
+			+ "    SALES_STATISTICS.QUARTER,  "
+			+ "    SALES_STATISTICS.PRODUCT_SALES_REVENUE DESC";
 	
 	// 분기매출 for 2year
 	private static final String SELECTALL_QUARTERLY_REVENUE_FOR_2YEARS=
 			"SELECT  "
 			+ "    YEAR(OL.ORDERLIST_DATE) AS 'YEAR', "
 			+ "    QUARTER(OL.ORDERLIST_DATE) AS 'QUARTER', "
-			+ "    FLOOR(SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 1) / 100))) AS 'QUARTERLY_REVENUE' "
+			+ "    FLOOR(SUM((P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT) - (P.PRODUCT_PRICE * OC.ORDERCONTENT_CNT * IFNULL(C.COUPON_DISCOUNT_RATE, 0) / 100))) AS 'QUARTERLY_REVENUE' "
 			+ "FROM  "
 			+ "    ORDERLIST OL "
 			+ "JOIN  "
@@ -202,6 +205,22 @@ public class ProductDAO {
 			+ "    PRODUCT AS P "
 			+ "INNER JOIN  "
 			+ "    CATEGORY AS C ON P.CATEGORY_ID = C.CATEGORY_ID";
+	
+	private static final String SELECTALL_ORDER_CNT_AND_REVENUE=
+			"SELECT "
+			+ "    COUNT(CASE WHEN MONTH(ol.ORDERLIST_DATE) = MONTH(CURRENT_DATE()) THEN oc.ORDERCONTENT_ID END) AS CURRENT_MONTH_ORDER_CNT, "
+			+ "    SUM(CASE WHEN MONTH(ol.ORDERLIST_DATE) = MONTH(CURRENT_DATE()) THEN p.PRODUCT_PRICE * oc.ORDERCONTENT_CNT END) AS CURRENT_MONTH_REVENUE, "
+			+ "    COUNT(CASE WHEN YEAR(ol.ORDERLIST_DATE) = YEAR(CURRENT_DATE()) THEN oc.ORDERCONTENT_ID END) AS CURRENT_YEAR_ORDER_CNT, "
+			+ "    SUM(CASE WHEN YEAR(ol.ORDERLIST_DATE) = YEAR(CURRENT_DATE()) THEN p.PRODUCT_PRICE * oc.ORDERCONTENT_CNT END) AS CURRENT_YEAR_REVENUE "
+			+ "FROM "
+			+ "    ORDERLIST ol "
+			+ "JOIN "
+			+ "    ORDERCONTENT oc ON ol.ORDERLIST_ID = oc.ORDERLIST_ID "
+			+ "JOIN "
+			+ "    PRODUCT p ON oc.PRODUCT_ID = p.PRODUCT_ID "
+			+ "WHERE "
+			+ "    YEAR(ol.ORDERLIST_DATE) = YEAR(CURRENT_DATE()) "
+			+ "    AND MONTH(ol.ORDERLIST_DATE) = MONTH(CURRENT_DATE())";
 	
 	// 
 	private static final String SELECTALL_WISH_RANKING_BY_PRODUCTS_LOGIN = // 메인페이지 인기상품 추천 - 로그인상태
@@ -594,6 +613,10 @@ public class ProductDAO {
 			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
 			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperAllProductsDatas());
 		}
+		else if(productDTO.getSearchCondition().equals("orderCntAndRevenue")) {
+			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
+			return jdbcTemplate.query(SELECTALL_ORDER_CNT_AND_REVENUE, new ProductRowMapperOrderCntAndRevenue());
+		}
 		else {
 			return null;
 		}
@@ -634,13 +657,14 @@ class ProductRowMapperQuarterlyStatistics implements org.springframework.jdbc.co
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:정현진] ProductRowMapperQuarterlyStatistics 들어옴");
 		ProductDTO data = new ProductDTO();
-		System.out.println("[로그:정현진] 년\t분기\t상품ID\t상품명\t상품가격\t상품판매수량\t상품매출\t분기매출\n"
+		System.out.println("[로그:정현진] 년\t분기\t상품ID\t상품명\t상품가격\t상품판매수량\t분기동안상품판매수량합계\t상품매출\t분기매출\n"
 				+rs.getInt("YEAR")+ "\t"
 				+rs.getInt("QUARTER")+ "\t"
 				+ rs.getInt("PRODUCT_ID")+"\t"
 				+ rs.getString("PRODUCT_NAME")+"\t"
 				+ rs.getInt("PRODUCT_PRICE")+"\t"
 				+ rs.getInt("PRODUCT_SALES_QUANTITY")+"\t"
+				+ rs.getInt("TOTAL_PRODUCT_SALES_QUANTITY_FOR_QUARTER")+"\t"
 				+ rs.getInt("PRODUCT_SALES_REVENUE")+"\t"
 				+ rs.getInt("QUARTERLY_REVENUE"));
 		
@@ -650,6 +674,7 @@ class ProductRowMapperQuarterlyStatistics implements org.springframework.jdbc.co
 		data.setProductName(rs.getString("PRODUCT_NAME")); // 상품명
 		data.setProductPrice(rs.getInt("PRODUCT_PRICE")); // 상품가격
 		data.setProductSalesQuantity(rs.getInt("PRODUCT_SALES_QUANTITY")); // 상품판매수량
+		data.setTotalProductSalesQuantityForQuarter(rs.getInt("TOTAL_PRODUCT_SALES_QUANTITY_FOR_QUARTER")); // 분기동안상품판매수량 합계
 		data.setProductSalesRevenue(rs.getInt("PRODUCT_SALES_REVENUE")); // 상품매출
 		data.setQuarterlyRevenue(rs.getInt("QUARTERLY_REVENUE")); // 분기 매출
 		return data;
@@ -699,6 +724,21 @@ class ProductRowMapperDailyRevenue implements org.springframework.jdbc.core.RowM
 	}
 }
 
+//당월 주문수, 당월 매출, 당기 주문수, 당기 매출
+class ProductRowMapperOrderCntAndRevenue implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] ProductRowMapperOrderCntAndRevenue 들어옴");
+		ProductDTO data = new ProductDTO();
+		System.out.println("[로그:정현진] 당월주문수  당월매출  당기주문수  당기매출 \n"+rs.getInt("CURRENT_MONTH_ORDER_CNT")+"\t"+rs.getInt("CURRENT_MONTH_REVENUE")+"\t"+rs.getInt("CURRENT_YEAR_ORDER_CNT")+"\t"+rs.getInt("CURRENT_YEAR_REVENUE"));
+		data.setMonthlyOrderCnt(rs.getInt("CURRENT_MONTH_ORDER_CNT")); // 당월 주문수
+		data.setMonthlyRevenue(rs.getInt("CURRENT_MONTH_REVENUE")); // 당월 매출
+		data.setYearlyOrderCnt(rs.getInt("CURRENT_YEAR_ORDER_CNT")); // 당기 주문수
+		data.setAnualRevenue(rs.getInt("CURRENT_YEAR_REVENUE")); // 당기 매출
+		return data;
+	}
+}
+
 //상품 전체목록
 class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
 	@Override
@@ -724,5 +764,4 @@ class productRowMapperGetProductID implements RowMapper<ProductDTO>{
 		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
 		return productDTO;
 	}
-	
 }
