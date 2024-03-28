@@ -23,7 +23,8 @@ public class CouponDAO {
 			+ "COUPON_USE_DATE,"
 			+ "COUPON_TYPE "
 			+ "FROM COUPON";
-	private static final String SELECTALL_SEARCH_COUPON="SELECT "
+	// 쿠폰 사용여부 조회 (관리자)
+	private static final String SELECTALL_SEARCH_COUPONS="SELECT "
 			+ "C.COUPON_ID, "
 			+ "C.COUPON_NAME, "
 			+ "C.COUPON_CODE, "
@@ -39,6 +40,17 @@ public class CouponDAO {
 			+ "ON C.COUPON_ID = CS.COUPON_ID "
 			+ "WHERE 1=1 AND MEMBER_ID=? ";
 	// 쿠폰 개별조회
+	private static final String SELECT_AVAILABLE_COUPONS_PRE_ORDER="SELECT "
+			+ "C.COUPON_ID, "
+			+ "C.COUPON_NAME, "
+			+ "C.COUPON_CODE, "
+			+ "C.COUPON_DISCOUNT_RATE, "
+			+ "CS.COUPON_STATUS_ID "
+			+ "FROM COUPON C "
+			+ "JOIN COUPON_STATUS CS "
+			+ "ON C.COUPON_ID =CS.COUPON_ID "
+			+ "WHERE MEMBER_ID =? AND CS.ORDERCONTENT_ID IS NULL AND CS.COUPON_EXPIRE_DATE > NOW()"; 
+	
 	private static final String SELECTONE="SELECT COUPON_ID, "
 			+ "COUPON_CONTENT, "
 			+ "COUPON_DISCOUNT_RATE, "
@@ -86,8 +98,8 @@ public class CouponDAO {
 
 	
 	public List<CouponDTO> selectAll(CouponDTO couponDTO){
-		StringBuilder builder=new StringBuilder(SELECTALL_SEARCH_COUPON);
-		
+		StringBuilder builder=new StringBuilder(SELECTALL_SEARCH_COUPONS);
+		Object[] args= {couponDTO.getMemberID()};
 		if(couponDTO.getSearchCondition().equals("expiredCoupon")) {
 			builder.append("AND CS.COUPON_EXPIRE_DATE < NOW()");
 		}else if(couponDTO.getSearchCondition().equals("usedCoupon")) {
@@ -95,11 +107,21 @@ public class CouponDAO {
 		}else if(couponDTO.getSearchCondition().equals("unUsedCoupon")) {
 			builder.append("AND CS.ORDERCONTENT_ID IS NULL AND CS.COUPON_EXPIRE_DATE > NOW()");
 		}else if(couponDTO.getSearchCondition().equals("searchCoupon")) {
+			try {
 			return jdbcTemplate.query(SELECTALL, new CouponRowMapper());
+			}catch(Exception e) {
+				return null;
+			}
+		}else if(couponDTO.getSearchCondition().equals("availableCoupon")) {
+			try {
+			return jdbcTemplate.query(SELECT_AVAILABLE_COUPONS_PRE_ORDER, args, new CouponRowMapperAvailableCoupon());
+			}
+			catch(Exception e) {
+				return null;
+			}
 		}
 		String query=builder.toString();
 		System.out.println("쿼리상태 : "+query);
-		Object[] args= {couponDTO.getMemberID()};
 		try {
 			return jdbcTemplate.query(query, args, new CouponRowMapperSearchByStatus());
 		}catch(Exception e) {
@@ -187,5 +209,21 @@ class CouponRowMapperSearchByStatus implements RowMapper<CouponDTO> {
 		couponDTO.setMemberID(rs.getString("MEMBER_ID"));
 		return couponDTO;
 	}
+	
+}
+
+class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
+
+	@Override
+	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		CouponDTO couponDTO=new CouponDTO();
+		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
+		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
+		couponDTO.setCouponCode(rs.getString("COUPON_CODE"));
+		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
+		couponDTO.setCouponStatus_ID(rs.getInt("COUPON_STATUS_ID"));
+		return couponDTO;
+	}
+	
 	
 }
