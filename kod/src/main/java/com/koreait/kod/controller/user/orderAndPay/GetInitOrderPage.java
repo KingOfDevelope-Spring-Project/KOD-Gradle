@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.koreait.kod.biz.address.AddressDTO;
 import com.koreait.kod.biz.address.AddressService;
+import com.koreait.kod.biz.cart.CartDTO;
+import com.koreait.kod.biz.cart.CartService;
 import com.koreait.kod.biz.coupon.CouponDTO;
 import com.koreait.kod.biz.coupon.CouponService;
-import com.koreait.kod.biz.productAndWishList.ProductDTO;
-import com.koreait.kod.biz.productAndWishList.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,7 +24,7 @@ public class GetInitOrderPage {
 	@Autowired
 	private AddressService addressService;
 	@Autowired
-	ProductService productService;
+	CartService cartService;
 	@Autowired
 	CouponService couponService;
 	
@@ -41,6 +41,7 @@ public class GetInitOrderPage {
 	 * 
 	 */
 	
+	
 	/* @@@@@질문1
 	 * 의문.. 즉시구매일 경우와 선택구매일 경우의 구분이 꼭 필요한가 ?
 	 * 하나를 구매하더라도 List에 담아주면 바로구매인지 선택구매인지 구분할 필요가 없어보임
@@ -49,19 +50,19 @@ public class GetInitOrderPage {
 	
 //	// 즉시구매할 상품정보를 주문정보페이지로 보내기
 //	@GetMapping("/rightNowBuy")
-//	public String rightNowBuy(ProductDTO productDTO,Model model) {
+//	public String rightNowBuy(CartDTO CartDTO,Model model) {
 //		
-//		// productDTO에는 상품ID와 수량이 들어있음
-//		model.addAttribute("productsToBuy",productDTO);
+//		// CartDTO에는 상품ID와 수량이 들어있음
+//		model.addAttribute("productsToBuy",CartDTO);
 //		
 //		return "redirect:/getOrderInfoPage";
 //	}
 	
 //	// 선택구매할 상품정보를 주문정보페이지로 보내기
 //	@GetMapping("/buy")
-//	public String buy(List<ProductDTO> productList,Model model) {
+//	public String buy(List<CartDTO> selectedProducts,Model model) {
 //		
-//		model.addAttribute("productsToBuy", productList);
+//		model.addAttribute("productsToBuy", selectedProducts);
 //		
 //		return "redirect:/getOrderInfoPage";
 //	}
@@ -78,28 +79,35 @@ public class GetInitOrderPage {
 	
 	// 주문정보 페이지
 	@GetMapping("/getInitOrderPage") // 주문정보 가져오기
-	public String getInitOrderPage(List<ProductDTO> productList,CouponDTO couponDTO,AddressDTO addressDTO,Model model, HttpSession session) {
-			
+	public String getInitOrderPage(@RequestParam("payCk") int payCK,
+								   @RequestParam("selectedProducts") List<Integer> cartSelectedProducts,
+						           @RequestParam("cartProductCnt") List<Integer> cartProductCnt,
+						           CouponDTO couponDTO,
+						           AddressDTO addressDTO,
+						           Model model, 
+						           HttpSession session) {
+		
+		System.out.println("[로그:정현진] getInitOrderPage 들어옴");
 //	    // model에서 받아온 데이터가 null이라면
 //	    if (model.getAttribute("productsToBuy") == null) {
 //	    	return "common/error";
 //	    }
 	    
 //	    // 구매할 상품정보 반환하기
-//	    if (model.getAttribute("productsToBuy") instanceof ProductDTO) {
+//	    if (model.getAttribute("productsToBuy") instanceof CartDTO) {
 //            // 즉시구매 일 경우
-//            ProductDTO productDTO = (ProductDTO) model.getAttribute("productsToBuy");
-//            model.addAttribute("productOrderInfo", productDTO);
+//            CartDTO CartDTO = (CartDTO) model.getAttribute("productsToBuy");
+//            model.addAttribute("productOrderInfo", CartDTO);
 //        } 
 //        else {
             // 선택구매 일 경우 
-        	// @@@@@질문2. new ArrayList<ProductDTO>()
+        	// @@@@@질문2. new ArrayList<CartDTO>()
         	// ★ 반환타입이 인터페이스인 List인데 괜찮은건지.. ArrayList로 형변환하여 반환해야하는지 .. 고민 ?
-//            productList = (List<ProductDTO>) model.getAttribute("productsToBuy");  // 받아온 리스트
+//            selectedProducts = (List<CartDTO>) model.getAttribute("productsToBuy");  // 받아온 리스트
 		
-//            List<ProductDTO> productDatas = new ArrayList<ProductDTO>(); // 스코프이슈 (반환할 데이터)
-//            for (ProductDTO product : productList) {
-//            	ProductDTO data = new ProductDTO();
+//            List<CartDTO> productDatas = new ArrayList<CartDTO>(); // 스코프이슈 (반환할 데이터)
+//            for (CartDTO product : selectedProducts) {
+//            	CartDTO data = new CartDTO();
 //            	data.setProductID(product.getProductID());
 //            	data = productService.selectOne(product); // 구매수량을 제외한 상품정보가 모두 반환되어야함
 //            	data.setProductCnt(product.getProductCnt());
@@ -108,20 +116,42 @@ public class GetInitOrderPage {
 //            model.addAttribute("productDatas", productDatas);
 //        }
 		
+		List<CartDTO> selectedProducts = new ArrayList<CartDTO>();
+        for (int i = 0; i < cartSelectedProducts.size(); i++) {
+            int productId = cartSelectedProducts.get(i);
+            int quantity = cartProductCnt.get(i);
+            System.out.println("상품 ID: " + productId + ", 수량: " + quantity+", 구매유형 : "+payCK);
+            CartDTO cartDTO = new CartDTO();
+            cartDTO.setPayCk(payCK);
+            cartDTO.setProductID(productId);
+            cartDTO.setCartProductCnt(quantity);
+            selectedProducts.add(cartDTO);
+        }
+        for (CartDTO data : selectedProducts) {
+			System.out.println("[로그:정현진] data : "+data);
+			System.out.println("[로그:정현진] 구매유형 : "+data.getPayCk());
+		}
 		
-        List<ProductDTO> productDatas = new ArrayList<ProductDTO>(); // 스코프이슈 (반환할 데이터)
-        for (ProductDTO product : productList) { // productList에는 상품정보와 구매유형(즉시구매,선택구매)이 담겨있음
-        	ProductDTO data = new ProductDTO();
+        List<CartDTO> productDatas = new ArrayList<CartDTO>(); // 스코프이슈 (반환할 데이터)
+        for (CartDTO product : selectedProducts) { // selectedProducts에는 상품정보와 구매유형(즉시구매,선택구매)이 담겨있음
+        	CartDTO data = new CartDTO();
         	data.setProductID(product.getProductID());
-        	data = productService.selectOne(product); // 구매수량을 제외한 상품정보가 모두 반환되어야함
-        	data.setProductCnt(product.getProductCnt()); // 구매수량 설정
-        	data.setPurchaseType(product.getPurchaseType()); // 구매유형 설정
+        	System.out.println("[로그:정현진] data.getProductID : "+data.getProductID());
+        	data = cartService.selectOne(data); // 구매수량을 제외한 상품정보가 모두 반환되어야함
+        	System.out.println("[로그:정현진] data : "+data);
+        	data.setPayCk(product.getPayCk()); // 구매유형 설정
         	productDatas.add(data);
 		}
+        
+        for (CartDTO cartDTO : productDatas) {
+			System.out.println("[로그:정현진] cartDTO : "+cartDTO);
+		}
+        
         model.addAttribute("productDatas", productDatas);
 	    
 	    // 쿠폰정보 반환하기
 	    couponDTO.setMemberID((String)session.getAttribute("memberID"));
+	    couponDTO.setSearchCondition("unUsedCoupon");
 	    model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
         
         // 배송지 반환하기

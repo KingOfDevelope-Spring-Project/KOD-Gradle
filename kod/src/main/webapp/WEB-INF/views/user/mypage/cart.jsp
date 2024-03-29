@@ -43,12 +43,70 @@
 	<c:set var="cDatas" value="${cartDTO}" />
 	<%-- <c:set var="memberDTO" value="${sessionScope.memberDTO}" /> --%>
 	<section class="cart">
+		
 		<div class="cart__information">
 			<ul>
 				<li>장바구니 상품은 최대 10개까지만 담을 수 있습니다.</li>
 				<li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
 			</ul>
 		</div>
+		
+<!-- <script>
+	var selectedProducts = []; // 선택한 상품들의 ID를 임시 저장할 배열
+
+	function addToSelectedProducts(productId) {
+			// 이미 선택된 상품인지 확인하고 선택 상태를 업데이트합니다.
+			var index = selectedProducts.indexOf(productId);
+			if (index === -1) {
+					// 선택되지 않은 상품이면 배열에 추가합니다.
+					selectedProducts.push(productId);
+			} else {
+					// 이미 선택된 상품이면 배열에서 제거합니다.
+					selectedProducts.splice(index, 1);
+			}
+	}
+</script>
+
+<script>
+	function submitForm() {
+			// 선택한 상품들의 정보를 숨은 입력 필드에 추가합니다.
+			document.querySelector('input[name="selectedProducts"]').value = selectedProducts.join(',');
+			return true; // 폼을 제출합니다.
+	}
+</script> -->
+
+<script>
+	var selectedProducts = []; // 선택한 상품들의 ID를 임시 저장할 배열
+
+	function addToSelectedProducts(productId, cartProductCnt) {
+			// 이미 선택된 상품인지 확인하고 선택 상태를 업데이트합니다.
+			var index = selectedProducts.findIndex(item => item.productId === productId);
+			if (index === -1) {
+					// 선택되지 않은 상품이면 배열에 추가합니다.
+					selectedProducts.push({ productId: productId, cartProductCnt: cartProductCnt });
+			} else {
+					// 이미 선택된 상품이면 배열에서 제거합니다.
+					selectedProducts.splice(index, 1);
+			}
+	}
+</script>
+<script>
+    function submitForm() {
+        var selectedProducts = []; // 선택한 상품들의 정보를 임시 저장할 배열
+
+        // 모든 체크된 상품의 ID와 수량을 수집합니다.
+        document.querySelectorAll('input[name="selectedProducts"]:checked').forEach(function(checkbox) {
+            var productId = checkbox.value;
+            var cartProductCnt = document.querySelector('input[name="cartProductCnt"][data-productid="' + productId + '"]').value;
+            selectedProducts.push({ productId: productId, cartProductCnt: cartProductCnt });
+        });
+
+        // 숨은 입력 필드에 선택된 상품들의 정보를 JSON 형태로 설정합니다.
+        document.querySelector('input[name="selectedProducts"]').value = JSON.stringify(selectedProducts);
+        return true; // 폼을 제출합니다.
+    }
+</script>
+
 		<form action="/getInitOrderPage" method="GET" onsubmit="return submitForm()">
 			<input type="hidden" name="payCk" value="0">
 			<table class="cart__list">
@@ -74,13 +132,13 @@
 						<c:forEach var="cData" items="${cartDatas}" varStatus="status">
 							<tbody>
 								<tr class="cart__list__detail">
-									<td><input type="checkbox" name="selectedProducts" value="${cData.productID}" id="selectedCheckBox"></td>
+									<td><input type="checkbox" name="selectedProducts" value="${cData.productID}" id="selectedCheckBox_${status.index}" onchange="addToSelectedProducts('${cData.productID}')"></td>
 									<td><img src="${cData.productImg}" alt="product"></td>
 									<td><a href="/">KOD스토어</a>
 										<p>${cData.productName}</p> <span class="price" id="eachPrice_${status.index}">${cData.productPrice}원</span></td>
 									<td class="bseq_ea" style="text-align: center;">
 										<p>${cData.productName}</p>
-										<button style="border: none; color: black;" type="button" onclick="fnCalCount('m', this, ${status.index});">-</button> <input type="text" id="changedCnt_${status.index}" name="pop_out" value="${cData.cartProductCnt}" readonly="readonly" style="text-align: center;" />
+										<button style="border: none; color: black;" type="button" onclick="fnCalCount('m', this, ${status.index});">-</button> <input type="text" id="changedCnt_${status.index}" name="cartProductCnt" value="${cData.cartProductCnt}" readonly="readonly" style="text-align: center;" />
 										<button style="border: none; color: black;" type="button" onclick="fnCalCount('p', this, ${status.index});">+</button> <!-- <button class="cart__list__optionbtn">주문조건 추가/변경</button> -->
 									</td>
 									<td><span class="price" id="totalPrice_${status.index}"> ${cData.productTotalPrice}원 </span><br> <!--  	<button class="cart__list__orderbtn">주문하기</button> --></td>
@@ -93,7 +151,7 @@
 				</c:choose>
 			</table>
 			<div class="cart__mainbtns" style="float: right">
-				<button class="cart__bigorderbtn right">주문하기</button>
+				<button class="cart__bigorderbtn right" onclick="return submitForm()">주문하기</button>
 			</div>
 		</form>
 		<form action="/getStorePage" method="GET" style="display: inline-block;">
@@ -118,25 +176,7 @@
 	<script src="resources/js/nouislider.min.js"></script>
 	<script src="resources/js/jquery.zoom.min.js"></script>
 	<script src="resources/js/main.js"></script>
-	<!-- <script>
-			function submitForm() {
-				var formData = new FormData(document.forms[0]);
 
-				$.ajax({
-					type: "POST",
-					url: "/payInfo",
-					data: formData,
-					processData: false,
-					contentType: false,
-					success: function (response) {
-						console.log("성공");
-					},
-					error: function (error) {
-						console.log("실패");
-					}
-				});
-			}
-		</script> -->
 	<script>
 			function updateCart(productId, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
 				$.ajax({
@@ -171,7 +211,7 @@
 				var productId = $(ths).closest('.cart__list__detail').find('input[name="selectedProducts"]').val();
 
 				// 해당 상품의 수량 가져오기
-				var $input = $(ths).parents("td").find("input[name='pop_out']");
+				var $input = $(ths).parents("td").find("input[name='cartProductCnt']");
 				var productCnt = $input.val();
 
 				// 변경된 수량 계산
@@ -204,22 +244,22 @@
 				})
 			}
 			
-			  function submitForm() { //장바구니에서 주문으로 이동하는 submit 함수
-			        var checkboxes = document.getElementsByName('selectedProducts');
-			  // ※id가 아니라 name으로 호출하는 이유 : 폼 내에 여러개의 체크박스가 생성될 수 있기 때문에 단일 요소에 대한 참조를 가져오는 id 대신 name을 사용
-			        var isChecked = false;
-			        for (var i = 0; i < checkboxes.length; i++) {
-			            if (checkboxes[i].checked) {
-			            	isChecked = true;
-			                break;
-			            }
-			        }
-			        if (!isChecked) { //하나의 상품도 선택하지 않은 경우
-			            alert('최소 하나의 상품을 선택해주세요');
-			            return false; 
-			        }
-			        return true; // 하나이상의 상품을 선택한 경우 
-			    }
+			  // function submitForm() { //장바구니에서 주문으로 이동하는 submit 함수
+			  //       var checkboxes = document.getElementsByName('selectedProducts');
+			  // // ※id가 아니라 name으로 호출하는 이유 : 폼 내에 여러개의 체크박스가 생성될 수 있기 때문에 단일 요소에 대한 참조를 가져오는 id 대신 name을 사용
+			  //       var isChecked = false;
+			  //       for (var i = 0; i < checkboxes.length; i++) {
+			  //           if (checkboxes[i].checked) {
+			  //           	isChecked = true;
+			  //               break;
+			  //           }
+			  //       }
+			  //       if (!isChecked) { //하나의 상품도 선택하지 않은 경우
+			  //           alert('최소 하나의 상품을 선택해주세요');
+			  //           return false; 
+			  //       }
+			  //       return true; // 하나이상의 상품을 선택한 경우 
+			  //   }
 		</script>
 		<script type="text/javascript"></script>
 </body>
