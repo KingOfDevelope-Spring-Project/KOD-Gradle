@@ -61,7 +61,7 @@
 			<div class="container" >
 				<!-- row -->
 				<div class="row">
-					<form action="/getKakaoPayPage" method="POST">
+					<form action="/getKakaoPayPage" method="GET">
 						
 					<div class="col-md-9" style="margin-left: 10%;">
 						
@@ -143,9 +143,10 @@
 								<div class="order-col">
 									<div><strong>PRODUCT</strong></div>
 									<div><strong>TOTAL</strong></div>
-								</div>
+								</div> 
 								<div class="order-products">
-								
+								<div>[로그:정현진] 결제유형 : ${param.payCk}</div>
+								<div>[로그:정현진] 상품개수 : ${productDatasSize}</div>
 									
 									<c:if test="${productDatasSize >= 1}">
 										<c:forEach var="productData" items="${payInfoDatas}">
@@ -172,7 +173,6 @@
 	                                        <input type="hidden" name="payCk" value="${param.payCk}">
 	                                    </div>
 									</c:if>
-									
 									
 								</div>
 								<div class="order-col">
@@ -216,6 +216,10 @@
 								</select>
 							</div>
 							
+							<!-- <input type="submit" value="dd"> <<  scprint 문제 맞음!! 
+												파라미터 문제 !    text  데이터를 안넣는다던지?
+														input 문제라는뜻!!!!1					 -->
+
 							<button type="submit" class="primary-btn order-submit" style="width: 50%; margin-left: 25%">결제하기</button>
 						</div>
 					</div>
@@ -230,8 +234,8 @@
 		</div>
 		<!-- /SECTION -->
 
-
 		<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+
 
 		<!-- jQuery Plugins -->
 		<script src="resources/js/jquery.min.js"></script>

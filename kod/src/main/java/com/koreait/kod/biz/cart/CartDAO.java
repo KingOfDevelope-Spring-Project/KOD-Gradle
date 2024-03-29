@@ -32,7 +32,8 @@ public class CartDAO {
 			+ "GROUP BY C.CART_ID,C.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE";
 	
 			// 장바구니 개별상품 조회
-	private static final String SELECTONE="SELECT "
+	private static final String SELECTONE=
+			"SELECT "
 			+ "C.CART_ID, "
 			+ "C.PRODUCT_ID, "
 			+ "P.PRODUCT_NAME, "
@@ -47,7 +48,7 @@ public class CartDAO {
 			+ "FROM CART C "
 			+ "JOIN PRODUCT P ON P.PRODUCT_ID = C.PRODUCT_ID "
 			+ "LEFT JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID "
-			+ "WHERE C.CART_ID = ? "
+			+ "WHERE C.PRODUCT_ID = ? "
 			+ "GROUP BY C.CART_ID, C.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE ";
 			// 장바구니 상품추가
 	private static final String INSERT="INSERT INTO CART(MEMBER_ID,PRODUCT_ID,CART_PRODUCT_CNT) VALUES (?,?,?)";
@@ -63,6 +64,7 @@ public class CartDAO {
 			+ "WHERE MEMBER_ID = ?";
 
 	public List<CartDTO> selectAll(CartDTO cartDTO) {
+		System.out.println("[로그:정현진] SELECTALL들어옴 ");
 		Object[] args = { cartDTO.getMemberID() };
 		try {
 		return jdbcTemplate.query(SELECTALL, args, new CartRowMapper());
@@ -72,7 +74,8 @@ public class CartDAO {
 		}
 	}
 	public CartDTO selectOne(CartDTO cartDTO) {
-		Object[] args= {cartDTO.getCartID()};
+		System.out.println("[로그:정현진] cartDTO.getProductID() : "+cartDTO.getProductID());
+		Object[] args= {cartDTO.getProductID()};
 		try {
 			return jdbcTemplate.queryForObject(SELECTONE,args,new CartRowMapper());
 		}catch(Exception e) {
@@ -117,6 +120,7 @@ class CartRowMapper implements RowMapper<CartDTO>{
 
 	@Override
 	public CartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] CartRowMapper 들어옴");
 		CartDTO cartDTO = new CartDTO();
 		cartDTO.setCartID(rs.getInt("CART_ID"));
 		cartDTO.setProductID(rs.getInt("PRODUCT_ID"));
