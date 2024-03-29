@@ -63,48 +63,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<!-- 상품 목록 검색 조건 -->
 						<div class="col-sm-12">
 							<div class="card">
+							<form action="/getProductListPage" method="get">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">검색 조건</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;;">검색하기</button>
+									<button type="submit" class="btn btn-primary" style="margin-left: auto;">검색하기</button>
 								</div>
 								<div class="card-body">
 									<table id="example3" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th>상품번호</th>
-												<td><input class="form-control form-control-sm" type="text"></td>
+												<td><input class="form-control form-control-sm" id="productID" name="productID" type="number" value="0"></td>
 												<th>상품명</th>
-												<td><input class="form-control form-control-sm" type="text"></td>
+												<td><input class="form-control form-control-sm" id="productName" name="productName" type="text"></td>
 											</tr>
 											<tr>
 												<th>브랜드</th>
 												<td>
-													<select class="form-control select2" style="width: 100%;" required>
+													<select class="form-control select2" id="productBrand" name="productBrand" style="width: 100%;">
 								                    	<option selected="selected" style="display: none;"></option>
-								                    	<option>뱅앤올룹슨</option>
+								                    	<option value="뱅앤올룹슨">뱅앤올룹슨</option>
 								                    	<option>삼성</option>
 								                    	<option>LG</option>
 							                  		</select>
 												</td>
 												<th>카테고리</th>
 												<td>
-													<select class="form-control select2" style="width: 100%;" required>
+													<select class="form-control select2" id="productCategory" name="productCategory" style="width: 100%;">
 								                    	<option selected="selected" style="display: none;"></option>
-								                    	<option>전체</option>
-								                    	<option>헤드폰</option>
-								                    	<option>이어폰</option>
-								                    	<option>스피커</option>
+								                    	<option value="all">전체</option>
+								                    	<option value="헤드폰">헤드폰</option>
+								                    	<option value="이어폰">이어폰</option>
+								                    	<option value="스피커">스피커</option>
 							                  		</select>
 												</td>
 											</tr>
 											<tr>
 												<th>가격</th>
-												<td colspan="3"><input class="form-control form-control-sm col-4" type="text" style="display: inline-block;"> 원 이상 ~ 
-												<input class="form-control form-control-sm col-4" type="text" style="display: inline-block;"> 원 이하</td>
+												<td colspan="3"><input class="form-control form-control-sm col-4" type="number" name="productMinPrice" value="0" style="display: inline-block;"> 원 이상 ~ 
+												<input class="form-control form-control-sm col-4" type="number" name="productMaxPrice" value="999999999" style="display: inline-block;"> 원 이하</td>
 											</tr>
 										</thead>
 									</table>
 								</div>
+								</form>
 							</div>
 						</div>
 						<!-- /상품 목록 검색 조건 -->
@@ -135,16 +137,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${productList}" var="product" varStatus="i" begin="0" step="1">
+											<c:forEach items="${productsDatas}" var="product" varStatus="i" begin="0" step="1">
 											<tr>
 												<td><input type="checkbox"></td>
 												<td>${i.count}</td>
 												<td>${product.productID}</td>
-												<td>${img.imageURL}</td>
+												<td>${product.productImg}</td>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
-												<td>${product.productCategory}</td>
+												<c:if test="${product.categoryID==1}">
+													<td>헤드폰</td>
+												</c:if>
+												<c:if test="${product.categoryID==2}">
+													<td>이어폰</td>
+												</c:if>
+												<c:if test="${product.categoryID==3}">
+													<td>스피커</td>
+												</c:if>
+												<c:if test="${product.categoryID==999}">
+													<td>전체</td>
+												</c:if>
+												<c:if test="${product.categoryID==1000}">
+													<td>테스트</td>
+												</c:if>
 												<td>${product.productInfo}</td>
 												<td>${product.productStock}</td>
 											</tr>
