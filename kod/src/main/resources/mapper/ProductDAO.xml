@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.koreait.kod.biz.productAndWishList.IProductDAO">
+
+
+	<select id="selectAll" resultMap="productMap">
+SELECT P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,P.PRODUCT_BRAND,P.CATEGORY_ID,P.PRODUCT_INFO,P.PRODUCT_STOCK,(SELECT IMAGE_URL FROM IMAGE I WHERE I.PRODUCT_ID = P.PRODUCT_ID ORDER BY IMAGE_ID LIMIT 1) AS IMAGE_URL FROM PRODUCT P WHERE 1=1 
+	<if test ="productID != 0">
+	AND PRODUCT_ID = #{productID}
+	</if>
+	<if test = "productName != null">
+	AND PRODUCT_NAME LIKE CONCAT('%', #{productName}, '%')
+	</if>
+	<if test="productBrand != null">
+	AND PRODUCT_BRAND LIKE CONCAT ('%', #{productBrand}, '%')
+	</if>
+	<if test="categoryID != 0">
+	AND CATEGORY_ID = #{categoryID}
+	</if>
+	<if test="productMinPrice != 0 and productMaxPrice != 0">
+	AND PRODUCT_PRICE BETWEEN #{productMinPrice} AND #{productMaxPrice}
+	</if>
+	</select>
+	
+	
+	<resultMap id="productMap" type="com.koreait.kod.biz.productAndWishList.ProductDTO">
+	<result column="PRODUCT_ID" property="productID" jdbcType="INTEGER" javaType="int"/>
+  <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" javaType="String"/>
+  <result column="PRODUCT_PRICE" property="productPrice" jdbcType="INTEGER" javaType="int"/>
+  <result column="PRODUCT_BRAND" property="productBrand" jdbcType="VARCHAR" javaType="String"/>
+  <result column="CATEGORY_ID" property="categoryID" jdbcType="INTEGER" javaType="int"/>
+  <result column="PRODUCT_INFO" property="productInfo" jdbcType="VARCHAR" javaType="String"/>
+  <result column="PRODUCT_STOCK" property="productStock" jdbcType="INTEGER" javaType="int"/>
+  <result column="IMAGE_URL" property="productImg" jdbcType="VARCHAR" javaType="String"/>
+</resultMap>
+
+
+</mapper>
