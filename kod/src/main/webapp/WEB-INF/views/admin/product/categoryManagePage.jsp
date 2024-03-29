@@ -78,27 +78,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>헤드폰</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>이어폰</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>스피커</td>
-											</tr>
-										</tbody>
-										<%-- <tbody>
-											<c:forEach items="${category}" var="category" varStatus="i" begin="0" step="1">
-											<tr>
-												<td>${i.count}</td>
-												<td>${category.type}</td>
-											</tr>
+											<c:forEach items="${categoryDatas}" var="category" varStatus="i" begin="0" step="1">
+												<tr>
+													<td>${i.count}</td>
+													<td>${category.categoryType}</td>
+												</tr>
 											</c:forEach>
-										</tbody> --%>
+										</tbody>
 									</table>
 								</div>
 								<!-- /.card-body -->
@@ -110,23 +96,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<!-- 카테고리 추가 div -->
 						<div class="col-sm-6">
 							<div class="card">
+								<form action="/insertCategory" method="POST">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 카테고리 추가</h3>
-									<button type="button" class="btn btn-primary" onclick="location.href='adminProductRegister.jsp'" style="margin-left: auto;">신규 카테고리 추가</button>
+									<button type="submit" class="btn btn-primary" style="margin-left: auto;">신규 카테고리 추가</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th>카테고리명</th>
-												<td><input type="text"></td>
+												<td><input type="text" id="categoryType" name="categoryType"></td>
 											</tr>
 										</thead>
 									</table>
+									
 								</div>
 								<!-- /.card-body -->
+								</form>
 							</div>
 							<!-- /.card -->
 						</div>
