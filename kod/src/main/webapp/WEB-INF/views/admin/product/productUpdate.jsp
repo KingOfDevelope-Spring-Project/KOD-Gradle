@@ -81,28 +81,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr onclick="openModal()">
-												<th><input type="checkbox" onmouseup=""></th>
 												<th>상품번호</th>
-												<th>상품 이미지</th>
 												<th>상품명</th>
 												<th>상품가격</th>
 												<th>브랜드</th>
 												<th>카테고리</th>
-												<th>상품정보</th>
 												<th>재고</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${productDatas}">
+											<c:forEach items="${productDatas}" var="product" varStatus="i" begin="0" step="1">
 											<tr>
-												<td><input type="checkbox"></td>
-												<td>${product.productID}</td>
-												<td>${img.imageURL}</td>
+												<td>${i.count}</td>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
 												<td>${product.productCategory}</td>
-												<td>${product.productInfo}</td>
 												<td>${product.productStock}</td>
 											</tr>
 											</c:forEach>

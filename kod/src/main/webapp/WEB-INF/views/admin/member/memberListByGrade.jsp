@@ -68,11 +68,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-header" style="display: flex; justify-content: flex-start;">
 									<h3 class="card-title" style="margin-top: 0.6%;">등급별 회원 목록</h3>
 									<select class="form-control select2" id="grade-type" name="memberGrade" style="width: 15%; margin-left: 2%;">
-					                    <option value="Bronze" selected>Bronze</option>
-					                    <option value="Silver">Silver</option>
-					                    <option value="Gold">Gold</option>
+					                    <option selected style="display: none;"></option>
+					                    <option value="BRONZE">Bronze</option>
+					                    <option value="SILVER">Silver</option>
+					                    <option value="GOLD">Gold</option>
 					                    <option value="VIP">VIP</option>
 					                </select>
+					                <button type="submit" class="btn btn-primary" style="margin-left: auto;">검색</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body" id="bronze">
@@ -226,6 +228,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+
+
 <script>
 document.getElementById('grade-type').addEventListener('change', function() {
 	  var bronzeSection = document.getElementById('bronze');
