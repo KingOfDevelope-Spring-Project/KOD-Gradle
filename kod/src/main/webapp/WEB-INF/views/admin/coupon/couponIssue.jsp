@@ -90,7 +90,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                  <select class="form-control select2" id="coupon-type" name="couponType" style="width: 100%;">
 						                    <option value="auto" selected="selected">자동 발행</option>
 						                    <option value="adminIssue">관리자 발행</option>
-						                    <option value="promotion">프로모션 쿠폰</option>
 						                  </select>
 						                </div>
 					                </div>
@@ -122,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                    <!-- Date -->
 						                <div class="form-group">
 						                  <label>만료일</label>
-						                    <input class="form-control" type="text" placeholder="쿠폰 만료일을 입력하세요.">
+						                    <input class="form-control" type="date" name="couponExpireDate" placeholder="쿠폰 만료일을 입력하세요.">
 						                </div>
 					                </div>
 					                
@@ -130,14 +129,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <label>할인율</label>
 						                <div class="form-group" >
 						                  	<div style="width: 100%;">
-						                  		<input class="form-control" id="couponDiscountRate" name="couponDiscountRate" type="text" placeholder="할인율을 입력하세요." style="width: 70%; display: inline-block;">
+						                  		<input class="form-control" id="couponDiscountRate" name="couponDiscountRate" type="text" placeholder="할인율을 입력하세요." style="width: 85%; display: inline-block;">
 							                        <div class="form-check" style="display: inline-block; margin-left: 5%;">
 							                          <input class="form-check-input" type="radio" name="radio1">
 							                          <label class="form-check-label">%</label>
-							                        </div>
-							                        <div class="form-check" style="display: inline-block; margin-left: 5%;">
-							                          <input class="form-check-input" type="radio" name="radio1" checked>
-							                          <label class="form-check-label">원</label>
 							                        </div>
 					                  		</div>
 						                </div>

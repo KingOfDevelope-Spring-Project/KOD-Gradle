@@ -61,13 +61,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="row">
 						<!-- Small boxes (Stat box) -->
-				          <div class="col-lg-3 col-6">
+				          <div class="col-lg-4 col-6">
 				            <!-- small box -->
 				            <div class="small-box bg-info">
 				              <div class="inner">
 				                <h3>150</h3>
 				
-				                <p>상품 재고</p>
+				                <p>상품 개수</p>
 				              </div>
 				              <div class="icon">
 				                <i class="ion ion-bag"></i>
@@ -76,22 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            </div>
 				          </div>
 				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
-				            <!-- small box -->
-				            <div class="small-box bg-success">
-				              <div class="inner">
-				                <h3>53<sup style="font-size: 20px">%</sup></h3>
-				
-				                <p>재고 비율</p>
-				              </div>
-				              <div class="icon">
-				                <i class="ion ion-stats-bars"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-				            </div>
-				          </div>
-				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
+				          <div class="col-lg-4 col-6">
 				            <!-- small box -->
 				            <div class="small-box bg-warning">
 				              <div class="inner">
@@ -106,13 +91,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            </div>
 				          </div>
 				          <!-- ./col -->
-				          <div class="col-lg-3 col-6">
+				          <div class="col-lg-4 col-6">
 				            <!-- small box -->
 				            <div class="small-box bg-danger">
 				              <div class="inner">
 				                <h3>65</h3>
 				
-				                <p>매진</p>
+				                <p>재고 부족</p>
 				              </div>
 				              <div class="icon">
 				                <i class="ion ion-pie-graph"></i>
