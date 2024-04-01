@@ -149,7 +149,7 @@
 											<div>${productData.productName}</div>
 											<div style="text-align: right;">${productData.productPrice*productData.cartProductCnt}원</div>
 											<input style="display:none;" type="number" name="productID" value="${productData.productID}">
-											<input style="display:none;" type="number" name="payCK" value="${param.payCk}">
+											<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
 										</div>
 									</c:forEach>
 									
@@ -163,7 +163,7 @@
 										<input type="hidden" name="productName" value="${param.productName}">
 										<input type="hidden" name="cartProductCnt" value="${param.cartProductCnt}">
 										<input type="hidden" name="productPrice" value="${param.productPrice}">
-										<input style="display:none;" type="number" name="payCK" value="${param.payCk}">
+										<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
 									</div>
 								</c:if>
 								
