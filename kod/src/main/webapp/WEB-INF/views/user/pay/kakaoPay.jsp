@@ -38,22 +38,22 @@
 		<c:forEach var="cart" items="${productDatas}">
 			<input type="hidden" name="pid" id="pid" value="${cart.productID }">
 			<input type="hidden" name="cnt" id="cnt" value="${cart.cartProductCnt}">
-			<input type="hidden" name="payCk" id="payCk" value="${cart.payCk}">
 		</c:forEach>
+		<input type="number" name="payCk" id="payCk" value="${param.payCk}" style="display:none">
 	</c:if>
 	
 	<!-- 바로 구매 -->
 	<c:if test="${cDatasSize < 1 }">
 		<input type="hidden" name="pid" id="pid" value="${payNow.productID }">
 		<input type="hidden" name="cnt" id="cnt" value="${payNow.cartProductCnt}">
-		<input type="hidden" name="payCk" id="payCk" value="${payNow.payCk}">
+		<input type="number" name="payCk" id="payCk" value="${param.payCk}" style="display:none">
 	</c:if>
 	
     <script>
     $(function(){
 	    var pid = document.querySelectorAll('input[name=pid]');
 	    var cnt = document.querySelectorAll('input[name=cnt]');
-	    var payCk = document.querySelectorAll('input[name=payCk]');
+	    var payCk = document.querySelector('input[name=payCk]');
 	    
 	    /* 들어오는 결제 데이터 확인용 로그*/
 	    console.log(pid);
@@ -82,11 +82,11 @@
         //console.log("구매개수 : " + purchaseCnts);
         
         // 결제 방식 저장
-        var payNow = [];
-        payCk.forEach(function(cartItem){
-        	payNow.push(cartItem.value);
-        });
-        var payNows = JSON.stringify(payNow);
+        var payNows = payCk.value;
+        //payCk.forEach(function(cartItem){
+        //	payNow.push(cartItem.value);
+        //});
+        //var payNows = JSON.stringify(payNow);
         //console.log("결제방식 : "+payNows);
         
         IMP.request_pay({
@@ -106,13 +106,13 @@
             if ( rsp.success ) {
             	console.log('로그');
                 $.ajax({
-                    url: "asyncPayment", // 결제 서블릿
+                    url: "/asyncPayment", // 결제 서블릿
                     type: 'POST',
                     data: {
                         imp_uid : rsp.imp_uid,
                         productList : productIDs,		// 상품 번호
                         productCnt : purchaseCnts,	// 구매 개수
-                        purchaseType : payNows				// 결제 방식
+                        payCk : payNows				// 결제 방식
                     },
                 	success: function(){
                 		console.log('결제 성공');
