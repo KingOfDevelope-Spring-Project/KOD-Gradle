@@ -88,7 +88,7 @@
 									</a>
 								</c:if>
 								<c:if test="${memberID == null}">
-									<a href="/getWishListPage?page=1">
+									<a href="/loginPage">
 										<i class="fa fa-heart-o"></i>
 										<span>My Wishlist</span>
 										<div class="qty wishListCnt">0</div>
