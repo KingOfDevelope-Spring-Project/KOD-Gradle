@@ -14,11 +14,11 @@
 <body>
 	
 	<!-- 구매자 이름 -->
-	<c:set var="name" value="김진영" />
+	<c:set var="name" value="${memberDTO.memberName}" />
 	
 	<!-- 상품 총 가격 -->
 	<c:forEach var="price" items="${productDatas}">
-		<c:set var="totalPrice" value="${totalPrice+price.productTotalPrice}" />
+		<c:set var="totalPrice" value="${param.totalPrice}" />
 	</c:forEach>
 	<!-- 구매할 상품 이름 -->
 	<c:choose>

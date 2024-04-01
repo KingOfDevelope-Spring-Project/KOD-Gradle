@@ -144,12 +144,13 @@
 							</div>
 							<div class="order-products">
 								<c:if test="${productDatasSize >= 1}">
+									<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
 									<c:forEach var="productData" items="${productDatas}">
 										<div class="order-col">
 											<div>${productData.productName}</div>
 											<div style="text-align: right;">${productData.productPrice*productData.cartProductCnt}원</div>
 											<input style="display:none;" type="number" name="productID" value="${productData.productID}">
-											<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
+											<input style="display:none;" type="number" name="cartProductCnt" value="${productData.cartProductCnt}">
 										</div>
 									</c:forEach>
 									
