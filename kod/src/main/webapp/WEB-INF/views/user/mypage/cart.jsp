@@ -131,6 +131,7 @@
 					<c:otherwise>
 						<c:forEach var="cData" items="${cartDatas}" varStatus="status">
 							<tbody>
+								<input type="hidden" value="${cData.cartID}" />
 								<tr class="cart__list__detail">
 									<td><input type="checkbox" name="selectedProducts" value="${cData.productID}" id="selectedCheckBox_${status.index}" onchange="addToSelectedProducts('${cData.productID}')"></td>
 									<td><img src="${cData.productImg}" alt="product"></td>

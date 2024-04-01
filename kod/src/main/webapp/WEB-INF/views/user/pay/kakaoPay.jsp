@@ -14,16 +14,16 @@
 <body>
 	
 	<!-- 구매자 이름 -->
-	<c:set var="name" value="${param.memberName}" />
+	<c:set var="name" value="김진영" />
 	
 	<!-- 상품 총 가격 -->
-	<c:set var="totalPrice" value="${param.totalPrice}" />
-	
+	<c:forEach var="price" items="${productDatas}">
+		<c:set var="totalPrice" value="${totalPrice+price.productTotalPrice}" />
+	</c:forEach>
 	<!-- 구매할 상품 이름 -->
-	<c:set var="payInfoProductNames" value="${paramValues.productName}" />
 	<c:choose>
-		<c:when test="${fn : length(payInfoProductNames) > 1}">
-			<c:set var="productName" value="${payInfoProductNames[0]} 외 ${fn : length(payInfoProductNames) -1}개" />
+		<c:when test="${fn : length(productDatas) > 1}">
+			<c:set var="productName" value="${productDatas.get(0).productName} 외 ${fn : length(productDatas) -1}개" />
 		</c:when>
 		<c:otherwise>
 			<c:set var="productName" value="${payInfoProductNames[0]}" />
@@ -31,11 +31,11 @@
 	</c:choose>
 	
 	
-	<c:set var="cDatasSize" value="${fn:length(payDTO)}" />
+	<!--c:set var="cDatasSize" value="${fn:length(payDTO)}" /-->
 	
 	<!-- payDTO를 통해 들어오는 데이터가 있다면 선택 구매(장바구니를 통한 구매) -->	
-	<c:if test="${cDatasSize >= 1}">
-		<c:forEach var="cart" items="${payDTO}">
+	<c:if test="${fn:length(productDatas) >= 1}">
+		<c:forEach var="cart" items="${productDatas}">
 			<input type="hidden" name="pid" id="pid" value="${cart.productID }">
 			<input type="hidden" name="cnt" id="cnt" value="${cart.cartProductCnt}">
 			<input type="hidden" name="payCk" id="payCk" value="${cart.payCk}">
@@ -56,9 +56,9 @@
 	    var payCk = document.querySelectorAll('input[name=payCk]');
 	    
 	    /* 들어오는 결제 데이터 확인용 로그*/
-	    //console.log(pid);
-        //console.log(cnt);
-        //console.log(payNow);
+	    console.log(pid);
+        console.log(cnt);
+        console.log(payNow);
         
 	    var IMP = window.IMP; 
         IMP.init('imp01807501'); 
@@ -110,9 +110,9 @@
                     type: 'POST',
                     data: {
                         imp_uid : rsp.imp_uid,
-                        productIDs : productIDs,		// 상품 번호
-                        purchaseCnts : purchaseCnts,	// 구매 개수
-                        payNows : payNows				// 결제 방식
+                        productList : productIDs,		// 상품 번호
+                        productCnt : purchaseCnts,	// 구매 개수
+                        purchaseType : payNows				// 결제 방식
                     },
                 	success: function(){
                 		console.log('결제 성공');
