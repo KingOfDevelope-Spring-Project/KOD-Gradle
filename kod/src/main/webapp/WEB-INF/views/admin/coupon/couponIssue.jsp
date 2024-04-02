@@ -113,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <div class="col-sm-10" id="coupon-period" >
 						                <div class="form-group">
 					                  		<label>쿠폰 기간</label>
-					                  		<input class="form-control" name="couponExpireDate" type="text" placeholder="쿠폰 사용 기간을 입력하세요. (단위 : 일)">
+					                  		<input class="form-control" name="couponUseDate" type="Number" placeholder="쿠폰 사용 기간을 입력하세요. (단위 : 일)">
 						                </div>
 					                </div>
 					                
