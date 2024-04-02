@@ -28,21 +28,18 @@ public class GetKakaoPayPage {
 								  @RequestParam("cartProductCnt") List<Integer> cartProductCnt,
 								  @RequestParam("totalPrice") int totalPrice,
 								  Model model) {
-		System.out.println(payCk);
-		System.out.println(selectedProducts);
-		System.out.println(selectedProducts.size());
 		System.out.println("[로그:정현진] getKakaoPayPage 들어옴");
 
 		if(selectedProducts == null || selectedProducts.size()==0) { // 구매할 상품들이 없다면
 			return "common/error";
 		}
+		
 		List<CartDTO> productDatas = new ArrayList<CartDTO>();
 		for (int i = 0; i < selectedProducts.size(); i++) {
 			CartDTO data = new CartDTO();
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setSearchCondition("getProductName");
 			productDTO.setProductID(selectedProducts.get(i));
-			System.out.println(productDTO);
 			productDTO = productService.selectOne(productDTO); // 상품ID & 상품명 반환
 			data.setProductID(productDTO.getProductID());
 			data.setProductName(productDTO.getProductName());

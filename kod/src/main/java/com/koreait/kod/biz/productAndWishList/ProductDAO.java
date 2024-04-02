@@ -557,7 +557,7 @@ public class ProductDAO {
 			+ ") WHERE ROWNUM = 1";
 	
 	private static final String SELECTONE_PRODUCT_ID=
-			"SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT WHERE PRODUCT_ID=?";
+			"SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
 	
 	private static final String INSERT=
 			  "INSERT INTO "
@@ -624,7 +624,7 @@ public class ProductDAO {
 
 	public ProductDTO selectOne(ProductDTO productDTO) {
 		try {
-			Object[] args = { productDTO.getProductID() };
+			Object[] args = { productDTO.getProductName() };
 			return jdbcTemplate.queryForObject(SELECTONE_PRODUCT_ID, args, new productRowMapperGetProductID());
 		} catch (Exception e) {
 			return null;
@@ -762,7 +762,6 @@ class productRowMapperGetProductID implements RowMapper<ProductDTO>{
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO productDTO= new ProductDTO();
 		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
-		productDTO.setProductName(rs.getString("PRODUCT_NAME"));
 		return productDTO;
 	}
 }

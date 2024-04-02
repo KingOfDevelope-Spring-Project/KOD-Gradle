@@ -17,7 +17,9 @@
 	<c:set var="name" value="${memberDTO.memberName}" />
 	
 	<!-- 상품 총 가격 -->
+	<c:forEach var="price" items="${productDatas}">
 		<c:set var="totalPrice" value="${param.totalPrice}" />
+	</c:forEach>
 	<!-- 구매할 상품 이름 -->
 	<c:choose>
 		<c:when test="${fn : length(productDatas) > 1}">
@@ -27,6 +29,9 @@
 			<c:set var="productName" value="${payInfoProductNames[0]}" />
 		</c:otherwise>
 	</c:choose>
+	
+	
+	<!--c:set var="cDatasSize" value="${fn:length(payDTO)}" /-->
 	
 	<!-- payDTO를 통해 들어오는 데이터가 있다면 선택 구매(장바구니를 통한 구매) -->	
 	<c:if test="${fn:length(productDatas) >= 1}">
@@ -98,7 +103,7 @@
             buyer_postcode : '123-456',
         }, function(rsp) {
             if ( rsp.success ) {
-            	console.log('로그'+payCk);
+            	console.log('로그');
                 $.ajax({
                     url: "/asyncPayment", // 결제 서블릿
                     type: 'POST',

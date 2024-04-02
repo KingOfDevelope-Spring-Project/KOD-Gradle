@@ -371,10 +371,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    	        }],
 	    	        yAxes: [{
 	    	        	ticks : {
-	    	          	  stepSize: 100000, // y축 간격을 200만 설정
+	    	          	  stepSize: 100000000, // y축 간격을 200만 설정
 	    	          	  maxTicksLimit: 6,
 	    	          	  min: 0, // y축 최소값
-	    	              max: 1000000, // y축 최대값
+	    	              max: 1000000000, // y축 최대값
 	    	            },
 	    	        	gridLines : {
 	    	            display : false, // 차트 세로줄
@@ -481,7 +481,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	          	  stepSize: 10000, // y축 간격을 10000 설정
 	          	  maxTicksLimit: 6,
 	          	  min: 0, // y축 최소값
-	              max: 200000, // y축 최대값
+	              max: 100000000, // y축 최대값
 	            },
 	        	gridLines : {
 	            display : false,
