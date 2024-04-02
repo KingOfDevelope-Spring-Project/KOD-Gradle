@@ -65,8 +65,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
-									<h3 class="card-title" style="margin-top: 0.6%;">쿠폰 목록</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;">신규 쿠폰 발급</button>
+									<h3 class="card-title" style="margin-top: 0.6%;">리뷰 목록</h3>
+									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
@@ -102,49 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<!-- /.card -->
 						</div>
 						<!-- /쿠폰 목록 테이블 -->
-						<!-- 발행 쿠폰 목록 -->
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-header" style="display: flex; justify-content: space-between;">
-									<h3 class="card-title" style="margin-top: 0.6%;">발급 쿠폰 목록</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;">쿠폰 관리</button>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<table id="example3" class="table table-bordered table-hover">
-										<thead>
-											<tr>
-												<th>번호</th>
-												<th>상품명</th>
-												<th>제목</th>
-												<th>내용</th>
-												<th>작성일</th>
-												<th>작성자</th>
-												<th>평점</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${reviewList}" var="review" varStatus="i" begin="0" step="1">
-											<tr>
-												<td>${i.count}</td>
-												<td>${review.productName}</td>
-												<td>${review.reviewTitle}</td>
-												<td>${review.reviewContent}</td>
-												<td>${review.reviewDate}</td>
-												<td>${review.memberName}</td>
-												<td>${review.reviewAvgScore}</td>
-											</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-								<!-- /.card-body -->
-							</div>
-							<!-- /.card -->
-						</div>
-						<!-- /발행 쿠폰 목록 -->
 						<!-- /.card-body -->
-
 						<!-- /.card -->
 					</div>
 					<!-- /.col-md-6 -->
