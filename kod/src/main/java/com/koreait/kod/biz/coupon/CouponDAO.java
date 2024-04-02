@@ -221,7 +221,7 @@ class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
 		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
 		couponDTO.setCouponCode(rs.getString("COUPON_CODE"));
 		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
-		couponDTO.setCouponStatus_ID(rs.getInt("COUPON_STATUS_ID"));
+		couponDTO.setCouponStatusID(rs.getInt("COUPON_STATUS_ID"));
 		return couponDTO;
 	}
 	

@@ -31,7 +31,7 @@ public class CouponStatusDAO {
 	}
 
 	public boolean insert(CouponStatusDTO couponStatusDTO) {
-		int result= jdbcTemplate.update(INSERT,couponStatusDTO.getMemberID(),couponStatusDTO.getCouponID(),couponStatusDTO.getCouponExpireDate());
+		int result= jdbcTemplate.update(INSERT,couponStatusDTO.getMemberID(),couponStatusDTO.getCouponID(),couponStatusDTO.getCouponUseDate());
 		
 		if(result <=0) {
 			return false;
