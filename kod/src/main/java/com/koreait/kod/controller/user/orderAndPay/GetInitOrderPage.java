@@ -116,6 +116,7 @@ public class GetInitOrderPage {
 //            model.addAttribute("productDatas", productDatas);
 //        }
 		
+		// 
 		List<CartDTO> selectedProducts = new ArrayList<CartDTO>();
         for (int i = 0; i < cartSelectedProducts.size(); i++) {
             int productId = cartSelectedProducts.get(i);
@@ -155,7 +156,7 @@ public class GetInitOrderPage {
 	    model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
         
         // 배송지 반환하기
-		addressDTO.setSearchCondition("shippingAddress");
+//		addressDTO.setSearchCondition("shippingAddress");
 		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 //		addressDTO.setOrderListID = setOrderListID(orderListID);
 		model.addAttribute("shippingAddress", addressService.selectOne(addressDTO));
