@@ -113,17 +113,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					                <div class="col-sm-10" id="coupon-period" >
 						                <div class="form-group">
 					                  		<label>쿠폰 기간</label>
-					                  		<input class="form-control" type="text" placeholder="쿠폰 사용 기간을 입력하세요.">
+					                  		<input class="form-control" name="couponUseDate" type="text" placeholder="쿠폰 사용 기간을 입력하세요. (단위 : 일)">
 						                </div>
 					                </div>
 					                
-					                <div class="col-sm-10" id="coupon-enddate" style="display: none;">
-					                    <!-- Date -->
+					                <!-- <div class="col-sm-10" id="coupon-enddate" style="display: none;">
+					                    Date
 						                <div class="form-group">
 						                  <label>만료일</label>
-						                    <input class="form-control" type="date" name="couponExpireDate" placeholder="쿠폰 만료일을 입력하세요.">
+						                    <input class="form-control" type="date" name="couponStatusDTO.couponExpireDate" placeholder="쿠폰 만료일을 입력하세요.">
 						                </div>
-					                </div>
+					                </div> -->
 					                
 					                <div class="col-sm-10">
 					                <label>할인율</label>
@@ -131,8 +131,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						                  	<div style="width: 100%;">
 						                  		<input class="form-control" id="couponDiscountRate" name="couponDiscountRate" type="text" placeholder="할인율을 입력하세요." style="width: 85%; display: inline-block;">
 							                        <div class="form-check" style="display: inline-block; margin-left: 5%;">
-							                          <input class="form-check-input" type="radio" name="radio1">
-							                          <label class="form-check-label">%</label>
+							                          <input class="form-check-input" type="radio" name="radio1" checked>
+							                          <label class="form-check-label" >%</label>
 							                        </div>
 					                  		</div>
 						                </div>
@@ -294,26 +294,26 @@ document.getElementById('coupon-type').addEventListener('change', function() {
 	  var userGradeSection = document.getElementById('user-grade');
 	  var userOptionSection = document.getElementById('issue-option');
 	  var couponCodeSection = document.getElementById('coupon-code');
-	  var couponPeriodSection = document.getElementById('coupon-period');
-	  var couponEndSection = document.getElementById('coupon-enddate');
+	  //var couponPeriodSection = document.getElementById('coupon-period');
+	  //var couponEndSection = document.getElementById('coupon-enddate');
 	  if (this.value === 'adminIssue') {
 		  userOptionSection.style.display = 'none';
 		  userGradeSection.style.display = 'block';
 		  couponCodeSection.style.display = 'none';
-		  couponPeriodSection.style.display = 'none';
-		  couponEndSection.style.display = 'block';
+		  //couponPeriodSection.style.display = 'none';
+		  //couponEndSection.style.display = 'block';
 	  } else if (this.value === 'auto'){
 		  userGradeSection.style.display = 'none';
 		  userOptionSection.style.display = 'block';
 		  couponCodeSection.style.display = 'none';
-		  couponPeriodSection.style.display = 'block';
-		  couponEndSection.style.display = 'none';
+		  //couponPeriodSection.style.display = 'block';
+		  //couponEndSection.style.display = 'none';
 	  } else{
 		  userGradeSection.style.display = 'none';
 		  userOptionSection.style.display = 'none';
 		  couponCodeSection.style.display = 'block';
-		  couponPeriodSection.style.display = 'none';
-		  couponEndSection.style.display = 'block';
+		  //couponPeriodSection.style.display = 'none';
+		 //couponEndSection.style.display = 'block';
 	  }
 	});
 </script>
