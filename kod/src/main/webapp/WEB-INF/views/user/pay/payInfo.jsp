@@ -74,7 +74,7 @@
 				            <tbody>
 				            	<tr>
 				                	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; width: 15%;">배송지</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressData.addressName}</td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${shippingAddress.addressName}</td>
 				            	</tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; ">이름 / 연락처</th>
@@ -82,7 +82,7 @@
 					            </tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden;">주소</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${addressData.addressZipCode}) ${addressData.addressStreet} ${addressData.addressDetail} </td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${shippingAddress.addressZipCode}) ${shippingAddress.addressStreet} ${shippingAddress.addressDetail} </td>
 					            </tr>
 				        	</tbody>
 					    </table>
@@ -104,13 +104,13 @@
 					            </tr>
 					        </thead>
 					        
-					        <c:forEach var="payInfoData" items="${orderContentDatas}">
+					        <c:forEach var="payInfoData" items="${payInfoDatas}">
 					        	<tbody>
 					            <tr>
 					                <td><img src="${payInfoData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
 					                <td>${payInfoData.productName}</td>
-					                <td>${payInfoData.orderContentCnt}개</td>
-					                <td>${payInfoData.productPrice*payInfoData.orderContentCnt}원</td>
+					                <td>${payInfoData.odContentCnt}개</td>
+					                <td>${payInfoData.productPrice*payInfoData.odContentCnt}원</td>
 					            </tr>
 					       		</tbody>
 					        </c:forEach>
