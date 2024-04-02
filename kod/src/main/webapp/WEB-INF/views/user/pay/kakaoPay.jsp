@@ -58,7 +58,7 @@
 	    /* 들어오는 결제 데이터 확인용 로그*/
 	    console.log(pid);
         console.log(cnt);
-        console.log(payNow);
+        console.log(payCk);
         
 	    var IMP = window.IMP; 
         IMP.init('imp01807501'); 
