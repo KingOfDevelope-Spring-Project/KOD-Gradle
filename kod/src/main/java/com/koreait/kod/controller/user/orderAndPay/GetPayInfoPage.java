@@ -1,6 +1,5 @@
 package com.koreait.kod.controller.user.orderAndPay;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import com.koreait.kod.biz.address.AddressDTO;
 import com.koreait.kod.biz.address.AddressService;
 import com.koreait.kod.biz.coupon.CouponDTO;
 import com.koreait.kod.biz.coupon.CouponService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.member.MemberService;
 import com.koreait.kod.biz.order.OrderContentDTO;
 import com.koreait.kod.biz.order.OrderContentService;
 import com.koreait.kod.biz.order.OrderListDTO;
@@ -30,12 +31,15 @@ public class GetPayInfoPage {
 	private OrderContentService orderContentService;
 	@Autowired
 	private CouponService couponService;
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/getPayInfoPage")
 	public String getPayInfoPage(OrderListDTO orderListDTO,
 								 OrderContentDTO orderContentDTO,
 								 CouponDTO couponDTO,
 								 AddressDTO addressDTO,
+								 MemberDTO memberDTO,
 								 Model model, 
 								 HttpSession session) {
 		
@@ -63,7 +67,7 @@ public class GetPayInfoPage {
 		orderContentDTO.setOrderListID(orderListID); // 주문번호 설정
 		List<OrderContentDTO> orderContentDatas = orderContentService.selectAll(orderContentDTO);
 		System.out.println("[로그:정현진] orderContentDatas : "+orderContentDatas);
-		
+		model.addAttribute("orderContentDatas", orderContentDatas);
 		/*
 		 * 주문상세내역과 적용된 쿠폰내역을 어떻게 맵핑시켜줄것인가 ?
 		 * 1. COUPON_STATUS 테이블은 주문내역번호를 가지고 있음
@@ -89,7 +93,10 @@ public class GetPayInfoPage {
 		 *   주문번호에 해당하는 배송지를 반환받지 못하는 상황으로
 		 *   해당 코드는 주석처리, 현재 기본배송지만 조회되고 있는 상황
 		 */
-		
+		memberDTO.setSearchCondition("ID_CHECK");
+		memberDTO.setMemberID((String)session.getAttribute("memberID"));
+		model.addAttribute("memberDTO",memberService.selectOne(memberDTO));
+		System.out.println(model.getAttribute("memberDTO"));
 		return "user/pay/payInfo";
 	}
 

@@ -15,6 +15,8 @@ import com.koreait.kod.biz.cart.CartDTO;
 import com.koreait.kod.biz.cart.CartService;
 import com.koreait.kod.biz.coupon.CouponDTO;
 import com.koreait.kod.biz.coupon.CouponService;
+import com.koreait.kod.biz.member.MemberDTO;
+import com.koreait.kod.biz.member.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +29,8 @@ public class GetInitOrderPage {
 	CartService cartService;
 	@Autowired
 	CouponService couponService;
+	@Autowired
+	MemberService memberService;
 	
 	/*
 	 * 구매로직 한글코딩
@@ -82,6 +86,7 @@ public class GetInitOrderPage {
 	public String getInitOrderPage(@RequestParam("payCk") int payCK,
 								   @RequestParam("selectedProducts") List<Integer> cartSelectedProducts,
 						           @RequestParam("cartProductCnt") List<Integer> cartProductCnt,
+						           MemberDTO memberDTO,
 						           CouponDTO couponDTO,
 						           AddressDTO addressDTO,
 						           Model model, 
@@ -166,7 +171,10 @@ public class GetInitOrderPage {
 		 *   주문번호에 해당하는 배송지를 반환받지 못하는 상황으로
 		 *   해당 코드는 주석처리, 현재 기본배송지만 조회되고 있는 상황
 		 */
-		
+		memberDTO.setSearchCondition("ID_CHECK");
+		memberDTO.setMemberID((String)session.getAttribute("memberID"));
+		model.addAttribute("memberDTO",memberService.selectOne(memberDTO));
+		System.out.println(model.getAttribute("memberDTO"));
 		return "user/pay/initOrder";
     }
 	
