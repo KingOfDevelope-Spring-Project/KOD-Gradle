@@ -4,7 +4,7 @@
 
 
 	<select id="selectAll" resultMap="productMap">
-SELECT P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,P.PRODUCT_BRAND,P.CATEGORY_ID,P.PRODUCT_INFO,P.PRODUCT_STOCK,(SELECT IMAGE_URL FROM IMAGE I WHERE I.PRODUCT_ID = P.PRODUCT_ID ORDER BY IMAGE_ID LIMIT 1) AS IMAGE_URL FROM PRODUCT P WHERE 1=1 
+SELECT P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,P.PRODUCT_BRAND,P.CATEGORY_ID,P.PRODUCT_INFO,P.PRODUCT_STOCK,(SELECT IMAGE_URL FROM IMAGE I WHERE I.PRODUCT_ID = P.PRODUCT_ID ORDER BY IMAGE_ID LIMIT 1) AS IMAGE_URL, C.CATEGORY_TYPE FROM PRODUCT P JOIN CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID WHERE 1=1
 	<if test ="productID != 0">
 	AND PRODUCT_ID = #{productID}
 	</if>
@@ -14,13 +14,14 @@ SELECT P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,P.PRODUCT_BRAND,P.CATEGORY_ID
 	<if test="productBrand != null">
 	AND PRODUCT_BRAND LIKE CONCAT ('%', #{productBrand}, '%')
 	</if>
-	<if test="categoryID != 0">
-	AND CATEGORY_ID = #{categoryID}
+	<if test="productCategory != null">
+	AND CATEGORY_TYPE = #{productCategory}
 	</if>
 	<if test="productMinPrice != 0 and productMaxPrice != 0">
 	AND PRODUCT_PRICE BETWEEN #{productMinPrice} AND #{productMaxPrice}
 	</if>
 	</select>
+	
 	
 	
 	<resultMap id="productMap" type="com.koreait.kod.biz.productAndWishList.ProductDTO">
@@ -32,6 +33,7 @@ SELECT P.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE,P.PRODUCT_BRAND,P.CATEGORY_ID
   <result column="PRODUCT_INFO" property="productInfo" jdbcType="VARCHAR" javaType="String"/>
   <result column="PRODUCT_STOCK" property="productStock" jdbcType="INTEGER" javaType="int"/>
   <result column="IMAGE_URL" property="productImg" jdbcType="VARCHAR" javaType="String"/>
+  <result column="CATEGORY_TYPE" property="productCategory" jdbcType="VARCHAR" javaType="String"/>
 </resultMap>
 
 

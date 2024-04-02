@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService{
 			map.put("productMaxPrice", productDTO.getProductMaxPrice());
 			map.put("productBrand", productDTO.getProductBrand());
 			map.put("categoryID", productDTO.getCategoryID());
+			map.put("productCategory", productDTO.getProductCategory());
 			System.out.println(productDTO.getProductName());
 			System.out.println("형련" + map);
 			return iproductDAO.selectAll(map);
