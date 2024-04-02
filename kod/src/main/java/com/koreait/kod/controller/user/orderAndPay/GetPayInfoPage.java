@@ -32,7 +32,14 @@ public class GetPayInfoPage {
 	private CouponService couponService;
 	
 	@GetMapping("/getPayInfoPage")
-	public String getPayInfoPage(OrderListDTO orderListDTO,OrderContentDTO orderContentDTO,CouponDTO couponDTO,AddressDTO addressDTO,Model model, HttpSession session) {
+	public String getPayInfoPage(OrderListDTO orderListDTO,
+								 OrderContentDTO orderContentDTO,
+								 CouponDTO couponDTO,
+								 AddressDTO addressDTO,
+								 Model model, 
+								 HttpSession session) {
+		
+		System.out.println("[로그:정현진] /getPayInfoPage 들어옴");
 		
 		/*
 		 * 결제정보 페이지 로직
@@ -45,15 +52,17 @@ public class GetPayInfoPage {
 		 */
 		
 		// 주문번호를 반환받아 해당 주문번호로 배송지와 주문내역 찾아오기
-		orderListDTO.setSearchCondition("orderNumber");
+		orderListDTO.setSearchCondition("check_max_id");
 		orderListDTO.setMemberID((String)session.getAttribute("memberID"));
 		int orderListID = orderListService.selectOne(orderListDTO).getOrderListID();
+		System.out.println("[로그:정현진] orderListID : "+orderListID);
 		
 		// 주문내역 IDs 반환받기
 		orderContentDTO.setSearchCondition("orderContentIDs"); //주문정보
 		orderContentDTO.setMemberID((String)session.getAttribute("memberID")); // 회원정보 설정
 		orderContentDTO.setOrderListID(orderListID); // 주문번호 설정
 		List<OrderContentDTO> orderContentDatas = orderContentService.selectAll(orderContentDTO);
+		System.out.println("[로그:정현진] orderContentDatas : "+orderContentDatas);
 		
 		/*
 		 * 주문상세내역과 적용된 쿠폰내역을 어떻게 맵핑시켜줄것인가 ?
@@ -61,13 +70,13 @@ public class GetPayInfoPage {
 		 * 	  -> 해당 주문내역에 어떤 쿠폰이 사용되었는지 조회할수있음 -> 쿠폰DTO에 주문내역ID를 설정하여 상세내역을 반환받자
 		 * 
 		 */
-		List<CouponDTO> payInfoDatas = new ArrayList<CouponDTO>();
-		for (OrderContentDTO orderContent : orderContentDatas) {
-			CouponDTO data = new CouponDTO();
-			couponDTO.setOrderContentID(orderContent.getOrderContentID());
-			payInfoDatas.add(couponService.selectOne(data));
-		}
-		model.addAttribute("payInfoDatas", payInfoDatas);
+//		List<CouponDTO> payInfoDatas = new ArrayList<CouponDTO>();
+//		for (OrderContentDTO orderContent : orderContentDatas) {
+//			CouponDTO data = new CouponDTO();
+//			couponDTO.setOrderContentID(orderContent.getOrderContentID());
+//			payInfoDatas.add(couponService.selectOne(data));
+//		}
+//		model.addAttribute("payInfoDatas", payInfoDatas);
 		
 		// 배송지 가져오기
 		addressDTO.setSearchCondition("shippingAddress");
