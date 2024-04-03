@@ -130,6 +130,7 @@ function formCheck(form) {
 	var phoneNumberPrefix = document.getElementById("phoneNumberPrefix");
 	var phoneNumberMiddle = document.getElementById("phoneNumberMiddle");
 	var phoneNumberSuffix = document.getElementById("phoneNumberSuffix");
+	var phoneNumberCK = document.getElementById("phoneNumberCK");
 	var emailField = document.getElementById("emailUsername");
 	var emailType = document.getElementById("domain-list").value;
 	var emailTxt = document.getElementById("domain-txt").value;
@@ -337,10 +338,59 @@ function formCheck(form) {
 	// /^([0-9]{4})$/ 다음 정규식은 0~9까지숫자만사용가능하고 4자리까지입력가능하다는 정규식이다
 	else if (!/^([0-9]{4})$/.test(phoneNumberSuffix.value)) {
 		console.log("휴대폰 번호 끝자리 숫자만 입력");
+		
+		//인증번호 발송 상태 변수
+		console.log(phNumCheckStatus);
+		
 		alert("휴대폰 번호 숫자 4자리를 입력해주세요. ");
 		phoneNumberSuffix.focus();
 		return false;
 	}
+	
+	
+	
+	if(phNumCheckStatus == 0){
+						alert("인증번호 발송 버튼을 눌러주세요.");
+						console.log("인증번호 발송 버튼을 눌러주세요."+phNumCheckStatus)
+						return false;					
+					}
+					
+			
+					
+					
+					if(phoneNumberCK.value ==''){
+						alert("인증번호를 입력해주세요.");
+						phoneNumberCK.focus();
+						 console.log("인증번호를 입력해주세요"+authStatus);
+						return false;
+					}
+					
+					
+						//authStatus = 0; 
+				
+					
+				var phoneNumberCK = document.getElementById("phoneNumberCK").value;
+				 	if(randNumPhNum != phoneNumberCK){
+						console.log(" 인증번호 체크 유효성 실행 ");
+						console.log(" randNumPhNum "+randNumPhNum);
+						console.log(" phoneNumberCK "+phoneNumberCK);
+						authStatus = 0; // 인증번호 확인버튼 초기화
+						alert(" 인증번호가 옳바르지 않습니다. ");
+						
+						console.log(" 인증번호가 옳바르지 않습니다. ");
+						console.log(authStatus);
+						phNumCK.focus();
+						
+						return false;
+					} 
+					
+					if(authStatus == 0){
+				 		alert("인증번호를 확인해주세요.");
+				 		console.log("인증번호를 확인해주세요");
+						console.log(authStatus);
+				 		return false;
+				 	} 
+					
 
 	// 만약 이메일1과 이메일2 가 입력되어있지 않다면 안내문출력후 이메일 이메일 필드에 포커스
 	if (!email1 || !email2) {

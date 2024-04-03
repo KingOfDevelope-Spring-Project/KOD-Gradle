@@ -98,15 +98,39 @@
 
 			<!-- 핸드폰번호 입력란 -->
 			<div class="input__block" style="padding-left: 27px;">
-				<input type="text" id="phoneNumberPrefix" name="phoneNumberPrefix" placeholder=" 010 " style="display: inline-block; width: 29%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phoneNumberPrefix" name="phoneNumberPrefix" placeholder=" 010 " style="display: inline-block; width: 22%;" minlength="3" maxlength="3" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="phoneNumberMiddle" name="phoneNumberMiddle" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
+				<input type="text" id="phoneNumberMiddle" name="phoneNumberMiddle" placeholder=" 0000 " style="display: inline-block; width: 22%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required> 
 				<span style="display: inline-block; margin-left: 5px; margin-right: 5px;">-</span> 
-				<input type="text" id="phoneNumberSuffix" name="phoneNumberSuffix" placeholder=" 0000 " style="display: inline-block; width: 29%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
+				<input type="text" id="phoneNumberSuffix" name="phoneNumberSuffix" placeholder=" 0000 " style="display: inline-block; width: 22%;" minlength="4" maxlength="4" oninput="removeWhitespace(this)" required>
+	
+
+
+
+			<input type="button" id="authenticationNumber" value="인증번호 발송" onclick="authentication_Number()"style="display: inline-block; width: 21%; padding-right: 2%;">
+			
+					
+			
+			</div>
+			
+	
+		
+			
+								
+				<div class="input__block" style="padding-left: 27px;">
+				<input type="text" placeholder="인증번호" class="input" id="phoneNumberCK" name="phoneNumberCK"
+					style="display: inline-block; width: 70%;" minlength="6" maxlength="6"
+					oninput="removeWhitespace(this)" required />
+
+				
+				
+				
+				<input type="button" id="authenticationNumberCheck" value="인증번호 확인" onclick="authentication_Number_Check()"
+					style="display: inline-block; width: 25%; padding-right: 2%;"><br>
 			</div>
 
 
-			<!-- 이메일 입력란  -->
+	<!-- 이메일 입력란  -->
 			<div class="input__block" style="padding-left: 27px;">
 				<!-- <div class="input__block" style="display: flex; justify-content: center;"> -->
 				<input type="text" placeholder="Email1" class="input" id="emailUsername" name="emailUsername" style="display: inline-block; width: 29%;" oninput="removeWhitespace(this)" required />
@@ -134,6 +158,9 @@
 	<!-- jQuery Plugin -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- 인증번호 발송 , 체크 유효성검사 js -->
+	<script src="resources/js/authentication_Number.js"></script> 
+	<script src="resources/js/authentication_Number_Check.js"></script>
 	<!-- 아이디 중복검사 js -->
 	<script src="resources/js/asyncCheckMemberID.js"></script>
 	<!-- 주소 API -->
@@ -141,6 +168,9 @@
 	<!-- [김진영] 2024.03.18 유효성 검사 스크립트 join.js로 모듈화 진행 -->
 	<script src="resources/js/join.js"></script>
 	<script src="resources/js/login.js"></script>
+	
+
+	
 </body>
 
 </html>
