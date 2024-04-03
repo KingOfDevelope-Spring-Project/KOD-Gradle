@@ -100,7 +100,8 @@
 										<td>${productData.cartProductCnt}개</td>
 										<td>${productData.productPrice}원</td>
 										<td>
-											<select>
+											<select class="couponSelectBox">
+												<option value="">선택 안함</option>
 												<c:forEach items="${couponDatas}" var="coupon">
 													<option value="${coupon.couponStatusID}">${coupon.couponName}</option>
 												</c:forEach>
@@ -118,9 +119,9 @@
 									<td>${param.cartProductCnt}개</td>
 									<td>${param.productPrice*param.cartProductCnt}원</td>
 									<td>
-										<select>
+										<select class="couponSelectBox">
 											<c:forEach items="${couponDatas}" var="coupon">
-												<option value="${coupon.couponStatusID}">${coupon.couponName}</option>
+												<option value="${coupon.couponID}">${coupon.couponName}</option>
 											</c:forEach>
 										</select>
 										</td>
@@ -153,21 +154,7 @@
 											<input style="display:none;" type="number" name="cartProductCnt" value="${productData.cartProductCnt}">
 										</div>
 									</c:forEach>
-									
 								</c:if>
-								
-								<c:if test="${productDatasSize < 1}">
-									<div class="order-col">
-										<div>${param.productName}</div>
-										<div style="text-align: right;">${param.productPrice*param.cartProductCnt}원</div>
-										<input type="hidden" name="productID" value="${param.productID}">
-										<input type="hidden" name="productName" value="${param.productName}">
-										<input type="hidden" name="cartProductCnt" value="${param.cartProductCnt}">
-										<input type="hidden" name="productPrice" value="${param.productPrice}">
-										<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
-									</div>
-								</c:if>
-								
 							</div>
 							<div class="order-col">
 								<div>배송비</div>
@@ -223,6 +210,48 @@
 	<script src="resources/js/nouislider.min.js"></script>
 	<script src="resources/js/jquery.zoom.min.js"></script>
 	<script src="resources/js/main.js"></script>
+	<script>
+//$(document).ready(function() {
+//	$('.couponSelectBox').on("change", selectBoxController());
+//	function selectBoxController(){
+//		console.log('셀렉트 박스 선택함');
+//		var selectedValue = $(this).val();
+//		console.log($(this));
+//		console.log($(this).val())
+//      		$('.couponSelectBox').not(this).find('option').show();
+//            		$('.couponSelectBox').not(this).each(function() {
+//               	$(this).find('option[value="' + selectedValue + '"]').hide();
+//           		});
+//        	});
+//})
 
+document.addEventListener('DOMContentLoaded', function() {
+    // 1번째 product의 select 요소 ▶ 쿠폰하나
+    var firstProductSelect = document.querySelectorAll('.couponSelectBox')[0];
+    console.log(firstProductSelect);
+    // 2,3번째 product의 select 요소들 ▶ 쿠폰목록들
+    var otherProductSelects = document.querySelectorAll('.couponSelectBox');
+
+    // 1번째 product의 select 값이 변경될 때 실행되는 함수
+    firstProductSelect.addEventListener('change', function() {
+        // 선택된 값을 가져옴
+        var selectedValue = this.value;
+        console.log(selectedValue);
+        // 2,3번째 product의 select 요소들을 반복하여 처리 ▶ 선택한 쿠폰값을 가져와서, 다른 product들의 select 요소들(쿠폰목록들)을 반복하면서 선택한 쿠폰값과 일치하는 option을 숨김
+        for (var i = 1; i < otherProductSelects.length; i++) {
+            var select = otherProductSelects[i];
+            // 선택된 값과 일치하는 option을 숨김
+            for (var j = 0; j < select.options.length; j++) {
+                if (select.options[j].value === selectedValue) {
+                    select.options[j].style.display = 'none';
+                } else {
+                    select.options[j].style.display = '';
+                }
+            }
+        }
+    });
+});
+
+</script>
 </body>
 </html>

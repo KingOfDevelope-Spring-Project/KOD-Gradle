@@ -104,13 +104,13 @@
 					            </tr>
 					        </thead>
 					        
-					        <c:forEach var="payInfoData" items="${payInfoDatas}">
+					        <c:forEach var="payInfoData" items="${orderDatas}">
 					        	<tbody>
 					            <tr>
 					                <td><img src="${payInfoData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
 					                <td>${payInfoData.productName}</td>
-					                <td>${payInfoData.odContentCnt}개</td>
-					                <td>${payInfoData.productPrice*payInfoData.odContentCnt}원</td>
+					                <td>${payInfoData.orderContentCnt}개</td>
+					                <td>${payInfoData.productPrice*payInfoData.orderContentCnt}원</td>
 					            </tr>
 					       		</tbody>
 					        </c:forEach>
