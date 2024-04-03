@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class OrderContentDAO {
 	@Autowired // DI의존주입 /* @Autowired는 만능이 아니다.. 메모리에 로드가 되어있어야 가능하다. -> new JdbcTemplate();
 	private JdbcTemplate jdbcTemplate; // 의존관계 -> DI(의존주입) -> @Autowired
-
+ 
 	private static final String SELECTALL="SELECT "
 			+ "OC.ORDERCONTENT_ID, "
 			+ "OC.ORDERLIST_ID, "
