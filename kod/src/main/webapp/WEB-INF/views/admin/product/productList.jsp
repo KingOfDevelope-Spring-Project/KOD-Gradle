@@ -89,12 +89,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												</td>
 												<th>카테고리</th>
 												<td>
-													<select class="form-control select2" id="productCategory" name="productCategory" style="width: 100%;">
+													<!-- <select class="form-control select2" id="productCategory" name="productCategory" style="width: 100%;">
 								                    	<option selected="selected" style="display: none;"></option>
-								                    	<option value="all">전체</option>
 								                    	<option value="헤드폰">헤드폰</option>
 								                    	<option value="이어폰">이어폰</option>
 								                    	<option value="스피커">스피커</option>
+							                  		</select> -->
+							                  		<select class="form-control select2" id="productCategory" name="productCategory" style="width: 100%;">
+								                    	<c:forEach items="${categoryDatas}" var="category">
+								                    		<option value="${category.categoryType}">${category.categoryType}</option>
+							                  			</c:forEach>
 							                  		</select>
 												</td>
 											</tr>
@@ -119,15 +123,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									<button type="button" class="btn btn-primary" style="margin-left: auto;">신규 상품 등록</button>
-									<button type="button" class="btn btn-danger" style="margin-left: auto;">삭제</button>
+									<button type="button" class="btn btn-primary" onclick="location.href='/insertProductPage'" style="margin-left: auto;">신규 상품 등록</button>
+									<button type="button" class="btn btn-danger" onclick="deleteProduct()" style="margin-left: auto;">삭제</button>
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
 												<th><input type="checkbox" onmouseup=""></th>
 												<th>번호</th>
 												<th>상품번호</th>
-												<th>상품 이미지</th>
+												<!-- <th>상품 이미지</th> -->
 												<th>상품명</th>
 												<th>상품가격</th>
 												<th>브랜드</th>
@@ -142,25 +146,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<td><input type="checkbox"></td>
 												<td>${i.count}</td>
 												<td>${product.productID}</td>
-												<td>${product.productImg}</td>
+												<%-- <td>${product.productImg}</td> --%>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
-												<c:if test="${product.categoryID==1}">
-													<td>헤드폰</td>
-												</c:if>
-												<c:if test="${product.categoryID==2}">
-													<td>이어폰</td>
-												</c:if>
-												<c:if test="${product.categoryID==3}">
-													<td>스피커</td>
-												</c:if>
-												<c:if test="${product.categoryID==999}">
-													<td>전체</td>
-												</c:if>
-												<c:if test="${product.categoryID==1000}">
-													<td>테스트</td>
-												</c:if>
+												<td>${product.productCategory}</td>
 												<td>${product.productInfo}</td>
 												<td>${product.productStock}</td>
 											</tr>
@@ -230,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				"paging" : true,
 				"lengthChange" : false,
 				"searching" : false,
-				"ordering" : true,
+				"ordering" : false,
 				"info" : true,
 				"autoWidth" : false,
 				"responsive" : true,
@@ -243,6 +233,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		});
 	</script>
 	<!-- jQuery -->
-
+	<script>
+		function deleteProduct(){
+			
+		}
+	</script>
 </body>
 </html>
