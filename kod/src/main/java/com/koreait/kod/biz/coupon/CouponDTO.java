@@ -24,7 +24,6 @@ public class CouponDTO {
 	private Date couponExpireDate;
 	private String searchCondition;
 	private String couponStatus;
-	private int categoryID;
 	
 	private int orderContentID;
 	

@@ -40,7 +40,6 @@ public class CartDAO {
 			+ "P.PRODUCT_PRICE, "
 			+ "SUM(P.PRODUCT_PRICE * CART_PRODUCT_CNT) AS SUM_PRODUCT_PRICE, "
 			+ "C.CART_PRODUCT_CNT, "
-			+ "P.CATEGORY_ID, "
 			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
 			+ "(SELECT "
 			+ "IMAGE_URL "
@@ -131,7 +130,6 @@ class CartRowMapper implements RowMapper<CartDTO>{
 		cartDTO.setCartProductCnt(rs.getInt("CART_PRODUCT_CNT"));
 		cartDTO.setImageID(rs.getInt("IMAGE_ID"));
 		cartDTO.setProductImg(rs.getString("IMAGE_URL"));
-		cartDTO.setCategoryID(rs.getInt("CATEGORY_ID"));
 		return cartDTO;
 	}
 	

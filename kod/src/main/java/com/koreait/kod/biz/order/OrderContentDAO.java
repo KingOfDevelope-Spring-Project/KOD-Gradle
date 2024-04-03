@@ -22,27 +22,20 @@ public class OrderContentDAO {
 			+ "P.PRODUCT_NAME, "
 			+ "P.PRODUCT_PRICE, "
 			+ "P.CATEGORY_ID, "
-			+ "CS.ORDERCONTENT_ID AS COUPON_CHECK, "
-			+ "C.COUPON_NAME, "
-			+ "C.COUPON_DISCOUNT_RATE, "
-			+ "O.ORDERLIST_DATE, "
-			+ "(SELECT "
-			+ "IMAGE_URL FROM IMAGE I "
+			+ "(SELECT IMAGE_URL FROM IMAGE I "
 			+ "WHERE I.PRODUCT_ID = P.PRODUCT_ID "
 			+ "ORDER BY IMAGE_ID LIMIT 1) AS IMAGE_URL "
 			+ "FROM ORDERCONTENT OC "
-			+ "JOIN "
-			+ "ORDERLIST O ON O.ORDERLIST_ID = OC.ORDERLIST_ID "
-			+ "INNER JOIN "
-			+ "PRODUCT P ON P.PRODUCT_ID = OC.PRODUCT_ID "
-			+ "LEFT JOIN "
-			+ "COUPON_STATUS CS ON CS.ORDERCONTENT_ID = OC.ORDERCONTENT_ID "
-			+ "LEFT JOIN "
-			+ "COUPON C ON C.COUPON_ID = CS.COUPON_ID "
+			+ "INNER JOIN PRODUCT P ON P.PRODUCT_ID = OC.PRODUCT_ID "
 			+ "WHERE OC.ORDERLIST_ID = ? "
 			+ "GROUP BY "
 			+ "OC.ORDERCONTENT_ID, "
-			+ "C.COUPON_ID";
+			+ "OC.ORDERLIST_ID, "
+			+ "OC.ORDERCONTENT_CNT, "
+			+ "OC.PRODUCT_ID, "
+			+ "P.PRODUCT_NAME, "
+			+ "P.PRODUCT_PRICE, "
+			+ "P.CATEGORY_ID ";
 	private static final String SELECTONE="";
 	private static final String INSERT="INSERT INTO ORDERCONTENT (ORDERLIST_ID, PRODUCT_ID, ORDERCONTENT_CNT) VALUES (?,?,?)";
 	private static final String UPDATE="";
@@ -50,15 +43,11 @@ public class OrderContentDAO {
 
 	public List<OrderContentDTO> selectAll(OrderContentDTO orderContentDTO) {
 		Object[] args= {orderContentDTO.getOrderListID()};
-		if(orderContentDTO.getSearchCondition().equals("orderDatas")) {
-			try {
-				return jdbcTemplate.query(SELECTALL,args,new OrderContentRowMapper());
-			}catch(Exception e) {
-				return null;
-			}
+		try {
+			return jdbcTemplate.query(SELECTALL,args,new OrderContentRowMapper());
+		}catch(Exception e) {
+			return null;
 		}
-		return null;
-		
 	}
 
 	public OrderContentDTO selectOne(OrderContentDTO orderContentDTO) {
@@ -97,10 +86,6 @@ class OrderContentRowMapper implements RowMapper<OrderContentDTO> {
 		orderContentDTO.setProductName(rs.getString("PRODUCT_NAME"));
 		orderContentDTO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
 		orderContentDTO.setCategoryID(rs.getInt("CATEGORY_ID"));
-		orderContentDTO.setCouponCheck(rs.getString("COUPON_CHECK"));
-		orderContentDTO.setCouponName(rs.getString("COUPON_NAME"));
-		orderContentDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
-		orderContentDTO.setOrderListDate(rs.getDate("ORDERLIST_DATE"));
 		orderContentDTO.setProductImg(rs.getString("IMAGE_URL"));
 		
 		return orderContentDTO;

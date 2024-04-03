@@ -1,7 +1,5 @@
 package com.koreait.kod.biz.order;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
@@ -16,12 +14,6 @@ public class OrderContentDTO {
 	private String productImg; 
 	private String memberID; 
 	private int categoryID;
-	
-	private String couponName;
-	private int couponDiscountRate;
-	private String couponCheck;
-	private Date orderListDate;
-	
 	private String searchCondition;
 	
 }

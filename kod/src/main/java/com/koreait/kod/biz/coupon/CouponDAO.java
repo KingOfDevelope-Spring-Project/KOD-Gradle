@@ -23,7 +23,7 @@ public class CouponDAO {
 			+ "COUPON_USE_DATE,"
 			+ "COUPON_TYPE "
 			+ "FROM COUPON";
-	// 쿠폰 사용여부 조회 
+	// 쿠폰 사용여부 조회 (관리자)
 	private static final String SELECTALL_SEARCH_COUPONS="SELECT "
 			+ "C.COUPON_ID, "
 			+ "C.COUPON_NAME, "
@@ -35,12 +35,9 @@ public class CouponDAO {
 			+ "CS.COUPON_EXPIRE_DATE, "
 			+ "CS.ORDERCONTENT_ID, "
 			+ "CS.MEMBER_ID "
-			+ "CC.CATEGORY_ID "
 			+ "FROM COUPON C "
 			+ "JOIN COUPON_STATUS CS "
 			+ "ON C.COUPON_ID = CS.COUPON_ID "
-			+ "JOIN COUPON_CATEGORY CC "
-			+ "ON CC.COUPON_ID = C.COUPON_ID "
 			+ "WHERE 1=1 AND MEMBER_ID=? ";
 	// 쿠폰 개별조회
 	private static final String SELECT_AVAILABLE_COUPONS_PRE_ORDER="SELECT "
@@ -228,20 +225,5 @@ class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
 		return couponDTO;
 	}
 	
-	
-}
-
-class CouponRowMapperSearchByMemberUnUsedCoupon implements RowMapper<CouponDTO>{
-
-	@Override
-	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		CouponDTO couponDTO=new CouponDTO();
-		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
-		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
-		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
-		couponDTO.setCategoryID(rs.getInt("CATEGORY_ID"));
-		
-		return couponDTO;
-	}
 	
 }
