@@ -19,12 +19,12 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Controller
-public class PhoneNumberChecK {
+public class PhoneNumberCheck {
 	
     @Autowired
     MemberService memberService;
     
-    @GetMapping("/phoneNumberChecK")
+    @GetMapping("/phoneNumberCheck")
     public @ResponseBody String phoneNumberCheck(MemberDTO memberDTO , Random rand , Message message) {
         System.out.println("[로그:구본승] 인증번호 발송 들어옴");
         

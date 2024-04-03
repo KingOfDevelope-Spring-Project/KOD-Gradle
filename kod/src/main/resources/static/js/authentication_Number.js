@@ -62,7 +62,7 @@ function authentication_Number() {
 	// jQuery의 AJAX 함수를 호출 이함수를 사용하여 비동기적으로 서버와 통신할수있음 새로고침 없이 데이터를 받아올 수 있는 기술
 	$.ajax({
 		type: "GET", // POST메서드를 사용하여 서버로 데이터 전송
-		url: "phoneNumberChecK", // 요청을 보낼 서버의 주소(URL)을 지정함 
+		url: "phoneNumberCheck", // 요청을 보낼 서버의 주소(URL)을 지정함 
 		data: { 'memberPhoneNumber': memberPhoneNumber }, // 서버로 전송할 데이터를 지정  'memberID'라는 파라미터에  회원가입 페이지에서 입력한 아이디(memberID)값을 전송
 		dataType: 'text', // 서버로부터 받은 응답 데이터의 형식을 지정 
 		success: function(data) { // AJAX요청이 성공했을때 실행할 콜백함수 지정 
