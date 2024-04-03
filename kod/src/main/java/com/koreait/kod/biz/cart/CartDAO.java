@@ -48,7 +48,7 @@ public class CartDAO {
 			+ "FROM CART C "
 			+ "JOIN PRODUCT P ON P.PRODUCT_ID = C.PRODUCT_ID "
 			+ "LEFT JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID "
-			+ "WHERE C.PRODUCT_ID = ? "
+			+ "WHERE C.PRODUCT_ID=? AND C.MEMBER_ID=? "
 			+ "GROUP BY C.CART_ID, C.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE ";
 			// 장바구니 상품추가
 	private static final String INSERT="INSERT INTO CART(MEMBER_ID,PRODUCT_ID,CART_PRODUCT_CNT) VALUES (?,?,?)";
@@ -75,7 +75,7 @@ public class CartDAO {
 	}
 	public CartDTO selectOne(CartDTO cartDTO) {
 		System.out.println("[로그:정현진] cartDTO.getProductID() : "+cartDTO.getProductID());
-		Object[] args= {cartDTO.getProductID()};
+		Object[] args= {cartDTO.getProductID(),cartDTO.getMemberID()};
 		try {
 			return jdbcTemplate.queryForObject(SELECTONE,args,new CartRowMapper());
 		}catch(Exception e) {
