@@ -22,5 +22,5 @@ public class OrderContentDTO {
 	private String couponCheck;
 	private Date orderListDate;
 	private String searchCondition;
-	
+	 
 }
