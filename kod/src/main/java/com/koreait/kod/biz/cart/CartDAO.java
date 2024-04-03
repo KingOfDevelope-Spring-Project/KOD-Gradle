@@ -133,7 +133,7 @@ class CartRowMapper implements RowMapper<CartDTO>{
 		cartDTO.setCartProductCnt(rs.getInt("CART_PRODUCT_CNT"));
 		cartDTO.setImageID(rs.getInt("IMAGE_ID"));
 		cartDTO.setProductImg(rs.getString("IMAGE_URL"));
-		cartDTO.setCategoryiD(rs.getInt("CATEGORY_ID")); 
+		cartDTO.setCategoryID(rs.getInt("CATEGORY_ID")); 
 		return cartDTO;
 	}
 	
