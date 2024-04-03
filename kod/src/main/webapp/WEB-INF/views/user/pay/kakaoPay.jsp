@@ -114,10 +114,10 @@
                         productCnt : purchaseCnts,	// 구매 개수
                         payCk : payNows				// 결제 방식
                     },
-                	success: function(){
+                	success: function(data){
                 		console.log('결제 성공');
                 		//성공시 이동할 페이지
-                        location.href='/getPayInfoPage';
+                        location.href='/getPayInfoPage?orderListID='+data;
                 	},
                 })
             } else if(rsp.success == false){ // 결제 취소할 경우 이전 페이지로 돌아감
