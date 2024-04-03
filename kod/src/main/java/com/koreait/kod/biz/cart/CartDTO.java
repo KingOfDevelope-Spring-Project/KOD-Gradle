@@ -16,5 +16,9 @@ public class CartDTO {
 	private int payCk; // 상품 구매 or 장바구니 구매
 	private String searchCondition;
 	private int imageID;
+	private int categoryiD;
+		// TODO Auto-generated method stub
+		
+	}
 	
-}
+

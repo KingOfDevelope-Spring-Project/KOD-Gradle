@@ -40,6 +40,7 @@ public class CartDAO {
 			+ "P.PRODUCT_PRICE, "
 			+ "SUM(P.PRODUCT_PRICE * CART_PRODUCT_CNT) AS SUM_PRODUCT_PRICE, "
 			+ "C.CART_PRODUCT_CNT, "
+			+ "P.CATEGORY_ID, "
 			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
 			+ "(SELECT "
 			+ "IMAGE_URL "
@@ -74,11 +75,13 @@ public class CartDAO {
 		}
 	}
 	public CartDTO selectOne(CartDTO cartDTO) {
-		System.out.println("[로그:정현진] cartDTO.getProductID() : "+cartDTO.getProductID());
-		Object[] args= {cartDTO.getProductID(),cartDTO.getMemberID()};
+//		System.out.println("[로그:정현진] cartDTO.getProductID() : "+cartDTO.getProductID());
+		
+		Object[] args= { cartDTO.getProductID(), cartDTO.getMemberID() };
 		try {
-			return jdbcTemplate.queryForObject(SELECTONE,args,new CartRowMapper());
+			return jdbcTemplate.queryForObject(SELECTONE, args, new CartRowMapper());
 		}catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -120,7 +123,7 @@ class CartRowMapper implements RowMapper<CartDTO>{
 
 	@Override
 	public CartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] CartRowMapper 들어옴");
+//		System.out.println("[로그:정현진] CartRowMapper 들어옴");
 		CartDTO cartDTO = new CartDTO();
 		cartDTO.setCartID(rs.getInt("CART_ID"));
 		cartDTO.setProductID(rs.getInt("PRODUCT_ID"));
@@ -130,6 +133,7 @@ class CartRowMapper implements RowMapper<CartDTO>{
 		cartDTO.setCartProductCnt(rs.getInt("CART_PRODUCT_CNT"));
 		cartDTO.setImageID(rs.getInt("IMAGE_ID"));
 		cartDTO.setProductImg(rs.getString("IMAGE_URL"));
+		cartDTO.setCategoryiD(rs.getInt("CATEGORY_ID")); 
 		return cartDTO;
 	}
 	
