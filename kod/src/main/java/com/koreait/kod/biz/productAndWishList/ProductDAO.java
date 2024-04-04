@@ -586,6 +586,15 @@ public class ProductDAO {
 	
 	private static final String UPDATE=
 			"UPDATE PRODUCT SET PRODUCT_STOCK = PRODUCT_STOCK - ? WHERE PRODUCT_ID = ?";
+	private static final String UPDATE_PRODUCT = "UPDATE "
+			+ "PRODUCT "
+			+ "SET "
+			+ "PRODUCT_NAME=?, "
+			+ "PRODUCT_PRICE =?, "
+			+ "PRODUCT_INFO =?, "
+			+ "PRODUCT_STOCK=?, "
+			+ "CATEGORY_ID =? "
+			+ "WHERE PRODUCT_ID =? ";
 	private static final String DELETE=
 			"DELETE FROM PRODUCT WHERE PRODUCT_ID=?";
 	private static final String DELETE_WISHLIST_BY_PRODUCT = // 위시리스트 삭제
@@ -670,7 +679,12 @@ public class ProductDAO {
 	}
 
 	public boolean update(ProductDTO productDTO) {
-		return false;
+		int result=jdbcTemplate.update(UPDATE_PRODUCT,productDTO.getProductName(),productDTO.getProductPrice(),
+				productDTO.getProductInfo(),productDTO.getProductStock(),productDTO.getCategoryID(),productDTO.getProductID());
+		if(result <=0) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean delete(ProductDTO productDTO) {
