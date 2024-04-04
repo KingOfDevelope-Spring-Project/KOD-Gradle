@@ -136,6 +136,7 @@ public class GetInitOrderPage {
         List<CartDTO> productDatas = new ArrayList<CartDTO>(); // 스코프이슈 (반환할 데이터)
         for (CartDTO product : selectedProducts) { // selectedProducts에는 상품정보와 구매유형(즉시구매,선택구매)이 담겨있음
         	CartDTO data = new CartDTO();
+        	data.setMemberID((String)session.getAttribute("memberID"));
         	data.setProductID(product.getProductID());
         	System.out.println("[로그:정현진] data.getProductID : "+data.getProductID());
         	data = cartService.selectOne(data); // 구매수량을 제외한 상품정보가 모두 반환되어야함
@@ -152,7 +153,9 @@ public class GetInitOrderPage {
 	    
 	    // 쿠폰정보 반환하기
 	    couponDTO.setMemberID((String)session.getAttribute("memberID"));
-	    couponDTO.setSearchCondition("unUsedCoupon");
+	    couponDTO.setSearchCondition("availableCoupon");
+//	    List<CouponDTO> couponDatas = couponService.selectAll(couponDTO);
+//	    System.out.println("[로그:정현진] couponDatas : "+couponDatas);
 	    model.addAttribute("couponDatas", couponService.selectAll(couponDTO));
         
         // 배송지 반환하기
