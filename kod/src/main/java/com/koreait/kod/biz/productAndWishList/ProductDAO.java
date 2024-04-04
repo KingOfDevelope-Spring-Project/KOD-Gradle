@@ -562,6 +562,25 @@ public class ProductDAO {
 	private static final String SELECTONE_GET_PRODUCT_ID=
 			"SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
 	
+	private static final String SELECTONE_GET_PRODUCT_DATA="SELECT "
+			+ "P.PRODUCT_ID, "
+			+ "P.PRODUCT_NAME, "
+			+ "P.PRODUCT_BRAND, "
+			+ "P.PRODUCT_PRICE, "
+			+ "P.PRODUCT_STOCK, "
+			+ "P.PRODUCT_INFO, "
+			+ "C.CATEGORY_TYPE, "
+			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
+			+ "(SELECT "
+			+ "IMAGE_URL "
+			+ "FROM IMAGE "
+			+ "WHERE IMAGE_ID = MIN(I.IMAGE_ID)) AS IMAGE_URL "
+			+ "FROM PRODUCT P "
+			+ "JOIN "
+			+ "IMAGE I ON I.PRODUCT_ID = P.PRODUCT_ID "
+			+ "JOIN "
+			+ "CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID "
+			+ "WHERE P.PRODUCT_ID=?";
 	private static final String INSERT=
 			  "INSERT INTO "
 			+ "PRODUCT (PRODUCT_NAME,PRODUCT_BRAND,PRODUCT_PRICE,PRODUCT_INFO,PRODUCT_STOCK,CATEGORY_ID) "
@@ -626,6 +645,7 @@ public class ProductDAO {
 	}
 
 	public ProductDTO selectOne(ProductDTO productDTO) {
+		try {
 			if(productDTO.getSearchCondition().equals("getProductID")) { // 상품등록 시 사용
 				Object[] args = { productDTO.getProductName() };
 			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_ID, args, new productRowMapperGetProductID());
@@ -634,9 +654,14 @@ public class ProductDAO {
 				Object[] args = { productDTO.getProductID() };
 			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_NAME, args, new productRowMapperGetProductName());
 			}
-			else {
-				return null;
+			else if(productDTO.getSearchCondition().equals("getProductData")) {
+				Object[] args= {productDTO.getProductID() };
+			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_DATA,args,new productRowMapperGetProductData());
 			}
+		}catch(Exception e) {
+			return null;
+		}
+		return null;
 			
 	}
 
@@ -788,4 +813,23 @@ class productRowMapperGetProductName implements RowMapper<ProductDTO>{
 		System.out.println("[로그:정현진] 상품명 : "+rs.getString("PRODUCT_Name"));
 		return productDTO;
 	}
+}
+class productRowMapperGetProductData implements RowMapper<ProductDTO> {
+
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO productDTO=new ProductDTO();
+		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
+		productDTO.setProductName(rs.getString("PRODUCT_NAME"));
+		productDTO.setProductBrand(rs.getString("PRODUCT_BRAND"));
+		productDTO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		productDTO.setProductStock(rs.getInt("PRODUCT_STOCK"));
+		productDTO.setProductInfo(rs.getString("PRODUCT_INFO"));
+		productDTO.setProductCategory(rs.getString("CATEGORY_TYPE"));
+		productDTO.setImageID(rs.getInt("IMAGE_ID"));
+		productDTO.setProductImg(rs.getString("IMAGE_URL"));
+		
+		return productDTO;
+	}
+	
 }
