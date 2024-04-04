@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<!-- 상품 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
-								<form action="/updateProduct" method="POST" id="myDropzone" enctype="multipart/form-data">
+								<form action="/updateProduct" method="GET" id="myDropzone" enctype="multipart/form-data">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 상세 정보 / 수정 </h3>
 									<button type="submit" class="btn btn-primary" style="margin-left: auto;">수정하기</button>
