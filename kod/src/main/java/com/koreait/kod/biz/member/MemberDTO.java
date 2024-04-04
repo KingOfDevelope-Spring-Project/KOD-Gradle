@@ -16,7 +16,7 @@ public class MemberDTO {
 	private String memberRole; // 상태 (유저,관리자,탈퇴)
 	
 	//컬럼에 없는 멤버변수
-	private int memberCnt;
-	private int newMemberCnt;
-	private String searchCondition;
+	private int memberCnt; // 기존회원 수
+	private int newMemberCnt; // 신규회원 수
+	private String searchCondition; 
 }
