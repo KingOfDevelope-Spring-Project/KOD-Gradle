@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.kod.biz.member.IMemberDAO">
+	
+	
+<select id="selectAllByGrade" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID,MEMBER_GRADE,MEMBER_NAME FROM MEMBER WHERE MEMBER_GRADE=#{memberGrade}
+</select> 
+
+<select id="selectAllMember" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID, MEMBER_NAME, MEMBER_PHONENUMBER, MEMBER_EMAIL, MEMBER_GRADE, MEMBER_GENDER, MEMBER_BIRTH, MEMBER_ROLE FROM MEMBER
+</select>
+
+<select id="selectOneLogin" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID, MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID= #{memberID} AND MEMBER_PW= #{memberPW}
+</select> 
+<!-- <select id="selectOneLogin" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID, MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID= #{memberID} AND MEMBER_PW= #{memberPW}
+</select> -->
+
+<select id="selectOneIdChecK" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID= #{memberID}                               
+</select>
+
+<select id="selectOneMemberCount" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT COUNT(MEMBER_ID) AS MEMBER_CNT FROM MEMBER
+</select> 
+
+
+<select id="selectOneNewMemberCount" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT COUNT(MEMBER_ID) AS NEW_MEMBER_CNT FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)
+</select>
+
+<insert id="insert" >
+INSERT INTO MEMBER (MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONENUMBER, MEMBER_EMAIL, MEMBER_GRADE, MEMBER_GENDER, MEMBER_BIRTH, MEMBER_ROLE) 
+VALUES(#{memberID},#{memberPW},#{memberName},#{memberPhoneNumber},#{memberEmail},'BRONZE',#{memberGender},#{memberBirth},'USER')
+</insert>
+
+<update id="update" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_NAME=#{memberName}, MEMBER_PW=#{memberPW}, MEMBER_EMAIL=#{memberEmail}, MEMBER_PHONE=#{memberPhone} WHERE MEMBER_ID=#{memberID}
+</update>
+
+<update id="updatePassword"  parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_PW=#{memberPW} WHERE MEMBER_ID=#{memberID}
+</update>
+
+<update id="updateName" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_NAME=#{memberName} WHERE MEMBER_ID=#{memberID}
+</update>
+
+<update id="updateEmail" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_EMAIL=#{memberEmail} WHERE MEMBER_ID=#{memberID}
+</update>
+
+
+
+
+
+<!-- 탈퇴신청 상태 UNREGISTER -->
+<update id="updateRoleUnregister" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_ROLE='UNREGISTER' WHERE MEMBER_ID=#{memberID}
+</update>
+<!-- UPDATE MEMBER SET MEMBER_ROLE = 'UNREGISTER' WHERE MEMBER_ID= ? --> 
+
+
+<!-- 복구신청 상태 RECOVERY_PENDING -->
+<update id="updateRoleRecoveryPending" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_ROLE='RECOVERY_PENDING' WHERE MEMBER_ID=#{memberID}
+</update>
+<!-- UPDATE MEMBER SET MEMBER_ROLE = 'RECOVERY_PENDING' WHERE MEMBER_ID = ?; -->
+
+
+<!-- 복구완료 USER -->
+<update id="updateRoleUser" parameterType="com.koreait.kod.biz.member.MemberDTO">
+UPDATE MEMBER SET MEMBER_ROLE='USER' , MEMBER_GRADE ='BRONZE' WHERE MEMBER_ID=#{memberID}
+</update>
+<!-- UPDATE MEMBER SET MEMBER_ROLE = 'USER' , MEMBER_GRADE ='BRONZE' WHERE MEMBER_ID= ?; -->
+
+
+
+<!-- 복구신청 회원 전체출력 -->
+<select id="selectAllRecoveryPending" resultType="com.koreait.kod.biz.member.MemberDTO">
+SELECT MEMBER_ID,MEMBER_NAME,MEMBER_PHONENUMBER ,MEMBER_EMAIL ,MEMBER_GRADE,MEMBER_BIRTH  FROM MEMBER WHERE MEMBER_ROLE= "RECOVERY_PENDING"                               
+</select>	
+
+
+
+<delete id="delete" parameterType="com.koreait.kod.biz.member.MemberDTO">
+DELETE FROM MEMBER WHERE MEMBER_ID=#{memberID}
+</delete>
+
+
+
+</mapper>  
