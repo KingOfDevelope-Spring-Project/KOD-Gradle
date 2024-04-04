@@ -218,7 +218,7 @@ function selectBoxController(selectBox){
 	$selectBoxes.eq(selectBoxId).find('option').show();
         }else{
 	console.log($selectBox.value); // 할인율 : 10
-	$('tr td.price').eq($selectBoxId).text(Math.round(eval($price-$price*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+	$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId]-$price$priceList[$selectBoxId]*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
                $selectBoxes.eq(selectBoxId).find('option[class="'+$class+'"]').hide();
         }
         changeTotalPrice();
