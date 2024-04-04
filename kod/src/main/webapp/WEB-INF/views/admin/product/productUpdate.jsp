@@ -138,8 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 														</label>
 															<div id="image_container">
 																<c:forEach items="${imageDatas}" var="image">
-																	<%-- <img src="${image.imageUrl}"> --%>
-																	<img src="C:\PHM\workspace3\kod\src\main\webapp\uploads/thumnailDir\\thumbnail_cc1967ea-8b20-41fa-b6f4-ec8364f6696e_teemo.png">
+																	<img src="${image.imageUrl}">
 																</c:forEach>
 															</div>
 														<button type="button" id="cancelImageButton" onclick="cancelImageUpload()">이미지 취소</button>
