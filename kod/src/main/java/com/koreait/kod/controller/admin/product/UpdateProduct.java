@@ -16,7 +16,7 @@ public class UpdateProduct {
 	@Autowired
 	ProductService productService;
 	
-	@PostMapping("updateProduct")
+	@PostMapping("/updateProduct")
 	public String updateProduct(ProductDTO productDTO,HttpSession session) {
 		
 		if(!((MemberDTO)session.getAttribute("adminDTO")).getMemberRole().equals("ADMIN")) {
@@ -24,7 +24,6 @@ public class UpdateProduct {
 		}
 		
 		productService.update(productDTO);
-		
 		
 		return "admin/product/productUpdate";
 	}
