@@ -68,7 +68,7 @@ public class CartDAO {
 		System.out.println("[로그:정현진] SELECTALL들어옴 ");
 		Object[] args = { cartDTO.getMemberID() };
 		try {
-		return jdbcTemplate.query(SELECTALL, args, new CartRowMapper());
+		return jdbcTemplate.query(SELECTALL, args, new CartRowMapperAll());
 		} 
 		catch (Exception e) {
 			return null;
@@ -134,6 +134,26 @@ class CartRowMapper implements RowMapper<CartDTO>{
 		cartDTO.setImageID(rs.getInt("IMAGE_ID"));
 		cartDTO.setProductImg(rs.getString("IMAGE_URL"));
 		cartDTO.setCategoryID(rs.getInt("CATEGORY_ID")); 
+		return cartDTO;
+	}
+	
+}
+
+class CartRowMapperAll implements RowMapper<CartDTO>{
+
+	@Override
+	public CartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		CartDTO cartDTO=new CartDTO();
+		cartDTO.setCartID(rs.getInt("CART_ID"));
+		cartDTO.setProductID(rs.getInt("PRODUCT_ID"));
+		cartDTO.setProductName(rs.getString("PRODUCT_NAME"));
+		cartDTO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		cartDTO.setProductTotalPrice(rs.getInt("SUM_PRODUCT_PRICE"));
+		cartDTO.setCartProductCnt(rs.getInt("CART_PRODUCT_CNT"));
+		cartDTO.setImageID(rs.getInt("IMAGE_ID"));
+		cartDTO.setProductImg(rs.getString("IMAGE_URL"));
+		
 		return cartDTO;
 	}
 	
