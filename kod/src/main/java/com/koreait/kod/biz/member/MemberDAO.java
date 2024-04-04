@@ -32,9 +32,6 @@ public class MemberDAO {
 			+ "MEMBER_REGDATE "
 			+ "FROM MEMBER ";
 		
-			
-	
-	
 	private static final String SELECTONE_LOGIN=
 			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
@@ -49,8 +46,6 @@ public class MemberDAO {
             // WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
             + "WHERE MEMBER_ID=?";
     
-    
-	
 	private static final String SELECTONE_MEMBER_COUNT=
 			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER";
 	
@@ -84,6 +79,10 @@ public class MemberDAO {
             + "MEMBER SET MEMBER_EMAIL=? WHERE MEMBER_ID=?";
 
     private static final String DELETE = "DELETE FROM MEMBER WHERE MEMBER_ID=?";
+    
+    
+    
+    
                  
     
     public List<MemberDTO> selectAll(MemberDTO memberDTO) {
@@ -106,6 +105,7 @@ public class MemberDAO {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
 		}catch(Exception e) {
+			System.err.println("ㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅂㅂㅂㅂㅂ");
 			return null;
 		}
 	}
@@ -114,17 +114,17 @@ public class MemberDAO {
 	public MemberDTO selectOne(MemberDTO memberDTO) {
 		try {
 			
-		if(memberDTO.getSearchCondition().equals("memberLogin")) {
+		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
 			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
 		}
 		else if(memberDTO.getSearchCondition().equals("memberCount")) {
 			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
 		}
-		else if(memberDTO.getSearchCondition().equals("memberIDCK")){
+		else if(memberDTO.getSearchCondition().equals("ID_CHECK")){
             Object[] args = { memberDTO.getMemberID()};
                return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberIDCKRowMapper() );
-}
+		}
 		else {
 			return null;
 		}
@@ -253,6 +253,5 @@ class MemberIDCKRowMapper implements RowMapper<MemberDTO>{
 		System.out.println("[로그:구본승] memberID = "+rs.getString("MEMBER_ID"));
 		return memberDTO;
 	}
-	
 }
 
