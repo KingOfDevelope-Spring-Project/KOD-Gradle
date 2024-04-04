@@ -19,10 +19,10 @@ public class GetMembersByGrade {
 	@GetMapping("/getMemberListByGrade")
 	public String getMemberDatasByGrade(MemberDTO memberDTO,Model model,HttpSession session) {
 		
-		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
-		if(!adminDTO.getMemberRole().equals("ADMIN")) {
-			return "common/error";
-		}
+//		MemberDTO adminDTO = (MemberDTO)session.getAttribute("adminDTO");
+//		if(!adminDTO.getMemberRole().equals("ADMIN")) {
+//			return "common/error";
+//		}
 		memberDTO.setSearchCondition("getMemberDatasByGrade");
 		model.addAttribute("memberDatas", memberService.selectAll(memberDTO));
 		return "admin/member/memberListByGrade";
