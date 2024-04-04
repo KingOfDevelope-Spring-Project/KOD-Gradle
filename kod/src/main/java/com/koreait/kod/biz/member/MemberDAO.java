@@ -106,7 +106,6 @@ public class MemberDAO {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
 		}catch(Exception e) {
-			System.err.println("ㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅂㅂㅂㅂㅂ");
 			return null;
 		}
 	}
@@ -115,14 +114,14 @@ public class MemberDAO {
 	public MemberDTO selectOne(MemberDTO memberDTO) {
 		try {
 			
-		if(memberDTO.getSearchCondition().equals("login")) {
+		if(memberDTO.getSearchCondition().equals("memberLogin")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
 			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
 		}
 		else if(memberDTO.getSearchCondition().equals("memberCount")) {
 			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
 		}
-		else if(memberDTO.getSearchCondition().equals("ID_CHECK")){
+		else if(memberDTO.getSearchCondition().equals("memberIDCK")){
             Object[] args = { memberDTO.getMemberID()};
                return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberIDCKRowMapper() );
 }
