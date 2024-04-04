@@ -569,18 +569,12 @@ public class ProductDAO {
 			+ "P.PRODUCT_PRICE, "
 			+ "P.PRODUCT_STOCK, "
 			+ "P.PRODUCT_INFO, "
-			+ "C.CATEGORY_TYPE, "
-			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
-			+ "(SELECT "
-			+ "IMAGE_URL "
-			+ "FROM IMAGE "
-			+ "WHERE IMAGE_ID = MIN(I.IMAGE_ID)) AS IMAGE_URL "
+			+ "C.CATEGORY_TYPE "
 			+ "FROM PRODUCT P "
 			+ "JOIN "
-			+ "IMAGE I ON I.PRODUCT_ID = P.PRODUCT_ID "
-			+ "JOIN "
 			+ "CATEGORY C ON C.CATEGORY_ID=P.CATEGORY_ID "
-			+ "WHERE P.PRODUCT_ID=?";
+			+ "WHERE "
+			+ "P.PRODUCT_ID=?";
 	private static final String INSERT=
 			  "INSERT INTO "
 			+ "PRODUCT (PRODUCT_NAME,PRODUCT_BRAND,PRODUCT_PRICE,PRODUCT_INFO,PRODUCT_STOCK,CATEGORY_ID) "
@@ -826,8 +820,6 @@ class productRowMapperGetProductData implements RowMapper<ProductDTO> {
 		productDTO.setProductStock(rs.getInt("PRODUCT_STOCK"));
 		productDTO.setProductInfo(rs.getString("PRODUCT_INFO"));
 		productDTO.setProductCategory(rs.getString("CATEGORY_TYPE"));
-		productDTO.setImageID(rs.getInt("IMAGE_ID"));
-		productDTO.setProductImg(rs.getString("IMAGE_URL"));
 		
 		return productDTO;
 	}
