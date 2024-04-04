@@ -179,11 +179,11 @@
 	<script src="resources/js/jquery.zoom.min.js"></script>
 	<script src="resources/js/main.js"></script>
 	<script>
-// 상품들의 원가격을 저장하는 배열
+	// 상품들의 원가격을 저장하는 배열
 var priceList = document.querySelectorAll('tr td.price');
 var $priceList = [];
 priceList.forEach(data => {
-        $priceList.push(data.textContent.replace('원',''));
+        $priceList.push(data.textContent);
 });
 // 선택박스 변경 시 실행할 함수
 function selectBoxController(selectBox){
@@ -191,13 +191,14 @@ function selectBoxController(selectBox){
     // 이벤트가 발생한 선택상자의 정보 가져오기
     var $selectBox = selectBox; // 전체
     var $selectBoxId = selectBox.id; // 속성값 id를 가져오기
-
+    console.log($selectBoxId);
     // 전체 선택상자 가져오기
     var $selectBoxIds = [] // 전체 속성값 id가져오기
     var $selectBoxes = $('.couponSelectBox'); // 전체 가져오기
     $selectBoxes.each((i, data) => {
         $selectBoxIds.push($(data).attr("id")); // 아이디를 배열에 저장하기
     });
+    console.log($selectBoxIds);
 
     // 선택된 요소의 클래스명 가져오기 == couponID 가져오기
     $class = $selectBoxes.eq($selectBoxId).find('option:selected').attr('class');
@@ -210,7 +211,7 @@ function selectBoxController(selectBox){
        // 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
     $selectBoxIds.forEach(selectBoxId => {
       console.log('반복문 실행');
-      if(selectBoxId != $selectBoxId){	
+      if(selectBoxId != $selectBoxId){
         console.log('조건문 실행');
         if($class == '-1'){ // 쿠폰을 선택하지 않은 경우
 	console.log($price);
@@ -218,7 +219,7 @@ function selectBoxController(selectBox){
 	$selectBoxes.eq(selectBoxId).find('option').show();
         }else{
 	console.log($selectBox.value); // 할인율 : 10
-	$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId]-$price$priceList[$selectBoxId]*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+	$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-$priceList[$selectBoxId].replace('원','')*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
                $selectBoxes.eq(selectBoxId).find('option[class="'+$class+'"]').hide();
         }
         changeTotalPrice();
