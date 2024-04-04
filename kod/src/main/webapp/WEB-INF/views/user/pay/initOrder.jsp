@@ -23,6 +23,7 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="resources/css/style.css"/>
 	<link type="text/css" rel="stylesheet" href="resources/css/payInfo.css"/>
+
 	<!-- HEADER, NAVIGATION -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </head>
@@ -61,7 +62,7 @@
 							<tbody>
 								<tr>
 									<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; width: 15%;">배송지</th>
-									<td style="background-color: white; border: 1px solid gray; text-align: left;">${shippingAddress.addressName}</td>
+									<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressDatas.addressName}</td>
 								</tr>
 								<tr>
 									<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; ">이름 / 연락처</th>
@@ -69,7 +70,7 @@
 								</tr>
 								<tr>
 									<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden;">주소</th>
-									<td style="background-color: white; border: 1px solid gray; text-align: left;">(${shippingAddress.addressZipCode}) ${shippingAddress.addressStreet} ${shippingAddress.addressDetail} </td>
+									<td style="background-color: white; border: 1px solid gray; text-align: left;">(${addressDatas.addressZipCode}) ${addressDatas.addressStreet} ${addressDatas.addressDetail} </td>
 								</tr>
 							</tbody>
 						</table>
@@ -92,18 +93,20 @@
 						</thead>
 						<c:set var="productDatasSize" value="${fn:length(productDatas)}" />
 						<c:if test="${productDatasSize >= 1}">
-							<c:forEach var="productData" items="${productDatas}">
+							<c:forEach var="productData" items="${productDatas}" varStatus="i" begin="0">
 								<tbody>
 									<tr>
-										<td><img src="${productData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
-										<td>${productData.getProductName()}</td>
-										<td>${productData.cartProductCnt}개</td>
-										<td>${productData.productPrice}원</td>
-										<td>
-											<select class="couponSelectBox">
-												<option value="">선택 안함</option>
+										<td class="img"><img src="${productData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
+										<td class="name">${productData.getProductName()}</td>
+										<td class="cnt">${productData.cartProductCnt}개</td>
+										<td class="price">${productData.cartProductCnt*productData.productPrice}원</td>
+										<td class="select">
+											<select class="couponSelectBox" id="${i.index}" onchange="selectBoxController(this)">
+												<option class="-1" value="0">선택 안함</option>
 												<c:forEach items="${couponDatas}" var="coupon">
-													<option value="${coupon.couponStatusID}">${coupon.couponName}</option>
+													<c:if test="${productData.categoryID == coupon.categoryID}">
+														<option class="${coupon.couponID}" value="${coupon.couponDiscountRate}">${coupon.couponName}</option>
+													</c:if>
 												</c:forEach>
 											</select>
 										</td>
@@ -111,24 +114,7 @@
 								</tbody>
 							</c:forEach>
 						</c:if>
-						<c:if test="${productDatasSize < 1}">
-							<tbody>
-								<tr>
-									<td><img src="${param.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
-									<td>${param.productName}</td>
-									<td>${param.cartProductCnt}개</td>
-									<td>${param.productPrice*param.cartProductCnt}원</td>
-									<td>
-										<select class="couponSelectBox">
-											<c:forEach items="${couponDatas}" var="coupon">
-												<option value="${coupon.couponID}">${coupon.couponName}</option>
-											</c:forEach>
-										</select>
-										</td>
-								</tr>
-							</tbody>
-						</c:if>
-						
+									
 						
 					</table>
 					</div>
@@ -139,23 +125,7 @@
 						</div>
 						<form action="/getKakaoPayPage" method="get">
 						<div class="order-summary">
-							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
-							</div>
-							<div class="order-products">
-								<c:if test="${productDatasSize >= 1}">
-									<input style="display:none;" type="number" name="payCk" value="${param.payCk}">
-									<c:forEach var="productData" items="${productDatas}">
-										<div class="order-col">
-											<div>${productData.productName}</div>
-											<div style="text-align: right;">${productData.productPrice*productData.cartProductCnt}원</div>
-											<input style="display:none;" type="number" name="productID" value="${productData.productID}">
-											<input style="display:none;" type="number" name="cartProductCnt" value="${productData.cartProductCnt}">
-										</div>
-									</c:forEach>
-								</c:if>
-							</div>
+			
 							<div class="order-col">
 								<div>배송비</div>
 								<div><strong>FREE</strong></div>
@@ -201,8 +171,6 @@
 	<!-- /SECTION -->
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-
 	<!-- jQuery Plugins -->
 	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
@@ -211,47 +179,61 @@
 	<script src="resources/js/jquery.zoom.min.js"></script>
 	<script src="resources/js/main.js"></script>
 	<script>
-//$(document).ready(function() {
-//	$('.couponSelectBox').on("change", selectBoxController());
-//	function selectBoxController(){
-//		console.log('셀렉트 박스 선택함');
-//		var selectedValue = $(this).val();
-//		console.log($(this));
-//		console.log($(this).val())
-//      		$('.couponSelectBox').not(this).find('option').show();
-//            		$('.couponSelectBox').not(this).each(function() {
-//               	$(this).find('option[value="' + selectedValue + '"]').hide();
-//           		});
-//        	});
-//})
-
-document.addEventListener('DOMContentLoaded', function() {
-    // 1번째 product의 select 요소 ▶ 쿠폰하나
-    var firstProductSelect = document.querySelectorAll('.couponSelectBox')[0];
-    console.log(firstProductSelect);
-    // 2,3번째 product의 select 요소들 ▶ 쿠폰목록들
-    var otherProductSelects = document.querySelectorAll('.couponSelectBox');
-
-    // 1번째 product의 select 값이 변경될 때 실행되는 함수
-    firstProductSelect.addEventListener('change', function() {
-        // 선택된 값을 가져옴
-        var selectedValue = this.value;
-        console.log(selectedValue);
-        // 2,3번째 product의 select 요소들을 반복하여 처리 ▶ 선택한 쿠폰값을 가져와서, 다른 product들의 select 요소들(쿠폰목록들)을 반복하면서 선택한 쿠폰값과 일치하는 option을 숨김
-        for (var i = 1; i < otherProductSelects.length; i++) {
-            var select = otherProductSelects[i];
-            // 선택된 값과 일치하는 option을 숨김
-            for (var j = 0; j < select.options.length; j++) {
-                if (select.options[j].value === selectedValue) {
-                    select.options[j].style.display = 'none';
-                } else {
-                    select.options[j].style.display = '';
-                }
-            }
-        }
-    });
+// 상품들의 원가격을 저장하는 배열
+var priceList = document.querySelectorAll('tr td.price');
+var $priceList = [];
+priceList.forEach(data => {
+        $priceList.push(data.textContent);
 });
+// 선택박스 변경 시 실행할 함수
+function selectBoxController(selectBox){
 
+    // 이벤트가 발생한 선택상자의 정보 가져오기
+    var $selectBox = selectBox; // 전체
+    var $selectBoxId = selectBox.id; // 속성값 id를 가져오기
+
+    // 전체 선택상자 가져오기
+    var $selectBoxIds = [] // 전체 속성값 id가져오기
+    var $selectBoxes = $('.couponSelectBox'); // 전체 가져오기
+    $selectBoxes.each((i, data) => {
+        $selectBoxIds.push($(data).attr("id")); // 아이디를 배열에 저장하기
+    });
+
+    // 선택된 요소의 클래스명 가져오기 == couponID 가져오기
+    $class = $selectBoxes.eq($selectBoxId).find('option:selected').attr('class');
+    console.log($class);
+
+    // 가격을 수정하기 위해 가져오기
+    var $price = $('tr td.price').eq($selectBoxId).text().replace('원', '');
+    console.log('가격 : ' + $price)
+
+       // 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
+    $selectBoxIds.forEach(selectBoxId => {
+      console.log('반복문 실행');
+      if(selectBoxId != $selectBoxId){	
+        console.log('조건문 실행');
+        if($class == '-1'){ // 쿠폰을 선택하지 않은 경우
+	console.log($price);
+	$('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
+	$selectBoxes.eq(selectBoxId).find('option').show();
+        }else{
+	console.log($selectBox.value); // 할인율 : 10
+	$('tr td.price').eq($selectBoxId).text(Math.round(eval($price-$price*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+               $selectBoxes.eq(selectBoxId).find('option[class="'+$class+'"]').hide();
+        }
+        changeTotalPrice();
+      }
+    });
+  }
+var total = 0;
+function changeTotalPrice(){
+	total = 0;
+	var getPrice = document.querySelectorAll('tr td.price')
+	getPrice.forEach( data => {
+		total+= parseInt(data.textContent.replace('원', ''));
+	})
+	$('strong.order-total').text(total);
+}
 </script>
 </body>
 </html>
