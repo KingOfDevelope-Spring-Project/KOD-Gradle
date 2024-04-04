@@ -71,78 +71,84 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<!-- 상품 목록 테이블 -->
 						<div class="col-sm-12">
 							<div class="card">
+								<form action="/updateProduct" method="POST" id="myDropzone" enctype="multipart/form-data">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
-									<h3 class="card-title" style="margin-top: 0.6%;">상품 목록</h3>
+									<h3 class="card-title" style="margin-top: 0.6%;">상품 상세 정보 / 수정 </h3>
+									<button type="submit" class="btn btn-primary" style="margin-left: auto;">수정하기</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
-									
-									<!-- 나중에 실제 사용할 테이블 -->
-									<table id="example2" class="table table-bordered table-hover">
-										<thead>
-											<tr onclick="openModal()">
-												<th>상품번호</th>
-												<th>상품명</th>
-												<th>상품가격</th>
-												<th>브랜드</th>
-												<th>카테고리</th>
-												<th>재고</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${productDatas}" var="product" varStatus="i" begin="0" step="1">
-											<tr>
-												<td>${i.count}</td>
-												<td>${product.productName}</td>
-												<td>${product.productPrice}</td>
-												<td>${product.productBrand}</td>
-												<td>${product.productCategory}</td>
-												<td>${product.productStock}</td>
-											</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-									<!-- /나중에 실제 사용할 테이블 -->
-									
-									
-									<!-- <table id="example2" class="table table-bordered table-hover">
-										<thead>
-											<tr onclick="openModal()">
-												<th>번호</th>
-												<th>상품번호</th>
-												<th>상품 이미지</th>
-												<th>상품명</th>
-												<th>상품가격</th>
-												<th>브랜드</th>
-												<th>카테고리</th>
-												<th>재고</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td align="center">1</td>
-												<td>1001</td>
-												<td><img alt="상품1" width="100" height="100" src="//images.ctfassets.net/8cd2csgvqd3m/6CauM4itfCytfs4vYrSOVB/87fd4cbbacb842da0c4781bc558d4fdd/07_Beoplay_EX_Ferrari_8_Full_Angular_5K.png?q=85&fm=png&w=375&h=375&fit=fill"></td>
-												<td>Beoplay EX Ferrari Edition</td>
-												<td>649000</td>
-												<td>Bang&Olufsen</td>
-												<td>헤드폰</td>
-												<td>100</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>1002</td>
-												<td><img alt="상품2" width="100" height="100" src="//images.ctfassets.net/8cd2csgvqd3m/7AdyFHvn7QPcZ9aMbfEewY/033578369b617f673a919aa98ff4b4db/Beoplay-EX-Black-Anthracite-Hero.png?q=85&fm=png&w=375&h=375&fit=fill"></td>
-												<td>Beoplay EX Beoplay EX</td>
-												<td>498000</td>
-												<td>Bang&Olufsen</td>
-												<td>이어폰</td>
-												<td>100</td>
-											</tr>
-										</tbody>
-									</table>
-									 -->
-									
+										<table id="example3" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th style="width: 20%">상품번호</th>
+													<td><input class="form-control form-control-sm col-10" type="text" name="productID" style="margin: auto;" value="${productDatas.productID}" readonly></td>
+												</tr>
+												<tr>
+													<th style="width: 20%">상품명</th>
+													<td><input class="form-control form-control-sm col-10" type="text" name="productName" style="margin: auto;" value="${productDatas.productName}"></td>
+												</tr>
+												<tr>
+													<th style="width: 20%">브랜드</th>
+													<td>
+														<select class="form-control form-control-sm col-10 select2" name="productBrand" style="margin : auto;" readonly>
+									                    	<option value="뱅앤올룹슨" selected>뱅앤올룹슨</option>
+								                  		</select>
+													</td>
+												</tr>
+												<tr>
+													<th style="width: 20%">카테고리</th>
+													<td>
+														<select class="form-control form-control-sm col-10 select2" style="margin : auto;" id="productCategory" name="productCategory" style="width: 100%;">
+								                    	<c:forEach items="${categoryDatas}" var="category">
+								                    		<option value="${category.categoryID}">${category.categoryType}</option>
+							                  			</c:forEach>
+							                  		</select>
+													</td>
+												</tr>
+												<tr>
+													<th style="width: 20%">가격</th>
+													<td><input class="form-control form-control-sm col-10" type="text" name="productPrice" style="display:inline-block; margin : auto;" value="${productDatas.productPrice}"></td>
+												</tr>
+												<tr>
+													<th style="width: 20%">재고</th>
+													<td><input class="form-control form-control-sm col-10" type="text" name="productStock" style="display:inline-block; margion : auto;" value="${productDatas.productStock}"></td>
+												</tr>
+												<tr>
+													<th style="width: 20%; vertical-align: middle; ">상품 정보</th>
+													<td>
+														<div class="card-body">
+										              		<textarea name="productInfo" class="form-control" rows="5" cols="30">${productDatas.productInfo}
+										              		</textarea>
+										            	</div>
+										            </td>
+												</tr>
+												<tr>
+													<th>상품 이미지</th>
+													<td>
+														<!-- <div class="input-group">
+															<div class="custom-file">
+																<input type="file" class="file-input" id="exampleInputFile">
+															</div>
+														</div> -->
+														
+														<label for="imageUpload" class="imageUploadBtn">이미지 업로드<br />
+															<input type="file" multiple id="image" name="productImageList" accept="image/*" onchange="setThumbnail(event)" /> 
+															<!-- <img id="imagePreview" src="resources/img/imagePreview.png" alt="미리 보기 이미지" style="width: 40px; height: 40px;"> -->
+														</label>
+															<div id="image_container">
+																<c:forEach items="${imageDatas}" var="image">
+																	<%-- <img src="${image.imageUrl}"> --%>
+																	<img src="C:\PHM\workspace3\kod\src\main\webapp\uploads/thumnailDir\\thumbnail_cc1967ea-8b20-41fa-b6f4-ec8364f6696e_teemo.png">
+																</c:forEach>
+															</div>
+														<button type="button" id="cancelImageButton" onclick="cancelImageUpload()">이미지 취소</button>
+													</td>
+												</tr>
+											</thead>
+										</table>
+										</div>
+									</form>
 								</div>
 								<!-- /.card-body -->
 							</div>
@@ -182,88 +188,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</div>
 	<!-- ./wrapper -->
 
-	<div class="modal fade" id="modal-lg">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">상세 정보</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table id="example3" class="table table-bordered table-hover">
-					<thead>
-						<tr>
-							<th style="width: 20%">상품번호</th>
-							<td><input class="form-control form-control-sm col-10" type="text" style="margin: auto;" value="1001" readonly></td>
-						</tr>
-						<tr>
-							<th style="width: 20%">상품명</th>
-							<td><input class="form-control form-control-sm col-10" type="text" style="margin: auto;" value="Beoplay EX Ferrari Edition"></td>
-						</tr>
-						<tr>
-							<th style="width: 20%">브랜드</th>
-							<td>
-								<select class="form-control form-control-sm col-10 select2" style="margin : auto;" disabled>
-			                    	<option selected>뱅앤올룹슨</option>
-			                    	<option>삼성</option>
-			                    	<option>LG</option>
-		                  		</select>
-							</td>
-						</tr>
-						<tr>
-							<th style="width: 20%">카테고리</th>
-							<td>
-								<select class="form-control form-control-sm col-10 select2" style="margin : auto;" required>
-			                    	<option>전체</option>
-			                    	<option selected>헤드폰</option>
-			                    	<option>이어폰</option>
-			                    	<option>스피커</option>
-		                  		</select>
-							</td>
-						</tr>
-						<tr>
-							<th style="width: 20%">가격</th>
-							<td><input class="form-control form-control-sm col-10" type="text" style="display:inline-block; margin : auto;" value="649000"></td>
-						</tr>
-						<tr>
-							<th style="width: 20%">재고</th>
-							<td><input class="form-control form-control-sm col-10" type="text" style="display:inline-block; margion : auto;" value="100"></td>
-						</tr>
-						<tr>
-							<th style="width: 20%; vertical-align: middle; ">상품 정보</th>
-							<td>
-								<div class="card-body">
-				              		<textarea class="form-control" rows="5" cols="30">페라리 레드 패키지의 아름다운 디자인만큼 뛰어난 다양성을 지닌 이어버드는 무선 충전 케이스와 액티브 노이즈 캔슬링 기능을 갖추고 있으며 깊고 풍부한 사운드와 편안한 착용감을 제공합니다.
-				              		</textarea>
-				            	</div>
-				            </td>
-						</tr>
-						<tr>
-							<th>상품 이미지</th>
-							<td>
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="file-input" id="exampleInputFile">
-									</div>
-								</div>
-							</td>
-						</tr>
-					</thead>
-				</table>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-              <button type="button" class="btn btn-primary">수정</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-
 	<!-- REQUIRED SCRIPTS -->
 	<script src="resources/plugins/jquery/jquery.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -281,6 +205,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="resources/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 	<script src="resources/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+	
+	<script src="resources/js/productInsert.js"></script>
 	<!-- Page specific script -->
 	<script>
 		$(function() {
@@ -301,16 +227,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		});
 	</script>
 	
-	<script>
-	function openModal() {
-        $('#modal-lg').modal('show');
-    }
-    $(document).ready(function() {
-        $('tr').click(function() {
-            openModal();
-        });
-    });
-	</script>
+	
 	<!-- jQuery -->
 
 </body>
