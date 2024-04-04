@@ -16,10 +16,10 @@ public class GetUpdateProductPage {
 	@Autowired
 	ProductService productService;
 	
-	@GetMapping("/GetUpdateProductPage")
+	@GetMapping("/getUpdateProductPage")
 	public String getProductData(ProductDTO productDTO, Model model, HttpSession session) {
 		
-		productDTO.setSearchCondition("ProductDatas");
+		productDTO.setSearchCondition("getProductData");
 		model.addAttribute("productDatas", productService.selectAll(productDTO));
 		
 		return "admin/product/productUpdate";

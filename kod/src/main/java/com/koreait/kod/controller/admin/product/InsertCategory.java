@@ -17,8 +17,9 @@ public class InsertCategory {
 	@PostMapping("/insertCategory")
 	public String insertCategory(CategoryDTO categoryDTO, Model model) {
 		
+		categoryService.insert(categoryDTO);
 		model.addAttribute("categoryDatas", categoryService.selectAll(categoryDTO));
 		
-		return "admin/product/categoryManagePage";
+		return "redirect:/getCategoryManagePage";
 	}
 }
