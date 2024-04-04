@@ -436,6 +436,9 @@ public class ProductDAO {
 //			+ "WHERE P.PRODUCT_CATEGORY = ? "
 //			+ "AND ROWNUM <= 4";
 	
+	private static final String SELECTONE_GET_PRODUCT_NAME=
+			"SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT WHERE PRODUCT_ID=?";
+	
 	private static final String SELECTONE_PRODUCT_DETAIL_LOGIN = // 상품상세페이지 - 로그인상태
 			"SELECT "
 			+ "    P.PRODUCT_ID, "
@@ -556,7 +559,7 @@ public class ProductDAO {
 			+ "    ORDER BY MEMBER_COUNT DESC, AGE_RANGE ASC "
 			+ ") WHERE ROWNUM = 1";
 	
-	private static final String SELECTONE_PRODUCT_ID=
+	private static final String SELECTONE_GET_PRODUCT_ID=
 			"SELECT PRODUCT_ID FROM PRODUCT WHERE PRODUCT_NAME=?";
 	
 	private static final String INSERT=
@@ -623,12 +626,18 @@ public class ProductDAO {
 	}
 
 	public ProductDTO selectOne(ProductDTO productDTO) {
-		try {
-			Object[] args = { productDTO.getProductName() };
-			return jdbcTemplate.queryForObject(SELECTONE_PRODUCT_ID, args, new productRowMapperGetProductID());
-		} catch (Exception e) {
-			return null;
-		}
+			if(productDTO.getSearchCondition().equals("getProductID")) { // 상품등록 시 사용
+				Object[] args = { productDTO.getProductName() };
+			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_ID, args, new productRowMapperGetProductID());
+			}
+			else if(productDTO.getSearchCondition().equals("getProductName")) { // 결제 시 사용
+				Object[] args = { productDTO.getProductID() };
+			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_NAME, args, new productRowMapperGetProductName());
+			}
+			else {
+				return null;
+			}
+			
 	}
 
 	public boolean insert(ProductDTO productDTO) {
@@ -761,7 +770,22 @@ class productRowMapperGetProductID implements RowMapper<ProductDTO>{
 	@Override
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO productDTO= new ProductDTO();
+		System.out.println("[로그:정현진] productRowMapperGetProductID : "+rs.getInt("PRODUCT_ID"));
 		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
+		return productDTO;
+	}
+}
+
+// 상품명 반환 - 결제 시 활용
+class productRowMapperGetProductName implements RowMapper<ProductDTO>{
+	
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO productDTO= new ProductDTO();
+		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
+		productDTO.setProductName(rs.getString("PRODUCT_Name"));
+		System.out.println("[로그:정현진] 상품ID : "+rs.getInt("PRODUCT_ID"));
+		System.out.println("[로그:정현진] 상품명 : "+rs.getString("PRODUCT_Name"));
 		return productDTO;
 	}
 }
