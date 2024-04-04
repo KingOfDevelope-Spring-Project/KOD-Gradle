@@ -129,29 +129,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<thead>
 											<tr>
 												<th><input type="checkbox" onmouseup=""></th>
-												<th>번호</th>
-												<th>상품번호</th>
+												<th></th>
 												<!-- <th>상품 이미지</th> -->
 												<th>상품명</th>
 												<th>상품가격</th>
 												<th>브랜드</th>
 												<th>카테고리</th>
-												<th>상품정보</th>
 												<th>재고</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach items="${productsDatas}" var="product" varStatus="i" begin="0" step="1">
-											<tr>
+											<tr onclick="location.href='/getUpdateProductPage?productID=${product.productID}'">
 												<td><input type="checkbox"></td>
 												<td>${i.count}</td>
-												<td>${product.productID}</td>
 												<%-- <td>${product.productImg}</td> --%>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
 												<td>${product.productBrand}</td>
 												<td>${product.productCategory}</td>
-												<td>${product.productInfo}</td>
 												<td>${product.productStock}</td>
 											</tr>
 											</c:forEach>
@@ -220,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				"paging" : true,
 				"lengthChange" : false,
 				"searching" : false,
-				"ordering" : false,
+				"ordering" : true,
 				"info" : true,
 				"autoWidth" : false,
 				"responsive" : true,

@@ -25,6 +25,7 @@
 					class="nav-link">쿠폰 관리</a></li>
 				<li class="nav-item d-none d-sm-inline-block"><a href="/getReviewManagePage"
 					class="nav-link">리뷰 관리</a></li>
+				<button class="btn btn-primary btn-right" onclick="logout()" style="margin-left: 400px;">로그아웃</button>	
 			</ul>
 
 			<!-- Right navbar links -->
@@ -288,4 +289,10 @@
 			<!-- /.sidebar -->
 		</aside>
 </body>
+
+<script>
+	function logout(){
+		location.href='/logout'
+	};
+</script>
 </html>
