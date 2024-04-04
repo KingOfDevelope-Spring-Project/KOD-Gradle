@@ -183,7 +183,7 @@
 var priceList = document.querySelectorAll('tr td.price');
 var $priceList = [];
 priceList.forEach(data => {
-        $priceList.push(data.textContent);
+        $priceList.push(data.textContent.replace('원',''));
 });
 // 선택박스 변경 시 실행할 함수
 function selectBoxController(selectBox){
