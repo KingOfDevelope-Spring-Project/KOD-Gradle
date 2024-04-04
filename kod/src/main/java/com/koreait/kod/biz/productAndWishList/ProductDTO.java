@@ -22,7 +22,6 @@ public class ProductDTO {
 	private String productName; // 상품 이름
 	private String productInfo; // 상품 정보 
 	private String productImg; // 상품이미지
-	private int ImageID;
 	private String searchCondition;
 	// 찜 여부를 확인하기 위한 멤버변수
 	private String memberID; // 위시리스트 여부 저장할 멤버 변수
