@@ -120,6 +120,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 목록</h3>
+									<button class="btn btn-primary btn-right" onclick="location.href='/excel/product'" style="margin-left: auto;">Excel다운로드</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">

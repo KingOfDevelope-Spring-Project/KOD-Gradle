@@ -40,7 +40,7 @@
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
-	<c:set var="cDatas" value="${cartDTO}" />
+	<c:set var="cDatas" value="${cartDatas}" />
 	<%-- <c:set var="memberDTO" value="${sessionScope.memberDTO}" /> --%>
 	<section class="cart">
 		
