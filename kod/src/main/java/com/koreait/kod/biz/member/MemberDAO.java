@@ -105,7 +105,6 @@ public class MemberDAO {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
 		}catch(Exception e) {
-			System.err.println("ㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅂㅂㅂㅂㅂ");
 			return null;
 		}
 	}
