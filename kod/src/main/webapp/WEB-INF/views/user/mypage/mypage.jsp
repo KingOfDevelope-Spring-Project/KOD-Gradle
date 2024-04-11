@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.dto.*" %>
+	pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +75,7 @@
 	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include> 
 <div class="container mypage musinsa" >
 	<main class="content" style="height: 100%; margin-bottom: 10vh;">
-		<div id="commonMypage" style="position : absolute; top: 30%; left: 10%;">
+		<div id="commonMypage" style="position : absolute; left: 10%;">
 			<nav class="sc-1t1fxnz-0 bdKVYa">
 				<div class="sc-1t1fxnz-3 dMLoMw">
 					<h3>나의 쇼핑 활동</h3>
@@ -97,10 +96,11 @@
 			<h1 class="hidden">회원 정보 변경</h1>
 			<!-- 기본 회원정보 -->
 			<section class="n-section-block">
-				<header class="n-section-title first info_views-area">
+				<header class="n-section-title first info_views-area" style="justify-content: space-between">
 					<h1 class="tit">
 						개인정보변경 <span></span>
 					</h1>
+				<button type="button" class="n-btn btn-sm btn-lighter" onclick="location.href='/withDrawal'">회원탈퇴</button>
 				</header>
 				<table class="n-table table-row my-info-modify">
 					<colgroup>
@@ -630,7 +630,6 @@
  		document.getElementById('emailform').submit();
  	}
 	</script>
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

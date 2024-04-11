@@ -59,7 +59,7 @@
 								<h3>
 									스피커<br>Collection
 								</h3>
-								<a href="/getStorePage?page=" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="${store}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</a>
@@ -152,7 +152,7 @@
 							<div id="tab1" class="tab-pane active">
 								<div class="products-slick" data-nav="#slick-nav-1">
 									<!-- product -->
-									<c:forEach var="item" items="${popularAllItems}">
+										<c:forEach var="item" items="${popularAllItems}">
 										<div class="col-md-4 col-xs-6" style="margin-top: 30px;">
 											<div class="product">
 												<div class="product-body">
