@@ -130,7 +130,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<thead>
 											<tr>
 												<th><input type="checkbox" onmouseup=""></th>
-												<th></th>
 												<!-- <th>상품 이미지</th> -->
 												<th>상품명</th>
 												<th>상품가격</th>
@@ -143,7 +142,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											<c:forEach items="${productsDatas}" var="product" varStatus="i" begin="0" step="1">
 											<tr onclick="location.href='/getUpdateProductPage?productID=${product.productID}'">
 												<td><input type="checkbox"></td>
-												<td>${i.count}</td>
 												<%-- <td>${product.productImg}</td> --%>
 												<td>${product.productName}</td>
 												<td>${product.productPrice}</td>
