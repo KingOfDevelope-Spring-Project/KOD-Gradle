@@ -80,7 +80,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													<th>이메일</th>
 													<th>등급</th>
 													<th>생년월일</th>
-													<th>상태</th>
 													<th>복구</th>
 												</tr>
 											</thead>
@@ -89,11 +88,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<tr>
 													<td>${member.memberID}</td>
 													<td>${member.memberName}</td>
-													<td>${member.memberPhNum}</td>
+													<td>${member.memberPhoneNumber}</td>
 													<td>${member.memberEmail}</td>
 													<td>${member.memberGrade}</td>
 													<td>${member.memberBirth}</td>
-													<td>${member.memberStatus}</td>
 													<td><button class="btn btn-success btn-sm" type="submit">복구</button></td>
 												</tr>
 												</c:forEach>
