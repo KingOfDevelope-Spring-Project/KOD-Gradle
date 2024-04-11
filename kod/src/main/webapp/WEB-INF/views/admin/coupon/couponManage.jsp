@@ -67,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-info">
 				              <div class="inner">
-				                <h3>50</h3>
+				                <h3>${fn:length(couponDatas)}</h3>
 				
 				                <p>총 발급된 쿠폰</p>
 				              </div>
@@ -78,7 +78,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-success">
 				              <div class="inner">
-				                <h3>3</h3>
+				              	<c:set var="autoCoupon" value="0" />
+				                <c:forEach items="${couponDatas}" var="coupon">
+				                	<c:if test="${coupon.couponType eq 'auto'}">
+					                	<c:set var="autoCoupon" value="${adminCoupon + 1}" />
+				                	</c:if>
+				                </c:forEach>
+				                <h3>${autoCoupon}</h3>
 				
 				                <p>자동 발행 쿠폰 수량</p>
 				              </div>
@@ -91,7 +97,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				            <!-- small box -->
 				            <div class="small-box bg-warning">
 				              <div class="inner">
-				                <h3>47</h3>
+				              	<c:set var="adminCoupon" value="0" />
+				                <c:forEach items="${couponDatas}" var="coupon">
+				                	<c:if test="${coupon.couponType eq 'adminIssue'}">
+					                	<c:set var="adminCoupon" value="${adminCoupon + 1}" />
+				                	</c:if>
+				                </c:forEach>
+				                <h3>${adminCoupon}</h3>
 				
 				                <p>관리자 발행 쿠폰 수량</p>
 				              </div>
