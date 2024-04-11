@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>	
+	
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="EUC-KR">
-<title>°èÁ¤ º¹±¸ ½ÅÃ» ÆäÀÌÁö</title>
+<title>ê³„ì • ë³µêµ¬ ì‹ ì²­ íŽ˜ì´ì§€</title>
 
 <!-- Theme style -->
 <link rel="stylesheet" href="resources/dist/css/adminlte.min.css">
@@ -32,14 +32,14 @@
 <!-- Font Awesome Icon -->
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
 
-<!-- ·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä. -->
+<!-- ë¡œê·¸ì¸ í›„ ì´ìš©í•´ì£¼ì„¸ìš”. -->
 <link rel="stylesheet" href="resources/css/checkLogin.css">
 
 <!-- Custom stlylesheet -->
 <link rel="stylesheet" href="resources/css/style.css" />
 </head>
 <body>
-	<!-- UNREGISTER Å»Åð ½ÅÃ» »óÅÂ È¸¿ø -->
+	<!-- UNREGISTER íƒˆí‡´ ì‹ ì²­ ìƒíƒœ íšŒì› -->
 	
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -52,7 +52,7 @@
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-12">
-					<h3 class="breadcrumb-header">°èÁ¤ º¹±¸ ½ÅÃ» ÆäÀÌÁö</h3>
+					<h3 class="breadcrumb-header">ê³„ì • ë³µêµ¬ ì‹ ì²­ íŽ˜ì´ì§€</h3>
 				</div>
 			</div>
 			<!-- /row -->
@@ -70,17 +70,17 @@
 
 		<form method="post" action="/requestMemberRestoration"
 			id="restoreForm" style="margin: 0 auto; width: 40%;">
-			<label for="memberName">ÀÌ¸§</label>
+			<label for="memberName">ì´ë¦„</label>
 			<input type="text" class="input" name="memberName" id="memberName" value="${member.memberName}" readonly><br><br>
-			<label for="memberID">¾ÆÀÌµð</label>
+			<label for="memberID">ì•„ì´ë””</label>
 			<input type="text" class="input" name="memberID" id="memberID" value="${member.memberID}" readonly><br><br>
-			<label for="memberEmail">ÀÌ¸ÞÀÏ</label>
+			<label for="memberEmail">ì´ë©”ì¼</label>
 			<input type="text" class="input" name="memberEmail" id="memberEmail" value="${member.memberEmail}" readonly><br><br>
-			<label for="memberPhoneNumber">ÇÚµåÆù</label>
+			<label for="memberPhoneNumber">í•¸ë“œí°</label>
 			<input type="text" class="input" name="memberPhoneNumber" id="memberPhoneNumber" value="${member.memberPhoneNumber}" readonly> <br><br>
 			 
 			 <input type="submit" class="btn btn-primary btn-right"
-				value="¾ÆÀÌµð º¹±¸½ÅÃ»">
+				value="ì•„ì´ë”” ë³µêµ¬ì‹ ì²­">
 		</form>
 
 		<!-- /row -->
