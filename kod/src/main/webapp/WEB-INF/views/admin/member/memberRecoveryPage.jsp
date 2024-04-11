@@ -69,48 +69,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<!-- <button type="button" class="btn btn-primary" style="margin-left: 85%;">신규 쿠폰 발급</button> -->
 								</div>
 								<!-- /.card-header -->
-								<div class="card-body">
-									<table id="example2" class="table table-bordered table-hover">
-										<thead>
-											<tr>
-												<th>번호</th>
-												<th>회원ID</th>
-												<th>이름</th>
-												<th>전화번호</th>
-												<th>이메일</th>
-												<th>등급</th>
-												<th>생년월일</th>
-												<th>상태</th>
-												<th>복구</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%-- <c:forEach items="${memberList}" var="member" varStatus="i" begin="0" step="1">
-											<tr>
-												<td>${i.count}</td>
-												<td>${member.memberID}</td>
-												<td>${member.memberName}</td>
-												<td>${member.memberPhNum}</td>
-												<td>${member.memberEmail}</td>
-												<td>${member.memberGrade}</td>
-												<td>${member.memberBirth}</td>
-												<td>${member.memberStatus}</td>
-											</tr>
-											</c:forEach> --%>
-											<tr>
-												<td>1</td>
-												<td>user1</td>
-												<td>홍길동</td>
-												<td>010-1234-5678</td>
-												<td>test@naver.com</td>
-												<td>bronze</td>
-												<td>980824</td>
-												<td>복구신청</td>
-												<td><button class="btn btn-success btn-sm">복구</button></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+								<form action="/memberRecovery" method="POST">
+									<div class="card-body">
+										<table id="example2" class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>회원ID</th>
+													<th>이름</th>
+													<th>전화번호</th>
+													<th>이메일</th>
+													<th>등급</th>
+													<th>생년월일</th>
+													<th>상태</th>
+													<th>복구</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${memberDatas}" var="member">
+												<tr>
+													<td>${member.memberID}</td>
+													<td>${member.memberName}</td>
+													<td>${member.memberPhNum}</td>
+													<td>${member.memberEmail}</td>
+													<td>${member.memberGrade}</td>
+													<td>${member.memberBirth}</td>
+													<td>${member.memberStatus}</td>
+													<td><button class="btn btn-success btn-sm" type="submit">복구</button></td>
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</form>
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
@@ -178,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       "paging": true,
       "lengthChange": false,
       "searching": false,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "autoWidth": false,
       "responsive": true,
@@ -188,6 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
+
 	<!-- jQuery -->
 
 </body>
