@@ -61,23 +61,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="container-fluid">
 					<div class="row">
 						<!-- Small boxes (Stat box) -->
-				          <div class="col-lg-4 col-6">
+				          <div class="col-lg-6 col-6">
 				            <!-- small box -->
 				            <div class="small-box bg-info">
 				              <div class="inner">
-				                <h3>150</h3>
+			                	<h3>${fn:length(productDatas)}</h3>
 				
 				                <p>상품 개수</p>
 				              </div>
-				              <div class="icon">
-				                <i class="ion ion-bag"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				            </div>
 				          </div>
 				          <!-- ./col -->
-				          <div class="col-lg-4 col-6">
-				            <!-- small box -->
+				          <!-- <div class="col-lg-4 col-6">
+				            small box
 				            <div class="small-box bg-warning">
 				              <div class="inner">
 				                <h3>44</h3>
@@ -89,20 +85,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				              </div>
 				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				            </div>
-				          </div>
+				          </div> -->
 				          <!-- ./col -->
-				          <div class="col-lg-4 col-6">
+				          <div class="col-lg-6 col-6">
 				            <!-- small box -->
 				            <div class="small-box bg-danger">
 				              <div class="inner">
-				                <h3>65</h3>
-				
-				                <p>재고 부족</p>
+				              	
+				                <c:forEach items="${productDatas}" var="product">
+				                	<c:if test="${product.productStock < 10}">
+					                	<c:set var="outOfStock" value="${outOfStock + 1}" />
+				                	</c:if>
+				                </c:forEach>
+								<h3>${outOfStock}</h3>
+									
+				                <p>재고 부족(단위 : 항목)</p>
 				              </div>
-				              <div class="icon">
-				                <i class="ion ion-pie-graph"></i>
-				              </div>
-				              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				            </div>
 				          </div>
 				          <!-- ./col -->
@@ -112,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="card">
 								<div class="card-header" style="display: flex; justify-content: space-between;">
 									<h3 class="card-title" style="margin-top: 0.6%;">상품 목록</h3>
-									<button type="button" class="btn btn-primary" style="margin-left: auto;;">신규 상품 등록</button>
+									<button type="button" class="btn btn-primary" onclick="location.href='/insertProductPage'" style="margin-left: auto;">신규 상품 등록</button>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body">
@@ -130,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${productList}" var="product" varStatus="i" begin="0" step="1">
+											<c:forEach items="${productDatas}" var="product" varStatus="i" begin="0" step="1">
 											<tr>
 												<td>${i.count}</td>
 												<td>${product.productID}</td>
