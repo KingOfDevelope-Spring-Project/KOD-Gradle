@@ -15,30 +15,32 @@ public class CartDAO {
 	private JdbcTemplate jdbcTemplate; // 의존관계 -> DI(의존주입) -> @Autowired
 	
 			// 장바구니 전체 상품 조회
-	private static final String SELECTALL="SELECT "
+	private static final String SELECTALL=""
+			+ "SELECT "
 			+ "C.CART_ID, "
 			+ "C.PRODUCT_ID, "
 			+ "P.PRODUCT_NAME, "
 			+ "P.PRODUCT_PRICE, "
-			+ "SUM(P.PRODUCT_PRICE * CART_PRODUCT_CNT) AS SUM_PRODUCT_PRICE, "
+			+ "P.PRODUCT_PRICE * CART_PRODUCT_CNT AS SUM_PRODUCT_PRICE, "
 			+ "C.CART_PRODUCT_CNT, "
-			+ "MIN(I.IMAGE_ID) AS IMAGE_ID,"
-			+ "(SELECT IMAGE_URL "
+			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
+			+ "(SELECT "
+			+ "IMAGE_URL "
 			+ "FROM IMAGE "
 			+ "WHERE IMAGE_ID = MIN(I.IMAGE_ID)) AS IMAGE_URL "
-			+ "FROM CART C JOIN PRODUCT P ON P.PRODUCT_ID = C.PRODUCT_ID "
+			+ "FROM CART C "
+			+ "JOIN PRODUCT P ON P.PRODUCT_ID = C.PRODUCT_ID "
 			+ "LEFT JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID "
 			+ "WHERE C.MEMBER_ID = ? "
-			+ "GROUP BY C.CART_ID,C.PRODUCT_ID,P.PRODUCT_NAME,P.PRODUCT_PRICE";
+			+ "GROUP BY C.CART_ID ";
 	
 			// 장바구니 개별상품 조회
-	private static final String SELECTONE=
-			"SELECT "
+	private static final String SELECTONE="SELECT "
 			+ "C.CART_ID, "
 			+ "C.PRODUCT_ID, "
 			+ "P.PRODUCT_NAME, "
 			+ "P.PRODUCT_PRICE, "
-			+ "SUM(P.PRODUCT_PRICE * CART_PRODUCT_CNT) AS SUM_PRODUCT_PRICE, "
+			+ "P.PRODUCT_PRICE * CART_PRODUCT_CNT AS SUM_PRODUCT_PRICE, "
 			+ "C.CART_PRODUCT_CNT, "
 			+ "P.CATEGORY_ID, "
 			+ "MIN(I.IMAGE_ID) AS IMAGE_ID, "
@@ -50,7 +52,8 @@ public class CartDAO {
 			+ "JOIN PRODUCT P ON P.PRODUCT_ID = C.PRODUCT_ID "
 			+ "LEFT JOIN IMAGE I ON P.PRODUCT_ID = I.PRODUCT_ID "
 			+ "WHERE C.PRODUCT_ID=? AND C.MEMBER_ID=? "
-			+ "GROUP BY C.CART_ID, C.PRODUCT_ID, P.PRODUCT_NAME, P.PRODUCT_PRICE ";
+			+ "GROUP BY C.CART_ID, C.PRODUCT_ID;";
+			
 			// 장바구니 상품추가
 	private static final String INSERT="INSERT INTO CART(MEMBER_ID,PRODUCT_ID,CART_PRODUCT_CNT) VALUES (?,?,?)";
 			// 장바구니 상품 수량변경
@@ -84,7 +87,7 @@ public class CartDAO {
 			e.printStackTrace();
 			return null;
 		}
-		
+//		
 	}
 	public boolean insert(CartDTO cartDTO) {
 		int result = jdbcTemplate.update(INSERT,cartDTO.getMemberID(),cartDTO.getProductID(),cartDTO.getCartProductCnt());
