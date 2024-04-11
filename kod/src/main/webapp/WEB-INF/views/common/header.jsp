@@ -31,7 +31,7 @@
 				<c:if test="${memberID != null}">
 					<ul class="header-links pull-right">
 						<li><a href="/logout"><i class="fa fa-user-o"></i> 로그아웃</a></li>
-						<li><a href="/getMypage"><i class="fa fa-user-o"></i> 마이페이지</a></li>
+						<li><a href="/myPage"><i class="fa fa-user-o"></i> 마이페이지</a></li>
 					</ul>
 				</c:if>
 			</div>
