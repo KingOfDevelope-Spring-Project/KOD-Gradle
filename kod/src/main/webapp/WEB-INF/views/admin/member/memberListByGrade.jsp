@@ -68,7 +68,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="card-header" style="display: flex; justify-content: flex-start;">
 									<h3 class="card-title" style="margin-top: 0.6%;">등급별 회원 목록</h3>
 									<select class="form-control select2" id="grade-type" name="memberGrade" style="width: 15%; margin-left: 2%;">
-					                    <option selected style="display: none;"></option>
 					                    <option value="BRONZE">Bronze</option>
 					                    <option value="SILVER">Silver</option>
 					                    <option value="GOLD">Gold</option>
@@ -229,8 +228,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
   });
 </script>
 
+	<script>
+		// 페이지가 로드될 때 실행되는 함수
+		window.onload = function() {
+		    // 저장된 등급 값을 가져옴
+		    var selectedGrade = localStorage.getItem('selectedGrade');
+		    // 등급이 저장되어 있다면 해당 등급을 선택함
+		    if(selectedGrade) {
+		        document.getElementById('grade-type').value = selectedGrade;
+		    }
+		}
+	
+		// 등급을 선택할 때 실행되는 함수
+		document.getElementById('grade-type').addEventListener('change', function() {
+		    // 선택된 등급을 가져와서 저장함
+		    var selectedGrade = document.getElementById('grade-type').value;
+		    localStorage.setItem('selectedGrade', selectedGrade);
+		});
+	</script>
 
-<script>
+<!-- <script>
 document.getElementById('grade-type').addEventListener('change', function() {
 	  var bronzeSection = document.getElementById('bronze');
 	  var silverSection = document.getElementById('silver');
@@ -263,7 +280,7 @@ document.getElementById('grade-type').addEventListener('change', function() {
 		  vipSection.style.display = 'none';
 	  }
 	});
-</script>
+</script> -->
 	<!-- jQuery -->
 
 </body>

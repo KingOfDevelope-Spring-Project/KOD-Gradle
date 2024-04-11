@@ -89,7 +89,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 												<td>${i.count}</td>
 												<td>${member.memberID}</td>
 												<td>${member.memberName}</td>
-												<td>${member.memberPhNum}</td>
+												<td>${member.memberPhoneNumber}</td>
 												<td>${member.memberEmail}</td>
 												<td>${member.memberGrade}</td>
 												<td>${member.memberRole}</td>
