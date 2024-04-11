@@ -10,9 +10,15 @@
 <body>
 
 
+<div id="test" style="display: none;">${msg}</div>
+
 <script>
-	alert('${msg}');
-	location.href='main.do';
+//window.onload(()=>{
+var msg = document.getElementById('test').textContent;
+			console.log(msg);
+	alert(msg);
+	location.href='/';
+//})
 </script>
 
 </body>

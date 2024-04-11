@@ -33,7 +33,7 @@ public class MemberDAO {
 			+ "FROM MEMBER ";
 		
 	private static final String SELECTONE_LOGIN=
-			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
+			"SELECT MEMBER_ID,MEMBER_ROLE,MEMBER_NAME,MEMBER_PHONENUMBER,MEMBER_EMAIL  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
     
     // 테이블에 특정 회원 정보조회를 하기위한 쿼리문
@@ -45,6 +45,15 @@ public class MemberDAO {
             + "FROM MEMBER "
             // WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
             + "WHERE MEMBER_ID=?";
+    // 테이블에 특정 회원 정보조회를 하기위한 쿼리문
+    private static final String SELECTONE_RESTORE = "SELECT"
+    		// 회원 아이디, 비밀번호, 이름, 핸드폰 번호, 이메일, 등급, 성별, 생년월일 정보를 선택
+    		+ "MEMBER_ID, "
+    		+ "MEMBER_EMAIL "
+    		// 회원 테이블에서 데이터를 가져옴
+    		+ "FROM MEMBER "
+    		// WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
+    		+ "WHERE MEMBER_ID=? AND MEMBER_EMAIL = ? ";
     
 	private static final String SELECTONE_MEMBER_COUNT=
 			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER";
@@ -116,7 +125,7 @@ public class MemberDAO {
 		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
 			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
-		}
+		}		
 		else if(memberDTO.getSearchCondition().equals("memberCount")) {
 			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
 		}
@@ -124,6 +133,17 @@ public class MemberDAO {
             Object[] args = { memberDTO.getMemberID()};
                return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberIDCKRowMapper() );
 		}
+		else if(memberDTO.getSearchCondition().equals("memberInfo")){
+			System.out.println("[로그:구본승] memberinfo 들어옴");
+			System.out.println("[로그:구본승] memberinfo memberID"+memberDTO.getMemberID());
+			Object[] args = { memberDTO.getMemberID()};
+			return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberRowMapper() );
+		}
+		else if(memberDTO.getSearchCondition().equals("restore")){
+			Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberEmail()};
+			return jdbcTemplate.queryForObject(SELECTONE_RESTORE, args, new MemberRestoreRowMapper() );
+		}
+		
 		else {
 			return null;
 		}
@@ -237,6 +257,9 @@ class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<Me
 		System.out.println("[로그:정현진] memberID = "+rs.getString("MEMBER_ID"));
 		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
 		memberDTO.setMemberRole(rs.getString("MEMBER_ROLE"));
+		memberDTO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+		memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
+		memberDTO.setMemberPhoneNumber(rs.getString("MEMBER_PHONENUMBER"));
 		return memberDTO;
 	}
 }
@@ -250,6 +273,17 @@ class MemberIDCKRowMapper implements RowMapper<MemberDTO>{
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
 		System.out.println("[로그:구본승] memberID = "+rs.getString("MEMBER_ID"));
+		return memberDTO;
+	}
+}
+class MemberRestoreRowMapper implements RowMapper<MemberDTO>{
+	
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:구본승] MemberRestoreRowMapper 들어옴" );
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
+		memberDTO.setMemberID(rs.getString("MEMBER_EMAIL"));
 		return memberDTO;
 	}
 }
