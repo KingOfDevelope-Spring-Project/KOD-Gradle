@@ -1,4 +1,4 @@
-package com.koreait.kod.controller.user.review;
+package com.koreait.kod.controller.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -77,16 +77,16 @@ public class FileUploadAndCopyService {
                         System.out.println("[로그:정현진] thumnailFilePath : "+thumnailFileUploadDir+File.separator+"thumbnail_" + uuid + "_" + originalFilename);
 //                        Path targetPath = Paths.get(thumnailFileUploadDir+getPath()); // 절대 경로
 //                        System.out.println("[로그:정현진] targetPath : "+targetPath);
-                        int num = thumnaulFilePathForKOD.lastIndexOf("kod"); // 마지막으로 나오는 파일 구분자(.metadata)
+                        int num = thumnaulFilePathForKOD.lastIndexOf("uploads"); // 마지막으로 나오는 파일 구분자(.metadata)
                         String relativePath = thumnaulFilePathForKOD.substring(0, num);
                         System.out.println("[로그:정현진] relativePath : "+relativePath);
                         relativePath = thumnaulFilePathForKOD.replace(relativePath, "");
                         System.out.println("[로그:정현진] relativePath : "+File.separator+relativePath+File.separator+getPath()+"thumbnail_" + uuid + "_" + originalFilename);
-                        imageUrlList.add(File.separator+relativePath+File.separator+getPath()+"thumbnail_" + uuid + "_" + originalFilename);
+                        imageUrlList.add(File.separator+relativePath+getPath()+"thumbnail_" + uuid + "_" + originalFilename);
                     } else {
                         // 썸네일생성 실패 시 원본 파일의 imageUrl을 imageUrlList에 추가
                     	imageUrlList.add(originFilePath+File.separator+uuid + "_" + originalFilename);
-                    }
+                    } 
                 } catch (IOException e) {
                     e.printStackTrace(); // 적절한 로깅 또는 예외 처리 추가
                     // 파일 복사 실패 시 예외 처리
