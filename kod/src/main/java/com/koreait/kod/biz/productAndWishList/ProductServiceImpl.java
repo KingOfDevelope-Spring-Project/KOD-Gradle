@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductDTO> selectAll(ProductDTO productDTO) {
 
-		if (productDTO.getSearchCondition().equals("searchBycondition")) {
+		if (productDTO.getSearchCondition().equals("allProductsDatas")) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("productID", productDTO.getProductID());
 			map.put("productName", productDTO.getProductName());
