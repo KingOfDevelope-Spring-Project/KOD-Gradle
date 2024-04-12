@@ -113,6 +113,9 @@
 									</tr>
 								</tbody>
 							</c:forEach>
+							<c:forEach items="${couponDatas}" var="coupon">
+								<input name="${coupon.couponID}" type="number" style="display:none;" value="${coupon.couponDiscountMaxPrice}"/>
+							</c:forEach>
 						</c:if>
 									
 						
@@ -195,7 +198,6 @@
 <script>
 function validateAndSubmitForm() {
 	console.log('validateAndSubmitForm 함수 실행됨');
-
 	$('.couponSelectBox').each(function(index) {
 			var selectedCoupon = $(this).val(); // 선택된 쿠폰ID 가져오기
 			var selectedClass = $(this).attr('class'); // 선택된 쿠폰 선택상자의 클래스 가져오기
@@ -205,7 +207,6 @@ function validateAndSubmitForm() {
 					var selectedOption = $(this).find('option:selected'); // 선택된 option 요소 가져오기
 					var selectedCouponClass = selectedOption.attr('class'); // 선택된 option의 class 속성 값 가져오기 (couponID 값)
 					console.log('선택된 쿠폰ID (couponID): ' + selectedCouponClass);
-
 					// 숨겨진 input 필드에 쿠폰ID 설정
 					$('input[name="couponIDs"]').eq(index).val(selectedCouponClass);
 			} else {
@@ -219,10 +220,6 @@ function validateAndSubmitForm() {
 }
 </script>
 
-
-
-
-
 <script>
 	// 상품들의 원가격을 저장하는 배열
 var priceList = document.querySelectorAll('tr td.price');
@@ -230,9 +227,6 @@ var $priceList = [];
 priceList.forEach(data => {
         $priceList.push(data.textContent);
 });
-
-
-
 // 선택박스 변경 시 실행할 함수
 function selectBoxController(selectBox){
 
@@ -252,27 +246,32 @@ function selectBoxController(selectBox){
     $couponID = $selectBoxes.eq($selectBoxId).find('option:selected').attr('class');
     console.log('선택된 couponID : '+$couponID);
 
-		$(`input[name="couponIDs[${$selectBoxId}]"]`).val($couponID);
+	$(`input[name="couponIDs[${$selectBoxId}]"]`).val($couponID);
 
     // 가격을 수정하기 위해 가져오기
     var $price = $('tr td.price').eq($selectBoxId).text().replace('원', '');
     console.log('가격 : ' + $price)
 
-       // 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
+    // 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
     $selectBoxIds.forEach(selectBoxId => {
       console.log('반복문 실행');
+    var couponDiscountMaxPrice = document.querySelector('input[name="'+$couponID+'"]');
       if(selectBoxId != $selectBoxId){
         console.log('조건문 실행');
         if($couponID == '-1'){ // 쿠폰을 선택하지 않은 경우
-	console.log($price);
-	$('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
-	$selectBoxes.eq(selectBoxId).find('option').show();
-        }else{
-	console.log($selectBox.value); // 할인율 : 10
-	$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-$priceList[$selectBoxId].replace('원','')*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
-               $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
-        }
-        changeTotalPrice();
+			console.log($price);
+			$('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
+			$selectBoxes.eq(selectBoxId).find('option').show();
+    	}else{
+			console.log($selectBox.value); // 할인율 : 10
+			console.log(couponDiscountMaxPrice.textContent);
+			if(($priceList[$selectBoxId].replace('원','')*($selectBox.value/100))>=couponDiscountMaxPrice.textContent){
+				console.log('가격변동')
+				$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-couponDiscountMaxPrice.textContent))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+	            $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
+		        }
+			}
+	        changeTotalPrice();
       }
     });
   }
@@ -285,16 +284,6 @@ function changeTotalPrice(){
 	})
 	$('strong.order-total').text(total);
 }
-
-
-
-
-
 </script>
-
-
-
-
-
 </body>
 </html>
