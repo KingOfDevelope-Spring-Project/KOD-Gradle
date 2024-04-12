@@ -66,7 +66,7 @@
 								</tr>
 								<tr>
 									<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; ">이름 / 연락처</th>
-									<td style="background-color: white; border: 1px solid gray; text-align: left;"> ${memberDTO.memberName} | ${memberDTO.memberPhoneNumber} </td>
+									<td style="background-color: white; border: 1px solid gray; text-align: left;"> ${addressDatas.memberName} | ${addressDatas.memberPhoneNumber} </td>
 								</tr>
 								<tr>
 									<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden;">주소</th>
@@ -123,44 +123,55 @@
 						<div class="section-title text-center">
 							<h3 class="title">Your Order</h3>
 						</div>
-						<form action="/getKakaoPayPage" method="get">
-						<div class="order-summary">
-			
-							<div class="order-col">
-								<div>배송비</div>
-								<div><strong>FREE</strong></div>
-							</div>
-							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<c:if test="${productDatasSize >= 1}">
-									<c:set var="total" value="0"></c:set>
-									<c:forEach var="payInfoData" items="${productDatas}">
-										<c:set var="total" value="${total + payInfoData.productPrice*payInfoData.cartProductCnt}"></c:set>
-									</c:forEach>
-								</c:if>
-								<c:if test="${productDatasSize < 1}">
-									<c:set var="nowTotal" value="${param.productPrice*param.cartProductCnt}"></c:set>
-								</c:if>
-								<c:if test="${productDatasSize >= 1}">
-									<div style="text-align: right;"><strong class="order-total" >${total}원</strong></div>
-									<input type="hidden" name="totalPrice" value="${total}">
-								</c:if>
-								<c:if test="${productDatasSize < 1}">
-									<div style="text-align: right;"><strong class="order-total" >${nowTotal}원</strong></div>
-									<input type="hidden" name="totalPrice" value="${nowTotal}">
-								</c:if>
-							</div>
-						</div>
-						<div class="payment-method" style="align-items: center; display: flex;">
-							<div style="display: inline-block; "><strong>결제수단</strong></div>
-							<select class="input-select" id="pgSelect" name="paymentProvider" style="display: inline-block; position: absolute; right: 4%; ">
-								<option value="kakaopay">카카오페이</option>
-								<option value="tosspay">토스페이</option>
-								<option value="html5_inicis">이니시스</option>
-							</select>
-						</div>
-						<button type="submit" class="primary-btn order-submit" style="width: 50%; margin-left: 25%">결제하기</button>
-						</form>
+	<form action="/getKakaoPayPage" method="get">
+    <div class="order-summary">
+        <div class="order-col">
+            <div>배송비</div>
+            <div><strong>FREE</strong></div>
+        </div>
+        <div class="order-col">
+            <div><strong>TOTAL</strong></div>
+            <c:if test="${productDatasSize >= 1}">
+                <c:set var="total" value="0"></c:set>
+                <c:forEach var="payInfoData" items="${productDatas}">
+                    <c:set var="total" value="${total + payInfoData.productPrice * payInfoData.cartProductCnt}"></c:set>
+                </c:forEach>
+            </c:if>
+            <c:if test="${productDatasSize < 1}">
+                <c:set var="nowTotal" value="${param.productPrice * param.cartProductCnt}"></c:set>
+            </c:if>
+            <c:if test="${productDatasSize >= 1}">
+                <div style="text-align: right;"><strong class="order-total">${total}원</strong></div>
+                <input type="hidden" name="totalPrice" value="${total}">
+            </c:if>
+            <c:if test="${productDatasSize < 1}">
+                <div style="text-align: right;"><strong class="order-total">${nowTotal}원</strong></div>
+                <input type="hidden" name="totalPrice" value="${nowTotal}">
+            </c:if>
+        </div>
+    </div>
+    <div class="payment-method" style="align-items: center; display: flex;">
+        <div style="display: inline-block;"><strong>결제수단</strong></div>
+        <select class="input-select" id="pgSelect" name="paymentProvider" style="display: inline-block; position: absolute; right: 4%;">
+            <option value="kakaopay">카카오페이</option>
+            <option value="tosspay">토스페이</option>
+            <option value="html5_inicis">이니시스</option>
+        </select>
+    </div>
+
+		<input type="hidden" name="payCk" value="${payCk}" />
+    <!-- 상품 정보와 쿠폰 정보를 리스트로 전송 -->
+    <c:forEach var="productData" items="${productDatas}" varStatus="i" begin="0">
+        <input type="hidden" name="productIDs" value="${productData.productID}" />
+        <input type="hidden" name="productCnts" value="${productData.cartProductCnt}" />
+
+        <!-- 선택된 쿠폰ID 추가 -->
+        <input type="hidden" name="couponIDs" value="0" />
+    </c:forEach>
+
+    <!-- 제출 버튼 -->
+    <button type="submit" class="primary-btn order-submit" style="width: 50%; margin-left: 25%" onclick="validateAndSubmitForm()">결제하기</button>
+</form>
 					</div>
 				</div>
 			</div>
@@ -178,31 +189,70 @@
 	<script src="resources/js/nouislider.min.js"></script>
 	<script src="resources/js/jquery.zoom.min.js"></script>
 	<script src="resources/js/main.js"></script>
-	<script>
+
+
+<!-- JavaScript 코드 -->
+<script>
+function validateAndSubmitForm() {
+	console.log('validateAndSubmitForm 함수 실행됨');
+
+	$('.couponSelectBox').each(function(index) {
+			var selectedCoupon = $(this).val(); // 선택된 쿠폰ID 가져오기
+			var selectedClass = $(this).attr('class'); // 선택된 쿠폰 선택상자의 클래스 가져오기
+			console.log('선택된 클래스: ' + selectedClass);
+
+			if (selectedCoupon !== '') {
+					var selectedOption = $(this).find('option:selected'); // 선택된 option 요소 가져오기
+					var selectedCouponClass = selectedOption.attr('class'); // 선택된 option의 class 속성 값 가져오기 (couponID 값)
+					console.log('선택된 쿠폰ID (couponID): ' + selectedCouponClass);
+
+					// 숨겨진 input 필드에 쿠폰ID 설정
+					$('input[name="couponIDs"]').eq(index).val(selectedCouponClass);
+			} else {
+					// 쿠폰이 선택되지 않았다면 기본값인 0으로 설정
+					$('input[name="couponIDs"]').eq(index).val('0');
+			}
+	});
+
+	// 폼 제출
+	$('form').submit();
+}
+</script>
+
+
+
+
+
+<script>
 	// 상품들의 원가격을 저장하는 배열
 var priceList = document.querySelectorAll('tr td.price');
 var $priceList = [];
 priceList.forEach(data => {
         $priceList.push(data.textContent);
 });
+
+
+
 // 선택박스 변경 시 실행할 함수
 function selectBoxController(selectBox){
 
     // 이벤트가 발생한 선택상자의 정보 가져오기
     var $selectBox = selectBox; // 전체
     var $selectBoxId = selectBox.id; // 속성값 id를 가져오기
-    console.log($selectBoxId);
+    console.log('선택된 BoxID : '+$selectBoxId);
     // 전체 선택상자 가져오기
     var $selectBoxIds = [] // 전체 속성값 id가져오기
     var $selectBoxes = $('.couponSelectBox'); // 전체 가져오기
     $selectBoxes.each((i, data) => {
         $selectBoxIds.push($(data).attr("id")); // 아이디를 배열에 저장하기
     });
-    console.log($selectBoxIds);
+    console.log('선택된 BoxIDs : '+$selectBoxIds);
 
     // 선택된 요소의 클래스명 가져오기 == couponID 가져오기
-    $class = $selectBoxes.eq($selectBoxId).find('option:selected').attr('class');
-    console.log($class);
+    $couponID = $selectBoxes.eq($selectBoxId).find('option:selected').attr('class');
+    console.log('선택된 couponID : '+$couponID);
+
+		$(`input[name="couponIDs[${$selectBoxId}]"]`).val($couponID);
 
     // 가격을 수정하기 위해 가져오기
     var $price = $('tr td.price').eq($selectBoxId).text().replace('원', '');
@@ -213,14 +263,14 @@ function selectBoxController(selectBox){
       console.log('반복문 실행');
       if(selectBoxId != $selectBoxId){
         console.log('조건문 실행');
-        if($class == '-1'){ // 쿠폰을 선택하지 않은 경우
+        if($couponID == '-1'){ // 쿠폰을 선택하지 않은 경우
 	console.log($price);
 	$('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
 	$selectBoxes.eq(selectBoxId).find('option').show();
         }else{
 	console.log($selectBox.value); // 할인율 : 10
 	$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-$priceList[$selectBoxId].replace('원','')*$selectBox.value/100))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
-               $selectBoxes.eq(selectBoxId).find('option[class="'+$class+'"]').hide();
+               $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
         }
         changeTotalPrice();
       }
@@ -235,6 +285,16 @@ function changeTotalPrice(){
 	})
 	$('strong.order-total').text(total);
 }
+
+
+
+
+
 </script>
+
+
+
+
+
 </body>
 </html>
