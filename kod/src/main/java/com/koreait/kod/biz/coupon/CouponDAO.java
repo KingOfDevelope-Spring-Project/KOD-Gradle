@@ -42,8 +42,7 @@ public class CouponDAO {
 			+ "ON CC.COUPON_ID = C.COUPON_ID "
 			+ "WHERE 1=1 AND MEMBER_ID=? ";
 	// 쿠폰 개별조회
-	private static final String SELECT_AVAILABLE_COUPONS_PRE_ORDER=
-			"SELECT "
+	private static final String SELECT_AVAILABLE_COUPONS_PRE_ORDER="SELECT "
 			+ "C.COUPON_ID, "
 			+ "C.COUPON_NAME, "
 			+ "C.COUPON_DISCOUNT_RATE, "
@@ -72,12 +71,6 @@ public class CouponDAO {
 			"SELECT COUPON_ID, "
 					+ "FROM COUPON "
 					+ "WHERE COUPON_CODE=? ";
-	private static final String SELECTONE_COUPON_DISCOUNT_RATE_AND_PRICE=
-			"SELECT COUPON_DISCOUNT_RATE, COUPON_DISCOUNT_MAX_PRICE "
-					+ "FROM COUPON "
-					+ "WHERE COUPON_ID=? ";
-	
-	
 	// 쿠폰 추가(코드 랜덤난수)
 	private static final String INSERT_RANDOMCODE="INSERT INTO COUPON"
 			+ "(COUPON_CONTENT,"
@@ -113,12 +106,12 @@ public class CouponDAO {
 
 	public List<CouponDTO> selectAll(CouponDTO couponDTO){
 		Object[] args= {couponDTO.getMemberID()};
+
 		try {
 			if(couponDTO.getSearchCondition().equals("searchCoupon")) {
 				return jdbcTemplate.query(SELECTALL, new CouponRowMapper());
-			}
-			else if(couponDTO.getSearchCondition().equals("availableCoupon")) {
-				System.out.println("[로그:정현진] 조건 availableCoupon 들어옴");
+
+			}else if(couponDTO.getSearchCondition().equals("availableCoupon")) {
 				return jdbcTemplate.query(SELECT_AVAILABLE_COUPONS_PRE_ORDER, args, new CouponRowMapperAvailableCoupon());
 			}else {
 				StringBuilder builder=new StringBuilder(SELECTALL_SEARCH_COUPONS);
@@ -134,7 +127,6 @@ public class CouponDAO {
 				System.out.println("쿼리상태 : "+query);
 				return jdbcTemplate.query(query, args, new CouponRowMapperSearchByStatus());
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -147,12 +139,6 @@ public class CouponDAO {
 			System.out.println("[로그:정현진] 쿠폰코드 : "+couponDTO.getCouponCode());
 			Object [] args= {couponDTO.getCouponCode() };
 			return jdbcTemplate.queryForObject(SELECTONE, args, new CouponRowMapperGetCouponID());
-		}
-		else if(couponDTO.getSearchCondition().equals("getCouponDiscountRateAndPrice")) {
-			Object [] args= {couponDTO.getCouponID() };
-			System.out.println("[로그:정현진] 쿠폰DAO 들어옴");
-			System.out.println("[로그:정현진] 쿠폰ID : "+couponDTO.getCouponID());
-			return jdbcTemplate.queryForObject(SELECTONE_COUPON_DISCOUNT_RATE_AND_PRICE, args, new CouponRowMapperGetCouponDiscountRateAndPrice());
 		}
 		else {
 			return null;
@@ -199,21 +185,12 @@ class CouponRowMapper implements RowMapper<CouponDTO>{
 
 
 class CouponRowMapperGetCouponID implements RowMapper<CouponDTO>{
+
 	@Override
 	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] CouponRowMapperGetCouponID 들어옴");
+		System.out.println("[로그:정현진] RowMapper 들어옴");
 		CouponDTO couponDTO=new CouponDTO();
 		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
-		return couponDTO;
-	}
-}
-class CouponRowMapperGetCouponDiscountRateAndPrice implements RowMapper<CouponDTO>{
-	@Override
-	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] CouponRowMapperGetCouponDiscountRateAndPrice 들어옴");
-		CouponDTO couponDTO=new CouponDTO();
-		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
-		couponDTO.setCouponDiscountMaxPrice(rs.getInt("COUPON_DISCOUNT_MAX_PRICE"));
 		return couponDTO;
 	}
 }
@@ -240,9 +217,9 @@ class CouponRowMapperSearchByStatus implements RowMapper<CouponDTO> {
 }
 
 class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
+
 	@Override
 	public CouponDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] CouponRowMapperAvailableCoupon 들어옴");
 		CouponDTO couponDTO=new CouponDTO();
 		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
 		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
@@ -250,7 +227,7 @@ class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
 		couponDTO.setCouponExpireDate(rs.getDate("COUPON_EXPIRE_DATE"));
 		couponDTO.setOrderContentID(rs.getInt("ORDERCONTENT_ID"));
 		couponDTO.setCategoryID(rs.getInt("CATEGORY_ID"));
-		System.out.println("[로그:정현진] couponDTO : "+couponDTO);
 		return couponDTO;
 	}
+
 }

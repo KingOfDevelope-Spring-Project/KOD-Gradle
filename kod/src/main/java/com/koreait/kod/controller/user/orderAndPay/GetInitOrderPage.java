@@ -150,7 +150,6 @@ public class GetInitOrderPage {
 		}
         
         model.addAttribute("productDatas", productDatas);
-        model.addAttribute("payCk", payCK);
 	    
 	    // 쿠폰정보 반환하기
 	    couponDTO.setMemberID((String)session.getAttribute("memberID"));
@@ -163,9 +162,7 @@ public class GetInitOrderPage {
 //		addressDTO.setSearchCondition("shippingAddress");
 		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 //		addressDTO.setOrderListID = setOrderListID(orderListID);
-//		System.out.println("[로그:정현진] 배송지 : "+addressService.selectOne(addressDTO));
-		model.addAttribute("addressDatas", addressService.selectOne(addressDTO));
-		
+		model.addAttribute("shippingAddress", addressService.selectOne(addressDTO));
 		/*
 		 * " addressDTO.setOrderListID = setOrderListID(orderListID); "
 		 *   ORDERLIST테이블에 배송지FK 컬럼이 존재하지 않아 

@@ -29,20 +29,14 @@ public class AsyncUpdateProductCntToCart {
 			System.out.println("[로그:정현진] memberID is null");
 		}
 		
-//		cartDTO.setSearchCondition("asyncUpdateProductCntToCart");
-//		model.addAttribute("UpdatedProductCnt", cartService.update(cartDTO));
+		cartDTO.setSearchCondition("asyncUpdateProductCntToCart");
+		model.addAttribute("UpdatedProductCnt", cartService.update(cartDTO));
 		
-	    System.out.println("[로그:정현진] 회원ID : " + cartDTO.getMemberID());
-	    System.out.println("[로그:정현진] 상품ID : " + cartDTO.getProductID());
-	    System.out.println("[로그:정현진] 상품수량 : " + cartDTO.getCartProductCnt());
 		boolean flag = cartService.update(cartDTO);
-		System.out.println("[로그:정현진] flag : "+flag);
 		if(!flag) {
-			System.out.println("[로그:정현진] 장바구니 상품수량 변경 실패 ");
+			System.out.println("[로그:정현진] 장바구니 상품추가 실패 ");
 		}
-		else{
-			System.out.println("[로그:정현진] 장바구니 상품수량 변경 성공 ");
-		}
+		System.out.println("[로그:정현진] 장바구니 상품추가 성공 ");
 		
 		return objectMapper.writeValueAsString(cartService.selectOne(cartDTO).getCartProductCnt());
 	}

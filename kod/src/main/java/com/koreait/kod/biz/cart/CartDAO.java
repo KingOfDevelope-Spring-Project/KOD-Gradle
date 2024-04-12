@@ -57,7 +57,7 @@ public class CartDAO {
 			// 장바구니 상품추가
 	private static final String INSERT="INSERT INTO CART(MEMBER_ID,PRODUCT_ID,CART_PRODUCT_CNT) VALUES (?,?,?)";
 			// 장바구니 상품 수량변경
-	private static final String UPDATE="UPDATE CART SET CART_PRODUCT_CNT = ? WHERE PRODUCT_ID = ? AND MEMBER_ID = ?";
+	private static final String UPDATE="UPDATE CART SET CART_PRODUCT_CNT = ? WHERE CART_ID=?";
 			// 장바구니 상품 개별삭제
 	private static final String DELETE_EACH_PRODUCT="DELETE "
 			+ "FROM CART "
@@ -98,10 +98,7 @@ public class CartDAO {
 	}
 
 	public boolean update(CartDTO cartDTO) {
-		System.out.println("[로그:정현진] 회원ID : " + cartDTO.getMemberID());
-	    System.out.println("[로그:정현진] 상품ID : " + cartDTO.getProductID());
-	    System.out.println("[로그:정현진] 상품수량 : " + cartDTO.getCartProductCnt());
-		int result= jdbcTemplate.update(UPDATE,cartDTO.getCartProductCnt(),cartDTO.getProductID(),cartDTO.getMemberID());
+		int result= jdbcTemplate.update(UPDATE,cartDTO.getCartProductCnt(),cartDTO.getCartID());
 		if(result<=0) {			
 			return false;
 		}
