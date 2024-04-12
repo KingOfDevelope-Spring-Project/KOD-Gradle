@@ -6,6 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,8 +30,8 @@ public class FileUploadAndCopyService {
     	
         List<String> imageUrlList = new ArrayList<String>(); // UUID 목록을 저장할 리스트 생성
 
-        File originFileUploadDir = new File(originFilePath); // 원본파일 저장 폴더
-        File thumnailFileUploadDir = new File(thumnaulFilePathForKOD); // 복사파일 저장폴더
+        File originFileUploadDir = new File(originFilePath+getPath()); // 원본파일 저장 폴더
+        File thumnailFileUploadDir = new File(thumnaulFilePathForKOD+getPath()); // 복사파일 저장폴더
         
         // 원본폴더가 존재하지 않을 경우 생성
         if (!(originFileUploadDir.exists() || originFileUploadDir.mkdirs())) {
@@ -69,8 +73,16 @@ public class FileUploadAndCopyService {
                         }
                         
                         // imageUrl를 imageUrlList에 추가 (썸네일 파일의 UUID)
-                        System.out.println("[로그:정현진] thumnaulFilePathForKOD"+thumnaulFilePathForKOD);
-                        imageUrlList.add(thumnaulFilePathForKOD+File.separator+"thumbnail_" + uuid + "_" + originalFilename);
+                        System.out.println("[로그:정현진] thumnailFilePathForKOD : "+thumnaulFilePathForKOD);
+                        System.out.println("[로그:정현진] thumnailFilePath : "+thumnailFileUploadDir+File.separator+"thumbnail_" + uuid + "_" + originalFilename);
+//                        Path targetPath = Paths.get(thumnailFileUploadDir+getPath()); // 절대 경로
+//                        System.out.println("[로그:정현진] targetPath : "+targetPath);
+                        int num = thumnaulFilePathForKOD.lastIndexOf("kod"); // 마지막으로 나오는 파일 구분자(.metadata)
+                        String relativePath = thumnaulFilePathForKOD.substring(0, num);
+                        System.out.println("[로그:정현진] relativePath : "+relativePath);
+                        relativePath = thumnaulFilePathForKOD.replace(relativePath, "");
+                        System.out.println("[로그:정현진] relativePath : "+File.separator+relativePath+File.separator+getPath()+"thumbnail_" + uuid + "_" + originalFilename);
+                        imageUrlList.add(File.separator+relativePath+File.separator+getPath()+"thumbnail_" + uuid + "_" + originalFilename);
                     } else {
                         // 썸네일생성 실패 시 원본 파일의 imageUrl을 imageUrlList에 추가
                     	imageUrlList.add(originFilePath+File.separator+uuid + "_" + originalFilename);
@@ -83,6 +95,10 @@ public class FileUploadAndCopyService {
         }
         // imageUrlList 목록 반환
         return imageUrlList;
+    }
+    
+    public String getPath(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
 }
 
