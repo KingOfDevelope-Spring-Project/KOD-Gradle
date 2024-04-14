@@ -136,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				              <%-- <c:set var="today" value="<%=new java.util.Date()%>" />
 								<!-- 현재월 -->
 								<c:set var="month"><fmt:formatDate value="${today}" pattern="MM" /></c:set> --%> 
-				                <h3 class="card-title">월간 매출</h3>
+				                <h3 class="card-title">일간 매출</h3>
 								
 				                <div class="card-tools">
 				                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
