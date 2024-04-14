@@ -162,7 +162,7 @@
         </select>
     </div>
 
-		<input type="hidden" name="payCk" value="${payCk}" />
+		<input type="number" name="payCk" value="${payCk}" style="display:none;" />
     <!-- 상품 정보와 쿠폰 정보를 리스트로 전송 -->
     <c:forEach var="productData" items="${productDatas}" varStatus="i" begin="0">
         <input type="hidden" name="productIDs" value="${productData.productID}" />
@@ -252,28 +252,32 @@ function selectBoxController(selectBox){
     var $price = $('tr td.price').eq($selectBoxId).text().replace('원', '');
     console.log('가격 : ' + $price)
 
-    // 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
-    $selectBoxIds.forEach(selectBoxId => {
-      console.log('반복문 실행');
+// 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
+$selectBoxIds.forEach(selectBoxId => {
+    console.log('반복문 실행');
     var couponDiscountMaxPrice = document.querySelector('input[name="'+$couponID+'"]');
-      if(selectBoxId != $selectBoxId){
+    if(selectBoxId != $selectBoxId){
         console.log('조건문 실행');
         if($couponID == '-1'){ // 쿠폰을 선택하지 않은 경우
-			console.log($price);
-			$('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
-			$selectBoxes.eq(selectBoxId).find('option').show();
-    	}else{
-			console.log($selectBox.value); // 할인율 : 10
-			console.log(couponDiscountMaxPrice.textContent);
-			if(($priceList[$selectBoxId].replace('원','')*($selectBox.value/100))>=couponDiscountMaxPrice.textContent){
-				console.log('가격변동')
-				$('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-couponDiscountMaxPrice.textContent))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
-	            $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
-		        }
-			}
-	        changeTotalPrice();
-      }
-    });
+            console.log($price);
+            $('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
+            $selectBoxes.eq(selectBoxId).find('option').show();
+        }else{
+            console.log($selectBox.value); // 할인율 : 10
+            console.log(couponDiscountMaxPrice);
+            if(($priceList[$selectBoxId].replace('원','')*($selectBox.value/100))>couponDiscountMaxPrice.value){
+                console.log('가격변동')
+                $('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-couponDiscountMaxPrice.value))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+	console.log($('tr td.price').eq($selectBoxId).val());
+                $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
+            }else{
+                $('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-($priceList[$selectBoxId].replace('원','')*($selectBox.value/100))))+'원'); // 쿠폰을 적용한 가격을 반올림해서 적용
+                $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
+            }
+        }
+ changeTotalPrice();
+    }
+});
   }
 var total = 0;
 function changeTotalPrice(){
