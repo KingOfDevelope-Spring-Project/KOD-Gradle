@@ -1,12 +1,9 @@
 package com.koreait.kod.biz.coupon;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository("couponStatusDAO")
@@ -19,7 +16,7 @@ public class CouponStatusDAO {
 	private static final String SELECTONE="";
 	private static final String INSERT="INSERT INTO COUPON_STATUS (MEMBER_ID, COUPON_ID, COUPON_EXPIRE_DATE) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ? DAY))";
 	// 쿠폰 사용했을 때 주문상세값 변경
-	private static final String UPDATE="UPDATE COUPON_STATUS SET ORDERCONTENT_ID=? WHERE COUPON_STATUS_ID = ?";
+	private static final String UPDATE="UPDATE COUPON_STATUS SET ORDERCONTENT_ID=? WHERE COUPON_ID=? AND MEMBER_ID= ?";
 	private static final String DELETE="";
 
 	public List<CouponStatusDTO> selectAll(CouponStatusDTO couponStatusDTO) {
@@ -40,7 +37,7 @@ public class CouponStatusDAO {
 	}
 
 	public boolean update(CouponStatusDTO couponStatusDTO) {
-		int result= jdbcTemplate.update(UPDATE,couponStatusDTO.getOrderContentID(),couponStatusDTO.getCouponStatusID());
+		int result= jdbcTemplate.update(UPDATE,couponStatusDTO.getOrderContentID(),couponStatusDTO.getCouponID(),couponStatusDTO.getMemberID());
 		
 		if(result <= 0) {			
 			return false;
