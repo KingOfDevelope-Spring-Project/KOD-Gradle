@@ -438,6 +438,9 @@ public class ProductDAO {
 	
 	private static final String SELECTONE_GET_PRODUCT_NAME=
 			"SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT WHERE PRODUCT_ID=?";
+	private static final String SELECTONE_GET_PRODUCT_PRICE=
+			"SELECT PRODUCT_PRICE FROM PRODUCT WHERE PRODUCT_ID=?";
+	
 	
 	private static final String SELECTONE_PRODUCT_DETAIL_LOGIN = // 상품상세페이지 - 로그인상태
 			"SELECT "
@@ -634,10 +637,10 @@ public class ProductDAO {
 			System.out.println("[로그:정현진] ProductDAO 일간 매출 들어옴");
 			return jdbcTemplate.query(SELECTALL_DAILY_REVENUE_FOR_30DAYS, new ProductRowMapperDailyRevenue());
 		}
-		else if(productDTO.getSearchCondition().equals("allProductsDatas")) {
-			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
-			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperAllProductsDatas());
-		}
+//		else if(productDTO.getSearchCondition().equals("allProductsDatas")) {
+//			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
+//			return jdbcTemplate.query(SELECTALL_ALL_PRODUCTS_DATAS, new ProductRowMapperAllProductsDatas());
+//		}
 		else if(productDTO.getSearchCondition().equals("orderCntAndRevenue")) {
 			System.out.println("[로그:정현진] ProductDAO 상품목록 조회 들어옴");
 			return jdbcTemplate.query(SELECTALL_ORDER_CNT_AND_REVENUE, new ProductRowMapperOrderCntAndRevenue());
@@ -661,6 +664,10 @@ public class ProductDAO {
 				Object[] args= {productDTO.getProductID() };
 			return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_DATA,args,new productRowMapperGetProductData());
 			}
+			else if(productDTO.getSearchCondition().equals("getProductPrice")) {
+				Object[] args= {productDTO.getProductID() };
+				return jdbcTemplate.queryForObject(SELECTONE_GET_PRODUCT_PRICE,args,new productRowMapperGetProductPrice());
+			}
 		}catch(Exception e) {
 			return null;
 		}
@@ -679,8 +686,14 @@ public class ProductDAO {
 	}
 
 	public boolean update(ProductDTO productDTO) {
-		int result=jdbcTemplate.update(UPDATE_PRODUCT,productDTO.getProductName(),productDTO.getProductPrice(),
+		int result;
+		if(productDTO.getSearchCondition().equals("payment")) {
+			result=jdbcTemplate.update(UPDATE,productDTO.getProductStock(),productDTO.getProductID());
+		}
+		else {
+			result=jdbcTemplate.update(UPDATE_PRODUCT,productDTO.getProductName(),productDTO.getProductPrice(),
 				productDTO.getProductInfo(),productDTO.getProductStock(),productDTO.getCategoryID(),productDTO.getProductID());
+		}
 		if(result <=0) {
 			return false;
 		}
@@ -781,21 +794,21 @@ class ProductRowMapperOrderCntAndRevenue implements org.springframework.jdbc.cor
 	}
 }
 
-//상품 전체목록
-class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
-	@Override
-	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:정현진] ProductRowMapperAllProductsDatas 들어옴");
-		ProductDTO data = new ProductDTO();
-		data.setProductCategory(rs.getString("CATEGORY_TYPE"));
-		data.setProductID(rs.getInt("PRODUCT_ID"));
-		data.setProductBrand(rs.getString("PRODUCT_BRAND"));
-		data.setProductName(rs.getString("PRODUCT_NAME"));
-		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
-		data.setProductStock(rs.getInt("PRODUCT_STOCK"));
-		return data;
-	}
-}
+////상품 전체목록
+//class ProductRowMapperAllProductsDatas implements org.springframework.jdbc.core.RowMapper<ProductDTO> {
+//	@Override
+//	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+//		System.out.println("[로그:정현진] ProductRowMapperAllProductsDatas 들어옴");
+//		ProductDTO data = new ProductDTO();
+//		data.setProductCategory(rs.getString("CATEGORY_TYPE"));
+//		data.setProductID(rs.getInt("PRODUCT_ID"));
+//		data.setProductBrand(rs.getString("PRODUCT_BRAND"));
+//		data.setProductName(rs.getString("PRODUCT_NAME"));
+//		data.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+//		data.setProductStock(rs.getInt("PRODUCT_STOCK"));
+//		return data;
+//	}
+//}
 
 //상품ID 반환 - 상품등록시 활용 (상품이미지 등록 & 상품명 중복확인)
 class productRowMapperGetProductID implements RowMapper<ProductDTO>{
@@ -816,9 +829,19 @@ class productRowMapperGetProductName implements RowMapper<ProductDTO>{
 	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ProductDTO productDTO= new ProductDTO();
 		productDTO.setProductID(rs.getInt("PRODUCT_ID"));
-		productDTO.setProductName(rs.getString("PRODUCT_Name"));
+		productDTO.setProductName(rs.getString("PRODUCT_NAME"));
 		System.out.println("[로그:정현진] 상품ID : "+rs.getInt("PRODUCT_ID"));
-		System.out.println("[로그:정현진] 상품명 : "+rs.getString("PRODUCT_Name"));
+		System.out.println("[로그:정현진] 상품명 : "+rs.getString("PRODUCT_NAME"));
+		return productDTO;
+	}
+}
+class productRowMapperGetProductPrice implements RowMapper<ProductDTO>{
+	
+	@Override
+	public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ProductDTO productDTO= new ProductDTO();
+		productDTO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+		System.out.println("[로그:정현진] 상품가격 : "+rs.getInt("PRODUCT_PRICE"));
 		return productDTO;
 	}
 }

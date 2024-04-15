@@ -74,15 +74,15 @@
 				            <tbody>
 				            	<tr>
 				                	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; width: 15%;">배송지</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${shippingAddress.addressName}</td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressDatas.addressName}</td>
 				            	</tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden; ">이름 / 연락처</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${memberDTO.memberName} | ${memberDTO.memberPhoneNumber}</td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">${addressDatas.memberName} | ${addressDatas.memberPhoneNumber}</td>
 					            </tr>
 					            <tr>
 					            	<th style="text-align: left; background-color: white; color:black; border: 1px solid gray; border-right: hidden;">주소</th>
-				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${shippingAddress.addressZipCode}) ${shippingAddress.addressStreet} ${shippingAddress.addressDetail} </td>
+				                	<td style="background-color: white; border: 1px solid gray; text-align: left;">(${addressDatas.addressZipCode}) ${addressDatas.addressStreet} ${addressDatas.addressDetail} </td>
 					            </tr>
 				        	</tbody>
 					    </table>
@@ -99,8 +99,10 @@
 					            <tr>
 					                <th style="text-align: center;">상품</th>
 					                <th style="text-align: center;">상품이름</th>
-					                <th style="text-align: center;">구매개수</th>
 					                <th style="text-align: center;">가격</th>
+					                <th style="text-align: center;">수량</th>
+					                <th style="text-align: center;">쿠폰</th>
+					                <th style="text-align: center;">결제금액</th>
 					            </tr>
 					        </thead>
 					        
@@ -109,11 +111,14 @@
 					            <tr>
 					                <td><img src="${payInfoData.productImg}" alt="img" style="width: 200px; height: 200px;"></td>
 					                <td>${payInfoData.productName}</td>
+					                <td>${payInfoData.productPrice}원</td>
 					                <td>${payInfoData.orderContentCnt}개</td>
-					                <td>${payInfoData.productPrice*payInfoData.orderContentCnt}원</td>
-					            </tr>
-					       		</tbody>
-					        </c:forEach>
+					                <td>${payInfoData.couponName} : ${payInfoData.discountPrice}원 할인</td>
+					                <td>${payInfoData.paymentPrice}원</td>
+												</tr>
+											</tbody>
+										</c:forEach>
+										<h3 class="title">결제금액 합계 : ${totalPaymentPrice}원</h3>
 					    </table>
 					    <div class="cart__mainbtns" style="margin-left: 40%;">
 						    <form action="/" method="GET">

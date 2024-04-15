@@ -54,12 +54,12 @@
 <!-- <script>
 	var selectedProducts = []; // 선택한 상품들의 ID를 임시 저장할 배열
 
-	function addToSelectedProducts(productId) {
+	function addToSelectedProducts(productID) {
 			// 이미 선택된 상품인지 확인하고 선택 상태를 업데이트합니다.
-			var index = selectedProducts.indexOf(productId);
+			var index = selectedProducts.indexOf(productID);
 			if (index === -1) {
 					// 선택되지 않은 상품이면 배열에 추가합니다.
-					selectedProducts.push(productId);
+					selectedProducts.push(productID);
 			} else {
 					// 이미 선택된 상품이면 배열에서 제거합니다.
 					selectedProducts.splice(index, 1);
@@ -78,12 +78,12 @@
 <script>
 	var selectedProducts = []; // 선택한 상품들의 ID를 임시 저장할 배열
 
-	function addToSelectedProducts(productId, cartProductCnt) {
+	function addToSelectedProducts(productID, cartProductCnt) {
 			// 이미 선택된 상품인지 확인하고 선택 상태를 업데이트합니다.
-			var index = selectedProducts.findIndex(item => item.productId === productId);
+			var index = selectedProducts.findIndex(item => item.productID === productID);
 			if (index === -1) {
 					// 선택되지 않은 상품이면 배열에 추가합니다.
-					selectedProducts.push({ productId: productId, cartProductCnt: cartProductCnt });
+					selectedProducts.push({ productID: productID, cartProductCnt: cartProductCnt });
 			} else {
 					// 이미 선택된 상품이면 배열에서 제거합니다.
 					selectedProducts.splice(index, 1);
@@ -96,9 +96,9 @@
 
         // 모든 체크된 상품의 ID와 수량을 수집합니다.
         document.querySelectorAll('input[name="selectedProducts"]:checked').forEach(function(checkbox) {
-            var productId = checkbox.value;
-            var cartProductCnt = document.querySelector('input[name="cartProductCnt"][data-productid="' + productId + '"]').value;
-            selectedProducts.push({ productId: productId, cartProductCnt: cartProductCnt });
+            var productID = checkbox.value;
+            var cartProductCnt = document.querySelector('input[name="cartProductCnt"][data-productID="' + productID + '"]').value;
+            selectedProducts.push({ productID: productID, cartProductCnt: cartProductCnt });
         });
 
         // 숨은 입력 필드에 선택된 상품들의 정보를 JSON 형태로 설정합니다.
@@ -179,71 +179,68 @@
 	<script src="resources/js/main.js"></script>
 
 	<script>
-			function updateCart(productId, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
-				$.ajax({
-					type: 'POST',
-					url: 'asyncUpdateProductCntToCart', // 장바구니 업데이트를 처리할 서블릿 URL
-					dataType: 'json',
-					data: {
-						productId: productId, // 상품번호
-						cartProductCnt: productCnt // 상품수량
+    function updateCart(productID, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
+        $.ajax({
+            type: 'POST',
+            url: 'asyncUpdateProductCntToCart', // 장바구니 업데이트를 처리할 서블릿 URL
+            dataType: 'json',
+            data: {
+                productID: productID, // 상품번호
+                cartProductCnt: productCnt // 상품수량
+            },
+            success: function(response) {
+                var changedCnt = response;
+                console.log('장바구니 업데이트 성공');
+                console.log(response);
+                console.log('cart 변경수량 :  ' + changedCnt);
 
-					},
-					success: function (response) { //성공한 경우
-						var changedCnt = response;
-						console.log('장바구니 업데이트 성공');
-						console.log(response);
-						console.log('cart 변경수량 :  ' + UpdatedProductCnt);
+                $('#changedCnt_' + index).val(changedCnt);
 
-						$('#changedCnt_' + index).val(UpdatedProductCnt);
-		                  var totalPrice = UpdatedProductCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
-		                  $('#totalPrice_' + index).text(totalPrice + '원');
-					},
-					error: function (xhr, status, error) {
-						console.error('장바구니 업데이트 실패:', status, error);
-					}
-				});
-			}
+                // 상품 가격 계산 및 업데이트
+                var totalPrice = changedCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
+                $('#totalPrice_' + index).text(totalPrice + '원');
+            },
+            error: function(xhr, status, error) {
+                console.error('장바구니 업데이트 실패:', status, error);
+            }
+        });
+    }
 
+    function fnCalCount(type, ths, index) {
+        console.log('수량변경 진입');
+        // 해당 상품의 ID 가져오기
+        var productID = $(ths).closest('.cart__list__detail').find('input[name="selectedProducts"]').val();
 
-			function fnCalCount(type, ths, index) {
-				console.log('수량변경 진입');
-				// 해당 상품의 ID 가져오기
-				var productId = $(ths).closest('.cart__list__detail').find('input[name="selectedProducts"]').val();
+        // 해당 상품의 수량 가져오기
+        var $input = $(ths).parents("td").find("input[name='cartProductCnt']");
+        var productCnt = $input.val();
 
-				// 해당 상품의 수량 가져오기
-				var $input = $(ths).parents("td").find("input[name='cartProductCnt']");
-				var productCnt = $input.val();
+        // 변경된 수량 계산
+        var newProductCnt;
 
-				// 변경된 수량 계산
-				var newProductCnt;
+        if (type == 'p') {
+            newProductCnt = Number(productCnt) + 1;
+            if (newProductCnt > 10) {
+                newProductCnt = 10;
+                alert('최대수량은 10개를 넘길 수 없습니다');
+            }
+        } else {
+            if (productCnt > 1) {
+                newProductCnt = Number(productCnt) - 1;
+            } else {
+                newProductCnt = 1; // 최소 수량은 1로 설정
+            }
+        }
+        // 장바구니 수량 비동기처리 함수
+        updateCart(productID, newProductCnt, index);
+    }
 
-				if (type == 'p') {
-					newProductCnt = Number(productCnt) + 1;
-					if (newProductCnt > 10) {
-						newProductCnt = 10;
-						alert('최대수량은 10개를 넘길 수 없습니다');
-					}
-				}
-				else {
-					if (productCnt > 1) {
-						newProductCnt = Number(productCnt) - 1;
-					} else {
-						newProductCnt = 1; // 최소 수량은 1로 설정
-					}
-				}
-				// 장바구니 수량 비동기처리 함수
-				updateCart(productId, newProductCnt, index);
-			}
-
-			function selectAll(selectAll) { //상품 체크박스 전체선택 함수 
-				const checkboxes
-					= document.querySelectorAll('input[type="checkbox"]');
-
-				checkboxes.forEach((checkbox) => {
-					checkbox.checked = selectAll.checked
-				})
-			}
+    function selectAll(selectAll) { //상품 체크박스 전체선택 함수 
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = selectAll.checked;
+        });
+    }
 			
 			  // function submitForm() { //장바구니에서 주문으로 이동하는 submit 함수
 			  //       var checkboxes = document.getElementsByName('selectedProducts');

@@ -115,9 +115,10 @@ class OrderListRowMapperCheckMaxID implements RowMapper<OrderListDTO>{
 
 	@Override
 	public OrderListDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] OrderListRowMapperCheckMaxID 들어옴");
 		OrderListDTO orderListDTO = new OrderListDTO();
 		orderListDTO.setOrderListID(rs.getInt("MAX_ID"));
-	
+		System.out.println("[로그:정현진] 생성된 주문번호 : "+rs.getInt("MAX_ID"));
 		return orderListDTO;
 	}
 	

@@ -13,7 +13,7 @@ public class CouponCategoryDAO {
 
 	private static final String SELECTALL="";
 	private static final String SELECTONE="";
-	private static final String INSERT="";
+	private static final String INSERT="INSERT INTO COUPON_CATEGORY(COUPON_ID,CATEGORY_ID) VALUES (?,?)";
 	private static final String UPDATE="";
 	private static final String DELETE="";
 
@@ -26,7 +26,11 @@ public class CouponCategoryDAO {
 	}
 
 	public boolean insert(CouponCategoryDTO couponCategoryDTO) {
-		return false;
+		int result = jdbcTemplate.update(INSERT, couponCategoryDTO.getCouponID(),couponCategoryDTO.getCategoryID());
+		if(result <=0) {
+			return false;
+		}
+		return true;
 	}
 
 	public boolean update(CouponCategoryDTO couponCategoryDTO) {

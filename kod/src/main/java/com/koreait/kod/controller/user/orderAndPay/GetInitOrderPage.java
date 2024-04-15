@@ -128,14 +128,15 @@ public class GetInitOrderPage {
             cartDTO.setCartProductCnt(quantity);
             selectedProducts.add(cartDTO);
         }
-        for (CartDTO data : selectedProducts) {
-			System.out.println("[로그:정현진] data : "+data);
-			System.out.println("[로그:정현진] 구매유형 : "+data.getPayCk());
-		}
+//        for (CartDTO data : selectedProducts) {
+//			System.out.println("[로그:정현진] data : "+data);
+//			System.out.println("[로그:정현진] 구매유형 : "+data.getPayCk());
+//		}
 		
         List<CartDTO> productDatas = new ArrayList<CartDTO>(); // 스코프이슈 (반환할 데이터)
         for (CartDTO product : selectedProducts) { // selectedProducts에는 상품정보와 구매유형(즉시구매,선택구매)이 담겨있음
         	CartDTO data = new CartDTO();
+        	data.setSearchCondition("getProductDatas");
         	data.setMemberID((String)session.getAttribute("memberID"));
         	data.setProductID(product.getProductID());
         	System.out.println("[로그:정현진] data.getProductID : "+data.getProductID());
@@ -145,11 +146,12 @@ public class GetInitOrderPage {
         	productDatas.add(data);
 		}
         
-        for (CartDTO cartDTO : productDatas) {
-			System.out.println("[로그:정현진] cartDTO : "+cartDTO);
-		}
+//        for (CartDTO cartDTO : productDatas) {
+//			System.out.println("[로그:정현진] cartDTO : "+cartDTO);
+//		}
         
         model.addAttribute("productDatas", productDatas);
+        model.addAttribute("payCk", payCK);
 	    
 	    // 쿠폰정보 반환하기
 	    couponDTO.setMemberID((String)session.getAttribute("memberID"));
@@ -162,7 +164,9 @@ public class GetInitOrderPage {
 //		addressDTO.setSearchCondition("shippingAddress");
 		addressDTO.setMemberID((String)session.getAttribute("memberID"));
 //		addressDTO.setOrderListID = setOrderListID(orderListID);
-		model.addAttribute("shippingAddress", addressService.selectOne(addressDTO));
+//		System.out.println("[로그:정현진] 배송지 : "+addressService.selectOne(addressDTO));
+		model.addAttribute("addressDatas", addressService.selectOne(addressDTO));
+		
 		/*
 		 * " addressDTO.setOrderListID = setOrderListID(orderListID); "
 		 *   ORDERLIST테이블에 배송지FK 컬럼이 존재하지 않아 
