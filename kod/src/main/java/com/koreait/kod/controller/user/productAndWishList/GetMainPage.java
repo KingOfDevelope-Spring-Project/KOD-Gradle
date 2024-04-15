@@ -10,7 +10,7 @@ import com.koreait.kod.biz.productAndWishList.ProductDTO;
 import com.koreait.kod.biz.productAndWishList.ProductService;
 import com.koreait.kod.biz.productAndWishList.WishListDTO;
 import com.koreait.kod.biz.productAndWishList.WishListService;
-import com.koreait.kod.controller.user.common.HeaderService;
+import com.koreait.kod.controller.util.HeaderCartService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,14 +22,15 @@ public class GetMainPage {
 	@Autowired
 	WishListService wishListService;
 	@Autowired
-	HeaderService headerService;
+	HeaderCartService headerCartService;
 	
 	// 메인페이지 이동 
 	@GetMapping("/") // 루트페이지로 설정 => value="/"
 	public String getMainPage(ProductDTO productDTO, WishListDTO wishListDTO,CartDTO cartDTO, Model model, HttpSession session) {
 		
-		headerService.getHeaderPage(wishListDTO, cartDTO, model, session);
-		// call by reference -> model 
+		cartDTO.setMemberID((String)session.getAttribute("memberID"));
+		model.addAttribute("cartProductCnt", headerCartService.getCartProductCnt(cartDTO));
+		// call by reference -> cartDTO 
 		
 		System.out.println("[로그:정현진] getMainPage요청들어옴");
 		
@@ -55,8 +56,8 @@ public class GetMainPage {
 			wishListDTO.setSearchCondition("wishListCnt");
 			model.addAttribute("wishListCnt", wishListService.selectAll(wishListDTO));
 		}
-		System.out.println("[로그:정현진] 상품목록 반환 끝");
-		System.out.println("[로그:정현진] 연령별 인기상품 반환받기 시작");
+		System.out.println("[로그:정현진] 상품목록 반환 종료");
+		System.out.println("[로그:정현진] 연령별 인기상품 반환 시작");
 		// 연령별 인기상품 반환
 		wishListDTO.setMemberMinAge(10);
 		wishListDTO.setMemberMaxAge(20);
@@ -72,6 +73,7 @@ public class GetMainPage {
 		wishListDTO.setMemberMaxAge(40);
 		wishListDTO.setSearchCondition("productWishRankingByAge"); // 30대
 		model.addAttribute("thirtyRanking", wishListService.selectAll(wishListDTO));
+		System.out.println("[로그:정현진] 연령별 인기상품 반환 종료");
 		
 		
 		return "user/main";
