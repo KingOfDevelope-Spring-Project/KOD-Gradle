@@ -47,6 +47,7 @@ public class CouponDAO {
 			+ "C.COUPON_ID, "
 			+ "C.COUPON_NAME, "
 			+ "C.COUPON_DISCOUNT_RATE, "
+			+ "C.COUPON_DISCOUNT_MAX_PRICE, "
 			+ "CS.COUPON_EXPIRE_DATE, "
 			+ "CS.ORDERCONTENT_ID, "
 			+ "CC.CATEGORY_ID "
@@ -247,6 +248,7 @@ class CouponRowMapperAvailableCoupon implements RowMapper<CouponDTO> {
 		couponDTO.setCouponID(rs.getInt("COUPON_ID"));
 		couponDTO.setCouponName(rs.getString("COUPON_NAME"));
 		couponDTO.setCouponDiscountRate(rs.getInt("COUPON_DISCOUNT_RATE"));
+		couponDTO.setCouponDiscountMaxPrice(rs.getInt("COUPON_DISCOUNT_MAX_PRICE"));
 		couponDTO.setCouponExpireDate(rs.getDate("COUPON_EXPIRE_DATE"));
 		couponDTO.setOrderContentID(rs.getInt("ORDERCONTENT_ID"));
 		couponDTO.setCategoryID(rs.getInt("CATEGORY_ID"));
