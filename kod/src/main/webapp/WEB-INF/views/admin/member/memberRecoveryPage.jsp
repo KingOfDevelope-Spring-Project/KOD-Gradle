@@ -69,7 +69,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<!-- <button type="button" class="btn btn-primary" style="margin-left: 85%;">신규 쿠폰 발급</button> -->
 								</div>
 								<!-- /.card-header -->
-								<form action="/memberRecovery" method="POST">
+								<form action="/updateMemberRole" method="POST" id="recoveryForm">
+								<input type="hidden" id="memberID" name="memberID" value="">
 									<div class="card-body">
 										<table id="example2" class="table table-bordered table-hover">
 											<thead>
@@ -92,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 													<td>${member.memberEmail}</td>
 													<td>${member.memberGrade}</td>
 													<td>${member.memberBirth}</td>
-													<td><button class="btn btn-success btn-sm" type="submit">복구</button></td>
+													<td><button class="btn btn-success btn-sm" type="button" onclick="recovery('${member.memberID}')">복구</button></td>
 												</tr>
 												</c:forEach>
 											</tbody>
@@ -176,7 +177,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
   });
 </script>
-
+	
+	<script>
+		function recovery(memberID){
+			document.getElementById('memberID').value = memberID;
+			document.getElementById('recoveryForm').submit();
+		}
+	</script>
 	<!-- jQuery -->
 
 </body>
