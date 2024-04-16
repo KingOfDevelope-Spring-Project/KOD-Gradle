@@ -1,5 +1,3 @@
-
-
 //인증번호 발송 버튼 체크 함수
 var phNumCheckStatus = 0;
 
@@ -8,13 +6,9 @@ var phNumCheckStatus = 0;
 var randNumPhNum = -1;
 
 
-
-	
-
-
-
 function authentication_Number() {
-
+	
+	// 문서의 핸드폰 번호 입력 (id) 값을 받아와 변수에 저장
 	var phoneNumberPrefix = $('#phoneNumberPrefix').val();
 	var phoneNumberMiddle = $('#phoneNumberMiddle').val();
 	var phoneNumberSuffix = $('#phoneNumberSuffix').val();
@@ -63,7 +57,8 @@ function authentication_Number() {
 	$.ajax({
 		type: "GET", // POST메서드를 사용하여 서버로 데이터 전송
 		url: "phoneNumberCheck", // 요청을 보낼 서버의 주소(URL)을 지정함 
-		data: { 'memberPhoneNumber': memberPhoneNumber }, // 서버로 전송할 데이터를 지정  'memberID'라는 파라미터에  회원가입 페이지에서 입력한 아이디(memberID)값을 전송
+				// 서버로 전송할 데이터를 지정  'memberPhoneNumber'라는 파라미터에  가공한 변수 값을 전송
+		data: { 'memberPhoneNumber': memberPhoneNumber }, 
 		dataType: 'text', // 서버로부터 받은 응답 데이터의 형식을 지정 
 		success: function(data) { // AJAX요청이 성공했을때 실행할 콜백함수 지정 
 			// 서버로부터 응답이 도착하면 이함수가 실행되며 응답데이터는 "data"매개변수로 전달됩니다.
@@ -79,17 +74,7 @@ function authentication_Number() {
 				/*	$('#phnumckmsg').css('color', 'blue').text(" 메시지 발송 완료. ");*/
 
 			}
-			//else{
-			//	phNumCheckStatus = 0;
-			///	}
-			//console.log(message);
-			//console.log(authNumber);
-			// 아니라면 메시지 출력 idCheckStatus변수에 0저장
-			//	else{
-			//		$('#phnumckmsg').css('color', '#FF0000').text(" 인증번호 요청 버튼을 눌러주세요. ");
-			//		phNumCheckStatus = 0; // 아이디 중복검사 함수에 0을저장
-			//		
-			//	}
+		
 		},
 		// AJAX 요청이 실패했을경우 함수실행 콘솔에 로그찍기
 		error: function(error) {
