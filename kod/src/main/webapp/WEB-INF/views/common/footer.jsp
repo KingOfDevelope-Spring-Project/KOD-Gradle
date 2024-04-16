@@ -63,7 +63,7 @@
 								<ul class="footer-links">
 									<li>Maps, Address</li>
 									<li>I'm Port</li>
-									<li>Weather</li>
+									<li></li>
 									<li>OAuth2</li>
 									<li>SMS, Email</li>
 								</ul>
