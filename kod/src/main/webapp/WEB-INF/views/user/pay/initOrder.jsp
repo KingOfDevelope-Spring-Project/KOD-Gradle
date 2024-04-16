@@ -79,7 +79,8 @@
 					<%-- /Member Address Info --%>
 
 					<!-- Billing Details -->
-					<br> <br>
+					<br>
+					 <br>
 					<h2>상품 정보</h2>
 					<br>
 					<div class="billing-details">
@@ -250,7 +251,6 @@ function selectBoxController(selectBox){
     console.log('선택된 BoxID : '+$selectBoxId);
     // 전체 선택상자 가져오기
     var $selectBoxIds = [] // 전체 속성값 id가져오기
-    var $selectedOptions = [] // 옵션 가져오기
     var $selectBoxes = $('.couponSelectBox'); // 전체 가져오기
     $selectBoxes.each((i, data) => {
         $selectBoxIds.push($(data).attr("id")); // 아이디를 배열에 저장하기
@@ -263,6 +263,11 @@ function selectBoxController(selectBox){
     // 가격을 수정하기 위해 가져오기
     var $price = $('tr td.price').eq($selectBoxId).text().replace('원', '');
     console.log('가격 : ' + $price);
+    var selectedOption = [];
+    var $selectedList = $('option:selected');
+	$selectedList.each((i, data) => {
+		selectedOption.push($(data).attr('class'));
+	});
 	// 전체를 순회하면서 id가 동일하지 않은 경우에만 적용
 	$selectBoxIds.forEach(selectBoxId => {
 	    console.log('반복문 실행');
@@ -271,11 +276,8 @@ function selectBoxController(selectBox){
 	    if(selectBoxId != $selectBoxId){
 	        console.log('조건문 실행');
 	        if($couponID == '-1'){ // 쿠폰을 선택하지 않은 경우
-	            console.log($price);
 	            $('tr td.price').eq($selectBoxId).text($priceList[$selectBoxId]); // 미리 저장해 둔 원래가격으로 변경
-	            $selectBoxes.eq(selectBoxId).find('option').show();
 	        }else{
-	        	console.log($price);
            		var valueable = ($priceList[$selectBoxId].replace('원','')*$selectBox.value/100);
 	            if(parseInt(valueable) > parseInt(couponDiscountMaxPrice.value)){ // couponDiscountMaxPrice.value의 타입이 문자열..
 	                console.log('최대할인금액 적용')
@@ -287,16 +289,22 @@ function selectBoxController(selectBox){
 	                // 쿠폰을 적용한 가격을 반올림해서 적용
 	                $('tr td.price').eq($selectBoxId).text(Math.round(eval($priceList[$selectBoxId].replace('원','')-valueable))+'원');
 	            }
-				changeOption($couponID, selectBoxId, $selectBoxes);
 	        }
 	    }
+		changeOption(selectBoxId, $selectBoxes, selectedOption);
 		changeTotalPrice();
 	});
 }
-
-function changeOption($couponID, selectBoxId, $selectBoxes){
+function changeOption(selectBoxId, $selectBoxes, selectedOption){
+//	var $selectedList = $('option:selected').attr('class');
+	console.log(selectedOption);
+//	$selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').show();
 	$selectBoxes.eq(selectBoxId).find('option').show();
-    $selectBoxes.eq(selectBoxId).find('option[class="'+$couponID+'"]').hide();
+	selectedOption.forEach((data) => {
+		if(data!=-1){
+		    $selectBoxes.eq(selectBoxId).find('option[class="'+data+'"]').hide();
+		}
+	})
 }
 
 // 합계를 수정해주는 함수
