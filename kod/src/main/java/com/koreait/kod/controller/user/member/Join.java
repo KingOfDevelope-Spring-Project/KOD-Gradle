@@ -43,6 +43,9 @@ public class Join {
 		System.out.println("[로그:정현진] 이메일 : "+email);
 		memberDTO.setMemberEmail(email);
 		
+		System.out.println("[로그:정현진] 사용자가 입력한 비밀번호 : "+memberDTO.getMemberPW());
+		memberDTO.setMemberPW(passwordEncryptor.encrypt(memberDTO.getMemberPW()));
+		
 		memberService.insert(memberDTO);
 		// 인증 메일 보내기 메서드
 //		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id(), request);

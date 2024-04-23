@@ -79,6 +79,8 @@ public class CouponDAO {
 					+ "WHERE COUPON_ID=? ";
 	
 	
+	
+	
 	// 쿠폰 추가(코드 랜덤난수)
 	private static final String INSERT_RANDOMCODE="INSERT INTO COUPON"
 			+ "(COUPON_CONTENT,"

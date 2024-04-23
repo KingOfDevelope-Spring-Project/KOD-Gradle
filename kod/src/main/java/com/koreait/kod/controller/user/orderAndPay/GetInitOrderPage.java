@@ -15,6 +15,7 @@ import com.koreait.kod.biz.cart.CartDTO;
 import com.koreait.kod.biz.cart.CartService;
 import com.koreait.kod.biz.coupon.CouponDTO;
 import com.koreait.kod.biz.coupon.CouponService;
+import com.koreait.kod.controller.util.HeaderCartService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +28,8 @@ public class GetInitOrderPage {
 	CartService cartService;
 	@Autowired
 	CouponService couponService;
+	@Autowired
+	HeaderCartService headerCartService;
 	
 	/*
 	 * 구매로직 한글코딩
@@ -166,6 +169,11 @@ public class GetInitOrderPage {
 //		addressDTO.setOrderListID = setOrderListID(orderListID);
 //		System.out.println("[로그:정현진] 배송지 : "+addressService.selectOne(addressDTO));
 		model.addAttribute("addressDatas", addressService.selectOne(addressDTO));
+		
+		// 장바구니 상품수량 반환하기
+		CartDTO cartDTO = new CartDTO();
+		cartDTO.setMemberID((String)session.getAttribute("memberID"));
+		model.addAttribute("cartProductCnt", headerCartService.getCartProductCnt(cartDTO));
 		
 		/*
 		 * " addressDTO.setOrderListID = setOrderListID(orderListID); "

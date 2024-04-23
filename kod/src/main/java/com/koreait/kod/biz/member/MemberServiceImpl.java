@@ -18,19 +18,6 @@ public class MemberServiceImpl implements MemberService{
 
    Map<String, String> map = new HashMap<String, String>(); 
 
-   @Override
-   public List<MemberDTO> selectAll(MemberDTO memberDTO) {
-      if (memberDTO.getSearchCondition().equals("memberSelectAll")) {         
-         System.out.println("회원 전체출력 진입");
-         System.out.println("전체 회원 "+memberDTO);
-         return imemberDAO.selectAllMember(memberDTO);
-         }
-         else if(memberDTO.getSearchCondition().equals("selectAllRecoveryPending")) {
-            System.out.println(" 복구 신청 회원 전체 출력 진입");
-            return imemberDAO.selectAllRecoveryPending(map);
-         }
-      return memberDAO.selectAll(memberDTO);
-   }
 
    @Override
    public MemberDTO selectOne(MemberDTO memberDTO) {
@@ -42,29 +29,6 @@ public class MemberServiceImpl implements MemberService{
       return memberDAO.insert(memberDTO); 
    } 
 
-   @Override
-   public boolean update(MemberDTO memberDTO) {
-       if(memberDTO.getSearchCondition().equals("memberUpdateRoleUnregister")) {
-           System.out.println(" 탈퇴 신청 상태 조건 진입 ");
-           map.put("memberID", memberDTO.getMemberID()); 
-           System.out.println("map"+map);
-           System.out.println(imemberDAO.updateRoleUnregister(map));
-                 return false; 
-        } 
-        else if(memberDTO.getSearchCondition().equals("memberUpdateRoleRecoveryPending")) {
-           System.out.println(" 복구 신청 상태 조건 진입 " );
-           map.put("memberID", memberDTO.getMemberID()); 
-           System.out.println("map"+map);
-           return imemberDAO.updateRoleRecoveryPending(map); 
-        } 
-        else if(memberDTO.getSearchCondition().equals("memberUpdateRoleUser")) {
-           System.out.println(" 회원 복구 조건 진입 ");
-           map.put("memberID", memberDTO.getMemberID()); 
-           System.out.println("map"+map);
-           return imemberDAO.updateRoleUser(map); 
-        } 
-      return memberDAO.update(memberDTO);
-   }
 
    @Override
    public boolean delete(MemberDTO memberDTO) {

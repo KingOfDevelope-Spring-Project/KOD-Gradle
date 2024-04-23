@@ -62,9 +62,8 @@ public class CartDAO {
 			// 장바구니 상품 수량변경
 	private static final String UPDATE="UPDATE CART SET CART_PRODUCT_CNT = ? WHERE PRODUCT_ID = ? AND MEMBER_ID = ?";
 			// 장바구니 상품 개별삭제
-	private static final String DELETE_EACH_PRODUCT="DELETE "
-			+ "FROM CART "
-			+ "WHERE CART_ID=?";
+	private static final String DELETE_EACH_PRODUCT=
+			"delete from CART where member_ID=? and PRODUCT_ID=?";
 			// 장바구니 상품 삭제
 	private static final String DELETE_ALL="DELETE"
 			+ " FROM CART "
@@ -115,8 +114,8 @@ public class CartDAO {
 	public boolean delete(CartDTO cartDTO) {
 		int result = 0;
 		
-		if(cartDTO.getSearchCondition().equals("DELETE_EACH_PRODUCT")) {
-			result = jdbcTemplate.update(DELETE_EACH_PRODUCT,cartDTO.getCartID());
+		if(cartDTO.getSearchCondition().equals("removeProductOfCart")) {
+			result = jdbcTemplate.update(DELETE_EACH_PRODUCT,cartDTO.getMemberID(),cartDTO.getProductID());
 		}
 		else if(cartDTO.getSearchCondition().equals("DELETE_ALL")) {
 			result=jdbcTemplate.update(DELETE_ALL,cartDTO.getMemberID());

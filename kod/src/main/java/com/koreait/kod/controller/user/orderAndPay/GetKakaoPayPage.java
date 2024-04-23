@@ -33,7 +33,7 @@ public class GetKakaoPayPage {
 	OrderContentService orderContentService;
 	
 	@GetMapping("/getKakaoPayPage")
-	public String getKakaoPayPage(@RequestParam("payCk") int payCk,
+	public String getKakaoPayPage(@RequestParam("payCk") int purchaseType,
 								  @RequestParam("paymentProvider") String paymentProvider,
 								  @RequestParam("productIDs") List<Integer> productIDs,
 								  @RequestParam("productCnts") List<Integer> productCnts,
@@ -69,64 +69,41 @@ public class GetKakaoPayPage {
 			ProductDTO productDTO = new ProductDTO();
 			productDTO.setProductID(productIDs.get(i));
 			productDTO.setSearchCondition("getProductPrice");
-			double productPrice = productService.selectOne(productDTO).getProductPrice()*productCnts.get(i); // 상품 가격 구하기
+			double productPrice = productService.selectOne(productDTO).getProductPrice()*productCnts.get(i); // 상품금액 계산
 			System.out.println("[로그:정현진] productPrice * productCnt : "+productPrice); // 2596000
 			
-			if(couponIDs.get(i)<=0) { // 쿠폰을 적용안한 경우
-				totalPriceDoubleType+=productPrice; 
-				System.out.println("[로그:정현진] totalPriceDoubleType : "+totalPriceDoubleType);
-			}
-			CouponDTO couponDTO = new CouponDTO();
-			couponDTO.setCouponID(couponIDs.get(i));
-			couponDTO.setSearchCondition("getCouponDiscountRateAndPrice");
-			double discountRate = couponService.selectOne(couponDTO).getCouponDiscountRate(); 
-			double discountMaxPrice = couponService.selectOne(couponDTO).getCouponDiscountMaxPrice(); 
-			System.out.println("[로그:정현진] discountRate : "+discountRate);// 50
-			System.out.println("[로그:정현진] discountMaxPrice : "+discountMaxPrice);// 500,000
-			if(discountMaxPrice<productPrice*(discountRate/100.0)) { // 최대할인 금액을 넘지않을 경우
-				productPrice = productPrice-discountMaxPrice; // 최대할인 금액이 넘을경우 // 2096000
-				System.out.println("[로그:정현진] productPrice : "+productPrice);
-				totalPriceDoubleType += productPrice;
-			}
-			else{
-				System.out.println("[로그:정현진] 할인할 금액이 최대할인금액을 넘지않음 ");
-				productPrice=productPrice-productPrice*(discountRate/100.0);
-				System.out.println("[로그:정현진] productPrice : "+productPrice);
-				totalPriceDoubleType += productPrice; // 할인된 상품금액 합산하기
-				System.out.println("[로그:정현진] totalPriceDoubleType : "+totalPriceDoubleType); // 1298000
-			}
+			if(couponIDs.get(i)>0) { // 쿠폰을 적용 한 경우
+				CouponDTO couponDTO = new CouponDTO();
+				couponDTO.setCouponID(couponIDs.get(i));
+				couponDTO.setSearchCondition("getCouponDiscountRateAndPrice");
+				double discountRate = couponService.selectOne(couponDTO).getCouponDiscountRate(); 
+				double discountMaxPrice = couponService.selectOne(couponDTO).getCouponDiscountMaxPrice(); 
+				System.out.println("[로그:정현진] discountRate : "+discountRate);// 50
+				System.out.println("[로그:정현진] discountMaxPrice : "+discountMaxPrice);// 500,000
+				
+				if(discountMaxPrice<productPrice*(discountRate/100.0)) { // 최대할인 금액을 넘었을 경우
+					productPrice = productPrice-discountMaxPrice; // 상품가격 - 최대할인금액, 2096000
+					System.out.println("[로그:정현진] productPrice : "+productPrice);
+				}
+				else{
+					System.out.println("[로그:정현진] 할인할 금액이 최대할인금액을 넘지않음 ");
+					productPrice=productPrice-productPrice*(discountRate/100.0);
+					System.out.println("[로그:정현진] productPrice : "+productPrice);
+				}
+			} // if
+			totalPriceDoubleType+=productPrice; // 결제금액 계산하기
 			System.out.println("[로그:정현진] totalPriceDoubleType : "+totalPriceDoubleType);
-			
-			
-//			if(couponIDs.get(i)>0) { // 쿠폰을 적용한 경우
-//				CouponDTO couponDTO = new CouponDTO();
-//				couponDTO.setCouponID(couponIDs.get(i));
-//				couponDTO.setSearchCondition("getCouponDiscountRate");
-//				double discountRate = couponService.selectOne(couponDTO).getCouponDiscountRate();
-//				totalPrice += productPrice*(discountRate/100.0); // 할인된 상품금액 합산하기
-//				System.out.println("[로그:정현진] totalPrice : "+totalPrice);
-//			}
-//			else { // 쿠폰을 적용하지 않은 경우
-//			totalPrice+=productPrice; 
-//			System.out.println("[로그:정현진] totalPrice : "+totalPrice);
-//			}
-			
 		}
 		
 		int totalPrice = (int)totalPriceDoubleType;
 		System.out.println("[로그:정현진] totalPrice : "+totalPrice);
 		System.out.println("[로그:정현진] productDatas : "+productDatas);
-		System.out.println("[로그:정현진] payCk : "+payCk);
+		System.out.println("[로그:정현진] purchaseType : "+purchaseType);
 		System.out.println("[로그:정현진] paymentProvider : "+paymentProvider);
-		
-		
-	
-		
-		
 		
 		model.addAttribute("productDatas", productDatas); // 상품ID, 상품명, 상품수량 반환
 		model.addAttribute("totalPrice", totalPrice); // 결제금액 합계
-		model.addAttribute("payCk", payCk); // 구매유형(바로구매, 장바구니 구매)
+		model.addAttribute("purchaseType", purchaseType); // 구매유형(바로구매, 장바구니 구매)
 		model.addAttribute("paymentProvider", paymentProvider); // 결제제공자 (카카오페이)
 		model.addAttribute("couponIDs", couponIDs);
 		

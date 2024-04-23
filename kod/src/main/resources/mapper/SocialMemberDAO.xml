@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.koreait.kod.biz.member.SocialMemberDAO">
+    <select id="selectOne" resultMap="selectOneMap">
+        SELECT MEMBER_ID FROM SOCIAL_MEMBER WHERE MEMBER_ID=#{memberID} AND MEMBER_NAME=#{memberName}
+    </select>
+
+    <insert id="insert" parameterType="com.koreait.kod.biz.member.MemberDTO">
+        INSERT INTO SOCIAL_MEMBER (
+            MEMBER_ID,  
+            MEMBER_PW,   
+            MEMBER_NAME, 
+            MEMBER_GRADE, 
+            MEMBER_ROLE
+        ) VALUES (
+            #{memberID},
+            'xxx',
+            #{memberName},
+            'WELCOME',
+            'USER'
+        )
+    </insert>
+    
+	<resultMap id="selectOneMap" type="com.koreait.kod.biz.member.MemberDTO">
+	  <result column="MEMBER_ID" property="memberID" jdbcType="VARCHAR" javaType="String"/>
+	  <result column="MEMBER_NAME" property="memberName" jdbcType="VARCHAR" javaType="String"/>
+	</resultMap>
+
+	
+</mapper>
