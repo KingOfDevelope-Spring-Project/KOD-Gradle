@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService{
 			System.out.println("전체 회원 "+memberDTO);
 			return imemberDAO.selectAllMember(memberDTO);
 			}
-			else if(memberDTO.getSearchCondition().equals("selectAllRecoveryPending")) {
+			else if(memberDTO.getSearchCondition().equals("requestMemberRecoveryList")) {
 				System.out.println(" 복구 신청 회원 전체 출력 진입");
 				return imemberDAO.selectAllRecoveryPending(map);
 			}
@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
 			  System.out.println("map"+map);
 			  return imemberDAO.updateRoleRecoveryPending(map); 
 		  } 
-		  else if(memberDTO.getSearchCondition().equals("memberUpdateRoleUser")) {
+		  else if(memberDTO.getSearchCondition().equals("updateMemberRole")) {
 			  System.out.println(" 회원 복구 조건 진입 ");
 			  map.put("memberID", memberDTO.getMemberID()); 
 			  System.out.println("map"+map);

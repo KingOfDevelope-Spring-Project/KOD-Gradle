@@ -10,6 +10,7 @@ import com.koreait.kod.controller.util.LoginCheckAspect.Role;
 public class CouponIssuePage { // 쿠폰 발행 페이지 이동
 	
 	@GetMapping("/couponIssuePage")
+	@LoginCheck(checkRole = Role.ADMIN)
 	public String couponIssuePage() {
 		
 		System.out.println("[로그:정현진] 쿠폰 발행 페이지 들어옴");

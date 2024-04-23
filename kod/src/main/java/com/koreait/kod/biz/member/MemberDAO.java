@@ -33,6 +33,7 @@ public class MemberDAO {
 			+ "FROM MEMBER ";
 		
 	private static final String SELECTONE_LOGIN=
+//			"SELECT MEMBER_ID,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 			"SELECT MEMBER_ID,MEMBER_ROLE,MEMBER_NAME,MEMBER_PHONENUMBER,MEMBER_EMAIL  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
     
@@ -45,31 +46,34 @@ public class MemberDAO {
             + "FROM MEMBER "
             // WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
             + "WHERE MEMBER_ID=?";
+    
     // 테이블에 특정 회원 정보조회를 하기위한 쿼리문
     private static final String SELECTONE_RESTORE = "SELECT"
-    		// 회원 아이디, 비밀번호, 이름, 핸드폰 번호, 이메일, 등급, 성별, 생년월일 정보를 선택
-    		+ "MEMBER_ID, "
-    		+ "MEMBER_EMAIL "
-    		// 회원 테이블에서 데이터를 가져옴
-    		+ "FROM MEMBER "
-    		// WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
-    		+ "WHERE MEMBER_ID=? AND MEMBER_EMAIL = ? ";
+          // 회원 아이디, 비밀번호, 이름, 핸드폰 번호, 이메일, 등급, 성별, 생년월일 정보를 선택
+          + "MEMBER_ID, "
+          + "MEMBER_EMAIL "
+          // 회원 테이블에서 데이터를 가져옴
+          + "FROM MEMBER "
+          // WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
+          + "WHERE MEMBER_ID=? AND MEMBER_EMAIL = ? ";
+
     
 	private static final String SELECTONE_MEMBER_COUNT=
 			"SELECT COUNT(MEMBER_ID) AS MEMBER_COUNTS FROM MEMBER";
 	
 	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
    
-	private static final String INSERT = "INSERT INTO MEMBER "
-            + "(MEMBER_ID, "
+	private static final String INSERT = "INSERT INTO MEMBER( "
+            + "MEMBER_ID, "
+            + "MEMBER_PW, "
             + "MEMBER_NAME, "
             + "MEMBER_PHONENUMBER, "
             + "MEMBER_EMAIL, "
             + "MEMBER_GRADE, "
             + "MEMBER_GENDER, "
             + "MEMBER_BIRTH, "
-            + "MEMBER_ROLE,) "
-            + "VALUES(?,?,?,?,?,'BRONZE',?,?,USER)"; 
+            + "MEMBER_ROLE) "
+            + "VALUES(?,?,?,?,?,'WELCOME',?,?,'USER')"; 
     
     // 회원 정보를 변경 하기위한 쿼리문
     // MEMBER의 각 열을 업데이트할 값 MEMBER_NAME=?, MEMBER_PW=?, MEMBER_EMAIL=?,
@@ -89,6 +93,15 @@ public class MemberDAO {
 
     private static final String DELETE = "DELETE FROM MEMBER WHERE MEMBER_ID=?";
     
+    //=================================
+    
+	private static final String SELECTONE_GET_ENCRYPT_PW=
+			"SELECT MEMBER_ID,MEMBER_PW,MEMBER_ROLE  FROM MEMBER  WHERE MEMBER_ID=?";
+	
+	private static final String SELECTONE_CHECK_ROLE=
+			"SELECT MEMBER_ROLE FROM MEMBER WHERE MEMBER_ID=?";
+	private static final String SELECTONE_CHECK_MEMBER_ID=
+			"SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID=?";
     
     
     
@@ -99,7 +112,7 @@ public class MemberDAO {
 		try {
 	    if (memberDTO.getSearchCondition().equals("getMembersByGrade")) {
 	    	System.out.println("[로그:정현진] memberDAO 들어옴");
-	    	System.out.println("[로그:정현진] 회원등급"+memberDTO.getMemberGrade());
+	    	System.out.println("[로그:정현진] 회원등급 : "+memberDTO.getMemberGrade());
 	        Object[] args = {memberDTO.getMemberGrade().toUpperCase()};
 	        return jdbcTemplate.query(SELECTALL_MEMBERS_BY_GRADE,args, new MemberRowMapperByGrade());
 	    } 
@@ -114,6 +127,7 @@ public class MemberDAO {
 	        return null; // 다른 조건을 처리하는 코드를 여기에 추가해야 합니다.
 	    }
 		}catch(Exception e) {
+			System.err.println("ㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅁㅁㅁㅁㅂㅂㅂㅂㅂ");
 			return null;
 		}
 	}
@@ -125,25 +139,37 @@ public class MemberDAO {
 		if(memberDTO.getSearchCondition().equals("login")) {
 		Object[] args = {memberDTO.getMemberID(),memberDTO.getMemberPW()};
 			return jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new MemberRowMapperLogin());
-		}		
+		}
 		else if(memberDTO.getSearchCondition().equals("memberCount")) {
 			return jdbcTemplate.queryForObject(SELECTONE_MEMBER_COUNT, new MemberRowMapperMemberCounts());
 		}
 		else if(memberDTO.getSearchCondition().equals("ID_CHECK")){
             Object[] args = { memberDTO.getMemberID()};
-               return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberIDCKRowMapper() );
+            return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberIDCKRowMapper() );
 		}
 		else if(memberDTO.getSearchCondition().equals("memberInfo")){
-			System.out.println("[로그:구본승] memberinfo 들어옴");
-			System.out.println("[로그:구본승] memberinfo memberID"+memberDTO.getMemberID());
+	        System.out.println("[로그:구본승] memberinfo 들어옴");
+	        System.out.println("[로그:구본승] memberinfo memberID"+memberDTO.getMemberID());
+	        Object[] args = { memberDTO.getMemberID()};
+	        return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberRowMapper() );
+	      }
+	    else if(memberDTO.getSearchCondition().equals("restore")){
+	        Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberEmail()};
+	        return jdbcTemplate.queryForObject(SELECTONE_RESTORE, args, new MemberRestoreRowMapper() );
+	    }
+
+		// =====================
+		else if(memberDTO.getSearchCondition().equals("checkRole")) {
+			System.out.println("[로그:정현진] checkRole조건 memberDAO 들어옴");
+			System.out.println("[로그:정현진] getMemberID : "+memberDTO.getMemberID());
 			Object[] args = { memberDTO.getMemberID()};
-			return jdbcTemplate.queryForObject(SELECTONE_CHECK, args, new MemberRowMapper() );
+			return jdbcTemplate.queryForObject(SELECTONE_CHECK_ROLE, args, new MemberRowMapperCheckRole() );
 		}
-		else if(memberDTO.getSearchCondition().equals("restore")){
-			Object[] args = { memberDTO.getMemberID(), memberDTO.getMemberEmail()};
-			return jdbcTemplate.queryForObject(SELECTONE_RESTORE, args, new MemberRestoreRowMapper() );
+		else if(memberDTO.getSearchCondition().equals("getEncryptPW")) {
+			System.out.println("[로그:정현진] getEncryptPW조건 memberDAO 들어옴");
+			Object[] args = { memberDTO.getMemberID()};
+			return jdbcTemplate.queryForObject(SELECTONE_GET_ENCRYPT_PW, args, new MemberRowMapperGetEncryptPW() );
 		}
-		
 		else {
 			return null;
 		}
@@ -154,9 +180,11 @@ public class MemberDAO {
 	
     
 	public boolean insert(MemberDTO memberDTO) {
+		System.out.println("[로그:정현진] MemberDAO 들어옴");
+		System.out.println("[로그:정현진] memberDTO : "+memberDTO);
         int result =jdbcTemplate.update(INSERT,memberDTO.getMemberID(),memberDTO.getMemberPW(),memberDTO.getMemberName()
-                ,memberDTO.getMemberPhoneNumber(),memberDTO.getMemberEmail(),memberDTO.getMemberGrade(),memberDTO.getMemberGender()
-                ,memberDTO.getMemberBirth(),memberDTO.getMemberRole());
+                ,memberDTO.getMemberPhoneNumber(),memberDTO.getMemberEmail(),memberDTO.getMemberGender()
+                ,memberDTO.getMemberBirth());
         if(result<=0) {
             return false;
         }
@@ -227,7 +255,6 @@ class MemberRowMapper implements RowMapper<MemberDTO> {
 }
 
 class MemberRowMapper3 implements RowMapper<MemberDTO>{
-
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO memberDTO=new MemberDTO();
@@ -238,7 +265,6 @@ class MemberRowMapper3 implements RowMapper<MemberDTO>{
 }
 
 class MemberRowMapperMemberCounts implements RowMapper<MemberDTO>{
-	
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		MemberDTO memberDTO=new MemberDTO();
@@ -247,8 +273,7 @@ class MemberRowMapperMemberCounts implements RowMapper<MemberDTO>{
 	}
 }
 
-
-//개발자의 편의를 위해 RowMapper인터페이스 사용
+// 로그인 RowMapper
 class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -258,15 +283,14 @@ class MemberRowMapperLogin implements org.springframework.jdbc.core.RowMapper<Me
 		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
 		memberDTO.setMemberRole(rs.getString("MEMBER_ROLE"));
 		memberDTO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
-		memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
-		memberDTO.setMemberPhoneNumber(rs.getString("MEMBER_PHONENUMBER"));
+	    memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
+	    memberDTO.setMemberPhoneNumber(rs.getString("MEMBER_PHONENUMBER"));
 		return memberDTO;
 	}
 }
 
-// 아이디 중복검사를 위해 RowMapper 사용
+// 아이디 중복검사 RowMapper
 class MemberIDCKRowMapper implements RowMapper<MemberDTO>{
-
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		System.out.println("[로그:구본승] MemberIDCKRowMapper 들어옴" );
@@ -277,14 +301,36 @@ class MemberIDCKRowMapper implements RowMapper<MemberDTO>{
 	}
 }
 class MemberRestoreRowMapper implements RowMapper<MemberDTO>{
-	
+	   @Override
+	   public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+	      System.out.println("[로그:구본승] MemberRestoreRowMapper 들어옴" );
+	      MemberDTO memberDTO = new MemberDTO();
+	      memberDTO.setMemberID(rs.getString("MEMBER_ID"));
+	      memberDTO.setMemberID(rs.getString("MEMBER_EMAIL"));
+	      return memberDTO;
+	   }
+	}
+
+
+// =============================================
+
+// 비밀번호 암호화 RowMapper
+class MemberRowMapperGetEncryptPW implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
 	@Override
 	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-		System.out.println("[로그:구본승] MemberRestoreRowMapper 들어옴" );
+		System.out.println("[로그:정현진] MemberRowMapperGetEncryptPW 들어옴");
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMemberID(rs.getString("MEMBER_ID"));
-		memberDTO.setMemberID(rs.getString("MEMBER_EMAIL"));
+		memberDTO.setMemberPW(rs.getString("MEMBER_PW"));
 		return memberDTO;
 	}
 }
-
+// CheckRole RowMapper
+class MemberRowMapperCheckRole implements org.springframework.jdbc.core.RowMapper<MemberDTO> {
+	@Override
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		System.out.println("[로그:정현진] MemberRowMapperCheckRole 들어옴");
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMemberRole(rs.getString("MEMBER_ROLE"));
+		return memberDTO;
+	}
+}

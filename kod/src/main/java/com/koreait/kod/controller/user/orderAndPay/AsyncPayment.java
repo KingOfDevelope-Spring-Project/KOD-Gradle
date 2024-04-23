@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,7 @@ public class AsyncPayment {
 	@Autowired
 	CouponStatusService couponStatusService;
 
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/asyncPayment")
 	public @ResponseBody int asyncPayment(@RequestParam("payCk") int payCk,
 										  @RequestParam("productList") List<String> cartSelectedProducts,
@@ -51,17 +53,6 @@ public class AsyncPayment {
 		orderListDTO.setMemberID((String)session.getAttribute("memberID"));
 		boolean flag = orderListService.insert(orderListDTO);
 		System.out.println("[로그:정현진] 주문번호 생성 flag : "+flag);
-		
-//		for (String data : cartSelectedProducts) {
-//			System.out.println("[로그:정현진] data : "+data);
-//			String parsingData = data.replaceAll("[\\[\\],\"]", "");
-//			System.out.println("[로그:정현진] parsingData : "+parsingData);
-//		}
-//		for (String data : cartProductCnt) {
-//			System.out.println("[로그:정현진] data : "+data);
-//			String parsingData = data.replaceAll("[\\[\\],\"]", "");
-//			System.out.println("[로그:정현진] parsingData : "+parsingData);
-//		}
 		
 		int orderListID=0; // 스코프 이슈
 		if(flag==true) {
@@ -127,42 +118,8 @@ public class AsyncPayment {
 		}
 		System.out.println("[로그:정현진] 쿠폰상태 UPDATE 종료");
 		
-		
-//		for (int i = 0; i < couponIDs.size(); i++) {
-//			if(couponIDs.get(i)>0) { // 쿠폰을 사용한 경우에만 
-//				CouponStatusDTO couponStatusDTO = new CouponStatusDTO();
-//				couponStatusDTO.setMemberID((String)session.getAttribute("memberID"));
-//				couponStatusDTO.setOrderContentID(orderContentDatas.get(i).getOrderContentID());
-//				couponStatusDTO.setCouponID(couponIDs.get(i));
-//				couponStatusService.update(couponStatusDTO); // 쿠폰상태에 주문내역 설정
-//			}
-//		}
-			
-			
-		
-//		if(flag==true) { // 주문번호가 생성되었다면
-//			for (ProductDTO product : productList) { // 구매로직 실행
-//				orderListDTO.setMemberID((String)session.getAttribute("memberID"));
-//				int orderListID = orderListService.selectOne(orderListDTO).getOrderListID();
-//				orderContentDTO.setOrderListID(orderListID);
-//				orderContentDTO.setProductID(product.getProductID());
-//				orderContentDTO.setOrderContentCnt(product.getProductCnt());
-//				flag = orderContentService.insert(orderContentDTO);
-//				
-//				// 구매한 상품 재고변경
-//				ProductDTO data = new ProductDTO();
-//				data.setProductCnt(orderContentDTO.getOrderContentCnt());
-//				data.setProductID(orderContentDTO.getProductID());
-//				productService.update(productDTO);
-//				if(product.getPurchaseType()==0) { // 선택구매 일 경우 선택상품 장바구니 비우기
-//					cartDTO.setProductID(orderContentDTO.getProductID());
-//					cartDTO.setMemberID((String)session.getAttribute("memberID"));
-//					cartDTO.setSearchCondition("개별상품삭제");
-//					flag = cartService.delete(cartDTO);
-//				}// if(선택구매일 경우)
-//			}// for(구매로직)
-//		} // if(주문번호가 생성되었다면)
-		
 		return orderListID;
-	}
-}
+	} // asyncPayment()
+} // class AsyncPayment
+
+
