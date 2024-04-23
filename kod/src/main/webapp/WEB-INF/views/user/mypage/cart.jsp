@@ -180,44 +180,22 @@
 
 	<script>
     function updateCart(productID, productCnt, index) { // 장바구니 수량 변경을 처리할 비동기 함수
-        $.ajax({
-            type: 'POST',
-            url: 'asyncUpdateProductCntToCart', // 장바구니 업데이트를 처리할 서블릿 URL
-            dataType: 'json',
-            data: {
-                productID: productID, // 상품번호
-                cartProductCnt: productCnt // 상품수량
-            },
-            success: function(response) {
-                var changedCnt = response;
-                console.log('장바구니 업데이트 성공');
-                console.log(response);
-                console.log('cart 변경수량 :  ' + changedCnt);
-
-                $('#changedCnt_' + index).val(changedCnt);
-
-                // 상품 가격 계산 및 업데이트
-                var totalPrice = changedCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
-                $('#totalPrice_' + index).text(totalPrice + '원');
-            },
-            error: function(xhr, status, error) {
-                console.error('장바구니 업데이트 실패:', status, error);
-            }
-        });
+		console.log('장바구니 업데이트 성공');
+		$('#changedCnt_' + index).val(productCnt);
+		// 상품 가격 계산 및 업데이트
+		var totalPrice = productCnt * parseInt($('#eachPrice_' + index).text().replace('원', ''));
+		$('#totalPrice_' + index).text(totalPrice + '원');
     }
 
     function fnCalCount(type, ths, index) {
         console.log('수량변경 진입');
         // 해당 상품의 ID 가져오기
         var productID = $(ths).closest('.cart__list__detail').find('input[name="selectedProducts"]').val();
-
         // 해당 상품의 수량 가져오기
         var $input = $(ths).parents("td").find("input[name='cartProductCnt']");
         var productCnt = $input.val();
-
         // 변경된 수량 계산
         var newProductCnt;
-
         if (type == 'p') {
             newProductCnt = Number(productCnt) + 1;
             if (newProductCnt > 10) {

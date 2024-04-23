@@ -44,11 +44,11 @@
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Develop Service</h3>
+								<h3 class="footer-title">MemberService</h3>
 								<ul class="footer-links">
-									<li>Delivery Address</li>
 									<li>Sign in / Sign up</li>
 									<li>Filter Search</li>
+									<li>Cart / Coupon</li>
 									<li>Payment</li>
 									<li>WishList</li>
 								</ul>
@@ -61,24 +61,24 @@
 							<div class="footer">
 								<h3 class="footer-title">Used API</h3>
 								<ul class="footer-links">
-									<li>Maps : Kakao Maps</li>
-									<li>Payment : I'm Port</li>
-									<li>Address : Kakao Address</li>
-									<!-- <li>Orders and Returns</li>
-									<li>Terms & Conditions</li> -->
+									<li>Maps, Address</li>
+									<li>I'm Port</li>
+									<li></li>
+									<li>OAuth2</li>
+									<li>SMS, Email</li>
 								</ul>
 							</div>
 						</div>
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Additional Library</h3>
+								<h3 class="footer-title">Framework / Plugins</h3>
 								<ul class="footer-links">
-									<li>Apache Tomcat</li>
-									<li>GSON / JSON</li>
-									<li>Jsoup</li>
-									<li>JSTL / EL</li>
-									<li>File Upload(cos.jar)</li>
+									<li>Lombok</li>
+									<li>Mybatis</li>
+									<li>Chart.js</li>
+									<li>Excel</li>
+									<li>Thumbnailator</li>
 								</ul>
 							</div>
 						</div>

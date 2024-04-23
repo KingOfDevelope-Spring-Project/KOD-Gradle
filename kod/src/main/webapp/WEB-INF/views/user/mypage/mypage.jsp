@@ -79,9 +79,9 @@
 			<nav class="sc-1t1fxnz-0 bdKVYa">
 				<div class="sc-1t1fxnz-3 dMLoMw">
 					<h3>나의 쇼핑 활동</h3>
-					<a href="/mypagePWCKController" class="sc-14dbciz-0 bblXMI">개인 정보 변경</a>
-					<a href="/orderListPage" class="sc-14dbciz-0 bblXMI">주문 목록 조회</a>
-					<a href="/payInfo" class="sc-14dbciz-0 bblXMI">장바구니 관리</a>
+					<a href="/mypagePwCheckPage" class="sc-14dbciz-0 bblXMI">개인 정보 변경</a>
+					<a href="/getOrderListPage" class="sc-14dbciz-0 bblXMI">주문 목록 조회</a>
+					<a href="/getCartPage" class="sc-14dbciz-0 bblXMI">장바구니 관리</a>
 					<a href="javascript:handleAddressManage()" id="addressManage" class="sc-14dbciz-0 bblXMI">배송지 관리</a>
 				</div>
 				<br/>

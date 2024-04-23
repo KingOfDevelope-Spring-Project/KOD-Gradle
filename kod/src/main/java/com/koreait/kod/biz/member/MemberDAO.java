@@ -37,11 +37,11 @@ public class MemberDAO {
 			"SELECT MEMBER_ID,MEMBER_ROLE,MEMBER_NAME,MEMBER_PHONENUMBER,MEMBER_EMAIL  FROM MEMBER  WHERE MEMBER_ID=? AND MEMBER_PW=? ";
 	
     
-    // 테이블에 특정 회원 정보조회를 하기위한 쿼리문
-    private static final String SELECTONE_CHECK = "SELECT"
+	// 테이블에 특정 회원 정보조회를 하기위한 쿼리문
+    private static final String SELECTONE_CHECK = "SELECT "
             // 회원 아이디, 비밀번호, 이름, 핸드폰 번호, 이메일, 등급, 성별, 생년월일 정보를 선택
-            + "MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, "
-            + "MEMBER_EMAIL, MEMBER_GRADE, MEMBER_GENDER, MEMBER_BIRTH, MEMBER_ROLE"
+            + "MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONENUMBER, "
+            + "MEMBER_EMAIL, MEMBER_GRADE, MEMBER_GENDER, MEMBER_BIRTH, MEMBER_ROLE "
             // 회원 테이블에서 데이터를 가져옴
             + "FROM MEMBER "
             // WHERE절을 사용하여 조회할 아이디(MEMBER_ID)지정
@@ -63,17 +63,6 @@ public class MemberDAO {
 	
 	private static final String SELECT_NEW_MEMBER_COUNT="SELECT COUNT(MEMBER_ID) AS CNT_NEW_MEMBER FROM MEMBER WHERE MEMBER_REGDATE >= DATE_SUB(CURDATE(), INTERVAL 14 DAY)";
    
-	private static final String INSERT = "INSERT INTO MEMBER( "
-            + "MEMBER_ID, "
-            + "MEMBER_PW, "
-            + "MEMBER_NAME, "
-            + "MEMBER_PHONENUMBER, "
-            + "MEMBER_EMAIL, "
-            + "MEMBER_GRADE, "
-            + "MEMBER_GENDER, "
-            + "MEMBER_BIRTH, "
-            + "MEMBER_ROLE) "
-            + "VALUES(?,?,?,?,?,'WELCOME',?,?,'USER')"; 
     
     // 회원 정보를 변경 하기위한 쿼리문
     // MEMBER의 각 열을 업데이트할 값 MEMBER_NAME=?, MEMBER_PW=?, MEMBER_EMAIL=?,
@@ -178,19 +167,6 @@ public class MemberDAO {
 		}
 	}
 	
-    
-	public boolean insert(MemberDTO memberDTO) {
-		System.out.println("[로그:정현진] MemberDAO 들어옴");
-		System.out.println("[로그:정현진] memberDTO : "+memberDTO);
-        int result =jdbcTemplate.update(INSERT,memberDTO.getMemberID(),memberDTO.getMemberPW(),memberDTO.getMemberName()
-                ,memberDTO.getMemberPhoneNumber(),memberDTO.getMemberEmail(),memberDTO.getMemberGender()
-                ,memberDTO.getMemberBirth());
-        if(result<=0) {
-            return false;
-        }
-            return true;
-    }
-   
     
 	public boolean update(MemberDTO memberDTO) {
         int result=0;

@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <link rel="icon">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +33,6 @@
 
 <!-- 로그인 후 이용해주세요. -->
 <link rel="stylesheet" href="resources/css/checkLogin.css">
-
 <!-- Custom stlylesheet -->
 <link rel="stylesheet" href="resources/css/style.css" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -42,6 +42,8 @@
 	<jsp:include page="/WEB-INF/views/common/navigation.jsp"></jsp:include>
 	<c:set var="store" value="/getStorePage?page=1"></c:set>
 	<c:set var="productDetail" value="/getProductDetailPage?productCategory=${item.productCategory}&productID=${item.productID}"></c:set>
+<!-- testAds -->
+
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -406,10 +408,9 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
-
-
+	<div>
+    </div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
 	<!-- jQuery Plugins -->
 	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
@@ -419,6 +420,5 @@
 	<script src="resources/js/main.js"></script>
 	<script src="resources/js/wishList/checkLogin.js"></script>
 	<script src="resources/js/wishList/isWished.js"></script>
-
 </body>
 </html>
